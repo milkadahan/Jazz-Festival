@@ -48,6 +48,23 @@
     }
 
     a { color: inherit; text-decoration: none; }
+
+    /* ─── SKIP LINK ──────────────────────────────────────────── */
+    .skip-link {
+      position: absolute; top: -100%; inset-inline-start: 1rem;
+      background: var(--orange); color: #fff;
+      padding: 0.5rem 1.2rem; border-radius: 6px; z-index: 9999;
+      font-weight: 700; font-size: 0.9rem;
+      transition: top 0.2s ease;
+    }
+    .skip-link:focus { top: 1rem; outline: 2px solid #fff; outline-offset: 2px; }
+
+    /* ─── FOCUS VISIBLE ──────────────────────────────────────── */
+    :focus-visible {
+      outline: 2px solid var(--orange);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
     img { display: block; max-width: 100%; }
     button { font-family: var(--font); cursor: pointer; }
 
@@ -1048,8 +1065,10 @@
       border-radius: 24px;
       background: #0a0416;
       border: 1px solid rgba(255,107,26,0.25);
-      padding: 2.5rem 3.5rem;
-      display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+      padding-block: 2.5rem;
+      padding-inline-start: 40px;
+      padding-inline-end: 3.5rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 4rem;
       flex-wrap: wrap;
       cursor: pointer;
       text-decoration: none;
@@ -1059,18 +1078,17 @@
       border-color: rgba(255,107,26,0.6);
       box-shadow: 0 0 60px rgba(255,107,26,0.15), 0 30px 80px rgba(0,0,0,0.5);
     }
-    /* Decorative glows */
-    .hotel-banner::before {
-      content: ''; position: absolute; top: -80px; inset-inline-start: -80px;
-      width: 350px; height: 350px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,107,26,0.18) 0%, transparent 70%);
-      pointer-events: none;
+    .banner-glow-orange {
+      position: absolute; left: 440px; top: -274px;
+      width: 543px; height: 543px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,107,26,0.30) 0%, transparent 65%);
+      pointer-events: none; z-index: 0;
     }
-    .hotel-banner::after {
-      content: ''; position: absolute; bottom: -60px; inset-inline-end: -60px;
-      width: 280px; height: 280px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,200,200,0.12) 0%, transparent 70%);
-      pointer-events: none;
+    .banner-glow-teal {
+      position: absolute; bottom: -73px; right: -61px;
+      width: 379px; height: 379px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,200,200,0.22) 0%, transparent 65%);
+      pointer-events: none; z-index: 0;
     }
     /* Background photo layer */
     .banner-bg-photo {
@@ -1095,26 +1113,26 @@
     /* Eilat silhouette strip inside banner */
     .banner-silhouette { display: none; }
 
-    .hotel-banner-content { position: relative; z-index: 2; }
+    .hotel-banner-content { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 14px; align-items: flex-start; flex: 1; min-width: 0; text-align: end; }
     .hotel-banner-tag {
-      display: inline-flex; align-items: center; gap: 0.5rem;
+      display: inline-flex; align-items: center;
       background: rgba(0,200,200,0.12);
-      border: 1px solid rgba(0,200,200,0.3);
+      border: 1px solid rgba(0,200,200,0.35);
       color: var(--teal); border-radius: 50px;
-      padding: 0.3rem 1rem; font-size: 0.75rem; font-weight: 600;
-      letter-spacing: 0; text-transform: uppercase;
-      margin-bottom: 1rem;
+      padding: 5px 14px; font-size: 0.6875rem; font-weight: 400;
     }
     .hotel-banner-title {
-      font-size: clamp(1.5rem, 4vw, 2.5rem);
-      font-weight: 900; line-height: 1.15; margin-bottom: 0.8rem;
+      display: flex; flex-direction: column; align-items: flex-start;
+      font-size: clamp(1.5rem, 3vw, 2.375rem);
+      font-weight: 900; line-height: normal;
     }
+    .hotel-banner-title .title-line1 { color: #f5efe6; }
     .hotel-banner-title .hl {
       background: linear-gradient(161deg, var(--orange), #e84021);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    .hotel-banner-sub { color: var(--muted); font-size: 1rem; line-height: 1.6; max-width: 480px; }
+    .hotel-banner-sub { color: var(--muted); font-size: 0.875rem; line-height: 1.6; text-align: end; }
 
     .hotel-banner-cta { position: relative; z-index: 2; flex-shrink: 0; }
     .hotel-banner-btn {
@@ -1135,7 +1153,7 @@
     .hotel-banner-btn:hover .arrow { transform: translateX(-4px); }
 
     .hotel-logos {
-      display: flex; gap: 1.2rem; margin-top: 1.2rem; flex-wrap: wrap;
+      display: flex; gap: 10px; flex-wrap: wrap;
       align-items: center;
     }
     .hotel-logo-chip {
@@ -1547,9 +1565,22 @@
       transition: color 0.2s, transform 0.2s;
     }
     .ap-show-row:hover .ap-show-arrow { color: var(--orange); transform: translateX(-3px); }
+    /* ─── REDUCED MOTION ────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal { opacity: 1 !important; transform: none !important; }
+    }
   </style>
 </head>
 <body>
+
+  <!-- Skip link for keyboard users -->
+  <a class="skip-link" href="#page-body">דלג לתוכן הראשי</a>
 
   <!-- ── NAV ── -->
   <nav id="navbar">
@@ -1581,9 +1612,9 @@
         </button>
         <div class="nav-lang-sep"></div>
         <button class="nav-btn-lang" id="langBtn" onclick="switchLang()">🇺🇸 EN</button>
-        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <button class="hamburger" id="hamburger" aria-label="תפריט ניווט" aria-expanded="false" onclick="toggleMenu()">
           <span></span><span></span><span></span>
-        </div>
+        </button>
       </div>
     </div>
 
@@ -1639,7 +1670,7 @@
   </section>
   </div><!-- /hero-wrapper -->
 
-  <div id="page-body">
+  <main id="page-body">
   <!-- ── ABOUT STRIP ── -->
   <div id="about-strip" class="reveal">
     <div class="about-stats">
@@ -1720,139 +1751,75 @@
       <div class="horiz-track-wrap">
         <div class="horiz-track" id="horizTrack">
 
-          <!-- Featured headliner 1 – שלמה ארצי -->
           <div class="artist-card featured">
-            <div class="artist-img">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Shlomo_Artzi_at_Caesarea.jpg/250px-Shlomo_Artzi_at_Caesarea.jpg"
-                   alt="שלמה ארצי" class="artist-photo">
-              <div class="artist-img-overlay"></div>
-            </div>
-            <div class="headliner-badge">Headliner</div>
+          <div class="headliner-badge">מיוחד לפסטיבל</div>
+            <div class="artist-img"><div class="artist-img-overlay"></div></div>
             <div class="artist-info">
-              <div class="artist-name">שלמה ארצי</div>
-              <div class="artist-origin">ישראל</div>
-              <span class="artist-tag">פופ · רוק ישראלי</span>
+              <div class="artist-name">The 3 Cohens</div>
+              <div class="artist-origin">Port arena · יום ה׳</div>
             </div>
           </div>
-
-          <!-- עידן עמדי -->
-          <div class="artist-card">
-            <div class="artist-img">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/%D7%A2%D7%99%D7%93%D7%9F_%D7%A2%D7%9E%D7%93%D7%99%2C_%D7%A1%D7%9C%D7%99_%D7%91%D7%9F_%D7%90%D7%A8%D7%99%D7%94.jpg/250px-%D7%A2%D7%99%D7%93%D7%9F_%D7%A2%D7%9E%D7%93%D7%99%2C_%D7%A1%D7%9C%D7%99_%D7%91%D7%9F_%D7%90%D7%A8%D7%99%D7%94.jpg"
-                   alt="עידן עמדי" class="artist-photo">
-              <div class="artist-img-overlay"></div>
-            </div>
-            <div class="artist-info">
-              <div class="artist-name">עידן עמדי</div>
-              <div class="artist-origin">ישראל</div>
-              <span class="artist-tag">פופ · סינגר-סונגרייטר</span>
-            </div>
-          </div>
-
-          <!-- מירי מסיקה -->
-          <div class="artist-card">
-            <div class="artist-img">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Miri_Mesika.webp/250px-Miri_Mesika.webp"
-                   alt="מירי מסיקה" class="artist-photo">
-              <div class="artist-img-overlay"></div>
-            </div>
-            <div class="artist-info">
-              <div class="artist-name">מירי מסיקה</div>
-              <div class="artist-origin">ישראל</div>
-              <span class="artist-tag">פופ · מזרחי</span>
-            </div>
-          </div>
-
-          <!-- Featured headliner 2 – עידן רייכל -->
           <div class="artist-card featured">
-            <div class="artist-img">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/%D7%A2%D7%99%D7%93%D7%9F_%D7%A8%D7%99%D7%99%D7%9B%D7%9C%2C_%D7%96%D7%90%D7%A4%D7%94_%D7%AA%D7%9C_%D7%90%D7%91%D7%99%D7%91%2C_%D7%93%D7%A6%D7%9E%D7%91%D7%A8_2021.jpg/250px-%D7%A2%D7%99%D7%93%D7%9F_%D7%A8%D7%99%D7%99%D7%9B%D7%9C%2C_%D7%96%D7%90%D7%A4%D7%94_%D7%AA%D7%9C_%D7%90%D7%91%D7%99%D7%91%2C_%D7%93%D7%A6%D7%9E%D7%91%D7%A8_2021.jpg"
-                   alt="עידן רייכל" class="artist-photo">
-              <div class="artist-img-overlay"></div>
-            </div>
-            <div class="headliner-badge">Headliner</div>
+          <div class="headliner-badge">מיוחד לפסטיבל</div>
+            <div class="artist-img"><div class="artist-img-overlay"></div></div>
             <div class="artist-info">
-              <div class="artist-name">עידן רייכל</div>
-              <div class="artist-origin">ישראל</div>
-              <span class="artist-tag">עולם · Fusion</span>
+              <div class="artist-name">חוה אלברשטיין</div>
+              <div class="artist-origin">Port arena · יום ו׳</div>
             </div>
           </div>
-
-          <!-- עומר אדם -->
+          <div class="artist-card featured">
+          <div class="headliner-badge">Artist Resident</div>
+            <div class="artist-img"><div class="artist-img-overlay"></div></div>
+            <div class="artist-info">
+              <div class="artist-name">Anat Cohen</div>
+              <div class="artist-origin">Red Note Club · שבת</div>
+            </div>
+          </div>
           <div class="artist-card">
-            <div class="artist-img">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Omer_Adam_1.jpg/250px-Omer_Adam_1.jpg"
-                   alt="עומר אדם" class="artist-photo">
-              <div class="artist-img-overlay"></div>
-            </div>
+            <div class="artist-img"><div class="artist-img-overlay"></div></div>
             <div class="artist-info">
-              <div class="artist-name">עומר אדם</div>
-              <div class="artist-origin">ישראל</div>
-              <span class="artist-tag">פופ · מזרחי</span>
+              <div class="artist-name">Eli Degibri Quartet</div>
+              <div class="artist-origin">Port arena · יום ו׳</div>
             </div>
           </div>
-
-          <!-- קרן פלס -->
           <div class="artist-card">
-            <div class="artist-img">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Keren_Peles_1.jpg/250px-Keren_Peles_1.jpg"
-                   alt="קרן פלס" class="artist-photo">
-              <div class="artist-img-overlay"></div>
-            </div>
+            <div class="artist-img"><div class="artist-img-overlay"></div></div>
             <div class="artist-info">
-              <div class="artist-name">קרן פלס</div>
-              <div class="artist-origin">ישראל</div>
-              <span class="artist-tag">פופ · סינגר-סונגרייטר</span>
+              <div class="artist-name">אבות ובנים</div>
+              <div class="artist-origin">Red Note Club · יום ה׳</div>
             </div>
           </div>
-
-          <!-- רוני דלומי -->
           <div class="artist-card">
-            <div class="artist-img">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Roni_Dalumi_1.jpg/250px-Roni_Dalumi_1.jpg"
-                   alt="רוני דלומי" class="artist-photo">
-              <div class="artist-img-overlay"></div>
-            </div>
+            <div class="artist-img"><div class="artist-img-overlay"></div></div>
             <div class="artist-info">
-              <div class="artist-name">רוני דלומי</div>
-              <div class="artist-origin">ישראל</div>
-              <span class="artist-tag">פופ · נשמה</span>
+              <div class="artist-name">SHALOSH</div>
+              <div class="artist-origin">Red Note Club · יום ו׳</div>
             </div>
           </div>
-
-          <!-- אייל גולן -->
           <div class="artist-card">
-            <div class="artist-img">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Eyal_Golan_1_%28cropped%29.jpg/250px-Eyal_Golan_1_%28cropped%29.jpg"
-                   alt="אייל גולן" class="artist-photo">
-              <div class="artist-img-overlay"></div>
-            </div>
+            <div class="artist-img"><div class="artist-img-overlay"></div></div>
             <div class="artist-info">
-              <div class="artist-name">אייל גולן</div>
-              <div class="artist-origin">ישראל</div>
-              <span class="artist-tag">פופ · מזרחי</span>
+              <div class="artist-name">שישיית חגי אמיר</div>
+              <div class="artist-origin">DE future · יום ו׳</div>
             </div>
           </div>
-
-          <!-- איברי לידר -->
           <div class="artist-card">
-            <div class="artist-img">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Ivri_Lider_-_march_05%2C_2021.jpg/250px-Ivri_Lider_-_march_05%2C_2021.jpg"
-                   alt="איברי לידר" class="artist-photo">
-              <div class="artist-img-overlay"></div>
-            </div>
+            <div class="artist-img"><div class="artist-img-overlay"></div></div>
             <div class="artist-info">
-              <div class="artist-name">איברי לידר</div>
-              <div class="artist-origin">ישראל</div>
-              <span class="artist-tag">פופ · ר&ב</span>
+              <div class="artist-name">Las Piratas Piratas</div>
+              <div class="artist-origin">DE future · יום ו׳</div>
             </div>
           </div>
-
-          <!-- End card -->
+          <div class="artist-card">
+            <div class="artist-img"><div class="artist-img-overlay"></div></div>
+            <div class="artist-info">
+              <div class="artist-name">תזמורת הג'אז</div>
+              <div class="artist-origin">Port arena · שבת</div>
+            </div>
+          </div>
           <div class="artist-card" style="background:rgba(255,107,26,0.05); border-color:rgba(255,107,26,0.2); display:flex; align-items:center; justify-content:center; text-align:center; padding:2rem;">
             <div>
-              <div style="font-size:2rem; margin-bottom:0.8rem">🎶</div>
-              <div style="font-weight:700; margin-bottom:0.4rem">+31 אמנים</div>
+              <div style="font-weight:700; margin-bottom:0.4rem">+ עוד אמנים</div>
               <div style="font-size:0.8rem; color:var(--muted)">יתווספו בקרוב</div>
             </div>
           </div>
@@ -1881,8 +1848,8 @@
       <div class="view-toggle">
         <div class="pill-toggle" id="pillToggle">
           <div class="pill-indicator" id="pillIndicator"></div>
-          <button class="pill-btn" id="viewSchedule" onclick="switchView('schedule')">📅 לוח זמנים</button>
-          <button class="pill-btn active" id="viewLineup" onclick="switchView('lineup')">🎵 Line-up</button>
+          <button class="pill-btn" id="viewSchedule" onclick="switchView('schedule')"><span aria-hidden="true">📅</span> לוח זמנים</button>
+          <button class="pill-btn active" id="viewLineup" onclick="switchView('lineup')"><span aria-hidden="true">🎵</span> Line-up</button>
         </div>
       </div>
 
@@ -1896,7 +1863,7 @@
 
       <!-- Stage dropdown – left in RTL (grid col 3) -->
       <div class="stage-dropdown" id="stageDropdown">
-        <button class="stage-dropdown-trigger" id="stageDropdownTrigger" onclick="toggleStageDropdown()">
+        <button class="stage-dropdown-trigger" id="stageDropdownTrigger" aria-haspopup="listbox" aria-expanded="false" onclick="toggleStageDropdown()">
           <span id="stageDropdownLabel">כל הבמות</span>
           <svg class="stage-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="4 6 8 10 12 6"/>
@@ -1909,19 +1876,19 @@
           </div>
           <div class="stage-option" data-value="1" onclick="toggleStageOption(this,'1')">
             <span class="stage-checkbox"><svg width="10" height="8" viewBox="0 0 10 8" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 4 7 9 1"/></svg></span>
-            <span style="color:var(--orange)">🟠 במה ראשית</span>
+            <span style="color:var(--orange)">Port arena</span>
           </div>
           <div class="stage-option" data-value="2" onclick="toggleStageOption(this,'2')">
             <span class="stage-checkbox"><svg width="10" height="8" viewBox="0 0 10 8" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 4 7 9 1"/></svg></span>
-            <span style="color:var(--teal)">🟦 The Cove</span>
+            <span style="color:var(--teal)">Red Note Club</span>
           </div>
           <div class="stage-option" data-value="3" onclick="toggleStageOption(this,'3')">
             <span class="stage-checkbox"><svg width="10" height="8" viewBox="0 0 10 8" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 4 7 9 1"/></svg></span>
-            <span style="color:var(--pink)">🩷 Club Stage</span>
+            <span style="color:var(--pink)">DE future</span>
           </div>
           <div class="stage-option" data-value="4" onclick="toggleStageOption(this,'4')">
             <span class="stage-checkbox"><svg width="10" height="8" viewBox="0 0 10 8" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 4 7 9 1"/></svg></span>
-            <span style="color:var(--yellow)">🟡 Beach Stage</span>
+            <span style="color:var(--yellow)">the present</span>
           </div>
         </div>
       </div>
@@ -1934,352 +1901,137 @@
           <thead>
             <tr>
               <th style="width:80px">שעה</th>
-              <th style="color:var(--orange)">🟠 במה ראשית</th>
-              <th style="color:var(--teal)">🟦 The Cove</th>
-              <th style="color:var(--pink)">🩷 Club Stage</th>
-              <th style="color:var(--yellow)">🟡 Beach Stage</th>
+              <th style="color:var(--orange)">Port arena</th>
+              <th style="color:var(--teal)">Red Note Club</th>
+              <th style="color:var(--pink)">DE future</th>
+              <th style="color:var(--yellow)">the present</th>
             </tr>
           </thead>
           <tbody>
-            <tr data-day="1">
-              <td class="time-col">18:00</td>
-              <td class="show-cell" data-stage="1"></td>
-              <td class="show-cell" data-stage="2">
-                <div class="show-block teal">
-                  <div class="show-block-inner">
-                    <div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/en/2/23/Hadag_Nahash_Logo.jpg" alt="הדג נחש" style="width:100%;height:100%;object-fit:cover"></div>
-                    <div class="show-text">
-                      <div class="show-name">הדג נחש</div>
-                      <div class="show-meta">ישראל</div>
-                      <div class="show-time">18:00 – 19:30</div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="show-cell" data-stage="3"></td>
-              <td class="show-cell" data-stage="4"></td>
-            </tr>
-            <tr data-day="1">
-              <td class="time-col">20:00</td>
-              <td class="show-cell" data-stage="1">
-                <div class="show-block">
-                  <div class="show-block-inner">
-                    <div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/%D7%90%D7%99%D7%AA%D7%99_%D7%96%D7%91%D7%95%D7%9C%D7%95%D7%9F_%D7%98%D7%95%D7%A0%D7%94.jpg/250px-%D7%90%D7%99%D7%AA%D7%99_%D7%96%D7%91%D7%95%D7%9C%D7%95%D7%9F_%D7%98%D7%95%D7%A0%D7%94.jpg" alt="טונה" style="width:100%;height:100%;object-fit:cover"></div>
-                    <div class="show-text">
-                      <div class="show-name">טונה</div>
-                      <div class="show-meta">ישראל</div>
-                      <div class="show-time">20:00 – 21:15</div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="show-cell" data-stage="2"></td>
-              <td class="show-cell" data-stage="3">
-                <div class="show-block pink">
-                  <div class="show-block-inner">
-                    <div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Subliminal_star_of_david.jpg/250px-Subliminal_star_of_david.jpg" alt="סבלימינאל" style="width:100%;height:100%;object-fit:cover"></div>
-                    <div class="show-text">
-                      <div class="show-name">סבלימינאל</div>
-                      <div class="show-meta">ישראל</div>
-                      <div class="show-time">20:30 – 21:45</div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="show-cell" data-stage="4"></td>
-            </tr>
-            <tr data-day="1">
-              <td class="time-col">22:00</td>
-              <td class="show-cell" data-stage="1">
-                <div class="show-block">
-                  <div class="show-block-inner">
-                    <div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Ravidplotnik3.jpeg/250px-Ravidplotnik3.jpeg" alt="רביד פלוטניק" style="width:100%;height:100%;object-fit:cover"></div>
-                    <div class="show-text">
-                      <div class="show-name">רביד פלוטניק ★</div>
-                      <div class="show-meta">ישראל · Headliner</div>
-                      <div class="show-time">22:00 – 23:30</div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="show-cell" data-stage="2"></td>
-              <td class="show-cell" data-stage="3">
-                <div class="show-block pink">
-                  <div class="show-block-inner">
-                    <div class="show-thumb">🎧</div>
-                    <div class="show-text">
-                      <div class="show-name">After Party</div>
-                      <div class="show-meta">DJ Set</div>
-                      <div class="show-time">23:00 – 01:00</div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="show-cell" data-stage="4"></td>
-            </tr>
             <tr data-day="2">
               <td class="time-col">18:00</td>
-              <td class="show-cell" data-stage="1">
-                <div class="show-block">
-                  <div class="show-block-inner">
-                    <div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/%D7%A2%D7%99%D7%93%D7%9F_%D7%A2%D7%9E%D7%93%D7%99%2C_%D7%A1%D7%9C%D7%99_%D7%91%D7%9F_%D7%90%D7%A8%D7%99%D7%94.jpg/250px-%D7%A2%D7%99%D7%93%D7%9F_%D7%A2%D7%9E%D7%93%D7%99%2C_%D7%A1%D7%9C%D7%99_%D7%91%D7%9F_%D7%90%D7%A8%D7%99%D7%94.jpg" alt="עידן עמדי" style="width:100%;height:100%;object-fit:cover"></div>
-                    <div class="show-text">
-                      <div class="show-name">עידן עמדי</div>
-                      <div class="show-meta">ישראל</div>
-                      <div class="show-time">18:00 – 19:00</div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="show-cell" data-stage="2">
-                <div class="show-block teal">
-                  <div class="show-block-inner">
-                    <div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Keren_Peles_1.jpg/250px-Keren_Peles_1.jpg" alt="קרן פלס" style="width:100%;height:100%;object-fit:cover"></div>
-                    <div class="show-text">
-                      <div class="show-name">קרן פלס</div>
-                      <div class="show-meta">ישראל</div>
-                      <div class="show-time">18:00 – 19:15</div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="show-cell" data-stage="3"></td>
-              <td class="show-cell" data-stage="4">
-                <div class="show-block yellow">
-                  <div class="show-block-inner">
-                    <div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Miri_Mesika.webp/250px-Miri_Mesika.webp" alt="מירי מסיקה" style="width:100%;height:100%;object-fit:cover"></div>
-                    <div class="show-text">
-                      <div class="show-name">מירי מסיקה</div>
-                      <div class="show-meta">ישראל</div>
-                      <div class="show-time">18:30 – 19:30</div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr data-day="2">
-              <td class="time-col">19:00</td>
               <td class="show-cell" data-stage="1"></td>
-              <td class="show-cell" data-stage="2"></td>
-              <td class="show-cell" data-stage="3">
-                <div class="show-block pink">
-                  <div class="show-block-inner">
-                    <div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Roni_Dalumi_1.jpg/250px-Roni_Dalumi_1.jpg" alt="רוני דלומי" style="width:100%;height:100%;object-fit:cover"></div>
-                    <div class="show-text">
-                      <div class="show-name">רוני דלומי</div>
-                      <div class="show-meta">ישראל</div>
-                      <div class="show-time">19:00 – 20:00</div>
-                    </div>
-                  </div>
-                </div>
-              </td>
+              <td class="show-cell" data-stage="2"><div class="show-block teal"><div class="show-block-inner"><div class="show-text"><div class="show-name">אבות ובנים</div><div class="show-time">18:00</div></div></div></div></td>
+              <td class="show-cell" data-stage="3"></td>
               <td class="show-cell" data-stage="4"></td>
             </tr>
             <tr data-day="2">
               <td class="time-col">20:00</td>
-              <td class="show-cell" data-stage="1">
-                <div class="show-block">
-                  <div class="show-block-inner">
-                    <div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Ivri_Lider_-_march_05%2C_2021.jpg/250px-Ivri_Lider_-_march_05%2C_2021.jpg" alt="איברי לידר" style="width:100%;height:100%;object-fit:cover"></div>
-                    <div class="show-text">
-                      <div class="show-name">איברי לידר</div>
-                      <div class="show-meta">ישראל</div>
-                      <div class="show-time">20:00 – 21:30</div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="show-cell" data-stage="2">
-                <div class="show-block teal">
-                  <div class="show-block-inner">
-                    <div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Omer_Adam_1.jpg/250px-Omer_Adam_1.jpg" alt="עומר אדם" style="width:100%;height:100%;object-fit:cover"></div>
-                    <div class="show-text">
-                      <div class="show-name">עומר אדם</div>
-                      <div class="show-meta">ישראל</div>
-                      <div class="show-time">20:15 – 21:15</div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="show-cell" data-stage="3">
-                <div class="show-block pink">
-                  <div class="show-block-inner">
-                    <div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Eyal_Golan_1_%28cropped%29.jpg/250px-Eyal_Golan_1_%28cropped%29.jpg" alt="אייל גולן" style="width:100%;height:100%;object-fit:cover"></div>
-                    <div class="show-text">
-                      <div class="show-name">אייל גולן</div>
-                      <div class="show-meta">ישראל</div>
-                      <div class="show-time">20:30 – 22:00</div>
-                    </div>
-                  </div>
-                </div>
-              </td>
+              <td class="show-cell" data-stage="1"><div class="show-block"><div class="show-block-inner"><div class="show-text"><div class="show-name">The 3 Cohens</div><div class="show-time">20:00</div></div></div></div></td>
+              <td class="show-cell" data-stage="2"></td>
+              <td class="show-cell" data-stage="3"></td>
+              <td class="show-cell" data-stage="4"></td>
+            </tr>
+            <tr data-day="2">
+              <td class="time-col">21:00</td>
+              <td class="show-cell" data-stage="1"></td>
+              <td class="show-cell" data-stage="2"></td>
+              <td class="show-cell" data-stage="3"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">Lay Z Gordon</div><div class="show-time">21:00</div></div></div></div></td>
+              <td class="show-cell" data-stage="4"></td>
+            </tr>
+            <tr data-day="2">
+              <td class="time-col">22:30</td>
+              <td class="show-cell" data-stage="1"><div class="show-block"><div class="show-block-inner"><div class="show-text"><div class="show-name">ג׳ימבו ג׳אז</div><div class="show-time">22:30</div></div></div></div></td>
+              <td class="show-cell" data-stage="2"></td>
+              <td class="show-cell" data-stage="3"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">שישיית קאי גלוסקא</div><div class="show-time">22:30</div></div></div></div></td>
               <td class="show-cell" data-stage="4"></td>
             </tr>
             <tr data-day="3">
-              <td class="time-col">21:30</td>
+              <td class="time-col">09:30</td>
               <td class="show-cell" data-stage="1"></td>
-              <td class="show-cell" data-stage="2">
-                <div class="show-block teal">
-                  <div class="show-block-inner">
-                    <div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/%D7%A2%D7%99%D7%93%D7%9F_%D7%A8%D7%99%D7%99%D7%9B%D7%9C%2C_%D7%96%D7%90%D7%A4%D7%94_%D7%AA%D7%9C_%D7%90%D7%91%D7%99%D7%91%2C_%D7%93%D7%A6%D7%9E%D7%91%D7%A8_2021.jpg/250px-%D7%A2%D7%99%D7%93%D7%9F_%D7%A8%D7%99%D7%99%D7%9B%D7%9C%2C_%D7%96%D7%90%D7%A4%D7%94_%D7%AA%D7%9C_%D7%90%D7%91%D7%99%D7%91%2C_%D7%93%D7%A6%D7%9E%D7%91%D7%A8_2021.jpg" alt="עידן רייכל" style="width:100%;height:100%;object-fit:cover"></div>
-                    <div class="show-text">
-                      <div class="show-name">עידן רייכל</div>
-                      <div class="show-meta">ישראל</div>
-                      <div class="show-time">21:30 – 23:00</div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="show-cell" data-stage="3"></td>
-              <td class="show-cell" data-stage="4">
-                <div class="show-block yellow">
-                  <div class="show-block-inner">
-                    <div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Roni_Dalumi_1.jpg/250px-Roni_Dalumi_1.jpg" alt="רוני דלומי" style="width:100%;height:100%;object-fit:cover"></div>
-                    <div class="show-text">
-                      <div class="show-name">רוני דלומי</div>
-                      <div class="show-meta">ישראל</div>
-                      <div class="show-time">21:45 – 23:00</div>
-                    </div>
-                  </div>
-                </div>
-              </td>
+              <td class="show-cell" data-stage="2"></td>
+              <td class="show-cell" data-stage="3"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">ענת כהן</div><div class="show-time">09:30</div></div></div></div></td>
+              <td class="show-cell" data-stage="4"></td>
             </tr>
             <tr data-day="3">
-              <td class="time-col">22:00</td>
-              <td class="show-cell" data-stage="1">
-                <div class="show-block">
-                  <div class="show-block-inner">
-                    <div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Shlomo_Artzi_at_Caesarea.jpg/250px-Shlomo_Artzi_at_Caesarea.jpg" alt="שלמה ארצי" style="width:100%;height:100%;object-fit:cover"></div>
-                    <div class="show-text">
-                      <div class="show-name">שלמה ארצי</div>
-                      <div class="show-meta">ישראל ★</div>
-                      <div class="show-time">22:00 – 24:00</div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="show-cell" data-stage="2"></td>
-              <td class="show-cell" data-stage="3">
-                <div class="show-block pink">
-                  <div class="show-block-inner">
-                    <div class="show-thumb">🎧</div>
-                    <div class="show-text">
-                      <div class="show-name">After Party</div>
-                      <div class="show-meta">DJ Set</div>
-                      <div class="show-time">23:00 – 01:00</div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="show-cell" data-stage="4"></td>
-            </tr>
-            <tr data-day="4">
-              <td class="time-col">18:00</td>
-              <td class="show-cell" data-stage="1">
-                <div class="show-block">
-                  <div class="show-block-inner">
-                    <div class="show-thumb">🎷</div>
-                    <div class="show-text">
-                      <div class="show-name">Open Jazz Session</div>
-                      <div class="show-meta">ישראל</div>
-                      <div class="show-time">18:00 – 19:00</div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="show-cell" data-stage="2">
-                <div class="show-block teal">
-                  <div class="show-block-inner">
-                    <div class="show-thumb">🎹</div>
-                    <div class="show-text">
-                      <div class="show-name">Sunset Trio</div>
-                      <div class="show-meta">ישראל</div>
-                      <div class="show-time">18:00 – 19:15</div>
-                    </div>
-                  </div>
-                </div>
-              </td>
+              <td class="time-col">11:00</td>
+              <td class="show-cell" data-stage="1"></td>
+              <td class="show-cell" data-stage="2"><div class="show-block teal"><div class="show-block-inner"><div class="show-text"><div class="show-name">שלישיית אריאל ברט</div><div class="show-time">11:00</div></div></div></div></td>
               <td class="show-cell" data-stage="3"></td>
-              <td class="show-cell" data-stage="4">
-                <div class="show-block yellow">
-                  <div class="show-block-inner">
-                    <div class="show-thumb">🌅</div>
-                    <div class="show-text">
-                      <div class="show-name">Beach Jazz Closing</div>
-                      <div class="show-meta">International</div>
-                      <div class="show-time">18:30 – 19:30</div>
-                    </div>
-                  </div>
-                </div>
-              </td>
+              <td class="show-cell" data-stage="4"></td>
             </tr>
-            <tr data-day="4">
+            <tr data-day="3">
+              <td class="time-col">12:30</td>
+              <td class="show-cell" data-stage="1"><div class="show-block"><div class="show-block-inner"><div class="show-text"><div class="show-name">Eli Degibri Quartet</div><div class="show-time">12:30</div></div></div></div></td>
+              <td class="show-cell" data-stage="2"></td>
+              <td class="show-cell" data-stage="3"></td>
+              <td class="show-cell" data-stage="4"></td>
+            </tr>
+            <tr data-day="3">
+              <td class="time-col">14:00</td>
+              <td class="show-cell" data-stage="1"></td>
+              <td class="show-cell" data-stage="2"><div class="show-block teal"><div class="show-block-inner"><div class="show-text"><div class="show-name">רביעיית אוריאל הרמן</div><div class="show-time">14:00</div></div></div></div></td>
+              <td class="show-cell" data-stage="3"></td>
+              <td class="show-cell" data-stage="4"></td>
+            </tr>
+            <tr data-day="3">
+              <td class="time-col">15:15</td>
+              <td class="show-cell" data-stage="1"></td>
+              <td class="show-cell" data-stage="2"></td>
+              <td class="show-cell" data-stage="3"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">עידית מינצר – א</div><div class="show-time">15:15</div></div></div></div></td>
+              <td class="show-cell" data-stage="4"></td>
+            </tr>
+            <tr data-day="3">
+              <td class="time-col">16:30</td>
+              <td class="show-cell" data-stage="1"></td>
+              <td class="show-cell" data-stage="2"><div class="show-block teal"><div class="show-block-inner"><div class="show-text"><div class="show-name">שלישיית יותם זילברשטיין</div><div class="show-time">16:30</div></div></div></div></td>
+              <td class="show-cell" data-stage="3"></td>
+              <td class="show-cell" data-stage="4"></td>
+            </tr>
+            <tr data-day="3">
+              <td class="time-col">18:00</td>
+              <td class="show-cell" data-stage="1"></td>
+              <td class="show-cell" data-stage="2"></td>
+              <td class="show-cell" data-stage="3"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">שישיית חגי אמיר</div><div class="show-time">18:00</div></div></div></div></td>
+              <td class="show-cell" data-stage="4"></td>
+            </tr>
+            <tr data-day="3">
               <td class="time-col">20:00</td>
-              <td class="show-cell" data-stage="1">
-                <div class="show-block">
-                  <div class="show-block-inner">
-                    <div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Noa_Kirel_at_Eurovision_2023.jpg/250px-Noa_Kirel_at_Eurovision_2023.jpg" alt="נועה קירל" style="width:100%;height:100%;object-fit:cover"></div>
-                    <div class="show-text">
-                      <div class="show-name">נועה קירל</div>
-                      <div class="show-meta">ישראל</div>
-                      <div class="show-time">20:00 – 21:30</div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="show-cell" data-stage="2">
-                <div class="show-block teal">
-                  <div class="show-block-inner">
-                    <div class="show-thumb">🎺</div>
-                    <div class="show-text">
-                      <div class="show-name">Jazz Fusion Set</div>
-                      <div class="show-meta">International</div>
-                      <div class="show-time">20:15 – 21:15</div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="show-cell" data-stage="3">
-                <div class="show-block pink">
-                  <div class="show-block-inner">
-                    <div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Ninet_Tayeb.jpg/250px-Ninet_Tayeb.jpg" alt="נינט טייב" style="width:100%;height:100%;object-fit:cover"></div>
-                    <div class="show-text">
-                      <div class="show-name">נינט טייב</div>
-                      <div class="show-meta">ישראל</div>
-                      <div class="show-time">20:30 – 22:00</div>
-                    </div>
-                  </div>
-                </div>
-              </td>
+              <td class="show-cell" data-stage="1"><div class="show-block"><div class="show-block-inner"><div class="show-text"><div class="show-name">חוה אלברשטיין</div><div class="show-time">20:00</div></div></div></div></td>
+              <td class="show-cell" data-stage="2"></td>
+              <td class="show-cell" data-stage="3"></td>
+              <td class="show-cell" data-stage="4"></td>
+            </tr>
+            <tr data-day="3">
+              <td class="time-col">21:45</td>
+              <td class="show-cell" data-stage="1"></td>
+              <td class="show-cell" data-stage="2"><div class="show-block teal"><div class="show-block-inner"><div class="show-text"><div class="show-name">SHALOSH</div><div class="show-time">21:45</div></div></div></div></td>
+              <td class="show-cell" data-stage="3"></td>
+              <td class="show-cell" data-stage="4"></td>
+            </tr>
+            <tr data-day="3">
+              <td class="time-col">22:30</td>
+              <td class="show-cell" data-stage="1"></td>
+              <td class="show-cell" data-stage="2"></td>
+              <td class="show-cell" data-stage="3"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">Las Piratas Piratas</div><div class="show-time">22:30</div></div></div></div></td>
               <td class="show-cell" data-stage="4"></td>
             </tr>
             <tr data-day="4">
-              <td class="time-col">22:00</td>
-              <td class="show-cell" data-stage="1">
-                <div class="show-block">
-                  <div class="show-block-inner">
-                    <div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Ivri_Lider_-_march_05%2C_2021.jpg/250px-Ivri_Lider_-_march_05%2C_2021.jpg" alt="איברי לידר" style="width:100%;height:100%;object-fit:cover"></div>
-                    <div class="show-text">
-                      <div class="show-name">איברי לידר ★</div>
-                      <div class="show-meta">ישראל · Closing</div>
-                      <div class="show-time">22:00 – 24:00</div>
-                    </div>
-                  </div>
-                </div>
-              </td>
+              <td class="time-col">11:00</td>
+              <td class="show-cell" data-stage="1"></td>
               <td class="show-cell" data-stage="2"></td>
-              <td class="show-cell" data-stage="3">
-                <div class="show-block pink">
-                  <div class="show-block-inner">
-                    <div class="show-thumb">🎧</div>
-                    <div class="show-text">
-                      <div class="show-name">Closing Party</div>
-                      <div class="show-meta">DJ Set</div>
-                      <div class="show-time">23:00 – 02:00</div>
-                    </div>
-                  </div>
-                </div>
-              </td>
+              <td class="show-cell" data-stage="3"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">הדר נויברג</div><div class="show-time">11:00</div></div></div></div></td>
+              <td class="show-cell" data-stage="4"></td>
+            </tr>
+            <tr data-day="4">
+              <td class="time-col">12:30</td>
+              <td class="show-cell" data-stage="1"></td>
+              <td class="show-cell" data-stage="2"><div class="show-block teal"><div class="show-block-inner"><div class="show-text"><div class="show-name">Anat Cohen</div><div class="show-time">12:30</div></div></div></div></td>
+              <td class="show-cell" data-stage="3"></td>
+              <td class="show-cell" data-stage="4"></td>
+            </tr>
+            <tr data-day="4">
+              <td class="time-col">13:45</td>
+              <td class="show-cell" data-stage="1"></td>
+              <td class="show-cell" data-stage="2"></td>
+              <td class="show-cell" data-stage="3"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">עידית מינצר ויחזקאל רז</div><div class="show-time">13:45</div></div></div></div></td>
+              <td class="show-cell" data-stage="4"></td>
+            </tr>
+            <tr data-day="4">
+              <td class="time-col">14:45</td>
+              <td class="show-cell" data-stage="1"><div class="show-block"><div class="show-block-inner"><div class="show-text"><div class="show-name">תזמורת הג׳אז הישראלית</div><div class="show-time">14:45</div></div></div></div></td>
+              <td class="show-cell" data-stage="2"></td>
+              <td class="show-cell" data-stage="3"></td>
               <td class="show-cell" data-stage="4"></td>
             </tr>
           </tbody>
@@ -2293,125 +2045,171 @@
     <!-- Lineup list view -->
     <div class="schedule-view active" id="view-lineup">
       <div class="lineup-list">
-        <div class="lineup-list-item" data-stage="1" data-day="1">
-          <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Ravidplotnik3.jpeg/250px-Ravidplotnik3.jpeg" alt="רביד פלוטניק" style="width:100%;height:100%;object-fit:cover"></div>
+        <div class="lineup-list-item" data-stage="2" data-day="2">
           <div class="lineup-num">01</div>
           <div class="lineup-info">
-            <div class="lineup-name">רביד פלוטניק</div>
-            <div class="lineup-details">ישראל · 11.11.2026 · 22:00</div>
+            <div class="lineup-name">אבות ובנים</div>
+            <div class="lineup-details">Red Note Club · 12.11 · 18:00</div>
+            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">הפקת מקור</div>
           </div>
-          <span class="lineup-stage stage-1">במה ראשית</span>
-        </div>
-        <div class="lineup-list-item" data-stage="1" data-day="1">
-          <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/%D7%90%D7%99%D7%AA%D7%99_%D7%96%D7%91%D7%95%D7%9C%D7%95%D7%9F_%D7%98%D7%95%D7%A0%D7%94.jpg/250px-%D7%90%D7%99%D7%AA%D7%99_%D7%96%D7%91%D7%95%D7%9C%D7%95%D7%9F_%D7%98%D7%95%D7%A0%D7%94.jpg" alt="טונה" style="width:100%;height:100%;object-fit:cover"></div>
-          <div class="lineup-num">02</div>
-          <div class="lineup-info">
-            <div class="lineup-name">טונה</div>
-            <div class="lineup-details">ישראל · 11.11.2026 · 20:00</div>
-          </div>
-          <span class="lineup-stage stage-1">במה ראשית</span>
-        </div>
-        <div class="lineup-list-item" data-stage="2" data-day="1">
-          <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/en/2/23/Hadag_Nahash_Logo.jpg" alt="הדג נחש" style="width:100%;height:100%;object-fit:cover"></div>
-          <div class="lineup-num">03</div>
-          <div class="lineup-info">
-            <div class="lineup-name">הדג נחש</div>
-            <div class="lineup-details">ישראל · 11.11.2026 · 18:00</div>
-          </div>
-          <span class="lineup-stage stage-2">The Cove</span>
-        </div>
-        <div class="lineup-list-item" data-stage="3" data-day="1">
-          <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Subliminal_star_of_david.jpg/250px-Subliminal_star_of_david.jpg" alt="סבלימינאל" style="width:100%;height:100%;object-fit:cover"></div>
-          <div class="lineup-num">04</div>
-          <div class="lineup-info">
-            <div class="lineup-name">סבלימינאל</div>
-            <div class="lineup-details">ישראל · 11.11.2026 · 20:30</div>
-          </div>
-          <span class="lineup-stage stage-3">Club Stage</span>
+          <span class="lineup-stage stage-2">Red Note Club</span>
         </div>
         <div class="lineup-list-item" data-stage="1" data-day="2">
-          <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Shlomo_Artzi_at_Caesarea.jpg/250px-Shlomo_Artzi_at_Caesarea.jpg" alt="שלמה ארצי" style="width:100%;height:100%;object-fit:cover"></div>
-          <div class="lineup-num">01</div>
-          <div class="lineup-info">
-            <div class="lineup-name">שלמה ארצי</div>
-            <div class="lineup-details">ישראל · 12.11.2026 · 22:00</div>
-          </div>
-          <span class="lineup-stage stage-1">במה ראשית</span>
-        </div>
-        <div class="lineup-list-item" data-stage="1" data-day="3">
-          <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/%D7%A2%D7%99%D7%93%D7%9F_%D7%A8%D7%99%D7%99%D7%9B%D7%9C%2C_%D7%96%D7%90%D7%A4%D7%94_%D7%AA%D7%9C_%D7%90%D7%91%D7%99%D7%91%2C_%D7%93%D7%A6%D7%9E%D7%91%D7%A8_2021.jpg/250px-%D7%A2%D7%99%D7%93%D7%9F_%D7%A8%D7%99%D7%99%D7%9B%D7%9C%2C_%D7%96%D7%90%D7%A4%D7%94_%D7%AA%D7%9C_%D7%90%D7%91%D7%99%D7%91%2C_%D7%93%D7%A6%D7%9E%D7%91%D7%A8_2021.jpg" alt="עידן רייכל" style="width:100%;height:100%;object-fit:cover"></div>
           <div class="lineup-num">02</div>
           <div class="lineup-info">
-            <div class="lineup-name">עידן רייכל</div>
-            <div class="lineup-details">ישראל · 13.11.2026 · 22:00</div>
+            <div class="lineup-name">The 3 Cohens</div>
+            <div class="lineup-details">Port arena · 12.11 · 20:00</div>
+            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">מיוחד לפסטיבל</div>
           </div>
-          <span class="lineup-stage stage-1">במה ראשית</span>
-        </div>
-        <div class="lineup-list-item" data-stage="2" data-day="2">
-          <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/%D7%A2%D7%99%D7%93%D7%9F_%D7%A2%D7%9E%D7%93%D7%99%2C_%D7%A1%D7%9C%D7%99_%D7%91%D7%9F_%D7%90%D7%A8%D7%99%D7%94.jpg/250px-%D7%A2%D7%99%D7%93%D7%9F_%D7%A2%D7%9E%D7%93%D7%99%2C_%D7%A1%D7%9C%D7%99_%D7%91%D7%9F_%D7%90%D7%A8%D7%99%D7%94.jpg" alt="עידן עמדי" style="width:100%;height:100%;object-fit:cover"></div>
-          <div class="lineup-num">03</div>
-          <div class="lineup-info">
-            <div class="lineup-name">עידן עמדי</div>
-            <div class="lineup-details">ישראל · 12.11.2026 · 18:00</div>
-          </div>
-          <span class="lineup-stage stage-2">The Cove</span>
-        </div>
-        <div class="lineup-list-item" data-stage="2" data-day="2">
-          <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Eyal_Golan_1_%28cropped%29.jpg/250px-Eyal_Golan_1_%28cropped%29.jpg" alt="אייל גולן" style="width:100%;height:100%;object-fit:cover"></div>
-          <div class="lineup-num">04</div>
-          <div class="lineup-info">
-            <div class="lineup-name">אייל גולן</div>
-            <div class="lineup-details">ישראל · 12.11.2026 · 20:15</div>
-          </div>
-          <span class="lineup-stage stage-2">The Cove</span>
+          <span class="lineup-stage stage-1">Port arena</span>
         </div>
         <div class="lineup-list-item" data-stage="3" data-day="2">
-          <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Keren_Peles_1.jpg/250px-Keren_Peles_1.jpg" alt="קרן פלס" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="lineup-num">03</div>
+          <div class="lineup-info">
+            <div class="lineup-name">Lay Z Gordon</div>
+            <div class="lineup-details">DE future · 12.11 · 21:00</div>
+            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">כניסה חופשית</div>
+          </div>
+          <span class="lineup-stage stage-3">DE future</span>
+        </div>
+        <div class="lineup-list-item" data-stage="1" data-day="2">
+          <div class="lineup-num">04</div>
+          <div class="lineup-info">
+            <div class="lineup-name">ג'ימבו ג'אז</div>
+            <div class="lineup-details">Port arena · 12.11 · 22:30</div>
+          </div>
+          <span class="lineup-stage stage-1">Port arena</span>
+        </div>
+        <div class="lineup-list-item" data-stage="3" data-day="2">
           <div class="lineup-num">05</div>
           <div class="lineup-info">
-            <div class="lineup-name">קרן פלס</div>
-            <div class="lineup-details">ישראל · 12.11.2026 · 19:00</div>
+            <div class="lineup-name">שישיית קאי גלוסקא</div>
+            <div class="lineup-details">DE future · 12.11 · 22:30</div>
+            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">כניסה חופשית</div>
           </div>
-          <span class="lineup-stage stage-3">Club Stage</span>
+          <span class="lineup-stage stage-3">DE future</span>
         </div>
-        <div class="lineup-list-item" data-stage="4" data-day="2">
-          <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Miri_Mesika.webp/250px-Miri_Mesika.webp" alt="מירי מסיקה" style="width:100%;height:100%;object-fit:cover"></div>
+        <div class="lineup-list-item" data-stage="3" data-day="3">
           <div class="lineup-num">06</div>
           <div class="lineup-info">
-            <div class="lineup-name">מירי מסיקה</div>
-            <div class="lineup-details">ישראל · 12.11.2026 · 18:30</div>
+            <div class="lineup-name">ענת כהן</div>
+            <div class="lineup-details">DE future · 13.11 · 09:30</div>
+            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">Master Class</div>
           </div>
-          <span class="lineup-stage stage-4">Beach Stage</span>
+          <span class="lineup-stage stage-3">DE future</span>
         </div>
-        <div class="lineup-list-item" data-stage="1" data-day="4">
-          <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Noa_Kirel_at_Eurovision_2023.jpg/250px-Noa_Kirel_at_Eurovision_2023.jpg" alt="נועה קירל" style="width:100%;height:100%;object-fit:cover"></div>
+        <div class="lineup-list-item" data-stage="2" data-day="3">
           <div class="lineup-num">07</div>
           <div class="lineup-info">
-            <div class="lineup-name">נועה קירל</div>
-            <div class="lineup-details">ישראל · 14.11.2026 · 20:00</div>
+            <div class="lineup-name">שלישיית אריאל ברט</div>
+            <div class="lineup-details">Red Note Club · 13.11 · 11:00</div>
+            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">השקת אלבום</div>
           </div>
-          <span class="lineup-stage stage-1">במה ראשית</span>
+          <span class="lineup-stage stage-2">Red Note Club</span>
         </div>
-        <div class="lineup-list-item" data-stage="1" data-day="4">
-          <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Ivri_Lider_-_march_05%2C_2021.jpg/250px-Ivri_Lider_-_march_05%2C_2021.jpg" alt="איברי לידר" style="width:100%;height:100%;object-fit:cover"></div>
+        <div class="lineup-list-item" data-stage="1" data-day="3">
           <div class="lineup-num">08</div>
           <div class="lineup-info">
-            <div class="lineup-name">איברי לידר</div>
-            <div class="lineup-details">ישראל · 14.11.2026 · 22:00</div>
+            <div class="lineup-name">Eli Degibri Quartet</div>
+            <div class="lineup-details">Port arena · 13.11 · 12:30</div>
+            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">מיוחד לפסטיבל</div>
           </div>
-          <span class="lineup-stage stage-1">במה ראשית</span>
+          <span class="lineup-stage stage-1">Port arena</span>
         </div>
-        <div class="lineup-list-item" data-stage="3" data-day="4">
-          <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Ninet_Tayeb.jpg/250px-Ninet_Tayeb.jpg" alt="נינט טייב" style="width:100%;height:100%;object-fit:cover"></div>
+        <div class="lineup-list-item" data-stage="2" data-day="3">
           <div class="lineup-num">09</div>
           <div class="lineup-info">
-            <div class="lineup-name">נינט טייב</div>
-            <div class="lineup-details">ישראל · 14.11.2026 · 20:30</div>
+            <div class="lineup-name">רביעיית אוריאל הרמן</div>
+            <div class="lineup-details">Red Note Club · 13.11 · 14:00</div>
           </div>
-          <span class="lineup-stage stage-3">Club Stage</span>
+          <span class="lineup-stage stage-2">Red Note Club</span>
         </div>
-        <div class="lineup-list-item" style="justify-content:center; opacity:0.5; pointer-events:none;">
-          <span style="font-size:0.9rem; color:var(--muted)">· · · עוד 31 הופעות יתווספו · · ·</span>
+        <div class="lineup-list-item" data-stage="3" data-day="3">
+          <div class="lineup-num">10</div>
+          <div class="lineup-info">
+            <div class="lineup-name">עידית מינצר – א</div>
+            <div class="lineup-details">DE future · 13.11 · 15:15</div>
+            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">Part 1</div>
+          </div>
+          <span class="lineup-stage stage-3">DE future</span>
+        </div>
+        <div class="lineup-list-item" data-stage="2" data-day="3">
+          <div class="lineup-num">11</div>
+          <div class="lineup-info">
+            <div class="lineup-name">שלישיית יותם זילברשטיין</div>
+            <div class="lineup-details">Red Note Club · 13.11 · 16:30</div>
+          </div>
+          <span class="lineup-stage stage-2">Red Note Club</span>
+        </div>
+        <div class="lineup-list-item" data-stage="3" data-day="3">
+          <div class="lineup-num">12</div>
+          <div class="lineup-info">
+            <div class="lineup-name">שישיית חגי אמיר</div>
+            <div class="lineup-details">DE future · 13.11 · 18:00</div>
+          </div>
+          <span class="lineup-stage stage-3">DE future</span>
+        </div>
+        <div class="lineup-list-item" data-stage="1" data-day="3">
+          <div class="lineup-num">13</div>
+          <div class="lineup-info">
+            <div class="lineup-name">חוה אלברשטיין</div>
+            <div class="lineup-details">Port arena · 13.11 · 20:00</div>
+            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">מיוחד לפסטיבל</div>
+          </div>
+          <span class="lineup-stage stage-1">Port arena</span>
+        </div>
+        <div class="lineup-list-item" data-stage="2" data-day="3">
+          <div class="lineup-num">14</div>
+          <div class="lineup-info">
+            <div class="lineup-name">SHALOSH</div>
+            <div class="lineup-details">Red Note Club · 13.11 · 21:45</div>
+            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">השקת אלבום</div>
+          </div>
+          <span class="lineup-stage stage-2">Red Note Club</span>
+        </div>
+        <div class="lineup-list-item" data-stage="3" data-day="3">
+          <div class="lineup-num">15</div>
+          <div class="lineup-info">
+            <div class="lineup-name">Las Piratas Piratas</div>
+            <div class="lineup-details">DE future · 13.11 · 22:30</div>
+            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">כניסה חופשית</div>
+          </div>
+          <span class="lineup-stage stage-3">DE future</span>
+        </div>
+        <div class="lineup-list-item" data-stage="3" data-day="4">
+          <div class="lineup-num">16</div>
+          <div class="lineup-info">
+            <div class="lineup-name">הדר נויברג</div>
+            <div class="lineup-details">DE future · 14.11 · 11:00</div>
+          </div>
+          <span class="lineup-stage stage-3">DE future</span>
+        </div>
+        <div class="lineup-list-item" data-stage="2" data-day="4">
+          <div class="lineup-num">17</div>
+          <div class="lineup-info">
+            <div class="lineup-name">Anat Cohen</div>
+            <div class="lineup-details">Red Note Club · 14.11 · 12:30</div>
+            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">Artist Resident</div>
+          </div>
+          <span class="lineup-stage stage-2">Red Note Club</span>
+        </div>
+        <div class="lineup-list-item" data-stage="3" data-day="4">
+          <div class="lineup-num">18</div>
+          <div class="lineup-info">
+            <div class="lineup-name">עידית מינצר ויחזקאל רז</div>
+            <div class="lineup-details">DE future · 14.11 · 13:45</div>
+            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">Part 2</div>
+          </div>
+          <span class="lineup-stage stage-3">DE future</span>
+        </div>
+        <div class="lineup-list-item" data-stage="1" data-day="4">
+          <div class="lineup-num">19</div>
+          <div class="lineup-info">
+            <div class="lineup-name">תזמורת הג'אז הישראלית</div>
+            <div class="lineup-details">Port arena · 14.11 · 14:45</div>
+            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">הפקת מקור</div>
+          </div>
+          <span class="lineup-stage stage-1">Port arena</span>
         </div>
       </div>
 
@@ -2434,6 +2232,9 @@
         <img src="./Graphig%20assets/banner2.png" alt="">
         <div class="banner-photo-overlay"></div>
       </div>
+      <!-- Decorative glows -->
+      <div class="banner-glow-orange" aria-hidden="true"></div>
+      <div class="banner-glow-teal" aria-hidden="true"></div>
       <!-- Silhouette strip -->
       <div class="banner-silhouette">
         <svg viewBox="0 0 1200 80" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
@@ -2444,11 +2245,11 @@
       <div class="hotel-banner-content">
         <div class="hotel-banner-tag">🏨 חבילות נופש · Hotel Packages</div>
         <div class="hotel-banner-title">
-          חגגו את הפסטיבל<br>
+          <span class="title-line1">חגגו את הפסטיבל</span>
           <span class="hl">עם לינה באילת</span>
         </div>
         <div class="hotel-banner-sub">
-          חבילות מיוחדות למבקרי הפסטיבל — 4 לילות, ארוחות בוקר, ושאטל לנמל.
+          חבילות מיוחדות למבקרי הפסטיבל — 3 לילות, ארוחות בוקר, ושאטל לנמל.
           מלונות 4 ו-5 כוכבים על חוף ים סוף.
         </div>
         <div class="hotel-logos">
@@ -2485,22 +2286,22 @@
     <div class="venue-info-grid reveal">
       <div class="venue-info-card">
         <div class="venue-info-icon">🎭</div>
-        <div class="venue-info-title">במה ראשית</div>
+        <div class="venue-info-title">Port arena</div>
         <div class="venue-info-text">כיכר הנמל</div>
       </div>
       <div class="venue-info-card">
         <div class="venue-info-icon">🌊</div>
-        <div class="venue-info-title">The Cove</div>
+        <div class="venue-info-title">Red Note Club</div>
         <div class="venue-info-text">מזח הצפוני</div>
       </div>
       <div class="venue-info-card">
         <div class="venue-info-icon">🌙</div>
-        <div class="venue-info-title">Club Stage</div>
+        <div class="venue-info-title">DE future</div>
         <div class="venue-info-text">המחסן הישן</div>
       </div>
       <div class="venue-info-card">
         <div class="venue-info-icon">🏖️</div>
-        <div class="venue-info-title">Beach Stage</div>
+        <div class="venue-info-title">the present</div>
         <div class="venue-info-text">החוף הדרומי</div>
       </div>
       <div class="venue-info-card">
@@ -2563,8 +2364,8 @@
       <div class="modal-controls">
         <div class="pill-toggle" id="modalPillToggle">
           <div class="pill-indicator" id="modalPillIndicator"></div>
-          <button class="pill-btn" id="modalViewSchedule" onclick="switchModalView('schedule')">📅 לוח זמנים</button>
-          <button class="pill-btn active" id="modalViewLineup" onclick="switchModalView('lineup')">🎵 Line-up</button>
+          <button class="pill-btn" id="modalViewSchedule" onclick="switchModalView('schedule')"><span aria-hidden="true">📅</span> לוח זמנים</button>
+          <button class="pill-btn active" id="modalViewLineup" onclick="switchModalView('lineup')"><span aria-hidden="true">🎵</span> Line-up</button>
         </div>
         <div style="font-size:0.82rem; color:var(--muted)">40+ הופעות · 4 ימים · 4 במות</div>
       </div>
@@ -2573,62 +2374,114 @@
         <!-- Modal lineup list view (default) -->
         <div class="schedule-view active" id="modal-view-lineup">
           <div class="lineup-list">
-            <div class="lineup-list-item" data-stage="1" data-day="2">
-              <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Shlomo_Artzi_at_Caesarea.jpg/250px-Shlomo_Artzi_at_Caesarea.jpg" alt="שלמה ארצי" style="width:100%;height:100%;object-fit:cover"></div>
-              <div class="lineup-num">01</div>
-              <div class="lineup-info"><div class="lineup-name">שלמה ארצי</div><div class="lineup-details">ישראל · 12.11 · 22:00</div></div>
-              <span class="lineup-stage stage-1">במה ראשית</span>
-            </div>
             <div class="lineup-list-item" data-stage="2" data-day="2">
-              <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/%D7%A2%D7%99%D7%93%D7%9F_%D7%A2%D7%9E%D7%93%D7%99%2C_%D7%A1%D7%9C%D7%99_%D7%91%D7%9F_%D7%90%D7%A8%D7%99%D7%94.jpg/250px-%D7%A2%D7%99%D7%93%D7%9F_%D7%A2%D7%9E%D7%93%D7%99%2C_%D7%A1%D7%9C%D7%99_%D7%91%D7%9F_%D7%90%D7%A8%D7%99%D7%94.jpg" alt="עידן עמדי" style="width:100%;height:100%;object-fit:cover"></div>
+              <div class="lineup-num">01</div>
+              <div class="lineup-info"><div class="lineup-name">אבות ובנים</div><div class="lineup-details">Red Note Club · 12.11 · 18:00</div>
+              <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">הפקת מקור</div></div>
+              <span class="lineup-stage stage-2">Red Note Club</span>
+            </div>
+            <div class="lineup-list-item" data-stage="1" data-day="2">
               <div class="lineup-num">02</div>
-              <div class="lineup-info"><div class="lineup-name">עידן עמדי</div><div class="lineup-details">ישראל · 12.11 · 18:00</div></div>
-              <span class="lineup-stage stage-2">The Cove</span>
+              <div class="lineup-info"><div class="lineup-name">The 3 Cohens</div><div class="lineup-details">Port arena · 12.11 · 20:00</div>
+              <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">מיוחד לפסטיבל</div></div>
+              <span class="lineup-stage stage-1">Port arena</span>
             </div>
             <div class="lineup-list-item" data-stage="3" data-day="2">
-              <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Keren_Peles_1.jpg/250px-Keren_Peles_1.jpg" alt="קרן פלס" style="width:100%;height:100%;object-fit:cover"></div>
               <div class="lineup-num">03</div>
-              <div class="lineup-info"><div class="lineup-name">קרן פלס</div><div class="lineup-details">ישראל · 12.11 · 19:00</div></div>
-              <span class="lineup-stage stage-3">Club Stage</span>
+              <div class="lineup-info"><div class="lineup-name">Lay Z Gordon</div><div class="lineup-details">DE future · 12.11 · 21:00</div>
+              <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">כניסה חופשית</div></div>
+              <span class="lineup-stage stage-3">DE future</span>
             </div>
-            <div class="lineup-list-item" data-stage="4" data-day="2">
-              <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Miri_Mesika.webp/250px-Miri_Mesika.webp" alt="מירי מסיקה" style="width:100%;height:100%;object-fit:cover"></div>
+            <div class="lineup-list-item" data-stage="1" data-day="2">
               <div class="lineup-num">04</div>
-              <div class="lineup-info"><div class="lineup-name">מירי מסיקה</div><div class="lineup-details">ישראל · 12.11 · 18:30</div></div>
-              <span class="lineup-stage stage-4">Beach Stage</span>
+              <div class="lineup-info"><div class="lineup-name">ג׳ימבו ג׳אז</div><div class="lineup-details">Port arena · 12.11 · 22:30</div></div>
+              <span class="lineup-stage stage-1">Port arena</span>
             </div>
-            <div class="lineup-list-item" data-stage="1" data-day="3">
-              <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/%D7%A2%D7%99%D7%93%D7%9F_%D7%A8%D7%99%D7%99%D7%9B%D7%9C%2C_%D7%96%D7%90%D7%A4%D7%94_%D7%AA%D7%9C_%D7%90%D7%91%D7%99%D7%91%2C_%D7%93%D7%A6%D7%9E%D7%91%D7%A8_2021.jpg/250px-%D7%A2%D7%99%D7%93%D7%9F_%D7%A8%D7%99%D7%99%D7%9B%D7%9C%2C_%D7%96%D7%90%D7%A4%D7%94_%D7%AA%D7%9C_%D7%90%D7%91%D7%99%D7%91%2C_%D7%93%D7%A6%D7%9E%D7%91%D7%A8_2021.jpg" alt="עידן רייכל" style="width:100%;height:100%;object-fit:cover"></div>
+            <div class="lineup-list-item" data-stage="3" data-day="2">
               <div class="lineup-num">05</div>
-              <div class="lineup-info"><div class="lineup-name">עידן רייכל</div><div class="lineup-details">ישראל · 13.11 · 22:00</div></div>
-              <span class="lineup-stage stage-1">במה ראשית</span>
-            </div>
-            <div class="lineup-list-item" data-stage="2" data-day="3">
-              <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Omer_Adam_1.jpg/250px-Omer_Adam_1.jpg" alt="עומר אדם" style="width:100%;height:100%;object-fit:cover"></div>
-              <div class="lineup-num">06</div>
-              <div class="lineup-info"><div class="lineup-name">עומר אדם</div><div class="lineup-details">ישראל · 13.11 · 21:30</div></div>
-              <span class="lineup-stage stage-2">The Cove</span>
+              <div class="lineup-info"><div class="lineup-name">שישיית קאי גלוסקא</div><div class="lineup-details">DE future · 12.11 · 22:30</div>
+              <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">כניסה חופשית</div></div>
+              <span class="lineup-stage stage-3">DE future</span>
             </div>
             <div class="lineup-list-item" data-stage="3" data-day="3">
-              <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Eyal_Golan_1_%28cropped%29.jpg/250px-Eyal_Golan_1_%28cropped%29.jpg" alt="אייל גולן" style="width:100%;height:100%;object-fit:cover"></div>
-              <div class="lineup-num">07</div>
-              <div class="lineup-info"><div class="lineup-name">אייל גולן</div><div class="lineup-details">ישראל · 13.11 · 20:30</div></div>
-              <span class="lineup-stage stage-3">Club Stage</span>
+              <div class="lineup-num">06</div>
+              <div class="lineup-info"><div class="lineup-name">ענת כהן</div><div class="lineup-details">DE future · 13.11 · 09:30</div>
+              <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">Master Class</div></div>
+              <span class="lineup-stage stage-3">DE future</span>
             </div>
-            <div class="lineup-list-item" data-stage="4" data-day="3">
-              <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Roni_Dalumi_1.jpg/250px-Roni_Dalumi_1.jpg" alt="רוני דלומי" style="width:100%;height:100%;object-fit:cover"></div>
+            <div class="lineup-list-item" data-stage="2" data-day="3">
+              <div class="lineup-num">07</div>
+              <div class="lineup-info"><div class="lineup-name">שלישיית אריאל ברט</div><div class="lineup-details">Red Note Club · 13.11 · 11:00</div>
+              <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">השקת אלבום</div></div>
+              <span class="lineup-stage stage-2">Red Note Club</span>
+            </div>
+            <div class="lineup-list-item" data-stage="1" data-day="3">
               <div class="lineup-num">08</div>
-              <div class="lineup-info"><div class="lineup-name">רוני דלומי</div><div class="lineup-details">ישראל · 13.11 · 21:45</div></div>
-              <span class="lineup-stage stage-4">Beach Stage</span>
+              <div class="lineup-info"><div class="lineup-name">Eli Degibri Quartet</div><div class="lineup-details">Port arena · 13.11 · 12:30</div>
+              <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">מיוחד לפסטיבל</div></div>
+              <span class="lineup-stage stage-1">Port arena</span>
+            </div>
+            <div class="lineup-list-item" data-stage="2" data-day="3">
+              <div class="lineup-num">09</div>
+              <div class="lineup-info"><div class="lineup-name">רביעיית אוריאל הרמן</div><div class="lineup-details">Red Note Club · 13.11 · 14:00</div></div>
+              <span class="lineup-stage stage-2">Red Note Club</span>
+            </div>
+            <div class="lineup-list-item" data-stage="3" data-day="3">
+              <div class="lineup-num">10</div>
+              <div class="lineup-info"><div class="lineup-name">עידית מינצר – א</div><div class="lineup-details">DE future · 13.11 · 15:15</div>
+              <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">Part 1</div></div>
+              <span class="lineup-stage stage-3">DE future</span>
+            </div>
+            <div class="lineup-list-item" data-stage="2" data-day="3">
+              <div class="lineup-num">11</div>
+              <div class="lineup-info"><div class="lineup-name">שלישיית יותם זילברשטיין</div><div class="lineup-details">Red Note Club · 13.11 · 16:30</div></div>
+              <span class="lineup-stage stage-2">Red Note Club</span>
+            </div>
+            <div class="lineup-list-item" data-stage="3" data-day="3">
+              <div class="lineup-num">12</div>
+              <div class="lineup-info"><div class="lineup-name">שישיית חגי אמיר</div><div class="lineup-details">DE future · 13.11 · 18:00</div></div>
+              <span class="lineup-stage stage-3">DE future</span>
+            </div>
+            <div class="lineup-list-item" data-stage="1" data-day="3">
+              <div class="lineup-num">13</div>
+              <div class="lineup-info"><div class="lineup-name">חוה אלברשטיין</div><div class="lineup-details">Port arena · 13.11 · 20:00</div>
+              <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">מיוחד לפסטיבל</div></div>
+              <span class="lineup-stage stage-1">Port arena</span>
+            </div>
+            <div class="lineup-list-item" data-stage="2" data-day="3">
+              <div class="lineup-num">14</div>
+              <div class="lineup-info"><div class="lineup-name">SHALOSH</div><div class="lineup-details">Red Note Club · 13.11 · 21:45</div>
+              <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">השקת אלבום</div></div>
+              <span class="lineup-stage stage-2">Red Note Club</span>
+            </div>
+            <div class="lineup-list-item" data-stage="3" data-day="3">
+              <div class="lineup-num">15</div>
+              <div class="lineup-info"><div class="lineup-name">Las Piratas Piratas</div><div class="lineup-details">DE future · 13.11 · 22:30</div>
+              <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">כניסה חופשית</div></div>
+              <span class="lineup-stage stage-3">DE future</span>
+            </div>
+            <div class="lineup-list-item" data-stage="3" data-day="4">
+              <div class="lineup-num">16</div>
+              <div class="lineup-info"><div class="lineup-name">הדר נויברג</div><div class="lineup-details">DE future · 14.11 · 11:00</div></div>
+              <span class="lineup-stage stage-3">DE future</span>
+            </div>
+            <div class="lineup-list-item" data-stage="2" data-day="4">
+              <div class="lineup-num">17</div>
+              <div class="lineup-info"><div class="lineup-name">Anat Cohen</div><div class="lineup-details">Red Note Club · 14.11 · 12:30</div>
+              <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">Artist Resident</div></div>
+              <span class="lineup-stage stage-2">Red Note Club</span>
+            </div>
+            <div class="lineup-list-item" data-stage="3" data-day="4">
+              <div class="lineup-num">18</div>
+              <div class="lineup-info"><div class="lineup-name">עידית מינצר ויחזקאל רז</div><div class="lineup-details">DE future · 14.11 · 13:45</div>
+              <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">Part 2</div></div>
+              <span class="lineup-stage stage-3">DE future</span>
             </div>
             <div class="lineup-list-item" data-stage="1" data-day="4">
-              <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Ivri_Lider_-_march_05%2C_2021.jpg/250px-Ivri_Lider_-_march_05%2C_2021.jpg" alt="איברי לידר" style="width:100%;height:100%;object-fit:cover"></div>
-              <div class="lineup-num">09</div>
-              <div class="lineup-info"><div class="lineup-name">איברי לידר</div><div class="lineup-details">ישראל · 14.11 · 20:00</div></div>
-              <span class="lineup-stage stage-1">במה ראשית</span>
-            </div>
-            <div class="lineup-list-item" style="justify-content:center; opacity:0.4; pointer-events:none;">
-              <span style="font-size:0.85rem; color:var(--muted)">· · · שאר הלייןאפ יפורסם בקרוב · · ·</span>
+              <div class="lineup-num">19</div>
+              <div class="lineup-info"><div class="lineup-name">תזמורת הג׳אז הישראלית</div><div class="lineup-details">Port arena · 14.11 · 14:45</div>
+              <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">הפקת מקור</div></div>
+              <span class="lineup-stage stage-1">Port arena</span>
             </div>
           </div>
         </div>
@@ -2637,40 +2490,143 @@
         <div class="schedule-view" id="modal-view-schedule">
           <div style="overflow-x:auto;">
             <table class="schedule-table">
-              <thead>
-                <tr>
-                  <th style="width:70px">שעה</th>
-                  <th style="color:var(--orange)">🟠 במה ראשית</th>
-                  <th style="color:var(--teal)">🟦 The Cove</th>
-                  <th style="color:var(--pink)">🩷 Club Stage</th>
-                  <th style="color:var(--yellow)">🟡 Beach Stage</th>
-                </tr>
-              </thead>
+              <thead><tr>
+                <th style="width:70px">שעה</th>
+                <th style="color:var(--orange)">Port arena</th>
+                <th style="color:var(--teal)">Red Note Club</th>
+                <th style="color:var(--pink)">DE future</th>
+                <th style="color:var(--yellow)">the present</th>
+              </tr></thead>
               <tbody>
-                <tr>
+                <tr data-day="2">
                   <td class="time-col">18:00</td>
-                  <td class="show-cell"><div class="show-block"><div class="show-block-inner"><div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/%D7%A2%D7%99%D7%93%D7%9F_%D7%A2%D7%9E%D7%93%D7%99%2C_%D7%A1%D7%9C%D7%99_%D7%91%D7%9F_%D7%90%D7%A8%D7%99%D7%94.jpg/250px-%D7%A2%D7%99%D7%93%D7%9F_%D7%A2%D7%9E%D7%93%D7%99%2C_%D7%A1%D7%9C%D7%99_%D7%91%D7%9F_%D7%90%D7%A8%D7%99%D7%94.jpg" alt="עידן עמדי" style="width:100%;height:100%;object-fit:cover"></div><div class="show-text"><div class="show-name">עידן עמדי</div><div class="show-time">18:00–19:00</div></div></div></div></td>
-                  <td class="show-cell"><div class="show-block teal"><div class="show-block-inner"><div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Roni_Dalumi_1.jpg/250px-Roni_Dalumi_1.jpg" alt="רוני דלומי" style="width:100%;height:100%;object-fit:cover"></div><div class="show-text"><div class="show-name">רוני דלומי</div><div class="show-time">18:00–19:15</div></div></div></div></td>
                   <td class="show-cell"></td>
-                  <td class="show-cell"><div class="show-block yellow"><div class="show-block-inner"><div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Miri_Mesika.webp/250px-Miri_Mesika.webp" alt="מירי מסיקה" style="width:100%;height:100%;object-fit:cover"></div><div class="show-text"><div class="show-name">מירי מסיקה</div><div class="show-time">18:30–19:30</div></div></div></div></td>
-                </tr>
-                <tr>
-                  <td class="time-col">19:00</td>
-                  <td class="show-cell"></td><td class="show-cell"></td>
-                  <td class="show-cell"><div class="show-block pink"><div class="show-block-inner"><div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Keren_Peles_1.jpg/250px-Keren_Peles_1.jpg" alt="קרן פלס" style="width:100%;height:100%;object-fit:cover"></div><div class="show-text"><div class="show-name">קרן פלס</div><div class="show-time">19:00–20:00</div></div></div></div></td>
+                  <td class="show-cell"><div class="show-block teal"><div class="show-block-inner"><div class="show-text"><div class="show-name">אבות ובנים</div><div class="show-time">18:00</div></div></div></div></td>
+                  <td class="show-cell"></td>
                   <td class="show-cell"></td>
                 </tr>
-                <tr>
-                  <td class="time-col">22:00</td>
-                  <td class="show-cell"><div class="show-block"><div class="show-block-inner"><div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Shlomo_Artzi_at_Caesarea.jpg/250px-Shlomo_Artzi_at_Caesarea.jpg" alt="שלמה ארצי" style="width:100%;height:100%;object-fit:cover"></div><div class="show-text"><div class="show-name">שלמה ארצי</div><div class="show-time">22:00–24:00</div></div></div></div></td>
+                <tr data-day="2">
+                  <td class="time-col">20:00</td>
+                  <td class="show-cell"><div class="show-block"><div class="show-block-inner"><div class="show-text"><div class="show-name">The 3 Cohens</div><div class="show-time">20:00</div></div></div></div></td>
                   <td class="show-cell"></td>
-                  <td class="show-cell"><div class="show-block pink"><div class="show-block-inner"><div class="show-thumb">🎧</div><div class="show-text"><div class="show-name">After Party</div><div class="show-time">23:00–01:00</div></div></div></div></td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"></td>
+                </tr>
+                <tr data-day="2">
+                  <td class="time-col">21:00</td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">Lay Z Gordon</div><div class="show-time">21:00</div></div></div></div></td>
+                  <td class="show-cell"></td>
+                </tr>
+                <tr data-day="2">
+                  <td class="time-col">22:30</td>
+                  <td class="show-cell"><div class="show-block"><div class="show-block-inner"><div class="show-text"><div class="show-name">ג׳ימבו ג׳אז</div><div class="show-time">22:30</div></div></div></div></td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">שישיית קאי גלוסקא</div><div class="show-time">22:30</div></div></div></div></td>
+                  <td class="show-cell"></td>
+                </tr>
+                <tr data-day="3">
+                  <td class="time-col">09:30</td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">ענת כהן</div><div class="show-time">09:30</div></div></div></div></td>
+                  <td class="show-cell"></td>
+                </tr>
+                <tr data-day="3">
+                  <td class="time-col">11:00</td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"><div class="show-block teal"><div class="show-block-inner"><div class="show-text"><div class="show-name">שלישיית אריאל ברט</div><div class="show-time">11:00</div></div></div></div></td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"></td>
+                </tr>
+                <tr data-day="3">
+                  <td class="time-col">12:30</td>
+                  <td class="show-cell"><div class="show-block"><div class="show-block-inner"><div class="show-text"><div class="show-name">Eli Degibri Quartet</div><div class="show-time">12:30</div></div></div></div></td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"></td>
+                </tr>
+                <tr data-day="3">
+                  <td class="time-col">14:00</td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"><div class="show-block teal"><div class="show-block-inner"><div class="show-text"><div class="show-name">רביעיית אוריאל הרמן</div><div class="show-time">14:00</div></div></div></div></td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"></td>
+                </tr>
+                <tr data-day="3">
+                  <td class="time-col">15:15</td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">עידית מינצר – א</div><div class="show-time">15:15</div></div></div></div></td>
+                  <td class="show-cell"></td>
+                </tr>
+                <tr data-day="3">
+                  <td class="time-col">16:30</td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"><div class="show-block teal"><div class="show-block-inner"><div class="show-text"><div class="show-name">שלישיית יותם זילברשטיין</div><div class="show-time">16:30</div></div></div></div></td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"></td>
+                </tr>
+                <tr data-day="3">
+                  <td class="time-col">18:00</td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">שישיית חגי אמיר</div><div class="show-time">18:00</div></div></div></div></td>
+                  <td class="show-cell"></td>
+                </tr>
+                <tr data-day="3">
+                  <td class="time-col">20:00</td>
+                  <td class="show-cell"><div class="show-block"><div class="show-block-inner"><div class="show-text"><div class="show-name">חוה אלברשטיין</div><div class="show-time">20:00</div></div></div></div></td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"></td>
+                </tr>
+                <tr data-day="3">
+                  <td class="time-col">21:45</td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"><div class="show-block teal"><div class="show-block-inner"><div class="show-text"><div class="show-name">SHALOSH</div><div class="show-time">21:45</div></div></div></div></td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"></td>
+                </tr>
+                <tr data-day="3">
+                  <td class="time-col">22:30</td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">Las Piratas Piratas</div><div class="show-time">22:30</div></div></div></div></td>
+                  <td class="show-cell"></td>
+                </tr>
+                <tr data-day="4">
+                  <td class="time-col">11:00</td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">הדר נויברג</div><div class="show-time">11:00</div></div></div></div></td>
+                  <td class="show-cell"></td>
+                </tr>
+                <tr data-day="4">
+                  <td class="time-col">12:30</td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"><div class="show-block teal"><div class="show-block-inner"><div class="show-text"><div class="show-name">Anat Cohen</div><div class="show-time">12:30</div></div></div></div></td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"></td>
+                </tr>
+                <tr data-day="4">
+                  <td class="time-col">13:45</td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">עידית מינצר ויחזקאל רז</div><div class="show-time">13:45</div></div></div></div></td>
+                  <td class="show-cell"></td>
+                </tr>
+                <tr data-day="4">
+                  <td class="time-col">14:45</td>
+                  <td class="show-cell"><div class="show-block"><div class="show-block-inner"><div class="show-text"><div class="show-name">תזמורת הג׳אז הישראלית</div><div class="show-time">14:45</div></div></div></div></td>
+                  <td class="show-cell"></td>
+                  <td class="show-cell"></td>
                   <td class="show-cell"></td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <p style="text-align:center; color:var(--muted); font-size:0.82rem; margin-top:1rem;">* לו״ז מלא יפורסם בקרוב</p>
         </div>
 
       </div>
@@ -2722,7 +2678,7 @@
       <span><a href="#">מדיניות פרטיות</a> · <a href="#">תנאי שימוש</a></span>
     </div>
   </footer>
-  </div><!-- /page-body -->
+  </main><!-- /page-body -->
 
   <!-- ── LEAFLET MAP ── -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -2768,29 +2724,29 @@
         {
           latlng: [29.5182, 34.9228],
           color:  '#FF6B1A',
-          label:  '🟠',
-          name:   '🟠 במה ראשית',
+          label:  'P',
+          name:   'Port arena',
           sub:    'כיכר הנמל',
         },
         {
           latlng: [29.5200, 34.9210],
           color:  '#00C9C8',
-          label:  '🟦',
-          name:   '🟦 The Cove',
+          label:  'R',
+          name:   'Red Note Club',
           sub:    'המזח הצפוני',
         },
         {
           latlng: [29.5168, 34.9245],
           color:  '#FF6EB4',
-          label:  '🩷',
-          name:   '🩷 Club Stage',
+          label:  'D',
+          name:   'DE future',
           sub:    'המחסן הישן',
         },
         {
           latlng: [29.5148, 34.9218],
           color:  '#FFD234',
-          label:  '⭐',
-          name:   '🟡 Beach Stage',
+          label:  'T',
+          name:   'the present',
           sub:    'החוף הדרומי',
         },
       ];
@@ -2857,7 +2813,12 @@
       }, { passive: true });
     })();
 
-    function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+    function toggleMenu() {
+      const hb = document.getElementById('hamburger');
+      const isOpen = document.getElementById('navLinks')?.classList.contains('open');
+      if (hb) hb.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+      document.getElementById('navLinks').classList.toggle('open');
+    }
 
     // ── Language toggle ──────────────────────────────────────────
     function switchLang() {
@@ -2963,6 +2924,7 @@
       const menu    = document.getElementById('stageDropdownMenu');
       const open    = menu.classList.toggle('open');
       trigger.classList.toggle('open', open);
+      trigger.setAttribute('aria-expanded', String(open));
     }
 
     function toggleStageAll() {
@@ -2991,7 +2953,7 @@
     function updateStageDropdownLabel() {
       const label   = document.getElementById('stageDropdownLabel');
       const trigger = document.getElementById('stageDropdownTrigger');
-      const stageNames = { '1':'במה ראשית', '2':'The Cove', '3':'Club Stage', '4':'Beach Stage' };
+      const stageNames = { '1':'Port arena', '2':'Red Note Club', '3':'DE future', '4':'the present' };
       if (selectedStages.size === 0) {
         label.textContent = 'כל הבמות';
         trigger.classList.remove('has-selection');
@@ -3009,7 +2971,9 @@
       const dd = document.getElementById('stageDropdown');
       if (dd && !dd.contains(e.target)) {
         document.getElementById('stageDropdownMenu').classList.remove('open');
-        document.getElementById('stageDropdownTrigger').classList.remove('open');
+        const t = document.getElementById('stageDropdownTrigger');
+        t.classList.remove('open');
+        t.setAttribute('aria-expanded', 'false');
       }
     });
 
@@ -3227,93 +3191,52 @@
   <script>
     // ── Show panel artist data ────────────────────────────────────
     const showsData = {
-      'שלמה ארצי': {
-        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Shlomo_Artzi_at_Caesarea.jpg/250px-Shlomo_Artzi_at_Caesarea.jpg',
-        origin: 'ישראל', genre: 'פופ · רוק ישראלי', isHeadliner: true,
-        description: 'שלמה ארצי הוא אחד מגדולי הפופ הישראלי, עם קריירה של למעלה מחמישה עשורים. ידוע בקולו החם, בטקסטים הפואטיים ובנוכחות הבמה המרגשת שלו. בפסטיבל ג׳אז ים סוף הוא יציג מבחר מהיטיו הגדולים לצד חומר חדש — ערב שלא יישכח.'
-      },
-      'עידן עמדי': {
-        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/%D7%A2%D7%99%D7%93%D7%9F_%D7%A2%D7%9E%D7%93%D7%99%2C_%D7%A1%D7%9C%D7%99_%D7%91%D7%9F_%D7%90%D7%A8%D7%99%D7%94.jpg/250px-%D7%A2%D7%99%D7%93%D7%9F_%D7%A2%D7%9E%D7%93%D7%99%2C_%D7%A1%D7%9C%D7%99_%D7%91%D7%9F_%D7%90%D7%A8%D7%99%D7%94.jpg',
-        origin: 'ישראל', genre: 'פופ · סינגר-סונגרייטר', isHeadliner: false,
-        description: 'עידן עמדי הוא זמר-יוצר ישראלי שפרץ לתודעה עם שירים כמו "קצת" ו"פיקוח נפש". הסגנון הייחודי שלו משלב פופ עם ר&ב בטוויסט ישראלי. הופעתו בפסטיבל מבטיחה ערב אינטימי ומרגש על חוף ים סוף.'
-      },
-      'מירי מסיקה': {
-        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Miri_Mesika.webp/250px-Miri_Mesika.webp',
-        origin: 'ישראל', genre: 'פופ · מזרחי', isHeadliner: false,
-        description: 'מירי מסיקה היא אמנית פופ ומזרחי עם קריירה ענפה ורבת שנים בישראל. קולה הייחודי ונוכחות הבמה שלה הפכו אותה לאחת הזמרות האהובות. בפסטיבל היא תופיע עם להקה מלאה ותציג מיטב שיריה הפופולריים.'
-      },
-      'עידן רייכל': {
-        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/%D7%A2%D7%99%D7%93%D7%9F_%D7%A8%D7%99%D7%99%D7%9B%D7%9C%2C_%D7%96%D7%90%D7%A4%D7%94_%D7%AA%D7%9C_%D7%90%D7%91%D7%99%D7%91%2C_%D7%93%D7%A6%D7%9E%D7%91%D7%A8_2021.jpg/250px-%D7%A2%D7%99%D7%93%D7%9F_%D7%A8%D7%99%D7%99%D7%9B%D7%9C%2C_%D7%96%D7%90%D7%A4%D7%94_%D7%AA%D7%9C_%D7%90%D7%91%D7%99%D7%91%2C_%D7%93%D7%A6%D7%9E%D7%91%D7%A8_2021.jpg',
-        origin: 'ישראל', genre: 'עולם · Fusion', isHeadliner: true,
-        description: 'עידן רייכל הוא מוזיקאי, מלחין ומפיק ישראלי המשלב מוזיקת עולם, ג׳אז ואלקטרוניקה. יוצר הלהיט "מניסין" ועשרות שירים שכבשו לבבות. הופעותיו הן מסע מוזיקלי מרהיב המאחד בין מסורת לחדשנות.'
-      },
-      'עומר אדם': {
-        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Omer_Adam_1.jpg/250px-Omer_Adam_1.jpg',
-        origin: 'ישראל', genre: 'פופ · מזרחי', isHeadliner: false,
-        description: 'עומר אדם הוא אחת הכוכבות הבוהקות ביותר של הפופ הישראלי. ידוע בלהיטים כמו "על הדבר הזה" ו"ברית עולם". בפסטיבל הוא יביא את האנרגיה המפורסמת שלו על הבמה לצד קהל מוקסם.'
-      },
-      'קרן פלס': {
-        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Keren_Peles_1.jpg/250px-Keren_Peles_1.jpg',
-        origin: 'ישראל', genre: 'פופ · סינגר-סונגרייטר', isHeadliner: false,
-        description: 'קרן פלס היא זמרת-יוצרת ישראלית עם קול רב עוצמה ובלדות נוגעות ללב. ידועה בשירים כמו "אני אוהבת אותך" ו"מה שאני". הופעתה בפסטיבל תהיה ערב אינטימי עם להקה אקוסטית על רקע ים סוף.'
-      },
-      'רוני דלומי': {
-        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Roni_Dalumi_1.jpg/250px-Roni_Dalumi_1.jpg',
-        origin: 'ישראל', genre: 'פופ · נשמה', isHeadliner: false,
-        description: 'רוני דלומי היא זמרת ישראלית בעלת קול ייחודי ואינטנסיבי. שיריה מלאים ברגש ובכנות, ומשלבים בין פופ לשורשים מזרחיים. הופעתה בפסטיבל הולמת במיוחד את האווירה הים-תיכונית של אילת.'
-      },
-      'אייל גולן': {
-        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Eyal_Golan_1_%28cropped%29.jpg/250px-Eyal_Golan_1_%28cropped%29.jpg',
-        origin: 'ישראל', genre: 'פופ · מזרחי', isHeadliner: false,
-        description: 'אייל גולן הוא המלך הבלתי מעורער של הפופ המזרחי בישראל. עם עשרות להיטים ואלפי הופעות מרהיבות, הוא ידוע בנוכחות הבמה האדירה שלו. הופעתו בפסטיבל צפויה להיות אחד הרגעים הבלתי נשכחים של 2026.'
-      },
-      'איברי לידר': {
-        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Ivri_Lider_-_march_05%2C_2021.jpg/250px-Ivri_Lider_-_march_05%2C_2021.jpg',
-        origin: 'ישראל', genre: 'פופ · ר&ב', isHeadliner: false,
-        description: 'איברי לידר הוא זמר-יוצר ישראלי הידוע בקולו הגבוה ובשיריו הרגשיים. לאורך שנים פיתח קריירה מרשימה עם אלבומים מצליחים והופעות מרגשות. בפסטיבל הוא יציג מהיטיו ויביא את הכישרון הבימתי הייחודי שלו.'
-      },
-      'After Party': {
-        image: '', origin: 'DJ Set', genre: 'אלקטרוניקה · House', isHeadliner: false,
-        description: 'מסיבת הסיום של הלילה — DJ Set מיוחד שיפתח את רצפת הריקודים ויסגור את הערב בסטייל. מוזיקה בינלאומית ואנרגיה שתמשיך עד שעות הבוקר הראשונות.'
-      }
+      'אבות ובנים':               { image:'', origin:'ישראל', genre:'ג׳אז',              isHeadliner:false, description:'מפגש בין-דורי ייחודי בין אבות ובניהם המוסיקאים.' },
+      'The 3 Cohens':             { image:'', origin:'ישראל / ארה״ב', genre:'ג׳אז',       isHeadliner:true,  description:'שלושת האחים כהן – רוני, אנת ואלדר – מופיעים יחד בהרכב ייחודי.' },
+      'Lay Z Gordon':             { image:'', origin:'ישראל', genre:'ג׳אז / היפ-הופ',    isHeadliner:false, description:'נגן שופר וקול ייחודי המשלב ג׳אז עם השפעות עכשוויות.' },
+      'ג׳ימבו ג׳אז':              { image:'', origin:'ישראל', genre:'ג׳אז',              isHeadliner:false, description:'הרכב ג׳אז ישראלי אנרגטי ומרתק.' },
+      'שישיית קאי גלוסקא':        { image:'', origin:'ישראל', genre:'ג׳אז עכשווי',       isHeadliner:false, description:'שישיית הג׳אז של קאי גלוסקא – מוסיקה ישראלית עכשווית.' },
+      'ענת כהן':                  { image:'', origin:'ישראל', genre:'ג׳אז',              isHeadliner:true,  description:'Master Class עם ענת כהן – שיעור חי של אחת מגדולות אמניות הג׳אז העולמי.' },
+      'שלישיית אריאל ברט':        { image:'', origin:'ישראל', genre:'ג׳אז',              isHeadliner:false, description:'השקת אלבום חדש עם שלישיית אריאל ברט.' },
+      'Eli Degibri Quartet':      { image:'', origin:'ישראל', genre:'ג׳אז',              isHeadliner:true,  description:'רביעיית הג׳אז של אלי דה-ג׳יברי – מופע מיוחד לפסטיבל.' },
+      'רביעיית אוריאל הרמן':      { image:'', origin:'ישראל', genre:'ג׳אז',              isHeadliner:false, description:'הרמוניות ג׳אז עדינות ועשירות מהרביעייה של אוריאל הרמן.' },
+      'עידית מינצר – א':          { image:'', origin:'ישראל', genre:'וואקל ג׳אז',        isHeadliner:false, description:'חלק ראשון של מופע מיוחד עם עידית מינצר – קולנית ג׳אז מובילה.' },
+      'שלישיית יותם זילברשטיין':  { image:'', origin:'ישראל', genre:'ג׳אז',              isHeadliner:false, description:'שלישיית פסנתר-ג׳אז עם יותם זילברשטיין.' },
+      'שישיית חגי אמיר':          { image:'', origin:'ישראל', genre:'ג׳אז ישראלי',       isHeadliner:false, description:'שישיית הג׳אז של חגי אמיר מביאה מוסיקה ישראלית מקורית.' },
+      'חוה אלברשטיין':            { image:'', origin:'ישראל', genre:'מוסיקה ישראלית',   isHeadliner:true,  description:'ערב מיוחד עם גדולת הזמרת הישראלית – חוה אלברשטיין.' },
+      'SHALOSH':                  { image:'', origin:'ישראל', genre:'ג׳אז',              isHeadliner:false, description:'השקת אלבום חדש עם שלישיית SHALOSH.' },
+      'Las Piratas Piratas':      { image:'', origin:'ישראל', genre:'ג׳אז לטיני',        isHeadliner:false, description:'כניסה חופשית לערב ג׳אז לטיני חגיגי עם Las Piratas Piratas.' },
+      'הדר נויברג':               { image:'', origin:'ישראל', genre:'ג׳אז / פופ',        isHeadliner:false, description:'מופע מיוחד עם הדר נויברג.' },
+      'Anat Cohen':               { image:'', origin:'ישראל / ארה״ב', genre:'ג׳אז',       isHeadliner:true,  description:'ענת כהן כ-Artist Resident – גולת הכותרת של פסטיבל האדום 2026.' },
+      'עידית מינצר ויחזקאל רז':   { image:'', origin:'ישראל', genre:'וואקל ג׳אז',        isHeadliner:false, description:'חלק שני של מופע עידית מינצר – כעת בצוותא עם יחזקאל רז.' },
+      'תזמורת הג׳אז הישראלית':    { image:'', origin:'ישראל', genre:'ביג-בנד',           isHeadliner:true,  description:'הפקת מקור – מופע סיום מרהיב עם תזמורת הג׳אז הישראלית.' },
     };
-
-    const _stageNames  = { '1': 'במה ראשית', '2': 'The Cove', '3': 'Club Stage', '4': 'Beach Stage' };
+    const _stageNames  = { '1': 'Port arena', '2': 'Red Note Club', '3': 'DE future', '4': 'the present' };
     const _stageColors = { '1': 'var(--orange)', '2': 'var(--teal)', '3': 'var(--pink)', '4': 'var(--yellow)' };
     const _dayDates    = { '1': '11.11.2026 · יום ד׳', '2': '12.11.2026 · יום ה׳', '3': '13.11.2026 · יום ו׳', '4': '14.11.2026 · שבת' };
 
     // ── Artist shows data ─────────────────────────────────────────
     var artistShows = {
-      'שלמה ארצי': [
-        { stage: 'במה ראשית', color: 'var(--orange)', date: 'יום ה׳ · 12.11.2026', time: '22:00 – 24:00' }
-      ],
-      'עידן עמדי': [
-        { stage: 'במה ראשית', color: 'var(--orange)', date: 'יום ה׳ · 12.11.2026', time: '18:00 – 19:00' }
-      ],
-      'מירי מסיקה': [
-        { stage: 'Beach Stage', color: 'var(--yellow)', date: 'יום ה׳ · 12.11.2026', time: '18:30 – 19:30' }
-      ],
-      'עידן רייכל': [
-        { stage: 'The Cove', color: 'var(--teal)', date: 'יום ו׳ · 13.11.2026', time: '21:30 – 23:00' }
-      ],
-      'עומר אדם': [
-        { stage: 'The Cove', color: 'var(--teal)', date: 'יום ו׳ · 13.11.2026', time: '20:15 – 21:15' }
-      ],
-      'קרן פלס': [
-        { stage: 'The Cove', color: 'var(--teal)', date: 'יום ה׳ · 12.11.2026', time: '18:00 – 19:15' }
-      ],
-      'רוני דלומי': [
-        { stage: 'Club Stage',  color: 'var(--pink)',   date: 'יום ה׳ · 12.11.2026', time: '19:00 – 20:00' },
-        { stage: 'Beach Stage', color: 'var(--yellow)', date: 'יום ו׳ · 13.11.2026', time: '21:45 – 23:00' }
-      ],
-      'אייל גולן': [
-        { stage: 'Club Stage', color: 'var(--pink)', date: 'יום ה׳ · 12.11.2026', time: '20:30 – 22:00' }
-      ],
-      'איברי לידר': [
-        { stage: 'במה ראשית', color: 'var(--orange)', date: 'יום ה׳ · 12.11.2026', time: '20:00 – 21:30' }
-      ]
+      'אבות ובנים':              [{ stage:'Red Note Club', color:'var(--teal)',   date:'12.11.2026 · יום ה׳', time:'18:00' }],
+      'The 3 Cohens':            [{ stage:'Port arena',    color:'var(--orange)', date:'12.11.2026 · יום ה׳', time:'20:00' }],
+      'Lay Z Gordon':            [{ stage:'DE future',     color:'var(--pink)',   date:'12.11.2026 · יום ה׳', time:'21:00' }],
+      'ג׳ימבו ג׳אז':             [{ stage:'Port arena',    color:'var(--orange)', date:'12.11.2026 · יום ה׳', time:'22:30' }],
+      'שישיית קאי גלוסקא':       [{ stage:'DE future',     color:'var(--pink)',   date:'12.11.2026 · יום ה׳', time:'22:30' }],
+      'ענת כהן':                 [{ stage:'DE future',     color:'var(--pink)',   date:'13.11.2026 · יום ו׳', time:'09:30' }],
+      'שלישיית אריאל ברט':       [{ stage:'Red Note Club', color:'var(--teal)',   date:'13.11.2026 · יום ו׳', time:'11:00' }],
+      'Eli Degibri Quartet':     [{ stage:'Port arena',    color:'var(--orange)', date:'13.11.2026 · יום ו׳', time:'12:30' }],
+      'רביעיית אוריאל הרמן':     [{ stage:'Red Note Club', color:'var(--teal)',   date:'13.11.2026 · יום ו׳', time:'14:00' }],
+      'עידית מינצר – א':         [{ stage:'DE future',     color:'var(--pink)',   date:'13.11.2026 · יום ו׳', time:'15:15' }],
+      'שלישיית יותם זילברשטיין': [{ stage:'Red Note Club', color:'var(--teal)',   date:'13.11.2026 · יום ו׳', time:'16:30' }],
+      'שישיית חגי אמיר':         [{ stage:'DE future',     color:'var(--pink)',   date:'13.11.2026 · יום ו׳', time:'18:00' }],
+      'חוה אלברשטיין':           [{ stage:'Port arena',    color:'var(--orange)', date:'13.11.2026 · יום ו׳', time:'20:00' }],
+      'SHALOSH':                 [{ stage:'Red Note Club', color:'var(--teal)',   date:'13.11.2026 · יום ו׳', time:'21:45' }],
+      'Las Piratas Piratas':     [{ stage:'DE future',     color:'var(--pink)',   date:'13.11.2026 · יום ו׳', time:'22:30' }],
+      'הדר נויברג':              [{ stage:'DE future',     color:'var(--pink)',   date:'14.11.2026 · שבת',    time:'11:00' }],
+      'Anat Cohen':              [{ stage:'Red Note Club', color:'var(--teal)',   date:'14.11.2026 · שבת',    time:'12:30' }],
+      'עידית מינצר ויחזקאל רז':  [{ stage:'DE future',     color:'var(--pink)',   date:'14.11.2026 · שבת',    time:'13:45' }],
+      'תזמורת הג׳אז הישראלית':   [{ stage:'Port arena',    color:'var(--orange)', date:'14.11.2026 · שבת',    time:'14:45' }],
     };
-
     // ── Shared: populate image + name header ──────────────────────
     function _setPanelHeader(name) {
       var data = showsData[name] || {};
