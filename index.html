@@ -145,6 +145,21 @@
       border-color: var(--orange); color: var(--orange);
       transform: translateY(-2px);
     }
+    .nav-lang-sep {
+      width: 1px; height: 20px; flex-shrink: 0;
+      background: rgba(255,255,255,0.12);
+      margin-inline: 0.3rem;
+    }
+    .nav-btn-lang {
+      background: transparent;
+      color: rgba(245,239,230,0.65);
+      border: 1.5px solid rgba(255,255,255,0.18);
+      border-radius: 50px; padding: 0.45rem 0.9rem;
+      font-size: 0.85rem; font-weight: 600; cursor: pointer;
+      display: flex; align-items: center; gap: 0.35rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .nav-btn-lang:hover { border-color: rgba(255,255,255,0.45); color: var(--text); }
 
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
     .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
@@ -357,7 +372,7 @@
     }
     .hero-40-num {
       font-size: clamp(4rem, 12vw, 10rem); font-weight: 900;
-      background: linear-gradient(135deg, var(--orange), var(--yellow));
+      background: linear-gradient(161deg, var(--orange), #e84021);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
       filter: drop-shadow(0 0 40px rgba(255,210,52,0.6));
@@ -541,11 +556,12 @@
       border-bottom: 1px solid rgba(255,255,255,0.09);
     }
     .about-stats {
-      display: flex; gap: 2rem; flex-wrap: wrap;
+      display: flex; flex-wrap: wrap;
       justify-content: center; align-items: center;
     }
     .stat {
-      text-align: center; padding: 0.5rem 2rem;
+      text-align: center; padding: 0.5rem 0;
+      flex: 1; min-width: 120px;
       border-inline-end: 1px solid var(--border);
     }
     .stat:last-child { border-inline-end: none; }
@@ -715,7 +731,7 @@
 
     .artist-info { padding: 1.2rem; }
     .artist-name { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.3rem; }
-    .artist-origin { font-size: 0.8rem; color: var(--teal); letter-spacing: 0.05em; }
+    .artist-origin { font-size: 0.8rem; color: var(--teal); letter-spacing: 0; }
     .artist-tag {
       display: inline-block; margin-top: 0.6rem;
       background: rgba(255,107,26,0.15); color: var(--orange);
@@ -724,7 +740,7 @@
 
     /* Headliner tag */
     .headliner-badge {
-      position: absolute; top: 12px; right: 12px;
+      position: absolute; top: 12px; inset-inline-start: 12px;
       background: linear-gradient(135deg, var(--orange), var(--red));
       color: #fff; border-radius: 50px; padding: 0.25rem 0.8rem;
       font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
@@ -800,7 +816,7 @@
     .stage-dropdown-menu {
       position: absolute;
       top: calc(100% + 8px);
-      left: 0;
+      inset-inline-start: 0;
       min-width: 190px;
       background: #12141f;
       border: 1px solid var(--border);
@@ -945,7 +961,7 @@
     .schedule-table { width: 100%; border-collapse: collapse; }
     .schedule-table th {
       padding: 1rem; text-align: center;
-      font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
+      font-size: 0.8rem; letter-spacing: 0; text-transform: uppercase;
       color: var(--orange); border-bottom: 1px solid var(--border);
     }
     .time-col { color: var(--muted); font-size: 0.85rem; padding: 0.8rem 1rem; white-space: nowrap; }
@@ -1030,9 +1046,9 @@
     .hotel-banner {
       position: relative; overflow: hidden;
       border-radius: 24px;
-      background: linear-gradient(135deg, #0a0018 0%, #100820 35%, #1a0a08 65%, #0a1020 100%);
+      background: #0a0416;
       border: 1px solid rgba(255,107,26,0.25);
-      padding: 3.5rem;
+      padding: 2.5rem 3.5rem;
       display: flex; align-items: center; justify-content: space-between; gap: 2rem;
       flex-wrap: wrap;
       cursor: pointer;
@@ -1058,31 +1074,26 @@
     }
     /* Background photo layer */
     .banner-bg-photo {
-      position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+      position: absolute;
+      left: -161px; top: -1px;
+      width: 1013px; height: 105%;
+      z-index: 0; pointer-events: none; overflow: hidden;
     }
     .banner-bg-photo img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: center;
-      opacity: 0.30;
+      position: absolute;
+      left: 0; top: -34%;
+      width: 100%; height: 135%;
+      object-fit: cover; object-position: center top;
       display: block;
     }
-    /* Dark overlay on top of photo to keep text on dark bg */
+    /* Gradient overlay inside the image container */
     .banner-photo-overlay {
       position: absolute; inset: 0; z-index: 1; pointer-events: none;
-      background: linear-gradient(135deg,
-        rgba(10,0,24,0.55) 0%,
-        rgba(16,8,32,0.50) 35%,
-        rgba(26,10,8,0.52) 65%,
-        rgba(10,16,32,0.55) 100%
-      );
+      background: linear-gradient(to left, #0a0416 20%, rgba(10,4,22,0) 100%);
     }
 
     /* Eilat silhouette strip inside banner */
-    .banner-silhouette {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      height: 80px; opacity: 0.2; pointer-events: none; z-index: 2;
-    }
-    .banner-silhouette svg { width: 100%; height: 100%; }
+    .banner-silhouette { display: none; }
 
     .hotel-banner-content { position: relative; z-index: 2; }
     .hotel-banner-tag {
@@ -1091,7 +1102,7 @@
       border: 1px solid rgba(0,200,200,0.3);
       color: var(--teal); border-radius: 50px;
       padding: 0.3rem 1rem; font-size: 0.75rem; font-weight: 600;
-      letter-spacing: 0.1em; text-transform: uppercase;
+      letter-spacing: 0; text-transform: uppercase;
       margin-bottom: 1rem;
     }
     .hotel-banner-title {
@@ -1099,7 +1110,7 @@
       font-weight: 900; line-height: 1.15; margin-bottom: 0.8rem;
     }
     .hotel-banner-title .hl {
-      background: linear-gradient(135deg, var(--orange), var(--yellow));
+      background: linear-gradient(161deg, var(--orange), #e84021);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
     }
@@ -1108,10 +1119,10 @@
     .hotel-banner-cta { position: relative; z-index: 2; flex-shrink: 0; }
     .hotel-banner-btn {
       display: inline-flex; align-items: center; gap: 0.7rem;
-      background: linear-gradient(135deg, var(--orange), var(--red));
+      background: linear-gradient(153deg, var(--orange), #e84021);
       color: #fff; border: none; border-radius: 50px;
       padding: 1rem 2.2rem; font-size: 1rem; font-weight: 700;
-      letter-spacing: 0.04em; cursor: pointer;
+      letter-spacing: 0; cursor: pointer;
       box-shadow: 0 0 30px rgba(255,107,26,0.45);
       transition: transform 0.2s, box-shadow 0.2s;
       text-decoration: none;
@@ -1130,7 +1141,7 @@
     .hotel-logo-chip {
       background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
       border-radius: 8px; padding: 0.4rem 0.9rem;
-      font-size: 0.78rem; color: var(--muted); font-weight: 500;
+      font-size: 0.78rem; color: rgba(255,255,255,0.88); font-weight: 500;
     }
 
     /* ─── NEWS ─────────────────────────────────────────────────── */
@@ -1162,7 +1173,7 @@
       background: linear-gradient(to top, rgba(13,14,26,0.8), transparent 50%);
     }
     .news-body { padding: 1.3rem; }
-    .news-date { font-size: 0.75rem; color: var(--teal); letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+    .news-date { font-size: 0.75rem; color: var(--teal); letter-spacing: 0; margin-bottom: 0.5rem; }
     .news-title { font-size: 1rem; font-weight: 700; line-height: 1.4; margin-bottom: 0.5rem; }
     .news-excerpt { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
     .news-more { font-size: 0.82rem; color: var(--orange); margin-top: 0.8rem; display: flex; align-items: center; gap: 0.3rem; }
@@ -1222,7 +1233,7 @@
     }
     .venue-info-card:hover { border-color: rgba(0,200,200,0.3); }
     .venue-info-icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
-    .venue-info-title { font-size: 0.8rem; color: var(--teal); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem; }
+    .venue-info-title { font-size: 0.8rem; color: var(--teal); letter-spacing: 0; text-transform: uppercase; margin-bottom: 0.4rem; }
     .venue-info-text { font-size: 0.95rem; font-weight: 600; }
 
     /* ─── FOOTER ──────────────────────────────────────────────── */
@@ -1253,7 +1264,7 @@
       font-size: 1rem; transition: all 0.2s; cursor: pointer;
     }
     .social-btn:hover { background: rgba(255,107,26,0.2); border-color: var(--orange); }
-    .footer-col-title { font-size: 0.8rem; color: var(--orange); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1.2rem; font-weight: 600; }
+    .footer-col-title { font-size: 0.8rem; color: var(--orange); letter-spacing: 0; text-transform: uppercase; margin-bottom: 1.2rem; font-weight: 600; }
     .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
     .footer-links a { font-size: 0.9rem; color: var(--muted); transition: color 0.2s; }
     .footer-links a:hover { color: var(--text); }
@@ -1323,7 +1334,7 @@
       color: rgba(255,255,255,0.85);
       text-shadow: 0 4px 28px rgba(0,0,0,0.85);
       line-height: 1; text-align: center; direction: rtl;
-      letter-spacing: 0.02em;
+      letter-spacing: 0;
     }
     .artist-card.featured .artist-name-display { font-size: 2.9rem; }
     .artist-instr-icon { font-size: 1.5rem; opacity: 0.5; }
@@ -1354,13 +1365,13 @@
     .show-panel-overlay.open { opacity: 1; pointer-events: all; }
 
     .show-panel {
-      position: fixed; top: 0; left: 0; bottom: 0;
+      position: fixed; top: 0; inset-inline-start: 0; bottom: 0;
       width: 400px; max-width: 100vw;
       z-index: 301;
       background: var(--bg2);
-      border-right: 1px solid rgba(255,255,255,0.09);
-      box-shadow: 8px 0 56px rgba(0,0,0,0.75);
-      transform: translateX(-100%);
+      border-inline-end: 1px solid rgba(255,255,255,0.09);
+      box-shadow: -8px 0 56px rgba(0,0,0,0.75);
+      transform: translateX(100%);
       transition: transform 0.45s cubic-bezier(0.34,1.26,0.64,1);
       display: flex; flex-direction: column;
       overflow: hidden;
@@ -1396,7 +1407,7 @@
     }
 
     .show-panel-close {
-      position: absolute; top: 1rem; right: 1rem;
+      position: absolute; top: 1rem; inset-inline-end: 1rem;
       width: 36px; height: 36px;
       background: rgba(0,0,0,0.55);
       border: 1px solid rgba(255,255,255,0.22);
@@ -1409,7 +1420,7 @@
     .show-panel-close:hover { background: rgba(255,45,85,0.5); border-color: var(--red); }
 
     .show-panel-headliner-badge {
-      position: absolute; top: 1rem; left: 1rem;
+      position: absolute; top: 1rem; inset-inline-start: 1rem;
       background: linear-gradient(135deg, var(--orange), var(--red));
       color: #fff; border-radius: 50px;
       padding: 0.28rem 0.9rem;
@@ -1450,13 +1461,16 @@
       background: rgba(255,255,255,0.03);
       border: 1px solid var(--border);
       border-radius: 14px; padding: 1rem 1.2rem;
-      display: flex; flex-direction: column; gap: 0.8rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem 1rem;
     }
-    .show-panel-detail-item { display: flex; align-items: flex-start; gap: 0.8rem; }
+    .show-panel-detail-item { display: flex; align-items: flex-start; gap: 0.6rem; }
+    .show-panel-detail-item:last-child { grid-column: 1 / -1; }
     .show-panel-detail-icon { font-size: 1.05rem; margin-top: 1px; flex-shrink: 0; }
     .show-panel-detail-label {
       font-size: 0.68rem; color: var(--muted);
-      text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 0.12rem;
+      text-transform: uppercase; letter-spacing: 0; margin-bottom: 0.12rem;
     }
     .show-panel-detail-val { font-size: 0.92rem; font-weight: 600; }
 
@@ -1489,13 +1503,13 @@
     .show-panel-ticket-btn:hover .ticket-arrow { transform: translateX(-3px); }
 
     @media (max-width: 480px) {
-      .show-panel { width: 100vw; border-right: none; }
+      .show-panel { width: 100vw; border-inline-end: none; }
     }
 
     /* ─── ARTIST MODE inside show panel ──────────────────────── */
     .ap-shows-label {
       font-size: 0.7rem; color: var(--muted);
-      text-transform: uppercase; letter-spacing: 0.12em;
+      text-transform: uppercase; letter-spacing: 0;
       margin-bottom: 0.75rem; font-weight: 600;
     }
     .ap-shows-list { display: flex; flex-direction: column; gap: 0.65rem; }
@@ -1548,23 +1562,25 @@
     <!-- Nav inner: links (center) + action buttons (left) -->
     <div class="nav-inner">
       <ul class="nav-links" id="navLinks">
-        <li><a href="#about">אודות</a></li>
-        <li><a href="#lineup">אמנים</a></li>
-        <li><a href="#schedule">לוח הופעות</a></li>
-        <li><a href="#hotels">מלונות</a></li>
-        <li><a href="#venue">מיקום</a></li>
-        <li><a href="#news">עדכונים</a></li>
+        <li><a href="#about" data-he="אודות" data-en="About">אודות</a></li>
+        <li><a href="#lineup" data-he="אמנים" data-en="Artists">אמנים</a></li>
+        <li><a href="#schedule" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
+        <li><a href="#hotels" data-he="מלונות" data-en="Hotels">מלונות</a></li>
+        <li><a href="#venue" data-he="מיקום" data-en="Location">מיקום</a></li>
+        <li><a href="#news" data-he="עדכונים" data-en="News">עדכונים</a></li>
       </ul>
 
       <div class="nav-actions">
-        <button class="nav-btn-secondary"
+        <button class="nav-btn-secondary" data-he="חבילות נופש" data-en="Stay Packages"
           onclick="document.getElementById('hotels').scrollIntoView({behavior:'smooth'})">
           חבילות נופש
         </button>
-        <button class="nav-btn-primary"
+        <button class="nav-btn-primary" data-he="כרטיסים" data-en="Tickets"
           onclick="document.getElementById('schedule').scrollIntoView({behavior:'smooth'})">
           כרטיסים
         </button>
+        <div class="nav-lang-sep"></div>
+        <button class="nav-btn-lang" id="langBtn" onclick="switchLang()">🇺🇸 EN</button>
         <div class="hamburger" id="hamburger" onclick="toggleMenu()">
           <span></span><span></span><span></span>
         </div>
@@ -1872,10 +1888,9 @@
 
       <!-- Day filters – center (grid col 2) -->
       <div class="filter-row" id="dayFilters">
-        <button class="filter-btn active" onclick="filterDay(this,'1')">יום ד׳ · 11.11</button>
-        <button class="filter-btn" onclick="filterDay(this,'2')">יום ה׳ · 12.11</button>
-        <button class="filter-btn" onclick="filterDay(this,'3')">יום ו׳ · 13.11</button>
-        <button class="filter-btn" onclick="filterDay(this,'4')">שבת · 14.11</button>
+        <button class="filter-btn active" onclick="filterDay(this,'1')">יום ה׳ · 12.11</button>
+        <button class="filter-btn" onclick="filterDay(this,'2')">יום ו׳ · 13.11</button>
+        <button class="filter-btn" onclick="filterDay(this,'3')">שבת · 14.11</button>
       </div>
 
       <!-- Stage dropdown – left in RTL (grid col 3) -->
@@ -1925,7 +1940,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr data-day="2">
+            <tr data-day="1">
               <td class="time-col">18:00</td>
               <td class="show-cell" data-stage="1">
                 <div class="show-block">
@@ -1965,7 +1980,7 @@
                 </div>
               </td>
             </tr>
-            <tr data-day="2">
+            <tr data-day="1">
               <td class="time-col">19:00</td>
               <td class="show-cell" data-stage="1"></td>
               <td class="show-cell" data-stage="2"></td>
@@ -1983,7 +1998,7 @@
               </td>
               <td class="show-cell" data-stage="4"></td>
             </tr>
-            <tr data-day="2">
+            <tr data-day="1">
               <td class="time-col">20:00</td>
               <td class="show-cell" data-stage="1">
                 <div class="show-block">
@@ -2023,7 +2038,7 @@
               </td>
               <td class="show-cell" data-stage="4"></td>
             </tr>
-            <tr data-day="3">
+            <tr data-day="2">
               <td class="time-col">21:30</td>
               <td class="show-cell" data-stage="1"></td>
               <td class="show-cell" data-stage="2">
@@ -2052,7 +2067,7 @@
                 </div>
               </td>
             </tr>
-            <tr data-day="3">
+            <tr data-day="2">
               <td class="time-col">22:00</td>
               <td class="show-cell" data-stage="1">
                 <div class="show-block">
@@ -2081,6 +2096,115 @@
               </td>
               <td class="show-cell" data-stage="4"></td>
             </tr>
+            <tr data-day="3">
+              <td class="time-col">18:00</td>
+              <td class="show-cell" data-stage="1">
+                <div class="show-block">
+                  <div class="show-block-inner">
+                    <div class="show-thumb">🎷</div>
+                    <div class="show-text">
+                      <div class="show-name">Open Jazz Session</div>
+                      <div class="show-meta">ישראל</div>
+                      <div class="show-time">18:00 – 19:00</div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="show-cell" data-stage="2">
+                <div class="show-block teal">
+                  <div class="show-block-inner">
+                    <div class="show-thumb">🎹</div>
+                    <div class="show-text">
+                      <div class="show-name">Sunset Trio</div>
+                      <div class="show-meta">ישראל</div>
+                      <div class="show-time">18:00 – 19:15</div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="show-cell" data-stage="3"></td>
+              <td class="show-cell" data-stage="4">
+                <div class="show-block yellow">
+                  <div class="show-block-inner">
+                    <div class="show-thumb">🌅</div>
+                    <div class="show-text">
+                      <div class="show-name">Beach Jazz Closing</div>
+                      <div class="show-meta">International</div>
+                      <div class="show-time">18:30 – 19:30</div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr data-day="3">
+              <td class="time-col">20:00</td>
+              <td class="show-cell" data-stage="1">
+                <div class="show-block">
+                  <div class="show-block-inner">
+                    <div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Noa_Kirel_at_Eurovision_2023.jpg/250px-Noa_Kirel_at_Eurovision_2023.jpg" alt="נועה קירל" style="width:100%;height:100%;object-fit:cover"></div>
+                    <div class="show-text">
+                      <div class="show-name">נועה קירל</div>
+                      <div class="show-meta">ישראל</div>
+                      <div class="show-time">20:00 – 21:30</div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="show-cell" data-stage="2">
+                <div class="show-block teal">
+                  <div class="show-block-inner">
+                    <div class="show-thumb">🎺</div>
+                    <div class="show-text">
+                      <div class="show-name">Jazz Fusion Set</div>
+                      <div class="show-meta">International</div>
+                      <div class="show-time">20:15 – 21:15</div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="show-cell" data-stage="3">
+                <div class="show-block pink">
+                  <div class="show-block-inner">
+                    <div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Ninet_Tayeb.jpg/250px-Ninet_Tayeb.jpg" alt="נינט טייב" style="width:100%;height:100%;object-fit:cover"></div>
+                    <div class="show-text">
+                      <div class="show-name">נינט טייב</div>
+                      <div class="show-meta">ישראל</div>
+                      <div class="show-time">20:30 – 22:00</div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="show-cell" data-stage="4"></td>
+            </tr>
+            <tr data-day="3">
+              <td class="time-col">22:00</td>
+              <td class="show-cell" data-stage="1">
+                <div class="show-block">
+                  <div class="show-block-inner">
+                    <div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Ivri_Lider_-_march_05%2C_2021.jpg/250px-Ivri_Lider_-_march_05%2C_2021.jpg" alt="איברי לידר" style="width:100%;height:100%;object-fit:cover"></div>
+                    <div class="show-text">
+                      <div class="show-name">איברי לידר ★</div>
+                      <div class="show-meta">ישראל · Closing</div>
+                      <div class="show-time">22:00 – 24:00</div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="show-cell" data-stage="2"></td>
+              <td class="show-cell" data-stage="3">
+                <div class="show-block pink">
+                  <div class="show-block-inner">
+                    <div class="show-thumb">🎧</div>
+                    <div class="show-text">
+                      <div class="show-name">Closing Party</div>
+                      <div class="show-meta">DJ Set</div>
+                      <div class="show-time">23:00 – 02:00</div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="show-cell" data-stage="4"></td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -2092,7 +2216,7 @@
     <!-- Lineup list view -->
     <div class="schedule-view active" id="view-lineup">
       <div class="lineup-list">
-        <div class="lineup-list-item" data-stage="1" data-day="2">
+        <div class="lineup-list-item" data-stage="1" data-day="1">
           <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Shlomo_Artzi_at_Caesarea.jpg/250px-Shlomo_Artzi_at_Caesarea.jpg" alt="שלמה ארצי" style="width:100%;height:100%;object-fit:cover"></div>
           <div class="lineup-num">01</div>
           <div class="lineup-info">
@@ -2101,7 +2225,7 @@
           </div>
           <span class="lineup-stage stage-1">במה ראשית</span>
         </div>
-        <div class="lineup-list-item" data-stage="1" data-day="3">
+        <div class="lineup-list-item" data-stage="1" data-day="2">
           <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/%D7%A2%D7%99%D7%93%D7%9F_%D7%A8%D7%99%D7%99%D7%9B%D7%9C%2C_%D7%96%D7%90%D7%A4%D7%94_%D7%AA%D7%9C_%D7%90%D7%91%D7%99%D7%91%2C_%D7%93%D7%A6%D7%9E%D7%91%D7%A8_2021.jpg/250px-%D7%A2%D7%99%D7%93%D7%9F_%D7%A8%D7%99%D7%99%D7%9B%D7%9C%2C_%D7%96%D7%90%D7%A4%D7%94_%D7%AA%D7%9C_%D7%90%D7%91%D7%99%D7%91%2C_%D7%93%D7%A6%D7%9E%D7%91%D7%A8_2021.jpg" alt="עידן רייכל" style="width:100%;height:100%;object-fit:cover"></div>
           <div class="lineup-num">02</div>
           <div class="lineup-info">
@@ -2110,7 +2234,7 @@
           </div>
           <span class="lineup-stage stage-1">במה ראשית</span>
         </div>
-        <div class="lineup-list-item" data-stage="2" data-day="2">
+        <div class="lineup-list-item" data-stage="2" data-day="1">
           <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/%D7%A2%D7%99%D7%93%D7%9F_%D7%A2%D7%9E%D7%93%D7%99%2C_%D7%A1%D7%9C%D7%99_%D7%91%D7%9F_%D7%90%D7%A8%D7%99%D7%94.jpg/250px-%D7%A2%D7%99%D7%93%D7%9F_%D7%A2%D7%9E%D7%93%D7%99%2C_%D7%A1%D7%9C%D7%99_%D7%91%D7%9F_%D7%90%D7%A8%D7%99%D7%94.jpg" alt="עידן עמדי" style="width:100%;height:100%;object-fit:cover"></div>
           <div class="lineup-num">03</div>
           <div class="lineup-info">
@@ -2119,7 +2243,7 @@
           </div>
           <span class="lineup-stage stage-2">The Cove</span>
         </div>
-        <div class="lineup-list-item" data-stage="2" data-day="2">
+        <div class="lineup-list-item" data-stage="2" data-day="1">
           <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Eyal_Golan_1_%28cropped%29.jpg/250px-Eyal_Golan_1_%28cropped%29.jpg" alt="אייל גולן" style="width:100%;height:100%;object-fit:cover"></div>
           <div class="lineup-num">04</div>
           <div class="lineup-info">
@@ -2128,7 +2252,7 @@
           </div>
           <span class="lineup-stage stage-2">The Cove</span>
         </div>
-        <div class="lineup-list-item" data-stage="3" data-day="2">
+        <div class="lineup-list-item" data-stage="3" data-day="1">
           <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Keren_Peles_1.jpg/250px-Keren_Peles_1.jpg" alt="קרן פלס" style="width:100%;height:100%;object-fit:cover"></div>
           <div class="lineup-num">05</div>
           <div class="lineup-info">
@@ -2137,7 +2261,7 @@
           </div>
           <span class="lineup-stage stage-3">Club Stage</span>
         </div>
-        <div class="lineup-list-item" data-stage="4" data-day="2">
+        <div class="lineup-list-item" data-stage="4" data-day="1">
           <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Miri_Mesika.webp/250px-Miri_Mesika.webp" alt="מירי מסיקה" style="width:100%;height:100%;object-fit:cover"></div>
           <div class="lineup-num">06</div>
           <div class="lineup-info">
@@ -2146,8 +2270,35 @@
           </div>
           <span class="lineup-stage stage-4">Beach Stage</span>
         </div>
+        <div class="lineup-list-item" data-stage="1" data-day="3">
+          <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Noa_Kirel_at_Eurovision_2023.jpg/250px-Noa_Kirel_at_Eurovision_2023.jpg" alt="נועה קירל" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="lineup-num">07</div>
+          <div class="lineup-info">
+            <div class="lineup-name">נועה קירל</div>
+            <div class="lineup-details">ישראל · 14.11.2026 · 20:00</div>
+          </div>
+          <span class="lineup-stage stage-1">במה ראשית</span>
+        </div>
+        <div class="lineup-list-item" data-stage="1" data-day="3">
+          <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Ivri_Lider_-_march_05%2C_2021.jpg/250px-Ivri_Lider_-_march_05%2C_2021.jpg" alt="איברי לידר" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="lineup-num">08</div>
+          <div class="lineup-info">
+            <div class="lineup-name">איברי לידר</div>
+            <div class="lineup-details">ישראל · 14.11.2026 · 22:00</div>
+          </div>
+          <span class="lineup-stage stage-1">במה ראשית</span>
+        </div>
+        <div class="lineup-list-item" data-stage="3" data-day="3">
+          <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Ninet_Tayeb.jpg/250px-Ninet_Tayeb.jpg" alt="נינט טייב" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="lineup-num">09</div>
+          <div class="lineup-info">
+            <div class="lineup-name">נינט טייב</div>
+            <div class="lineup-details">ישראל · 14.11.2026 · 20:30</div>
+          </div>
+          <span class="lineup-stage stage-3">Club Stage</span>
+        </div>
         <div class="lineup-list-item" style="justify-content:center; opacity:0.5; pointer-events:none;">
-          <span style="font-size:0.9rem; color:var(--muted)">· · · עוד 34 הופעות יתווספו · · ·</span>
+          <span style="font-size:0.9rem; color:var(--muted)">· · · עוד 31 הופעות יתווספו · · ·</span>
         </div>
       </div>
 
@@ -2168,9 +2319,8 @@
       <!-- Background photo -->
       <div class="banner-bg-photo">
         <img src="./Graphig%20assets/banner2.png" alt="">
+        <div class="banner-photo-overlay"></div>
       </div>
-      <!-- Dark overlay over photo -->
-      <div class="banner-photo-overlay"></div>
       <!-- Silhouette strip -->
       <div class="banner-silhouette">
         <svg viewBox="0 0 1200 80" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
@@ -2310,55 +2460,55 @@
         <!-- Modal lineup list view (default) -->
         <div class="schedule-view active" id="modal-view-lineup">
           <div class="lineup-list">
-            <div class="lineup-list-item" data-stage="1" data-day="2">
+            <div class="lineup-list-item" data-stage="1" data-day="1">
               <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Shlomo_Artzi_at_Caesarea.jpg/250px-Shlomo_Artzi_at_Caesarea.jpg" alt="שלמה ארצי" style="width:100%;height:100%;object-fit:cover"></div>
               <div class="lineup-num">01</div>
               <div class="lineup-info"><div class="lineup-name">שלמה ארצי</div><div class="lineup-details">ישראל · 12.11 · 22:00</div></div>
               <span class="lineup-stage stage-1">במה ראשית</span>
             </div>
-            <div class="lineup-list-item" data-stage="2" data-day="2">
+            <div class="lineup-list-item" data-stage="2" data-day="1">
               <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/%D7%A2%D7%99%D7%93%D7%9F_%D7%A2%D7%9E%D7%93%D7%99%2C_%D7%A1%D7%9C%D7%99_%D7%91%D7%9F_%D7%90%D7%A8%D7%99%D7%94.jpg/250px-%D7%A2%D7%99%D7%93%D7%9F_%D7%A2%D7%9E%D7%93%D7%99%2C_%D7%A1%D7%9C%D7%99_%D7%91%D7%9F_%D7%90%D7%A8%D7%99%D7%94.jpg" alt="עידן עמדי" style="width:100%;height:100%;object-fit:cover"></div>
               <div class="lineup-num">02</div>
               <div class="lineup-info"><div class="lineup-name">עידן עמדי</div><div class="lineup-details">ישראל · 12.11 · 18:00</div></div>
               <span class="lineup-stage stage-2">The Cove</span>
             </div>
-            <div class="lineup-list-item" data-stage="3" data-day="2">
+            <div class="lineup-list-item" data-stage="3" data-day="1">
               <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Keren_Peles_1.jpg/250px-Keren_Peles_1.jpg" alt="קרן פלס" style="width:100%;height:100%;object-fit:cover"></div>
               <div class="lineup-num">03</div>
               <div class="lineup-info"><div class="lineup-name">קרן פלס</div><div class="lineup-details">ישראל · 12.11 · 19:00</div></div>
               <span class="lineup-stage stage-3">Club Stage</span>
             </div>
-            <div class="lineup-list-item" data-stage="4" data-day="2">
+            <div class="lineup-list-item" data-stage="4" data-day="1">
               <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Miri_Mesika.webp/250px-Miri_Mesika.webp" alt="מירי מסיקה" style="width:100%;height:100%;object-fit:cover"></div>
               <div class="lineup-num">04</div>
               <div class="lineup-info"><div class="lineup-name">מירי מסיקה</div><div class="lineup-details">ישראל · 12.11 · 18:30</div></div>
               <span class="lineup-stage stage-4">Beach Stage</span>
             </div>
-            <div class="lineup-list-item" data-stage="1" data-day="3">
+            <div class="lineup-list-item" data-stage="1" data-day="2">
               <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/%D7%A2%D7%99%D7%93%D7%9F_%D7%A8%D7%99%D7%99%D7%9B%D7%9C%2C_%D7%96%D7%90%D7%A4%D7%94_%D7%AA%D7%9C_%D7%90%D7%91%D7%99%D7%91%2C_%D7%93%D7%A6%D7%9E%D7%91%D7%A8_2021.jpg/250px-%D7%A2%D7%99%D7%93%D7%9F_%D7%A8%D7%99%D7%99%D7%9B%D7%9C%2C_%D7%96%D7%90%D7%A4%D7%94_%D7%AA%D7%9C_%D7%90%D7%91%D7%99%D7%91%2C_%D7%93%D7%A6%D7%9E%D7%91%D7%A8_2021.jpg" alt="עידן רייכל" style="width:100%;height:100%;object-fit:cover"></div>
               <div class="lineup-num">05</div>
               <div class="lineup-info"><div class="lineup-name">עידן רייכל</div><div class="lineup-details">ישראל · 13.11 · 22:00</div></div>
               <span class="lineup-stage stage-1">במה ראשית</span>
             </div>
-            <div class="lineup-list-item" data-stage="2" data-day="3">
+            <div class="lineup-list-item" data-stage="2" data-day="2">
               <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Omer_Adam_1.jpg/250px-Omer_Adam_1.jpg" alt="עומר אדם" style="width:100%;height:100%;object-fit:cover"></div>
               <div class="lineup-num">06</div>
               <div class="lineup-info"><div class="lineup-name">עומר אדם</div><div class="lineup-details">ישראל · 13.11 · 21:30</div></div>
               <span class="lineup-stage stage-2">The Cove</span>
             </div>
-            <div class="lineup-list-item" data-stage="3" data-day="3">
+            <div class="lineup-list-item" data-stage="3" data-day="2">
               <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Eyal_Golan_1_%28cropped%29.jpg/250px-Eyal_Golan_1_%28cropped%29.jpg" alt="אייל גולן" style="width:100%;height:100%;object-fit:cover"></div>
               <div class="lineup-num">07</div>
               <div class="lineup-info"><div class="lineup-name">אייל גולן</div><div class="lineup-details">ישראל · 13.11 · 20:30</div></div>
               <span class="lineup-stage stage-3">Club Stage</span>
             </div>
-            <div class="lineup-list-item" data-stage="4" data-day="3">
+            <div class="lineup-list-item" data-stage="4" data-day="2">
               <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Roni_Dalumi_1.jpg/250px-Roni_Dalumi_1.jpg" alt="רוני דלומי" style="width:100%;height:100%;object-fit:cover"></div>
               <div class="lineup-num">08</div>
               <div class="lineup-info"><div class="lineup-name">רוני דלומי</div><div class="lineup-details">ישראל · 13.11 · 21:45</div></div>
               <span class="lineup-stage stage-4">Beach Stage</span>
             </div>
-            <div class="lineup-list-item" data-stage="1" data-day="4">
+            <div class="lineup-list-item" data-stage="1" data-day="3">
               <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Ivri_Lider_-_march_05%2C_2021.jpg/250px-Ivri_Lider_-_march_05%2C_2021.jpg" alt="איברי לידר" style="width:100%;height:100%;object-fit:cover"></div>
               <div class="lineup-num">09</div>
               <div class="lineup-info"><div class="lineup-name">איברי לידר</div><div class="lineup-details">ישראל · 14.11 · 20:00</div></div>
@@ -2595,6 +2745,15 @@
     })();
 
     function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+
+    // ── Language toggle ──────────────────────────────────────────
+    function switchLang() {
+      const isEn = document.documentElement.classList.toggle('lang-en');
+      document.querySelectorAll('[data-he][data-en]').forEach(el => {
+        el.textContent = isEn ? el.dataset.en : el.dataset.he;
+      });
+      document.getElementById('langBtn').textContent = isEn ? '🇮🇱 HE' : '🇺🇸 EN';
+    }
 
     // ── Pill toggle helper ────────────────────────────────────────
     function positionPill(toggleEl, indicatorEl, activeBtn) {
@@ -2916,9 +3075,6 @@
 
       <!-- SHOW MODE content -->
       <div id="panelShowMode">
-        <div style="margin-top:-0.2rem">
-          <span class="show-panel-stage-pill" id="panelStagePill"></span>
-        </div>
         <div class="show-panel-details">
           <div class="show-panel-detail-item">
             <span class="show-panel-detail-icon">&#x1F4C5;</span>
@@ -3076,10 +3232,6 @@
       document.getElementById('panelTime').textContent  = ctx.time  || '';
       document.getElementById('panelStage').textContent = ctx.stage || '';
       document.getElementById('panelDesc').textContent  = (showsData[name] || {}).description || '';
-
-      var pill = document.getElementById('panelStagePill');
-      pill.textContent = ctx.stage || '';
-      pill.style.color = pill.style.borderColor = color;
 
       document.getElementById('panelShowMode').style.display   = '';
       document.getElementById('panelArtistMode').style.display = 'none';
