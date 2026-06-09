@@ -1465,7 +1465,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 0.8rem 1rem;
     }
-    .show-panel-detail-item { display: flex; align-items: flex-start; gap: 0.6rem; }
+    .show-panel-detail-item { display: flex; align-items: flex-start; }
     .show-panel-detail-item:last-child { grid-column: 1 / -1; }
     .show-panel-detail-icon { font-size: 1.05rem; margin-top: 1px; flex-shrink: 0; }
     .show-panel-detail-label {
@@ -1888,9 +1888,10 @@
 
       <!-- Day filters – center (grid col 2) -->
       <div class="filter-row" id="dayFilters">
-        <button class="filter-btn active" onclick="filterDay(this,'1')">יום ה׳ · 12.11</button>
-        <button class="filter-btn" onclick="filterDay(this,'2')">יום ו׳ · 13.11</button>
-        <button class="filter-btn" onclick="filterDay(this,'3')">שבת · 14.11</button>
+        <button class="filter-btn active" onclick="filterDay(this,'1')">יום ד׳ · 11.11</button>
+        <button class="filter-btn" onclick="filterDay(this,'2')">יום ה׳ · 12.11</button>
+        <button class="filter-btn" onclick="filterDay(this,'3')">יום ו׳ · 13.11</button>
+        <button class="filter-btn" onclick="filterDay(this,'4')">שבת · 14.11</button>
       </div>
 
       <!-- Stage dropdown – left in RTL (grid col 3) -->
@@ -1942,6 +1943,82 @@
           <tbody>
             <tr data-day="1">
               <td class="time-col">18:00</td>
+              <td class="show-cell" data-stage="1"></td>
+              <td class="show-cell" data-stage="2">
+                <div class="show-block teal">
+                  <div class="show-block-inner">
+                    <div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/en/2/23/Hadag_Nahash_Logo.jpg" alt="הדג נחש" style="width:100%;height:100%;object-fit:cover"></div>
+                    <div class="show-text">
+                      <div class="show-name">הדג נחש</div>
+                      <div class="show-meta">ישראל</div>
+                      <div class="show-time">18:00 – 19:30</div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="show-cell" data-stage="3"></td>
+              <td class="show-cell" data-stage="4"></td>
+            </tr>
+            <tr data-day="1">
+              <td class="time-col">20:00</td>
+              <td class="show-cell" data-stage="1">
+                <div class="show-block">
+                  <div class="show-block-inner">
+                    <div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/%D7%90%D7%99%D7%AA%D7%99_%D7%96%D7%91%D7%95%D7%9C%D7%95%D7%9F_%D7%98%D7%95%D7%A0%D7%94.jpg/250px-%D7%90%D7%99%D7%AA%D7%99_%D7%96%D7%91%D7%95%D7%9C%D7%95%D7%9F_%D7%98%D7%95%D7%A0%D7%94.jpg" alt="טונה" style="width:100%;height:100%;object-fit:cover"></div>
+                    <div class="show-text">
+                      <div class="show-name">טונה</div>
+                      <div class="show-meta">ישראל</div>
+                      <div class="show-time">20:00 – 21:15</div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="show-cell" data-stage="2"></td>
+              <td class="show-cell" data-stage="3">
+                <div class="show-block pink">
+                  <div class="show-block-inner">
+                    <div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Subliminal_star_of_david.jpg/250px-Subliminal_star_of_david.jpg" alt="סבלימינאל" style="width:100%;height:100%;object-fit:cover"></div>
+                    <div class="show-text">
+                      <div class="show-name">סבלימינאל</div>
+                      <div class="show-meta">ישראל</div>
+                      <div class="show-time">20:30 – 21:45</div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="show-cell" data-stage="4"></td>
+            </tr>
+            <tr data-day="1">
+              <td class="time-col">22:00</td>
+              <td class="show-cell" data-stage="1">
+                <div class="show-block">
+                  <div class="show-block-inner">
+                    <div class="show-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Ravidplotnik3.jpeg/250px-Ravidplotnik3.jpeg" alt="רביד פלוטניק" style="width:100%;height:100%;object-fit:cover"></div>
+                    <div class="show-text">
+                      <div class="show-name">רביד פלוטניק ★</div>
+                      <div class="show-meta">ישראל · Headliner</div>
+                      <div class="show-time">22:00 – 23:30</div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="show-cell" data-stage="2"></td>
+              <td class="show-cell" data-stage="3">
+                <div class="show-block pink">
+                  <div class="show-block-inner">
+                    <div class="show-thumb">🎧</div>
+                    <div class="show-text">
+                      <div class="show-name">After Party</div>
+                      <div class="show-meta">DJ Set</div>
+                      <div class="show-time">23:00 – 01:00</div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="show-cell" data-stage="4"></td>
+            </tr>
+            <tr data-day="2">
+              <td class="time-col">18:00</td>
               <td class="show-cell" data-stage="1">
                 <div class="show-block">
                   <div class="show-block-inner">
@@ -1980,7 +2057,7 @@
                 </div>
               </td>
             </tr>
-            <tr data-day="1">
+            <tr data-day="2">
               <td class="time-col">19:00</td>
               <td class="show-cell" data-stage="1"></td>
               <td class="show-cell" data-stage="2"></td>
@@ -1998,7 +2075,7 @@
               </td>
               <td class="show-cell" data-stage="4"></td>
             </tr>
-            <tr data-day="1">
+            <tr data-day="2">
               <td class="time-col">20:00</td>
               <td class="show-cell" data-stage="1">
                 <div class="show-block">
@@ -2038,7 +2115,7 @@
               </td>
               <td class="show-cell" data-stage="4"></td>
             </tr>
-            <tr data-day="2">
+            <tr data-day="3">
               <td class="time-col">21:30</td>
               <td class="show-cell" data-stage="1"></td>
               <td class="show-cell" data-stage="2">
@@ -2067,7 +2144,7 @@
                 </div>
               </td>
             </tr>
-            <tr data-day="2">
+            <tr data-day="3">
               <td class="time-col">22:00</td>
               <td class="show-cell" data-stage="1">
                 <div class="show-block">
@@ -2096,7 +2173,7 @@
               </td>
               <td class="show-cell" data-stage="4"></td>
             </tr>
-            <tr data-day="3">
+            <tr data-day="4">
               <td class="time-col">18:00</td>
               <td class="show-cell" data-stage="1">
                 <div class="show-block">
@@ -2136,7 +2213,7 @@
                 </div>
               </td>
             </tr>
-            <tr data-day="3">
+            <tr data-day="4">
               <td class="time-col">20:00</td>
               <td class="show-cell" data-stage="1">
                 <div class="show-block">
@@ -2176,7 +2253,7 @@
               </td>
               <td class="show-cell" data-stage="4"></td>
             </tr>
-            <tr data-day="3">
+            <tr data-day="4">
               <td class="time-col">22:00</td>
               <td class="show-cell" data-stage="1">
                 <div class="show-block">
@@ -2217,6 +2294,42 @@
     <div class="schedule-view active" id="view-lineup">
       <div class="lineup-list">
         <div class="lineup-list-item" data-stage="1" data-day="1">
+          <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Ravidplotnik3.jpeg/250px-Ravidplotnik3.jpeg" alt="רביד פלוטניק" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="lineup-num">01</div>
+          <div class="lineup-info">
+            <div class="lineup-name">רביד פלוטניק</div>
+            <div class="lineup-details">ישראל · 11.11.2026 · 22:00</div>
+          </div>
+          <span class="lineup-stage stage-1">במה ראשית</span>
+        </div>
+        <div class="lineup-list-item" data-stage="1" data-day="1">
+          <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/%D7%90%D7%99%D7%AA%D7%99_%D7%96%D7%91%D7%95%D7%9C%D7%95%D7%9F_%D7%98%D7%95%D7%A0%D7%94.jpg/250px-%D7%90%D7%99%D7%AA%D7%99_%D7%96%D7%91%D7%95%D7%9C%D7%95%D7%9F_%D7%98%D7%95%D7%A0%D7%94.jpg" alt="טונה" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="lineup-num">02</div>
+          <div class="lineup-info">
+            <div class="lineup-name">טונה</div>
+            <div class="lineup-details">ישראל · 11.11.2026 · 20:00</div>
+          </div>
+          <span class="lineup-stage stage-1">במה ראשית</span>
+        </div>
+        <div class="lineup-list-item" data-stage="2" data-day="1">
+          <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/en/2/23/Hadag_Nahash_Logo.jpg" alt="הדג נחש" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="lineup-num">03</div>
+          <div class="lineup-info">
+            <div class="lineup-name">הדג נחש</div>
+            <div class="lineup-details">ישראל · 11.11.2026 · 18:00</div>
+          </div>
+          <span class="lineup-stage stage-2">The Cove</span>
+        </div>
+        <div class="lineup-list-item" data-stage="3" data-day="1">
+          <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Subliminal_star_of_david.jpg/250px-Subliminal_star_of_david.jpg" alt="סבלימינאל" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="lineup-num">04</div>
+          <div class="lineup-info">
+            <div class="lineup-name">סבלימינאל</div>
+            <div class="lineup-details">ישראל · 11.11.2026 · 20:30</div>
+          </div>
+          <span class="lineup-stage stage-3">Club Stage</span>
+        </div>
+        <div class="lineup-list-item" data-stage="1" data-day="2">
           <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Shlomo_Artzi_at_Caesarea.jpg/250px-Shlomo_Artzi_at_Caesarea.jpg" alt="שלמה ארצי" style="width:100%;height:100%;object-fit:cover"></div>
           <div class="lineup-num">01</div>
           <div class="lineup-info">
@@ -2225,7 +2338,7 @@
           </div>
           <span class="lineup-stage stage-1">במה ראשית</span>
         </div>
-        <div class="lineup-list-item" data-stage="1" data-day="2">
+        <div class="lineup-list-item" data-stage="1" data-day="3">
           <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/%D7%A2%D7%99%D7%93%D7%9F_%D7%A8%D7%99%D7%99%D7%9B%D7%9C%2C_%D7%96%D7%90%D7%A4%D7%94_%D7%AA%D7%9C_%D7%90%D7%91%D7%99%D7%91%2C_%D7%93%D7%A6%D7%9E%D7%91%D7%A8_2021.jpg/250px-%D7%A2%D7%99%D7%93%D7%9F_%D7%A8%D7%99%D7%99%D7%9B%D7%9C%2C_%D7%96%D7%90%D7%A4%D7%94_%D7%AA%D7%9C_%D7%90%D7%91%D7%99%D7%91%2C_%D7%93%D7%A6%D7%9E%D7%91%D7%A8_2021.jpg" alt="עידן רייכל" style="width:100%;height:100%;object-fit:cover"></div>
           <div class="lineup-num">02</div>
           <div class="lineup-info">
@@ -2234,7 +2347,7 @@
           </div>
           <span class="lineup-stage stage-1">במה ראשית</span>
         </div>
-        <div class="lineup-list-item" data-stage="2" data-day="1">
+        <div class="lineup-list-item" data-stage="2" data-day="2">
           <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/%D7%A2%D7%99%D7%93%D7%9F_%D7%A2%D7%9E%D7%93%D7%99%2C_%D7%A1%D7%9C%D7%99_%D7%91%D7%9F_%D7%90%D7%A8%D7%99%D7%94.jpg/250px-%D7%A2%D7%99%D7%93%D7%9F_%D7%A2%D7%9E%D7%93%D7%99%2C_%D7%A1%D7%9C%D7%99_%D7%91%D7%9F_%D7%90%D7%A8%D7%99%D7%94.jpg" alt="עידן עמדי" style="width:100%;height:100%;object-fit:cover"></div>
           <div class="lineup-num">03</div>
           <div class="lineup-info">
@@ -2243,7 +2356,7 @@
           </div>
           <span class="lineup-stage stage-2">The Cove</span>
         </div>
-        <div class="lineup-list-item" data-stage="2" data-day="1">
+        <div class="lineup-list-item" data-stage="2" data-day="2">
           <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Eyal_Golan_1_%28cropped%29.jpg/250px-Eyal_Golan_1_%28cropped%29.jpg" alt="אייל גולן" style="width:100%;height:100%;object-fit:cover"></div>
           <div class="lineup-num">04</div>
           <div class="lineup-info">
@@ -2252,7 +2365,7 @@
           </div>
           <span class="lineup-stage stage-2">The Cove</span>
         </div>
-        <div class="lineup-list-item" data-stage="3" data-day="1">
+        <div class="lineup-list-item" data-stage="3" data-day="2">
           <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Keren_Peles_1.jpg/250px-Keren_Peles_1.jpg" alt="קרן פלס" style="width:100%;height:100%;object-fit:cover"></div>
           <div class="lineup-num">05</div>
           <div class="lineup-info">
@@ -2261,7 +2374,7 @@
           </div>
           <span class="lineup-stage stage-3">Club Stage</span>
         </div>
-        <div class="lineup-list-item" data-stage="4" data-day="1">
+        <div class="lineup-list-item" data-stage="4" data-day="2">
           <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Miri_Mesika.webp/250px-Miri_Mesika.webp" alt="מירי מסיקה" style="width:100%;height:100%;object-fit:cover"></div>
           <div class="lineup-num">06</div>
           <div class="lineup-info">
@@ -2270,7 +2383,7 @@
           </div>
           <span class="lineup-stage stage-4">Beach Stage</span>
         </div>
-        <div class="lineup-list-item" data-stage="1" data-day="3">
+        <div class="lineup-list-item" data-stage="1" data-day="4">
           <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Noa_Kirel_at_Eurovision_2023.jpg/250px-Noa_Kirel_at_Eurovision_2023.jpg" alt="נועה קירל" style="width:100%;height:100%;object-fit:cover"></div>
           <div class="lineup-num">07</div>
           <div class="lineup-info">
@@ -2279,7 +2392,7 @@
           </div>
           <span class="lineup-stage stage-1">במה ראשית</span>
         </div>
-        <div class="lineup-list-item" data-stage="1" data-day="3">
+        <div class="lineup-list-item" data-stage="1" data-day="4">
           <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Ivri_Lider_-_march_05%2C_2021.jpg/250px-Ivri_Lider_-_march_05%2C_2021.jpg" alt="איברי לידר" style="width:100%;height:100%;object-fit:cover"></div>
           <div class="lineup-num">08</div>
           <div class="lineup-info">
@@ -2288,7 +2401,7 @@
           </div>
           <span class="lineup-stage stage-1">במה ראשית</span>
         </div>
-        <div class="lineup-list-item" data-stage="3" data-day="3">
+        <div class="lineup-list-item" data-stage="3" data-day="4">
           <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Ninet_Tayeb.jpg/250px-Ninet_Tayeb.jpg" alt="נינט טייב" style="width:100%;height:100%;object-fit:cover"></div>
           <div class="lineup-num">09</div>
           <div class="lineup-info">
@@ -2460,55 +2573,55 @@
         <!-- Modal lineup list view (default) -->
         <div class="schedule-view active" id="modal-view-lineup">
           <div class="lineup-list">
-            <div class="lineup-list-item" data-stage="1" data-day="1">
+            <div class="lineup-list-item" data-stage="1" data-day="2">
               <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Shlomo_Artzi_at_Caesarea.jpg/250px-Shlomo_Artzi_at_Caesarea.jpg" alt="שלמה ארצי" style="width:100%;height:100%;object-fit:cover"></div>
               <div class="lineup-num">01</div>
               <div class="lineup-info"><div class="lineup-name">שלמה ארצי</div><div class="lineup-details">ישראל · 12.11 · 22:00</div></div>
               <span class="lineup-stage stage-1">במה ראשית</span>
             </div>
-            <div class="lineup-list-item" data-stage="2" data-day="1">
+            <div class="lineup-list-item" data-stage="2" data-day="2">
               <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/%D7%A2%D7%99%D7%93%D7%9F_%D7%A2%D7%9E%D7%93%D7%99%2C_%D7%A1%D7%9C%D7%99_%D7%91%D7%9F_%D7%90%D7%A8%D7%99%D7%94.jpg/250px-%D7%A2%D7%99%D7%93%D7%9F_%D7%A2%D7%9E%D7%93%D7%99%2C_%D7%A1%D7%9C%D7%99_%D7%91%D7%9F_%D7%90%D7%A8%D7%99%D7%94.jpg" alt="עידן עמדי" style="width:100%;height:100%;object-fit:cover"></div>
               <div class="lineup-num">02</div>
               <div class="lineup-info"><div class="lineup-name">עידן עמדי</div><div class="lineup-details">ישראל · 12.11 · 18:00</div></div>
               <span class="lineup-stage stage-2">The Cove</span>
             </div>
-            <div class="lineup-list-item" data-stage="3" data-day="1">
+            <div class="lineup-list-item" data-stage="3" data-day="2">
               <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Keren_Peles_1.jpg/250px-Keren_Peles_1.jpg" alt="קרן פלס" style="width:100%;height:100%;object-fit:cover"></div>
               <div class="lineup-num">03</div>
               <div class="lineup-info"><div class="lineup-name">קרן פלס</div><div class="lineup-details">ישראל · 12.11 · 19:00</div></div>
               <span class="lineup-stage stage-3">Club Stage</span>
             </div>
-            <div class="lineup-list-item" data-stage="4" data-day="1">
+            <div class="lineup-list-item" data-stage="4" data-day="2">
               <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Miri_Mesika.webp/250px-Miri_Mesika.webp" alt="מירי מסיקה" style="width:100%;height:100%;object-fit:cover"></div>
               <div class="lineup-num">04</div>
               <div class="lineup-info"><div class="lineup-name">מירי מסיקה</div><div class="lineup-details">ישראל · 12.11 · 18:30</div></div>
               <span class="lineup-stage stage-4">Beach Stage</span>
             </div>
-            <div class="lineup-list-item" data-stage="1" data-day="2">
+            <div class="lineup-list-item" data-stage="1" data-day="3">
               <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/%D7%A2%D7%99%D7%93%D7%9F_%D7%A8%D7%99%D7%99%D7%9B%D7%9C%2C_%D7%96%D7%90%D7%A4%D7%94_%D7%AA%D7%9C_%D7%90%D7%91%D7%99%D7%91%2C_%D7%93%D7%A6%D7%9E%D7%91%D7%A8_2021.jpg/250px-%D7%A2%D7%99%D7%93%D7%9F_%D7%A8%D7%99%D7%99%D7%9B%D7%9C%2C_%D7%96%D7%90%D7%A4%D7%94_%D7%AA%D7%9C_%D7%90%D7%91%D7%99%D7%91%2C_%D7%93%D7%A6%D7%9E%D7%91%D7%A8_2021.jpg" alt="עידן רייכל" style="width:100%;height:100%;object-fit:cover"></div>
               <div class="lineup-num">05</div>
               <div class="lineup-info"><div class="lineup-name">עידן רייכל</div><div class="lineup-details">ישראל · 13.11 · 22:00</div></div>
               <span class="lineup-stage stage-1">במה ראשית</span>
             </div>
-            <div class="lineup-list-item" data-stage="2" data-day="2">
+            <div class="lineup-list-item" data-stage="2" data-day="3">
               <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Omer_Adam_1.jpg/250px-Omer_Adam_1.jpg" alt="עומר אדם" style="width:100%;height:100%;object-fit:cover"></div>
               <div class="lineup-num">06</div>
               <div class="lineup-info"><div class="lineup-name">עומר אדם</div><div class="lineup-details">ישראל · 13.11 · 21:30</div></div>
               <span class="lineup-stage stage-2">The Cove</span>
             </div>
-            <div class="lineup-list-item" data-stage="3" data-day="2">
+            <div class="lineup-list-item" data-stage="3" data-day="3">
               <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Eyal_Golan_1_%28cropped%29.jpg/250px-Eyal_Golan_1_%28cropped%29.jpg" alt="אייל גולן" style="width:100%;height:100%;object-fit:cover"></div>
               <div class="lineup-num">07</div>
               <div class="lineup-info"><div class="lineup-name">אייל גולן</div><div class="lineup-details">ישראל · 13.11 · 20:30</div></div>
               <span class="lineup-stage stage-3">Club Stage</span>
             </div>
-            <div class="lineup-list-item" data-stage="4" data-day="2">
+            <div class="lineup-list-item" data-stage="4" data-day="3">
               <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Roni_Dalumi_1.jpg/250px-Roni_Dalumi_1.jpg" alt="רוני דלומי" style="width:100%;height:100%;object-fit:cover"></div>
               <div class="lineup-num">08</div>
               <div class="lineup-info"><div class="lineup-name">רוני דלומי</div><div class="lineup-details">ישראל · 13.11 · 21:45</div></div>
               <span class="lineup-stage stage-4">Beach Stage</span>
             </div>
-            <div class="lineup-list-item" data-stage="1" data-day="3">
+            <div class="lineup-list-item" data-stage="1" data-day="4">
               <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Ivri_Lider_-_march_05%2C_2021.jpg/250px-Ivri_Lider_-_march_05%2C_2021.jpg" alt="איברי לידר" style="width:100%;height:100%;object-fit:cover"></div>
               <div class="lineup-num">09</div>
               <div class="lineup-info"><div class="lineup-name">איברי לידר</div><div class="lineup-details">ישראל · 14.11 · 20:00</div></div>
@@ -3064,42 +3177,38 @@
 
     <div class="show-panel-body">
 
-      <!-- common: name + sub (always shown) -->
+      <!-- common: name + sub + desc (always shown) -->
       <div>
         <div class="show-panel-name" id="panelName"></div>
         <div class="show-panel-sub">
           <span class="show-panel-origin" id="panelOrigin"></span>
           <span class="show-panel-genre-tag" id="panelGenre"></span>
         </div>
+        <p class="show-panel-desc" id="panelDesc" style="margin-top:0.8rem"></p>
       </div>
 
       <!-- SHOW MODE content -->
       <div id="panelShowMode">
         <div class="show-panel-details">
           <div class="show-panel-detail-item">
-            <span class="show-panel-detail-icon">&#x1F4C5;</span>
             <div>
               <div class="show-panel-detail-label">&#x05EA;&#x05D0;&#x05E8;&#x05D9;&#x05DA;</div>
               <div class="show-panel-detail-val" id="panelDate"></div>
             </div>
           </div>
           <div class="show-panel-detail-item">
-            <span class="show-panel-detail-icon">&#x1F550;</span>
             <div>
               <div class="show-panel-detail-label">&#x05E9;&#x05E2;&#x05D4;</div>
               <div class="show-panel-detail-val" id="panelTime"></div>
             </div>
           </div>
           <div class="show-panel-detail-item">
-            <span class="show-panel-detail-icon">&#x1F3AD;</span>
             <div>
               <div class="show-panel-detail-label">&#x05D1;&#x05DE;&#x05D4;</div>
               <div class="show-panel-detail-val" id="panelStage"></div>
             </div>
           </div>
         </div>
-        <div class="show-panel-divider"></div>
-        <p class="show-panel-desc" id="panelDesc"></p>
       </div>
 
       <!-- ARTIST MODE content -->
@@ -3109,7 +3218,7 @@
       </div>
 
       <a class="show-panel-ticket-btn" id="panelTicketBtn" href="#schedule" onclick="closeShowPanel()">
-        &#x1F3DF; &#x05E8;&#x05DB;&#x05D9;&#x05E9;&#x05EA; &#x05DB;&#x05E8;&#x05D8;&#x05D9;&#x05E1;&#x05D9;&#x05DD; <span class="ticket-arrow">&#x2190;</span>
+        &#x05E8;&#x05DB;&#x05D9;&#x05E9;&#x05EA; &#x05DB;&#x05E8;&#x05D8;&#x05D9;&#x05E1;&#x05D9;&#x05DD; <span class="ticket-arrow">&#x2190;</span>
       </a>
 
     </div>
@@ -3221,6 +3330,7 @@
       document.getElementById('panelName').textContent   = name;
       document.getElementById('panelOrigin').textContent = data.origin || '';
       document.getElementById('panelGenre').textContent  = data.genre  || '';
+      document.getElementById('panelDesc').textContent   = data.description || '';
     }
 
     // ── SHOW mode ────────────────────────────────────────────────
@@ -3231,7 +3341,6 @@
       document.getElementById('panelDate').textContent  = ctx.date  || '';
       document.getElementById('panelTime').textContent  = ctx.time  || '';
       document.getElementById('panelStage').textContent = ctx.stage || '';
-      document.getElementById('panelDesc').textContent  = (showsData[name] || {}).description || '';
 
       document.getElementById('panelShowMode').style.display   = '';
       document.getElementById('panelArtistMode').style.display = 'none';
