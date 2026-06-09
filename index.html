@@ -66,7 +66,7 @@
       border-bottom: 1px solid rgba(255,255,255,0.06);
       transition: background 0.35s, height 0.35s;
       overflow: hidden;
-      animation: navSlideIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+      animation: navSlideIn 0.65s 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
     nav.scrolled {
       height: 64px;
@@ -1063,17 +1063,17 @@
     .banner-bg-photo img {
       width: 100%; height: 100%;
       object-fit: cover; object-position: center;
-      opacity: 0.18;
+      opacity: 0.30;
       display: block;
     }
     /* Dark overlay on top of photo to keep text on dark bg */
     .banner-photo-overlay {
       position: absolute; inset: 0; z-index: 1; pointer-events: none;
       background: linear-gradient(135deg,
-        rgba(10,0,24,0.82) 0%,
-        rgba(16,8,32,0.78) 35%,
-        rgba(26,10,8,0.80) 65%,
-        rgba(10,16,32,0.82) 100%
+        rgba(10,0,24,0.55) 0%,
+        rgba(16,8,32,0.50) 35%,
+        rgba(26,10,8,0.52) 65%,
+        rgba(10,16,32,0.55) 100%
       );
     }
 
@@ -2167,7 +2167,7 @@
     <a class="hotel-banner reveal" href="https://www.hotels.com" target="_blank" rel="noopener">
       <!-- Background photo -->
       <div class="banner-bg-photo">
-        <img src="./Graphig assets/banner2.png" alt="">
+        <img src="./Graphig%20assets/banner2.png" alt="">
       </div>
       <!-- Dark overlay over photo -->
       <div class="banner-photo-overlay"></div>
