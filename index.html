@@ -4,15 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Red Sea Jazz Festival – Summer Edition #16 · 40 שנות מוזיקה</title>
-  <meta name="description" content="פסטיבל ג'אז ים סוף – מהדורת קיץ #16, 40 שנות מוזיקה. 12–14 בנובמבר 2026, נמל אילת. 40+ הופעות על 4 במות." />
+  <meta name="description" content="פסטיבל ג'אז ים סוף – מהדורת קיץ #16, 40 שנות מוזיקה. 11–14 בנובמבר 2026, נמל אילת. 40+ הופעות על 4 במות." />
   <meta name="keywords" content="Red Sea Jazz Festival, פסטיבל ג'אז, אילת, jazz festival, ים סוף, 2026" />
   <meta property="og:title" content="Red Sea Jazz Festival – Summer Edition #16 · 40 שנות מוזיקה" />
-  <meta property="og:description" content="12–14 בנובמבר 2026 · נמל אילת · 40+ הופעות על 4 במות. מהדורת קיץ #16 לציון 40 שנות הפסטיבל." />
+  <meta property="og:description" content="11–14 בנובמבר 2026 · נמל אילת · 40+ הופעות על 4 במות. מהדורת קיץ #16 לציון 40 שנות הפסטיבל." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="./Graphig assets/State=Horizontal.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Red Sea Jazz Festival 2026" />
-  <meta name="twitter:description" content="12–14 בנובמבר 2026 · נמל אילת · 40 שנות מוזיקה" />
+  <meta name="twitter:description" content="11–14 בנובמבר 2026 · נמל אילת · 40 שנות מוזיקה" />
   <link href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@100;300;400;500;700;900&family=Noto+Sans+Hebrew:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
@@ -60,12 +60,17 @@
     nav {
       position: fixed; top: 0; width: 100%; z-index: 100;
       display: flex; align-items: center;
+      height: 100px;
       background: rgba(10,10,16,0.96);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid rgba(255,255,255,0.06);
-      transition: background 0.3s;
+      transition: background 0.35s, height 0.35s;
+      overflow: hidden;
     }
-    nav.scrolled { background: rgba(7,8,15,0.99); }
+    nav.scrolled {
+      height: 64px;
+      background: rgba(7,8,15,0.9);
+    }
 
     /* ── Logo ── */
     .nav-logo-tab {
@@ -74,15 +79,18 @@
       display: flex;
       align-items: center; justify-content: center;
       cursor: pointer; text-decoration: none;
-      transition: opacity 0.2s;
+      transition: opacity 0.2s, padding 0.35s;
     }
     .nav-logo-tab:hover { opacity: 0.75; }
+    nav.scrolled .nav-logo-tab { padding: 0.25rem 1.4rem; }
     .nav-logo-img {
       height: 80px;
       width: auto;
       display: block;
       filter: brightness(0) invert(1);
+      transition: height 0.35s;
     }
+    nav.scrolled .nav-logo-img { height: 44px; }
 
     /* ── Nav inner (links + buttons) ── */
     .nav-inner {
@@ -395,13 +403,14 @@
       font-family: 'Hepta Slab', serif;
       font-weight: 700;
       font-size: 34px;
-      color: #ab7249;
       letter-spacing: 0.25px;
       line-height: 1.1;
       width: 100%;
       text-align: center;
-      -webkit-text-fill-color: unset;
-      background: none;
+      background: linear-gradient(135deg, var(--yellow), var(--orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
     .countdown-label {
       font-family: 'Noto Sans Hebrew', sans-serif;
@@ -1042,10 +1051,31 @@
       background: radial-gradient(circle, rgba(0,200,200,0.12) 0%, transparent 70%);
       pointer-events: none;
     }
+    /* Background photo layer */
+    .banner-bg-photo {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+    }
+    .banner-bg-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      opacity: 0.18;
+      display: block;
+    }
+    /* Dark overlay on top of photo to keep text on dark bg */
+    .banner-photo-overlay {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background: linear-gradient(135deg,
+        rgba(10,0,24,0.82) 0%,
+        rgba(16,8,32,0.78) 35%,
+        rgba(26,10,8,0.80) 65%,
+        rgba(10,16,32,0.82) 100%
+      );
+    }
+
     /* Eilat silhouette strip inside banner */
     .banner-silhouette {
       position: absolute; bottom: 0; left: 0; right: 0;
-      height: 80px; opacity: 0.2; pointer-events: none;
+      height: 80px; opacity: 0.2; pointer-events: none; z-index: 2;
     }
     .banner-silhouette svg { width: 100%; height: 100%; }
 
@@ -1597,7 +1627,7 @@
         <div class="stat-label">שנות פסטיבל</div>
       </div>
       <div class="stat">
-        <div class="stat-num">3</div>
+        <div class="stat-num">4</div>
         <div class="stat-label">ימי פסטיבל</div>
       </div>
       <div class="stat">
@@ -1664,7 +1694,7 @@
       <div class="section-header" id="lineup">
         <div class="section-tag">Artists · אמנים</div>
         <h2 class="section-title">הלייןאפ של <span class="accent">2026</span></h2>
-        <p class="section-desc">גלול למטה לגלילה אופקית · 40 הופעות · 3 ימים</p>
+        <p class="section-desc">גלול למטה לגלילה אופקית · 40 הופעות · 4 ימים</p>
       </div>
       <div class="horiz-track-wrap">
         <div class="horiz-track" id="horizTrack">
@@ -1822,7 +1852,7 @@
     <div class="section-header reveal">
       <div class="section-tag">Schedule · לוח הופעות</div>
       <h2 class="section-title">תוכנייה <span class="accent">מלאה</span></h2>
-      <p class="section-desc">3 ימים · 4 במות · 40+ הופעות</p>
+      <p class="section-desc">4 ימים · 4 במות · 40+ הופעות</p>
     </div>
 
     <div class="schedule-controls reveal">
@@ -1837,9 +1867,10 @@
 
       <!-- Day filters – center (grid col 2) -->
       <div class="filter-row" id="dayFilters">
-        <button class="filter-btn active" onclick="filterDay(this,'1')">יום א׳ · 12.11</button>
-        <button class="filter-btn" onclick="filterDay(this,'2')">יום ב׳ · 13.11</button>
-        <button class="filter-btn" onclick="filterDay(this,'3')">יום ג׳ · 14.11</button>
+        <button class="filter-btn active" onclick="filterDay(this,'1')">יום ד׳ · 11.11</button>
+        <button class="filter-btn" onclick="filterDay(this,'2')">יום ה׳ · 12.11</button>
+        <button class="filter-btn" onclick="filterDay(this,'3')">יום ו׳ · 13.11</button>
+        <button class="filter-btn" onclick="filterDay(this,'4')">שבת · 14.11</button>
       </div>
 
       <!-- Stage dropdown – left in RTL (grid col 3) -->
@@ -1889,7 +1920,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr data-day="1">
+            <tr data-day="2">
               <td class="time-col">18:00</td>
               <td class="show-cell" data-stage="1">
                 <div class="show-block">
@@ -1929,7 +1960,7 @@
                 </div>
               </td>
             </tr>
-            <tr data-day="1">
+            <tr data-day="2">
               <td class="time-col">19:00</td>
               <td class="show-cell" data-stage="1"></td>
               <td class="show-cell" data-stage="2"></td>
@@ -1947,7 +1978,7 @@
               </td>
               <td class="show-cell" data-stage="4"></td>
             </tr>
-            <tr data-day="1">
+            <tr data-day="2">
               <td class="time-col">20:00</td>
               <td class="show-cell" data-stage="1">
                 <div class="show-block">
@@ -1987,7 +2018,7 @@
               </td>
               <td class="show-cell" data-stage="4"></td>
             </tr>
-            <tr data-day="2">
+            <tr data-day="3">
               <td class="time-col">21:30</td>
               <td class="show-cell" data-stage="1"></td>
               <td class="show-cell" data-stage="2">
@@ -2016,7 +2047,7 @@
                 </div>
               </td>
             </tr>
-            <tr data-day="2">
+            <tr data-day="3">
               <td class="time-col">22:00</td>
               <td class="show-cell" data-stage="1">
                 <div class="show-block">
@@ -2056,7 +2087,7 @@
     <!-- Lineup list view -->
     <div class="schedule-view active" id="view-lineup">
       <div class="lineup-list">
-        <div class="lineup-list-item" data-stage="1" data-day="1">
+        <div class="lineup-list-item" data-stage="1" data-day="2">
           <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Shlomo_Artzi_at_Caesarea.jpg/250px-Shlomo_Artzi_at_Caesarea.jpg" alt="שלמה ארצי" style="width:100%;height:100%;object-fit:cover"></div>
           <div class="lineup-num">01</div>
           <div class="lineup-info">
@@ -2065,7 +2096,7 @@
           </div>
           <span class="lineup-stage stage-1">במה ראשית</span>
         </div>
-        <div class="lineup-list-item" data-stage="1" data-day="2">
+        <div class="lineup-list-item" data-stage="1" data-day="3">
           <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/%D7%A2%D7%99%D7%93%D7%9F_%D7%A8%D7%99%D7%99%D7%9B%D7%9C%2C_%D7%96%D7%90%D7%A4%D7%94_%D7%AA%D7%9C_%D7%90%D7%91%D7%99%D7%91%2C_%D7%93%D7%A6%D7%9E%D7%91%D7%A8_2021.jpg/250px-%D7%A2%D7%99%D7%93%D7%9F_%D7%A8%D7%99%D7%99%D7%9B%D7%9C%2C_%D7%96%D7%90%D7%A4%D7%94_%D7%AA%D7%9C_%D7%90%D7%91%D7%99%D7%91%2C_%D7%93%D7%A6%D7%9E%D7%91%D7%A8_2021.jpg" alt="עידן רייכל" style="width:100%;height:100%;object-fit:cover"></div>
           <div class="lineup-num">02</div>
           <div class="lineup-info">
@@ -2074,7 +2105,7 @@
           </div>
           <span class="lineup-stage stage-1">במה ראשית</span>
         </div>
-        <div class="lineup-list-item" data-stage="2" data-day="1">
+        <div class="lineup-list-item" data-stage="2" data-day="2">
           <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/%D7%A2%D7%99%D7%93%D7%9F_%D7%A2%D7%9E%D7%93%D7%99%2C_%D7%A1%D7%9C%D7%99_%D7%91%D7%9F_%D7%90%D7%A8%D7%99%D7%94.jpg/250px-%D7%A2%D7%99%D7%93%D7%9F_%D7%A2%D7%9E%D7%93%D7%99%2C_%D7%A1%D7%9C%D7%99_%D7%91%D7%9F_%D7%90%D7%A8%D7%99%D7%94.jpg" alt="עידן עמדי" style="width:100%;height:100%;object-fit:cover"></div>
           <div class="lineup-num">03</div>
           <div class="lineup-info">
@@ -2083,7 +2114,7 @@
           </div>
           <span class="lineup-stage stage-2">The Cove</span>
         </div>
-        <div class="lineup-list-item" data-stage="2" data-day="1">
+        <div class="lineup-list-item" data-stage="2" data-day="2">
           <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Eyal_Golan_1_%28cropped%29.jpg/250px-Eyal_Golan_1_%28cropped%29.jpg" alt="אייל גולן" style="width:100%;height:100%;object-fit:cover"></div>
           <div class="lineup-num">04</div>
           <div class="lineup-info">
@@ -2092,7 +2123,7 @@
           </div>
           <span class="lineup-stage stage-2">The Cove</span>
         </div>
-        <div class="lineup-list-item" data-stage="3" data-day="1">
+        <div class="lineup-list-item" data-stage="3" data-day="2">
           <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Keren_Peles_1.jpg/250px-Keren_Peles_1.jpg" alt="קרן פלס" style="width:100%;height:100%;object-fit:cover"></div>
           <div class="lineup-num">05</div>
           <div class="lineup-info">
@@ -2101,7 +2132,7 @@
           </div>
           <span class="lineup-stage stage-3">Club Stage</span>
         </div>
-        <div class="lineup-list-item" data-stage="4" data-day="1">
+        <div class="lineup-list-item" data-stage="4" data-day="2">
           <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Miri_Mesika.webp/250px-Miri_Mesika.webp" alt="מירי מסיקה" style="width:100%;height:100%;object-fit:cover"></div>
           <div class="lineup-num">06</div>
           <div class="lineup-info">
@@ -2129,6 +2160,12 @@
   <!-- ── HOTEL BANNER ── -->
   <section id="hotels">
     <a class="hotel-banner reveal" href="https://www.hotels.com" target="_blank" rel="noopener">
+      <!-- Background photo -->
+      <div class="banner-bg-photo">
+        <img src="./Graphig assets/banner2.png" alt="">
+      </div>
+      <!-- Dark overlay over photo -->
+      <div class="banner-photo-overlay"></div>
       <!-- Silhouette strip -->
       <div class="banner-silhouette">
         <svg viewBox="0 0 1200 80" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
@@ -2143,7 +2180,7 @@
           <span class="hl">עם לינה באילת</span>
         </div>
         <div class="hotel-banner-sub">
-          חבילות מיוחדות למבקרי הפסטיבל — 3 לילות, ארוחות בוקר, ושאטל לנמל.
+          חבילות מיוחדות למבקרי הפסטיבל — 4 לילות, ארוחות בוקר, ושאטל לנמל.
           מלונות 4 ו-5 כוכבים על חוף ים סוף.
         </div>
         <div class="hotel-logos">
@@ -2261,62 +2298,62 @@
           <button class="pill-btn" id="modalViewSchedule" onclick="switchModalView('schedule')">📅 לוח זמנים</button>
           <button class="pill-btn active" id="modalViewLineup" onclick="switchModalView('lineup')">🎵 Line-up</button>
         </div>
-        <div style="font-size:0.82rem; color:var(--muted)">40+ הופעות · 3 ימים · 4 במות</div>
+        <div style="font-size:0.82rem; color:var(--muted)">40+ הופעות · 4 ימים · 4 במות</div>
       </div>
       <div class="modal-body">
 
         <!-- Modal lineup list view (default) -->
         <div class="schedule-view active" id="modal-view-lineup">
           <div class="lineup-list">
-            <div class="lineup-list-item" data-stage="1" data-day="1">
+            <div class="lineup-list-item" data-stage="1" data-day="2">
               <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Shlomo_Artzi_at_Caesarea.jpg/250px-Shlomo_Artzi_at_Caesarea.jpg" alt="שלמה ארצי" style="width:100%;height:100%;object-fit:cover"></div>
               <div class="lineup-num">01</div>
               <div class="lineup-info"><div class="lineup-name">שלמה ארצי</div><div class="lineup-details">ישראל · 12.11 · 22:00</div></div>
               <span class="lineup-stage stage-1">במה ראשית</span>
             </div>
-            <div class="lineup-list-item" data-stage="2" data-day="1">
+            <div class="lineup-list-item" data-stage="2" data-day="2">
               <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/%D7%A2%D7%99%D7%93%D7%9F_%D7%A2%D7%9E%D7%93%D7%99%2C_%D7%A1%D7%9C%D7%99_%D7%91%D7%9F_%D7%90%D7%A8%D7%99%D7%94.jpg/250px-%D7%A2%D7%99%D7%93%D7%9F_%D7%A2%D7%9E%D7%93%D7%99%2C_%D7%A1%D7%9C%D7%99_%D7%91%D7%9F_%D7%90%D7%A8%D7%99%D7%94.jpg" alt="עידן עמדי" style="width:100%;height:100%;object-fit:cover"></div>
               <div class="lineup-num">02</div>
               <div class="lineup-info"><div class="lineup-name">עידן עמדי</div><div class="lineup-details">ישראל · 12.11 · 18:00</div></div>
               <span class="lineup-stage stage-2">The Cove</span>
             </div>
-            <div class="lineup-list-item" data-stage="3" data-day="1">
+            <div class="lineup-list-item" data-stage="3" data-day="2">
               <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Keren_Peles_1.jpg/250px-Keren_Peles_1.jpg" alt="קרן פלס" style="width:100%;height:100%;object-fit:cover"></div>
               <div class="lineup-num">03</div>
               <div class="lineup-info"><div class="lineup-name">קרן פלס</div><div class="lineup-details">ישראל · 12.11 · 19:00</div></div>
               <span class="lineup-stage stage-3">Club Stage</span>
             </div>
-            <div class="lineup-list-item" data-stage="4" data-day="1">
+            <div class="lineup-list-item" data-stage="4" data-day="2">
               <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Miri_Mesika.webp/250px-Miri_Mesika.webp" alt="מירי מסיקה" style="width:100%;height:100%;object-fit:cover"></div>
               <div class="lineup-num">04</div>
               <div class="lineup-info"><div class="lineup-name">מירי מסיקה</div><div class="lineup-details">ישראל · 12.11 · 18:30</div></div>
               <span class="lineup-stage stage-4">Beach Stage</span>
             </div>
-            <div class="lineup-list-item" data-stage="1" data-day="2">
+            <div class="lineup-list-item" data-stage="1" data-day="3">
               <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/%D7%A2%D7%99%D7%93%D7%9F_%D7%A8%D7%99%D7%99%D7%9B%D7%9C%2C_%D7%96%D7%90%D7%A4%D7%94_%D7%AA%D7%9C_%D7%90%D7%91%D7%99%D7%91%2C_%D7%93%D7%A6%D7%9E%D7%91%D7%A8_2021.jpg/250px-%D7%A2%D7%99%D7%93%D7%9F_%D7%A8%D7%99%D7%99%D7%9B%D7%9C%2C_%D7%96%D7%90%D7%A4%D7%94_%D7%AA%D7%9C_%D7%90%D7%91%D7%99%D7%91%2C_%D7%93%D7%A6%D7%9E%D7%91%D7%A8_2021.jpg" alt="עידן רייכל" style="width:100%;height:100%;object-fit:cover"></div>
               <div class="lineup-num">05</div>
               <div class="lineup-info"><div class="lineup-name">עידן רייכל</div><div class="lineup-details">ישראל · 13.11 · 22:00</div></div>
               <span class="lineup-stage stage-1">במה ראשית</span>
             </div>
-            <div class="lineup-list-item" data-stage="2" data-day="2">
+            <div class="lineup-list-item" data-stage="2" data-day="3">
               <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Omer_Adam_1.jpg/250px-Omer_Adam_1.jpg" alt="עומר אדם" style="width:100%;height:100%;object-fit:cover"></div>
               <div class="lineup-num">06</div>
               <div class="lineup-info"><div class="lineup-name">עומר אדם</div><div class="lineup-details">ישראל · 13.11 · 21:30</div></div>
               <span class="lineup-stage stage-2">The Cove</span>
             </div>
-            <div class="lineup-list-item" data-stage="3" data-day="2">
+            <div class="lineup-list-item" data-stage="3" data-day="3">
               <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Eyal_Golan_1_%28cropped%29.jpg/250px-Eyal_Golan_1_%28cropped%29.jpg" alt="אייל גולן" style="width:100%;height:100%;object-fit:cover"></div>
               <div class="lineup-num">07</div>
               <div class="lineup-info"><div class="lineup-name">אייל גולן</div><div class="lineup-details">ישראל · 13.11 · 20:30</div></div>
               <span class="lineup-stage stage-3">Club Stage</span>
             </div>
-            <div class="lineup-list-item" data-stage="4" data-day="2">
+            <div class="lineup-list-item" data-stage="4" data-day="3">
               <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Roni_Dalumi_1.jpg/250px-Roni_Dalumi_1.jpg" alt="רוני דלומי" style="width:100%;height:100%;object-fit:cover"></div>
               <div class="lineup-num">08</div>
               <div class="lineup-info"><div class="lineup-name">רוני דלומי</div><div class="lineup-details">ישראל · 13.11 · 21:45</div></div>
               <span class="lineup-stage stage-4">Beach Stage</span>
             </div>
-            <div class="lineup-list-item" data-stage="1" data-day="3">
+            <div class="lineup-list-item" data-stage="1" data-day="4">
               <div class="lineup-artist-thumb" style="padding:0;overflow:hidden"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Ivri_Lider_-_march_05%2C_2021.jpg/250px-Ivri_Lider_-_march_05%2C_2021.jpg" alt="איברי לידר" style="width:100%;height:100%;object-fit:cover"></div>
               <div class="lineup-num">09</div>
               <div class="lineup-info"><div class="lineup-name">איברי לידר</div><div class="lineup-details">ישראל · 14.11 · 20:00</div></div>
@@ -2379,7 +2416,7 @@
         <div class="footer-logo">RED SEA JAZZ FESTIVAL</div>
         <div class="footer-tagline">
           40 שנות מוזיקה על חוף ים סוף.<br>
-          נמל אילת · 12–14 בנובמבר 2026
+          נמל אילת · 11–14 בנובמבר 2026
         </div>
         <div class="footer-social">
           <div class="social-btn">f</div>
@@ -2524,7 +2561,7 @@
   <script>
     // ── Countdown ────────────────────────────────────────────────
     function updateCountdown() {
-      const diff = new Date('2026-11-12T18:00:00') - new Date();
+      const diff = new Date('2026-11-11T18:00:00') - new Date();
       if (diff <= 0) return;
       document.getElementById('cd-days').textContent  = String(Math.floor(diff/86400000)).padStart(2,'0');
       document.getElementById('cd-hours').textContent = String(Math.floor((diff%86400000)/3600000)).padStart(2,'0');
@@ -2973,37 +3010,37 @@
 
     const _stageNames  = { '1': 'במה ראשית', '2': 'The Cove', '3': 'Club Stage', '4': 'Beach Stage' };
     const _stageColors = { '1': 'var(--orange)', '2': 'var(--teal)', '3': 'var(--pink)', '4': 'var(--yellow)' };
-    const _dayDates    = { '1': '12.11.2026 · יום א׳', '2': '13.11.2026 · יום ב׳', '3': '14.11.2026 · יום ג׳' };
+    const _dayDates    = { '1': '11.11.2026 · יום ד׳', '2': '12.11.2026 · יום ה׳', '3': '13.11.2026 · יום ו׳', '4': '14.11.2026 · שבת' };
 
     // ── Artist shows data ─────────────────────────────────────────
     var artistShows = {
       'שלמה ארצי': [
-        { stage: 'במה ראשית', color: 'var(--orange)', date: 'יום א׳ · 12.11.2026', time: '22:00 – 24:00' }
+        { stage: 'במה ראשית', color: 'var(--orange)', date: 'יום ה׳ · 12.11.2026', time: '22:00 – 24:00' }
       ],
       'עידן עמדי': [
-        { stage: 'במה ראשית', color: 'var(--orange)', date: 'יום א׳ · 12.11.2026', time: '18:00 – 19:00' }
+        { stage: 'במה ראשית', color: 'var(--orange)', date: 'יום ה׳ · 12.11.2026', time: '18:00 – 19:00' }
       ],
       'מירי מסיקה': [
-        { stage: 'Beach Stage', color: 'var(--yellow)', date: 'יום א׳ · 12.11.2026', time: '18:30 – 19:30' }
+        { stage: 'Beach Stage', color: 'var(--yellow)', date: 'יום ה׳ · 12.11.2026', time: '18:30 – 19:30' }
       ],
       'עידן רייכל': [
-        { stage: 'The Cove', color: 'var(--teal)', date: 'יום ב׳ · 13.11.2026', time: '21:30 – 23:00' }
+        { stage: 'The Cove', color: 'var(--teal)', date: 'יום ו׳ · 13.11.2026', time: '21:30 – 23:00' }
       ],
       'עומר אדם': [
-        { stage: 'The Cove', color: 'var(--teal)', date: 'יום ב׳ · 13.11.2026', time: '20:15 – 21:15' }
+        { stage: 'The Cove', color: 'var(--teal)', date: 'יום ו׳ · 13.11.2026', time: '20:15 – 21:15' }
       ],
       'קרן פלס': [
-        { stage: 'The Cove', color: 'var(--teal)', date: 'יום א׳ · 12.11.2026', time: '18:00 – 19:15' }
+        { stage: 'The Cove', color: 'var(--teal)', date: 'יום ה׳ · 12.11.2026', time: '18:00 – 19:15' }
       ],
       'רוני דלומי': [
-        { stage: 'Club Stage',  color: 'var(--pink)',   date: 'יום א׳ · 12.11.2026', time: '19:00 – 20:00' },
-        { stage: 'Beach Stage', color: 'var(--yellow)', date: 'יום ב׳ · 13.11.2026', time: '21:45 – 23:00' }
+        { stage: 'Club Stage',  color: 'var(--pink)',   date: 'יום ה׳ · 12.11.2026', time: '19:00 – 20:00' },
+        { stage: 'Beach Stage', color: 'var(--yellow)', date: 'יום ו׳ · 13.11.2026', time: '21:45 – 23:00' }
       ],
       'אייל גולן': [
-        { stage: 'Club Stage', color: 'var(--pink)', date: 'יום א׳ · 12.11.2026', time: '20:30 – 22:00' }
+        { stage: 'Club Stage', color: 'var(--pink)', date: 'יום ה׳ · 12.11.2026', time: '20:30 – 22:00' }
       ],
       'איברי לידר': [
-        { stage: 'במה ראשית', color: 'var(--orange)', date: 'יום א׳ · 12.11.2026', time: '20:00 – 21:30' }
+        { stage: 'במה ראשית', color: 'var(--orange)', date: 'יום ה׳ · 12.11.2026', time: '20:00 – 21:30' }
       ]
     };
 
