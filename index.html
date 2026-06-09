@@ -66,6 +66,7 @@
       border-bottom: 1px solid rgba(255,255,255,0.06);
       transition: background 0.35s, height 0.35s;
       overflow: hidden;
+      animation: navSlideIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
     nav.scrolled {
       height: 64px;
@@ -483,6 +484,10 @@
     }
     @keyframes fadeIn {
       from { opacity: 0; } to { opacity: 1; }
+    }
+    @keyframes navSlideIn {
+      from { opacity: 0; transform: translateY(-100%); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     /* ─── SECTIONS SHARED ─────────────────────────────────────── */
