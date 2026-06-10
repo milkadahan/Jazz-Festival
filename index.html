@@ -35,7 +35,7 @@
       --font:      'Hepta Slab', 'Noto Sans Hebrew', serif;
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; direction: rtl; }
 
     body {
       background: var(--bg);
@@ -855,6 +855,10 @@
       transition: background 0.15s, color 0.15s;
       user-select: none;
     }
+    .stage-option:focus-visible {
+      outline: 2px solid var(--orange);
+      outline-offset: -2px;
+    }
     .stage-option:hover { background: rgba(255,255,255,0.06); color: #fff; }
     .stage-checkbox {
       width: 16px; height: 16px; border-radius: 5px; flex-shrink: 0;
@@ -1275,11 +1279,12 @@
     .footer-tagline { font-size: 0.9rem; color: var(--muted); line-height: 1.7; max-width: 280px; }
     .footer-social { display: flex; gap: 0.8rem; margin-top: 1.2rem; }
     .social-btn {
-      width: 38px; height: 38px; border-radius: 10px;
+      width: 44px; height: 44px; border-radius: 10px;
       background: rgba(255,255,255,0.06);
       border: 1px solid var(--border);
       display: flex; align-items: center; justify-content: center;
       font-size: 1rem; transition: all 0.2s; cursor: pointer;
+      color: var(--text); font-family: var(--font);
     }
     .social-btn:hover { background: rgba(255,107,26,0.2); border-color: var(--orange); }
     .footer-col-title { font-size: 0.8rem; color: var(--orange); letter-spacing: 0; text-transform: uppercase; margin-bottom: 1.2rem; font-weight: 600; }
@@ -1426,7 +1431,7 @@
 
     .show-panel-close {
       position: absolute; top: 1rem; inset-inline-end: 1rem;
-      width: 36px; height: 36px;
+      width: 44px; height: 44px;
       background: rgba(0,0,0,0.55);
       border: 1px solid rgba(255,255,255,0.22);
       border-radius: 50%;
@@ -1487,7 +1492,7 @@
     .show-panel-detail-item:last-child { grid-column: 1 / -1; }
     .show-panel-detail-icon { font-size: 1.05rem; margin-top: 1px; flex-shrink: 0; }
     .show-panel-detail-label {
-      font-size: 0.68rem; color: var(--muted);
+      font-size: 0.75rem; color: var(--muted);
       text-transform: uppercase; letter-spacing: 0; margin-bottom: 0.12rem;
     }
     .show-panel-detail-val { font-size: 0.92rem; font-weight: 600; }
@@ -1537,10 +1542,8 @@
       background: rgba(255,255,255,0.03);
       border: 1px solid var(--border);
       border-radius: 12px; overflow: hidden;
-      transition: border-color 0.2s, background 0.2s;
-      cursor: pointer;
+      cursor: default;
     }
-    .ap-show-row:hover { background: rgba(255,255,255,0.06); }
 
     .ap-show-accent {
       width: 4px; flex-shrink: 0;
@@ -1559,12 +1562,7 @@
     .ap-show-time {
       font-size: 0.85rem; font-weight: 600;
     }
-    .ap-show-arrow {
-      display: flex; align-items: center;
-      padding: 0 0.9rem; color: var(--muted); font-size: 0.8rem;
-      transition: color 0.2s, transform 0.2s;
-    }
-    .ap-show-row:hover .ap-show-arrow { color: var(--orange); transform: translateX(-3px); }
+    .ap-show-arrow { display: none; }
     /* ─── REDUCED MOTION ────────────────────────────────────── */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
@@ -1606,10 +1604,10 @@
           onclick="document.getElementById('hotels').scrollIntoView({behavior:'smooth'})">
           חבילות נופש
         </button>
-        <button class="nav-btn-primary" data-he="כרטיסים" data-en="Tickets"
-          onclick="document.getElementById('schedule').scrollIntoView({behavior:'smooth'})">
+        <a class="nav-btn-primary" data-he="כרטיסים" data-en="Tickets"
+          href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener">
           כרטיסים
-        </button>
+        </a>
         <div class="nav-lang-sep"></div>
         <button class="nav-btn-lang" id="langBtn" onclick="switchLang()">🇺🇸 EN</button>
         <button class="hamburger" id="hamburger" aria-label="תפריט ניווט" aria-expanded="false" onclick="toggleMenu()">
@@ -1624,15 +1622,15 @@
   <div id="hero-wrapper">
   <section id="hero">
 
-    <div class="hero-image-frame">
-      <video class="hero-bg-video" autoplay muted loop playsinline>
+    <div class="hero-image-frame" aria-hidden="true">
+      <video class="hero-bg-video" autoplay muted loop playsinline aria-hidden="true">
         <source src="./Graphig assets/hero-video.mp4" type="video/mp4">
       </video>
     </div>
 
     <!-- Top-left edition badge -->
     <div class="hero-event-badge">
-      <img src="./Graphig assets/badge-16.png" class="hero-event-num-img" alt="#16">
+      <img src="./Graphig assets/badge-16.png" class="hero-event-num-img" alt="מהדורה 16">
       <div class="hero-event-label">SUMMER<br>EDITION</div>
     </div>
 
@@ -1664,7 +1662,7 @@
         </div>
       </div>
     </div>
-    <div class="scroll-indicator" id="scrollIndicator">
+    <div class="scroll-indicator" id="scrollIndicator" aria-hidden="true">
       <div class="scroll-arrow"></div>
     </div>
   </section>
@@ -1719,9 +1717,9 @@
         </p>
 
         <div class="about-meta">
-          <div class="about-meta-item">🎭 <span>מהדורה #16</span> · קיץ</div>
-          <div class="about-meta-item">📍 <span>נמל אילת</span></div>
-          <div class="about-meta-item">🎵 <span>40+</span> הופעות</div>
+          <div class="about-meta-item"><span aria-hidden="true">🎭</span> <span>מהדורה #16</span> · קיץ</div>
+          <div class="about-meta-item"><span aria-hidden="true">📍</span> <span>נמל אילת</span></div>
+          <div class="about-meta-item"><span aria-hidden="true">🎵</span> <span>40+</span> הופעות</div>
         </div>
 
         <div class="about-actions">
@@ -1855,8 +1853,8 @@
 
       <!-- Day filters – center (grid col 2) -->
       <div class="filter-row" id="dayFilters">
-        <button class="filter-btn active" onclick="filterDay(this,'1')">יום ד׳ · 11.11</button>
-        <button class="filter-btn" onclick="filterDay(this,'2')">יום ה׳ · 12.11</button>
+        <button class="filter-btn" onclick="filterDay(this,'1')" style="display:none">יום ד׳ · 11.11</button>
+        <button class="filter-btn active" onclick="filterDay(this,'2')">יום ה׳ · 12.11</button>
         <button class="filter-btn" onclick="filterDay(this,'3')">יום ו׳ · 13.11</button>
         <button class="filter-btn" onclick="filterDay(this,'4')">שבת · 14.11</button>
       </div>
@@ -1869,24 +1867,24 @@
             <polyline points="4 6 8 10 12 6"/>
           </svg>
         </button>
-        <div class="stage-dropdown-menu" id="stageDropdownMenu">
-          <div class="stage-option checked" id="stageOptionAll" data-value="all" onclick="toggleStageAll()">
+        <div class="stage-dropdown-menu" id="stageDropdownMenu" role="listbox" aria-multiselectable="true">
+          <div class="stage-option checked" id="stageOptionAll" data-value="all" onclick="toggleStageAll()" tabindex="0" role="option" aria-selected="true">
             <span class="stage-checkbox"><svg width="10" height="8" viewBox="0 0 10 8" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 4 7 9 1"/></svg></span>
             <span>כל הבמות</span>
           </div>
-          <div class="stage-option" data-value="1" onclick="toggleStageOption(this,'1')">
+          <div class="stage-option" data-value="1" onclick="toggleStageOption(this,'1')" tabindex="0" role="option" aria-selected="false">
             <span class="stage-checkbox"><svg width="10" height="8" viewBox="0 0 10 8" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 4 7 9 1"/></svg></span>
             <span style="color:var(--orange)">Port arena</span>
           </div>
-          <div class="stage-option" data-value="2" onclick="toggleStageOption(this,'2')">
+          <div class="stage-option" data-value="2" onclick="toggleStageOption(this,'2')" tabindex="0" role="option" aria-selected="false">
             <span class="stage-checkbox"><svg width="10" height="8" viewBox="0 0 10 8" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 4 7 9 1"/></svg></span>
             <span style="color:var(--teal)">Red Note Club</span>
           </div>
-          <div class="stage-option" data-value="3" onclick="toggleStageOption(this,'3')">
+          <div class="stage-option" data-value="3" onclick="toggleStageOption(this,'3')" tabindex="0" role="option" aria-selected="false">
             <span class="stage-checkbox"><svg width="10" height="8" viewBox="0 0 10 8" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 4 7 9 1"/></svg></span>
             <span style="color:var(--pink)">DE future</span>
           </div>
-          <div class="stage-option" data-value="4" onclick="toggleStageOption(this,'4')">
+          <div class="stage-option" data-value="4" onclick="toggleStageOption(this,'4')" tabindex="0" role="option" aria-selected="false">
             <span class="stage-checkbox"><svg width="10" height="8" viewBox="0 0 10 8" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 4 7 9 1"/></svg></span>
             <span style="color:var(--yellow)">the present</span>
           </div>
@@ -2228,7 +2226,7 @@
   <section id="hotels">
     <a class="hotel-banner reveal" href="https://www.hotels.com" target="_blank" rel="noopener">
       <!-- Background photo -->
-      <div class="banner-bg-photo">
+      <div class="banner-bg-photo" aria-hidden="true">
         <img src="./Graphig%20assets/banner2.png" alt="">
         <div class="banner-photo-overlay"></div>
       </div>
@@ -2243,7 +2241,7 @@
       </div>
 
       <div class="hotel-banner-content">
-        <div class="hotel-banner-tag">🏨 חבילות נופש · Hotel Packages</div>
+        <div class="hotel-banner-tag"><span aria-hidden="true">🏨</span> חבילות נופש · Hotel Packages</div>
         <div class="hotel-banner-title">
           <span class="title-line1">חגגו את הפסטיבל</span>
           <span class="hl">עם לינה באילת</span>
@@ -2285,27 +2283,27 @@
 
     <div class="venue-info-grid reveal">
       <div class="venue-info-card">
-        <div class="venue-info-icon">🎭</div>
+        <div class="venue-info-icon" aria-hidden="true">🎭</div>
         <div class="venue-info-title">Port arena</div>
         <div class="venue-info-text">כיכר הנמל</div>
       </div>
       <div class="venue-info-card">
-        <div class="venue-info-icon">🌊</div>
+        <div class="venue-info-icon" aria-hidden="true">🌊</div>
         <div class="venue-info-title">Red Note Club</div>
         <div class="venue-info-text">מזח הצפוני</div>
       </div>
       <div class="venue-info-card">
-        <div class="venue-info-icon">🌙</div>
+        <div class="venue-info-icon" aria-hidden="true">🌙</div>
         <div class="venue-info-title">DE future</div>
         <div class="venue-info-text">המחסן הישן</div>
       </div>
       <div class="venue-info-card">
-        <div class="venue-info-icon">🏖️</div>
+        <div class="venue-info-icon" aria-hidden="true">🏖️</div>
         <div class="venue-info-title">the present</div>
         <div class="venue-info-text">החוף הדרומי</div>
       </div>
       <div class="venue-info-card">
-        <div class="venue-info-icon">✈️</div>
+        <div class="venue-info-icon" aria-hidden="true">✈️</div>
         <div class="venue-info-title">הגעה</div>
         <div class="venue-info-text">שדה התעופה אילת – 10 דק׳</div>
       </div>
@@ -2323,7 +2321,7 @@
 
     <div class="news-grid reveal">
       <div class="news-card">
-        <div class="news-img">🎺</div>
+        <div class="news-img" aria-hidden="true">🎺</div>
         <div class="news-body">
           <div class="news-date">ינואר 2026</div>
           <div class="news-title">הכרטיסים Early Bird כבר במכירה</div>
@@ -2333,7 +2331,7 @@
       </div>
 
       <div class="news-card">
-        <div class="news-img">🎸</div>
+        <div class="news-img" aria-hidden="true">🎸</div>
         <div class="news-body">
           <div class="news-date">פברואר 2026</div>
           <div class="news-title">ההופעה הראשונה הוכרזה – פרטים בקרוב</div>
@@ -2343,7 +2341,7 @@
       </div>
 
       <div class="news-card">
-        <div class="news-img">🏖️</div>
+        <div class="news-img" aria-hidden="true">🏖️</div>
         <div class="news-body">
           <div class="news-date">מרץ 2026</div>
           <div class="news-title">חבילות הנופש החדשות פתוחות להזמנה</div>
@@ -2643,10 +2641,10 @@
           נמל אילת · 11–14 בנובמבר 2026
         </div>
         <div class="footer-social">
-          <div class="social-btn">f</div>
-          <div class="social-btn">▶</div>
-          <div class="social-btn">📸</div>
-          <div class="social-btn">♪</div>
+          <button class="social-btn" aria-label="פייסבוק">f</button>
+          <button class="social-btn" aria-label="יוטיוב"><span aria-hidden="true">▶</span></button>
+          <button class="social-btn" aria-label="אינסטגרם"><span aria-hidden="true">📸</span></button>
+          <button class="social-btn" aria-label="ספוטיפיי"><span aria-hidden="true">♪</span></button>
         </div>
       </div>
 
@@ -2908,7 +2906,7 @@
     window.addEventListener('scroll', onScroll, { passive: true });
 
     // ── Day filter (no "all days" option) ────────────────────────
-    let activeDay = '1'; // default = day 1
+    let activeDay = '2'; // default = day 2 (day 1 hidden until lineup confirmed)
     function filterDay(btn, day) {
       document.querySelectorAll('#dayFilters .filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
@@ -2930,7 +2928,9 @@
     function toggleStageAll() {
       selectedStages.clear();
       document.querySelectorAll('#stageDropdownMenu .stage-option[data-value]').forEach(el => {
-        el.classList.toggle('checked', el.dataset.value === 'all');
+        const isAll = el.dataset.value === 'all';
+        el.classList.toggle('checked', isAll);
+        el.setAttribute('aria-selected', isAll ? 'true' : 'false');
       });
       updateStageDropdownLabel();
       applyFilters();
@@ -2938,17 +2938,31 @@
 
     function toggleStageOption(el, value) {
       el.classList.toggle('checked');
-      if (el.classList.contains('checked')) {
+      const isChecked = el.classList.contains('checked');
+      el.setAttribute('aria-selected', isChecked ? 'true' : 'false');
+      if (isChecked) {
         selectedStages.add(value);
       } else {
         selectedStages.delete(value);
       }
       // sync "כל הבמות" — checked only when nothing else is selected
       const allOpt = document.getElementById('stageOptionAll');
-      if (allOpt) allOpt.classList.toggle('checked', selectedStages.size === 0);
+      if (allOpt) {
+        const allChecked = selectedStages.size === 0;
+        allOpt.classList.toggle('checked', allChecked);
+        allOpt.setAttribute('aria-selected', allChecked ? 'true' : 'false');
+      }
       updateStageDropdownLabel();
       applyFilters();
     }
+
+    // Keyboard activation for stage options
+    document.addEventListener('keydown', e => {
+      if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('stage-option')) {
+        e.preventDefault();
+        e.target.click();
+      }
+    });
 
     function updateStageDropdownLabel() {
       const label   = document.getElementById('stageDropdownLabel');
@@ -3131,7 +3145,7 @@
     <div class="show-panel-img-wrap">
       <img class="show-panel-img" id="panelArtistImg" src="" alt="">
       <div id="panelImgPlaceholder" class="show-panel-img-placeholder" style="display:none">
-        <div class="ph-icon">🎵</div>
+        <div class="ph-icon" aria-hidden="true">🎵</div>
         <div class="ph-name" id="panelImgPlaceholderName"></div>
       </div>
       <div class="show-panel-img-overlay"></div>
@@ -3145,8 +3159,7 @@
       <div>
         <div class="show-panel-name" id="panelName"></div>
         <div class="show-panel-sub">
-          <span class="show-panel-origin" id="panelOrigin"></span>
-          <span class="show-panel-genre-tag" id="panelGenre"></span>
+<span class="show-panel-genre-tag" id="panelGenre"></span>
         </div>
         <p class="show-panel-desc" id="panelDesc" style="margin-top:0.8rem"></p>
       </div>
@@ -3181,7 +3194,7 @@
         <div class="ap-shows-list" id="apShowsList"></div>
       </div>
 
-      <a class="show-panel-ticket-btn" id="panelTicketBtn" href="#schedule" onclick="closeShowPanel()">
+      <a class="show-panel-ticket-btn" id="panelTicketBtn" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="closeShowPanel()">
         &#x05E8;&#x05DB;&#x05D9;&#x05E9;&#x05EA; &#x05DB;&#x05E8;&#x05D8;&#x05D9;&#x05E1;&#x05D9;&#x05DD; <span class="ticket-arrow">&#x2190;</span>
       </a>
 
@@ -3251,8 +3264,7 @@
       }
       document.getElementById('panelHeadliner').classList.toggle('visible', !!data.isHeadliner);
       document.getElementById('panelName').textContent   = name;
-      document.getElementById('panelOrigin').textContent = data.origin || '';
-      document.getElementById('panelGenre').textContent  = data.genre  || '';
+document.getElementById('panelGenre').textContent  = data.genre  || '';
       document.getElementById('panelDesc').textContent   = data.description || '';
     }
 
@@ -3297,10 +3309,6 @@
               '<div class="ap-show-time">' + s.time + '</div>' +
             '</div>' +
             '<div class="ap-show-arrow">&#x2190;</div>';
-          row.addEventListener('click', function(ev) {
-            ev.stopPropagation();
-            openShowPanel(name, { time: s.time, stage: s.stage, stageColor: s.color, date: s.date });
-          });
           list.appendChild(row);
         });
       }
