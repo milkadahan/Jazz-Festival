@@ -104,6 +104,7 @@
     .ticker-track-wrap { flex: 1; overflow: hidden; position: relative; }
     .ticker-track {
       display: flex; gap: 0;
+      direction: ltr;
       animation: ticker-scroll 28s linear infinite;
       will-change: transform;
       width: max-content;
@@ -121,7 +122,7 @@
     }
     @keyframes ticker-scroll {
       0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+      100% { transform: translateX(-25%); }
     }
     @media (max-width: 700px) {
       :root { --ticker-h: 32px; }
@@ -1062,23 +1063,16 @@
       object-fit: cover; object-position: center top;
       display: block;
     }
-    /* Gradient overlay inside the image container — מתמזג לרקע השמנת (Figma: from-#f5efe6 to-transparent) */
+    /* Gradient overlay inside the image container — האיור גלוי בשמאל, נמוג ל-cream לכיוון הטקסט (ימין) */
     .banner-photo-overlay {
       position: absolute; inset: 0; z-index: 1; pointer-events: none;
-      background: linear-gradient(to right, var(--bg2) 0%, rgba(243,233,214,0) 52%);
+      background: linear-gradient(to right, rgba(243,233,214,0) 40%, var(--bg2) 75%);
     }
 
     /* Eilat silhouette strip inside banner */
     .banner-silhouette { display: none; }
 
     .hotel-banner-content { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 14px; align-items: flex-start; flex: 1; min-width: 0; text-align: end; }
-    .hotel-banner-tag {
-      display: inline-flex; align-items: center;
-      background: rgba(0,200,200,0.12);
-      border: 1px solid rgba(0,200,200,0.35);
-      color: var(--teal); border-radius: 50px;
-      padding: 5px 14px; font-size: 0.6875rem; font-weight: 400;
-    }
     .hotel-banner-title {
       display: flex; flex-direction: column; align-items: flex-start;
       font-size: clamp(1.5rem, 3vw, 2.375rem);
@@ -1540,7 +1534,14 @@ section { padding: 3rem 1rem; }
         <span class="ticker-item">ההופעה הראשונה הוכרזה — פרטים נוספים בקרוב</span>
         <span class="ticker-item">חבילות נופש חדשות עם מלונות אילת — 3 לילות + שאטל לנמל</span>
         <span class="ticker-item">11–14 בנובמבר 2026 · נמל אילת · 40 שנות פסטיבל ג׳אז ים סוף</span>
-        <!-- duplicate for seamless loop -->
+        <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
+        <span class="ticker-item">ההופעה הראשונה הוכרזה — פרטים נוספים בקרוב</span>
+        <span class="ticker-item">חבילות נופש חדשות עם מלונות אילת — 3 לילות + שאטל לנמל</span>
+        <span class="ticker-item">11–14 בנובמבר 2026 · נמל אילת · 40 שנות פסטיבל ג׳אז ים סוף</span>
+        <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
+        <span class="ticker-item">ההופעה הראשונה הוכרזה — פרטים נוספים בקרוב</span>
+        <span class="ticker-item">חבילות נופש חדשות עם מלונות אילת — 3 לילות + שאטל לנמל</span>
+        <span class="ticker-item">11–14 בנובמבר 2026 · נמל אילת · 40 שנות פסטיבל ג׳אז ים סוף</span>
         <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
         <span class="ticker-item">ההופעה הראשונה הוכרזה — פרטים נוספים בקרוב</span>
         <span class="ticker-item">חבילות נופש חדשות עם מלונות אילת — 3 לילות + שאטל לנמל</span>
