@@ -90,6 +90,7 @@
       height: var(--ticker-h); z-index: 101;
       background: #2d2726;
       display: flex; align-items: center;
+      direction: ltr;
       overflow: hidden;
       border-bottom: 1px solid rgba(224,86,11,0.3);
     }
@@ -1058,7 +1059,7 @@
     }
     .banner-bg-photo img {
       position: absolute;
-      left: 0; top: -34%;
+      left: 0; top: -10%;
       width: 100%; height: 135%;
       object-fit: cover; object-position: center top;
       display: block;
@@ -1072,7 +1073,7 @@
     /* Eilat silhouette strip inside banner */
     .banner-silhouette { display: none; }
 
-    .hotel-banner-content { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 14px; align-items: flex-start; flex: 1; min-width: 0; text-align: end; }
+    .hotel-banner-content { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 14px; align-items: flex-end; flex: 1; min-width: 0; text-align: right; }
     .hotel-banner-title {
       display: flex; flex-direction: column; align-items: flex-start;
       font-size: clamp(1.5rem, 3vw, 2.375rem);
@@ -1084,7 +1085,7 @@
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    .hotel-banner-sub { color: var(--banner-fg); font-size: 0.875rem; line-height: 1.6; text-align: end; }
+    .hotel-banner-sub { color: var(--banner-fg); font-size: 18px; line-height: 1.6; text-align: end; }
 
     .hotel-banner-cta { position: relative; z-index: 2; flex-shrink: 0; }
     .hotel-banner-btn {
@@ -2681,7 +2682,7 @@ section { padding: 3rem 1rem; }
           <span class="hl">עם לינה באילת</span>
         </div>
         <div class="hotel-banner-sub">
-          חבילות מיוחדות למבקרי הפסטיבל — 3 לילות, ארוחות בוקר, ושאטל לנמל.
+          חבילות מיוחדות למבקרי הפסטיבל — 3 לילות, ארוחות בוקר, ושאטל לנמל.<br>
           מלונות 4 ו-5 כוכבים על חוף ים סוף.
         </div>
         <div class="hotel-logos">
