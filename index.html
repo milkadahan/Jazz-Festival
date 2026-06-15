@@ -3,16 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Red Sea Jazz Festival – Summer Edition #16 · 40 שנות מוזיקה</title>
-  <meta name="description" content="פסטיבל ג'אז ים סוף – מהדורת קיץ #16, 40 שנות מוזיקה. 11–14 בנובמבר 2026, נמל אילת. 40+ הופעות על 4 במות." />
+  <title>Red Sea Jazz Festival 2026 · 40 שנות מוזיקה</title>
+  <meta name="description" content="פסטיבל ג'אז ים סוף – 40 שנות מוזיקה. 11–14 בנובמבר 2026, נמל אילת. 40+ הופעות על 4 במות." />
   <meta name="keywords" content="Red Sea Jazz Festival, פסטיבל ג'אז, אילת, jazz festival, ים סוף, 2026" />
-  <meta property="og:title" content="Red Sea Jazz Festival – Summer Edition #16 · 40 שנות מוזיקה" />
-  <meta property="og:description" content="11–14 בנובמבר 2026 · נמל אילת · 40+ הופעות על 4 במות. מהדורת קיץ #16 לציון 40 שנות הפסטיבל." />
+  <meta property="og:title" content="Red Sea Jazz Festival 2026 · 40 שנות מוזיקה" />
+  <meta property="og:description" content="11–14 בנובמבר 2026 · נמל אילת · 40+ הופעות על 4 במות. 40 שנות פסטיבל ג'אז ים סוף." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="./Graphig assets/State=Horizontal.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Red Sea Jazz Festival 2026" />
   <meta name="twitter:description" content="11–14 בנובמבר 2026 · נמל אילת · 40 שנות מוזיקה" />
+  <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+  <link rel="manifest" href="./site.webmanifest" />
   <link href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@100;300;400;500;700;900&family=Noto+Sans+Hebrew:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
@@ -20,18 +25,23 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #07080f;
-      --bg2:       #0d0e1a;
-      --orange:    #FF6B1A;
-      --yellow:    #FFD234;
-      --red:       #FF2D55;
-      --pink:      #FF6EB4;
-      --teal:      #00C9C8;
-      --warm-glow: #FF8C42;
-      --text:      #F5EFE6;
-      --muted:     #8A7F72;
-      --card-bg:   #13141f;
-      --border:    rgba(255,255,255,0.07);
+      /* ── Light Mode palette (cream background, warm dark-brown text) ── */
+      --bg:        #FAF4E9;   /* רקע ראשי — שמנת עדינה */
+      --bg2:       #F3E9D6;   /* רקע משני — שמנת חמה מעט כהה */
+      --orange:    #E0560B;   /* כתום מותג — מותאם לקונטרסט על שמנת */
+      --yellow:    #E0A800;   /* צהוב-ענבר — מותאם לקריאוּת על בהיר */
+      --red:       #D62246;   /* אדום מותג */
+      --pink:      #E0568F;   /* ורוד מותג */
+      --teal:      #0A8F8E;   /* טורקיז — מותאם לקונטרסט על שמנת */
+      --warm-glow: #FF8C42;   /* זוהר חם (לאפקטים על ההירו הכהה) */
+      --text:      #3A2A1E;   /* טקסט ראשי — חום כהה */
+      --muted:     #8A7256;   /* טקסט משני — חום בינוני */
+      --card-bg:   #FFFDF8;   /* רקע כרטיסים — לבן-שמנת */
+      --border:    rgba(58,42,30,0.12);  /* מסגרות — חום שקוף */
+      --border-strong: rgba(58,42,30,0.22);
+      --shadow:    rgba(58,42,30,0.10);  /* צללים רכים על בהיר */
+      --shadow-strong: rgba(58,42,30,0.16);
+      --on-accent: #FFFDF8;  /* טקסט על רקע צבעוני מלא */
       --font:      'Hepta Slab', 'Noto Sans Hebrew', serif;
     }
 
@@ -78,16 +88,17 @@
       position: fixed; top: 0; width: 100%; z-index: 100;
       display: flex; align-items: center;
       height: 100px;
-      background: rgba(10,10,16,0.96);
+      background: rgba(250,244,233,0.94);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid var(--border);
       transition: background 0.35s, height 0.35s;
       overflow: hidden;
       animation: navSlideIn 0.65s 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
     nav.scrolled {
       height: 64px;
-      background: rgba(7,8,15,0.9);
+      background: rgba(250,244,233,0.97);
+      box-shadow: 0 2px 16px var(--shadow);
     }
 
     /* ── Logo ── */
@@ -105,7 +116,7 @@
       height: 80px;
       width: auto;
       display: block;
-      filter: brightness(0) invert(1);
+      filter: brightness(0) saturate(100%) invert(15%) sepia(28%) saturate(900%) hue-rotate(350deg);
       transition: height 0.35s;
     }
     nav.scrolled .nav-logo-img { height: 44px; }
@@ -124,7 +135,7 @@
     }
     .nav-links a {
       position: relative; padding-bottom: 3px;
-      transition: color 0.25s; color: rgba(245,239,230,0.75);
+      transition: color 0.25s; color: rgba(58,42,30,0.78);
     }
     .nav-links a::after {
       content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
@@ -140,20 +151,20 @@
       display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0;
     }
     .nav-btn-primary {
-      background: linear-gradient(135deg, var(--orange), #e84020);
-      color: #fff; border: none; border-radius: 50px;
+      background: linear-gradient(135deg, var(--orange), #c43d0e);
+      color: var(--on-accent); border: none; border-radius: 50px;
       padding: 0.5rem 1.3rem; font-size: 0.85rem; font-weight: 700;
       letter-spacing: normal; cursor: pointer;
-      box-shadow: 0 0 16px rgba(255,107,26,0.45);
+      box-shadow: 0 4px 14px rgba(224,86,11,0.32);
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .nav-btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 0 28px rgba(255,107,26,0.7);
+      box-shadow: 0 6px 22px rgba(224,86,11,0.45);
     }
     .nav-btn-secondary {
       background: transparent;
-      color: var(--text); border: 1.5px solid rgba(255,255,255,0.28);
+      color: var(--text); border: 1.5px solid var(--border-strong);
       border-radius: 50px; padding: 0.48rem 1.2rem;
       font-size: 0.85rem; font-weight: 600; cursor: pointer;
       transition: border-color 0.2s, color 0.2s, transform 0.2s;
@@ -164,19 +175,19 @@
     }
     .nav-lang-sep {
       width: 1px; height: 20px; flex-shrink: 0;
-      background: rgba(255,255,255,0.12);
+      background: var(--border-strong);
       margin-inline: 0.3rem;
     }
     .nav-btn-lang {
       background: transparent;
-      color: rgba(245,239,230,0.65);
-      border: 1.5px solid rgba(255,255,255,0.18);
+      color: rgba(58,42,30,0.62);
+      border: 1.5px solid var(--border);
       border-radius: 50px; padding: 0.45rem 0.9rem;
       font-size: 0.85rem; font-weight: 600; cursor: pointer;
       display: flex; align-items: center; gap: 0.35rem;
       transition: border-color 0.2s, color 0.2s;
     }
-    .nav-btn-lang:hover { border-color: rgba(255,255,255,0.45); color: var(--text); }
+    .nav-btn-lang:hover { border-color: var(--border-strong); color: var(--text); }
 
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
     .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
@@ -190,7 +201,7 @@
 
     #hero {
       position: relative; width: 100%; height: 100%;
-      background: #07080f;
+      background: #FAF4E9; /* רקע מאחורי מסגרת ה-hero — צבע רקע האתר (Light Mode) */
       display: flex; align-items: center; justify-content: center;
       overflow: hidden;
       border-radius: 26px 26px 0 0;
@@ -307,7 +318,7 @@
       bottom: 24px;
       left: 24px;
       z-index: 10;
-      background: #07080f;
+      background: #FAF4E9; /* תיקון מילקה — מסגרת/רקע סביב ה-countdown יושר לצבע רקע האתר */
       border-radius: 0 26px 0 0;
       padding: 16px 16px 0 0;
     }
@@ -322,30 +333,6 @@
     .hero-corner-br { bottom: 0; right: -32px; }
 
     /* Event badge — top-left of hero */
-    .hero-event-badge {
-      position: absolute;
-      top: 60px;
-      left: 24px;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .hero-event-num-img {
-      width: 90px;
-      height: 38px;
-      display: block;
-    }
-    .hero-event-label {
-      color: #fff;
-      font-family: 'Hepta Slab', serif;
-      font-weight: 700;
-      font-size: 18px;
-      line-height: 18px;
-      letter-spacing: -0.18px;
-      text-transform: uppercase;
-    }
-
     .hero-badge {
       display: inline-flex; align-items: center; gap: 0.5rem;
       background: rgba(0,200,200,0.15);
@@ -379,7 +366,7 @@
       font-weight: 300;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: rgba(245,239,230,0.8);
+      color: rgba(245,239,230,0.85); /* טקסט בהיר על ההירו הכהה — נשמר */
       animation: fadeUp 0.9s 0.35s ease both;
     }
 
@@ -420,7 +407,7 @@
       gap: 56px;
       align-items: center;
       justify-content: center;
-      background: #e6d8d6;
+      background: #FFFFFF; /* תיקון מילקה — רקע פנימי של ה-countdown card ללבן מלא */
       border-radius: 22px;
       padding: 24px;
       height: 120px;
@@ -487,7 +474,7 @@
     .scroll-indicator {
       position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
       display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
-      color: var(--muted); font-size: 0.75rem; letter-spacing: 0.1em;
+      color: rgba(245,239,230,0.7); font-size: 0.75rem; letter-spacing: 0.1em;
       opacity: 0; transition: opacity 0.4s ease; pointer-events: none;
     }
     .scroll-indicator.visible { opacity: 1; }
@@ -553,28 +540,16 @@
       background: linear-gradient(90deg, transparent, var(--border), transparent);
     }
 
-    /* All content after hero sits above sticky background */
-    /* Single stacking layer — prevents sub-pixel cracks between sections */
-    #page-body {
-      position: relative; z-index: 1;
-      background: var(--bg);
-    }
-    #about-strip, #about, #lineup-outer, #schedule, #hotels, #venue, #news, footer {
-      position: relative;
-    }
-
-    /* ─── ABOUT STRIP ─────────────────────────────────────────── */
+    /* ─── ABOUT STRIP / STATS ────────────────────────────────── */
+    /* שוחזר לאחר Light Mode — הצבעים token-driven, מתאימים לבהיר */
     #about-strip {
-      padding: 3rem;
-      background: rgba(7,8,15,0.55);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border-top: 1px solid rgba(255,255,255,0.09);
-      border-bottom: 1px solid rgba(255,255,255,0.09);
+      padding: 2.5rem 3rem;
+      background: var(--bg);
     }
     .about-stats {
       display: flex; flex-wrap: wrap;
       justify-content: center; align-items: center;
+      max-width: 1100px; margin-inline: auto;
     }
     .stat {
       text-align: center; padding: 0.5rem 0;
@@ -590,84 +565,14 @@
     }
     .stat-label { font-size: 0.85rem; color: var(--muted); margin-top: 0.2rem; }
 
-    /* ─── ABOUT SECTION ──────────────────────────────────────── */
-    #about {
-      background: rgba(13,14,26,0.6);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      padding: 6rem 3rem;
+    /* All content after hero sits above sticky background */
+    /* Single stacking layer — prevents sub-pixel cracks between sections */
+    #page-body {
+      position: relative; z-index: 1;
+      background: var(--bg);
     }
-    .about-inner {
-      max-width: 860px; margin-inline: auto;
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 4rem;
-      align-items: start;
-    }
-    .about-label-col { padding-top: 0.4rem; }
-    .about-label-col .section-tag { display: block; margin-bottom: 1rem; }
-    .about-title-side {
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 900; line-height: 1.1;
-    }
-    .about-title-side .accent {
-      background: linear-gradient(135deg, var(--orange), var(--yellow));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .about-line {
-      width: 40px; height: 3px; margin-top: 1.2rem;
-      background: linear-gradient(90deg, var(--orange), var(--yellow));
-      border-radius: 2px;
-    }
-    .about-text-col {}
-    .about-body {
-      font-size: 1.05rem;
-      line-height: 1.85;
-      color: rgba(245,239,230,0.85);
-      font-weight: 300;
-    }
-    .about-body strong {
-      color: var(--text);
-      font-weight: 600;
-    }
-    .about-meta {
-      margin-top: 1.8rem;
-      display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
-    }
-    .about-meta-item {
-      display: flex; align-items: center; gap: 0.5rem;
-      font-size: 0.85rem; color: var(--muted);
-    }
-    .about-meta-item span { color: var(--teal); font-weight: 600; }
-    .about-actions {
-      margin-top: 2.2rem; display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap;
-    }
-    .btn-about {
-      display: inline-flex; align-items: center; gap: 0.6rem;
-      background: transparent;
-      border: 1.5px solid rgba(255,107,26,0.4);
-      color: var(--orange); border-radius: 50px;
-      padding: 0.75rem 1.8rem; font-size: 0.95rem; font-weight: 600;
-      cursor: pointer; transition: all 0.25s;
-      text-decoration: none;
-    }
-    .btn-about:hover {
-      background: rgba(255,107,26,0.1);
-      border-color: var(--orange);
-      transform: translateX(-3px);
-    }
-    .btn-about .arrow { transition: transform 0.2s; }
-    .btn-about:hover .arrow { transform: translateX(-4px); }
-    .about-artistic-dir {
-      font-size: 0.85rem; color: var(--muted);
-      display: flex; align-items: center; gap: 0.5rem;
-    }
-    .about-artistic-dir strong { color: var(--text); font-weight: 600; }
-
-    @media (max-width: 720px) {
-      .about-inner { grid-template-columns: 1fr; gap: 2rem; }
-      #about { padding: 4rem 1.5rem; }
+    #lineup-outer, #schedule, #hotels, #venue, #news, footer {
+      position: relative;
     }
 
     /* ─── LINEUP – HORIZONTAL SCROLL ─────────────────────────── */
@@ -772,7 +677,7 @@
       width: 42px; height: 42px; border-radius: 8px; flex-shrink: 0;
       background: linear-gradient(135deg, #1a1030, #0a1525);
       display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem; border: 1px solid rgba(255,255,255,0.08);
+      font-size: 1.1rem; border: 1px solid var(--border);
       overflow: hidden; position: relative;
     }
     .show-thumb::after {
@@ -835,7 +740,7 @@
       top: calc(100% + 8px);
       inset-inline-start: 0;
       min-width: 190px;
-      background: #12141f;
+      background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 14px;
       padding: 0.5rem;
@@ -844,7 +749,7 @@
       transform: translateY(-6px);
       transition: opacity 0.2s, transform 0.2s;
       z-index: 50;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      box-shadow: 0 8px 32px var(--shadow-strong);
     }
     .stage-dropdown-menu.open { opacity: 1; pointer-events: all; transform: translateY(0); }
     .stage-option {
@@ -859,7 +764,7 @@
       outline: 2px solid var(--orange);
       outline-offset: -2px;
     }
-    .stage-option:hover { background: rgba(255,255,255,0.06); color: #fff; }
+    .stage-option:hover { background: rgba(58,42,30,0.06); color: var(--text); }
     .stage-checkbox {
       width: 16px; height: 16px; border-radius: 5px; flex-shrink: 0;
       border: 1.5px solid var(--border);
@@ -892,7 +797,7 @@
     }
     .pill-toggle {
       display: inline-flex; align-items: center;
-      background: rgba(255,255,255,0.05);
+      background: rgba(58,42,30,0.05);
       border: 1px solid var(--border);
       border-radius: 50px; padding: 4px; gap: 0; position: relative;
     }
@@ -940,7 +845,7 @@
     .modal-title { font-size: 1.3rem; font-weight: 800; }
     .modal-close {
       display: inline-flex; align-items: center; gap: 0.5rem;
-      background: rgba(255,255,255,0.06); border: 1px solid var(--border);
+      background: rgba(58,42,30,0.05); border: 1px solid var(--border);
       color: var(--muted); border-radius: 50px;
       padding: 0.45rem 1.1rem; font-size: 0.85rem; font-weight: 600;
       cursor: pointer; transition: all 0.2s;
@@ -966,7 +871,7 @@
       width: 52px; height: 52px; border-radius: 12px; flex-shrink: 0;
       background: linear-gradient(135deg, #1a1030, #0a1525);
       display: flex; align-items: center; justify-content: center;
-      font-size: 1.4rem; border: 1px solid rgba(255,255,255,0.08);
+      font-size: 1.4rem; border: 1px solid var(--border);
       position: relative; overflow: hidden;
     }
     .lineup-artist-thumb::after {
@@ -1067,7 +972,8 @@
     .hotel-banner {
       position: relative; overflow: hidden;
       border-radius: 24px;
-      background: #0a0416;
+      /* חמרה/סיינה חם — מתאים לצבעוניות הבהירה החמה והים-תיכונית */
+      background: #8B4513;
       border: 1px solid rgba(255,107,26,0.25);
       padding-block: 2.5rem;
       padding-inline-start: 40px;
@@ -1111,7 +1017,7 @@
     /* Gradient overlay inside the image container */
     .banner-photo-overlay {
       position: absolute; inset: 0; z-index: 1; pointer-events: none;
-      background: linear-gradient(to left, #0a0416 20%, rgba(10,4,22,0) 100%);
+      background: linear-gradient(to left, #8B4513 20%, rgba(139,69,19,0) 100%);
     }
 
     /* Eilat silhouette strip inside banner */
@@ -1136,7 +1042,7 @@
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    .hotel-banner-sub { color: var(--muted); font-size: 0.875rem; line-height: 1.6; text-align: end; }
+    .hotel-banner-sub { color: rgba(245,239,230,0.72); font-size: 0.875rem; line-height: 1.6; text-align: end; }
 
     .hotel-banner-cta { position: relative; z-index: 2; flex-shrink: 0; }
     .hotel-banner-btn {
@@ -1209,14 +1115,12 @@
       margin-top: 2rem;
       border-radius: 20px; overflow: hidden;
       border: 1px solid var(--border);
-      background: #0a0e1a;
+      background: #EFE3CE;
       height: 420px;
       position: relative;
     }
     #venue-map-container { position: absolute; inset: 0; }
-    #venue-map-container .leaflet-tile-pane {
-      filter: sepia(1) hue-rotate(195deg) saturate(2.8) brightness(0.58);
-    }
+    /* מפה ב-Light Mode — ללא filter, tiles בצבעים בהירים רגילים */
     .leaflet-popup-content-wrapper {
       background: var(--card-bg) !important;
       color: var(--text) !important;
@@ -1236,7 +1140,7 @@
     }
     .leaflet-control-zoom a:hover { background: rgba(255,107,26,0.2) !important; color: var(--orange) !important; }
     .leaflet-control-attribution {
-      background: rgba(7,8,15,0.75) !important;
+      background: rgba(250,244,233,0.82) !important;
       color: var(--muted) !important;
       font-size: 0.7rem !important;
     }
@@ -1260,7 +1164,7 @@
 
     /* ─── FOOTER ──────────────────────────────────────────────── */
     footer {
-      background: #030408;
+      background: #EFE3CE;
       border-top: 1px solid var(--border);
       padding: 4rem 3rem 2rem;
     }
@@ -1280,7 +1184,7 @@
     .footer-social { display: flex; gap: 0.8rem; margin-top: 1.2rem; }
     .social-btn {
       width: 44px; height: 44px; border-radius: 10px;
-      background: rgba(255,255,255,0.06);
+      background: rgba(58,42,30,0.06);
       border: 1px solid var(--border);
       display: flex; align-items: center; justify-content: center;
       font-size: 1rem; transition: all 0.2s; cursor: pointer;
@@ -1316,7 +1220,7 @@
       .nav-links.open {
         display: flex; flex-direction: column;
         position: fixed; inset: 0; top: 64px;
-        background: rgba(7,8,15,0.98); backdrop-filter: blur(10px);
+        background: rgba(250,244,233,0.98); backdrop-filter: blur(10px);
         padding: 2rem; gap: 1.5rem; font-size: 1.2rem;
         z-index: 99;
       }
@@ -1337,8 +1241,7 @@
       .countdown-item { width: 48px; }
       .countdown-num { font-size: 24px; }
       .countdown-label { font-size: 13px; }
-      .hero-event-badge { top: 16px; left: 12px; }
-      section { padding: 3rem 1rem; }
+section { padding: 3rem 1rem; }
       .schedule-table th, .time-col { padding: 0.5rem; font-size: 0.7rem; }
       .show-name { font-size: 0.78rem; }
       .hotel-banner { flex-direction: column; padding: 2rem; }
@@ -1392,8 +1295,8 @@
       width: 400px; max-width: 100vw;
       z-index: 301;
       background: var(--bg2);
-      border-inline-end: 1px solid rgba(255,255,255,0.09);
-      box-shadow: -8px 0 56px rgba(0,0,0,0.75);
+      border-inline-end: 1px solid var(--border);
+      box-shadow: -8px 0 56px var(--shadow-strong);
       transform: translateX(100%);
       transition: transform 0.45s cubic-bezier(0.34,1.26,0.64,1);
       display: flex; flex-direction: column;
@@ -1481,7 +1384,7 @@
     }
 
     .show-panel-details {
-      background: rgba(255,255,255,0.03);
+      background: rgba(58,42,30,0.04);
       border: 1px solid var(--border);
       border-radius: 14px; padding: 1rem 1.2rem;
       display: grid;
@@ -1503,7 +1406,7 @@
     }
 
     .show-panel-desc {
-      font-size: 0.875rem; color: rgba(245,239,230,0.70);
+      font-size: 0.875rem; color: rgba(58,42,30,0.78);
       line-height: 1.82; margin: 0;
     }
 
@@ -1539,7 +1442,7 @@
 
     .ap-show-row {
       display: flex; align-items: stretch; gap: 0;
-      background: rgba(255,255,255,0.03);
+      background: rgba(58,42,30,0.04);
       border: 1px solid var(--border);
       border-radius: 12px; overflow: hidden;
       cursor: default;
@@ -1591,7 +1494,7 @@
     <!-- Nav inner: links (center) + action buttons (left) -->
     <div class="nav-inner">
       <ul class="nav-links" id="navLinks">
-        <li><a href="#about" data-he="אודות" data-en="About">אודות</a></li>
+        <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
         <li><a href="#lineup" data-he="אמנים" data-en="Artists">אמנים</a></li>
         <li><a href="#schedule" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
         <li><a href="#hotels" data-he="מלונות" data-en="Hotels">מלונות</a></li>
@@ -1600,10 +1503,10 @@
       </ul>
 
       <div class="nav-actions">
-        <button class="nav-btn-secondary" data-he="חבילות נופש" data-en="Stay Packages"
-          onclick="document.getElementById('hotels').scrollIntoView({behavior:'smooth'})">
+        <a class="nav-btn-secondary" data-he="חבילות נופש" data-en="Stay Packages"
+          href="https://www.hotels.com/" target="_blank" rel="noopener">
           חבילות נופש
-        </button>
+        </a>
         <a class="nav-btn-primary" data-he="כרטיסים" data-en="Tickets"
           href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener">
           כרטיסים
@@ -1626,12 +1529,6 @@
       <video class="hero-bg-video" autoplay muted loop playsinline aria-hidden="true">
         <source src="./Graphig assets/hero-video.mp4" type="video/mp4">
       </video>
-    </div>
-
-    <!-- Top-left edition badge -->
-    <div class="hero-event-badge">
-      <img src="./Graphig assets/badge-16.png" class="hero-event-num-img" alt="מהדורה 16">
-      <div class="hero-event-label">SUMMER<br>EDITION</div>
     </div>
 
     <!-- Logo (includes Hebrew subtitle + date badge) -->
@@ -1669,7 +1566,8 @@
   </div><!-- /hero-wrapper -->
 
   <main id="page-body">
-  <!-- ── ABOUT STRIP ── -->
+
+  <!-- ── ABOUT STRIP / STATS ── -->
   <div id="about-strip" class="reveal">
     <div class="about-stats">
       <div class="stat">
@@ -1678,63 +1576,333 @@
       </div>
       <div class="stat">
         <div class="stat-num">4</div>
-        <div class="stat-label">ימי פסטיבל</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">40+</div>
-        <div class="stat-label">הופעות</div>
+        <div class="stat-label">ימים</div>
       </div>
       <div class="stat">
         <div class="stat-num">4</div>
         <div class="stat-label">במות</div>
       </div>
       <div class="stat">
-        <div class="stat-num">#16</div>
-        <div class="stat-label">מהדורת קיץ</div>
+        <div class="stat-num">40+</div>
+        <div class="stat-label">הופעות</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">+20k</div>
+        <div class="stat-label">מבקרים</div>
       </div>
     </div>
   </div>
 
   <div class="divider"></div>
 
-  <!-- ── ABOUT ── -->
-  <section id="about">
-    <div class="about-inner reveal">
+  <!-- ── ARTIST LINEUP TEXT SECTION ── -->
+  <section id="artist-lineup-text" style="
+    background: var(--bg2);
+    padding: 5rem 3rem;
+    text-align: center;
+  ">
+    <div class="section-header reveal" style="margin-bottom:2.5rem">
+      <div class="section-tag">Lineup · אמנים</div>
+      <h2 class="section-title">מציגים: <span class="accent">אמני 2026</span></h2>
+      <p class="section-desc">לחצו על שם אמן לפרטים נוספים</p>
+    </div>
 
-      <div class="about-label-col">
-        <span class="section-tag">About · אודות</span>
-        <h2 class="about-title-side">מהדורת<br><span class="accent">קיץ 2026</span></h2>
-        <div class="about-line"></div>
-      </div>
+    <div class="alt-lineup-grid reveal" style="
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 0.75rem 1.2rem;
+      max-width: 900px; margin-inline: auto 3rem auto;
+    ">
 
-      <div class="about-text-col">
-        <p class="about-body">
-          פסטיבל ג'אז קיץ באילת מציין השנה את שנתו ה-16, ואנחנו נרגשים להציג תוכנית אומנותית המהדקת את הקשר שבין עמודי התווך של התרבות הישראלית לבין הקולות החדשים והנועזים ביותר בסצנה.
-          <br><br>
-          מהדורת החורף, שהפכה מזמן לאירוע בעל אופי מובחן וקהל נאמן, מתענגת על התפאורה המושלמת של המדבר והים ואווירת החופש הנפלאה של אילת כדי להציע חוויה שנעה במנעד רחב: מרגעים קאמריים מזוקקים ואינטימיים ועד להתפוצצות של גרוב סוחף ואנרגיה בימתית משחררת.
-          <br><br>
-          תחת <strong>ניהולה האמנותי של ניבה עמלי מעוז</strong>, הפסטיבל השנה הוא הזמנה למסע מוזיקלי שנע בין מסורת לחדשנות, משפחתיות ופריצת גבולות.
-        </p>
-
-        <div class="about-meta">
-          <div class="about-meta-item"><span aria-hidden="true">🎭</span> <span>מהדורה #16</span> · קיץ</div>
-          <div class="about-meta-item"><span aria-hidden="true">📍</span> <span>נמל אילת</span></div>
-          <div class="about-meta-item"><span aria-hidden="true">🎵</span> <span>40+</span> הופעות</div>
-        </div>
-
-        <div class="about-actions">
-          <a href="#" class="btn-about">
-            לדף אודות המלא
-            <span class="arrow">←</span>
-          </a>
-          <div class="about-artistic-dir">
-            ניהול אמנותי: <strong>ניבה עמלי מעוז</strong>
-          </div>
-        </div>
-      </div>
+      <button class="alt-artist-btn" onclick="openArtistDrawer('anat-cohen')">Anat Cohen — Artist in Residence</button>
+      <button class="alt-artist-btn" onclick="openArtistDrawer('three-cohens')">The 3 Cohens Big Band</button>
+      <button class="alt-artist-btn" onclick="openArtistDrawer('eli-degibri')">Eli Degibri Quartet</button>
+      <button class="alt-artist-btn" onclick="openArtistDrawer('hava-albershtein')">חוה אלברשטיין</button>
+      <button class="alt-artist-btn" onclick="openArtistDrawer('shalosh')">SHALOSH</button>
+      <button class="alt-artist-btn" onclick="openArtistDrawer('hagay-amir')">שישיית חגי אמיר</button>
+      <button class="alt-artist-btn" onclick="openArtistDrawer('uriel-herman')">רביעיית אוריאל הרמן מארחת את רמי קליינשטיין</button>
+      <button class="alt-artist-btn" onclick="openArtistDrawer('idit-mintzer')">עידית מינצר — קונצרט בשני חלקים</button>
+      <button class="alt-artist-btn" onclick="openArtistDrawer('yotam-zilberstein')">שלישיית יותם זילברשטיין</button>
+      <button class="alt-artist-btn" onclick="openArtistDrawer('hadar-noibeg')">הדר נויברג New Quartet</button>
+      <button class="alt-artist-btn" onclick="openArtistDrawer('las-piratas')">Las Piratas Piratas</button>
+      <button class="alt-artist-btn" onclick="openArtistDrawer('ijazz-orch')">תזמורת הג׳אז הישראלית</button>
 
     </div>
+
+    <div style="margin-top:2.5rem">
+      <a href="./lineup.html" class="btn-primary" style="
+        display:inline-block; padding:0.9rem 2.8rem;
+        font-size:1rem; text-decoration:none;
+      ">לליינאפ המלא ←</a>
+    </div>
   </section>
+
+  <!-- ── ARTIST DRAWER (aside) ── -->
+  <div class="alt-drawer-overlay" id="altDrawerOverlay" onclick="closeArtistDrawer()"></div>
+  <aside class="alt-drawer" id="altDrawer" role="dialog" aria-modal="true" aria-label="פרטי אמן">
+    <button class="alt-drawer-close" onclick="closeArtistDrawer()" aria-label="סגור">&#x2715;</button>
+    <div class="alt-drawer-content">
+      <div class="alt-drawer-name" id="altDrawerName"></div>
+      <div class="alt-drawer-genre" id="altDrawerGenre"></div>
+      <p class="alt-drawer-desc" id="altDrawerDesc"></p>
+      <div class="alt-drawer-shows" id="altDrawerShows"></div>
+      <a href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener"
+         class="show-panel-ticket-btn" style="margin-top:auto" onclick="closeArtistDrawer()">
+        רכישת כרטיסים ←
+      </a>
+    </div>
+  </aside>
+
+  <style>
+    /* ── ALT ARTIST BUTTONS ── */
+    .alt-artist-btn {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border-strong);
+      color: var(--text);
+      border-radius: 8px;
+      padding: 0.6rem 1.4rem;
+      font-family: var(--font);
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+      direction: rtl;
+      line-height: 1.4;
+    }
+    .alt-artist-btn:hover {
+      background: linear-gradient(135deg, var(--orange), var(--yellow));
+      color: #fff;
+      border-color: transparent;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(224,86,11,0.28);
+    }
+
+    /* ── DRAWER OVERLAY ── */
+    .alt-drawer-overlay {
+      position: fixed; inset: 0; z-index: 400;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.35s;
+    }
+    .alt-drawer-overlay.open { opacity: 1; pointer-events: all; }
+
+    /* ── DRAWER PANEL ── */
+    .alt-drawer {
+      position: fixed; top: 0; inset-inline-start: 0; bottom: 0;
+      width: 420px; max-width: 100vw;
+      z-index: 401;
+      background: var(--bg2);
+      border-inline-end: 1px solid var(--border);
+      box-shadow: -8px 0 56px rgba(58,42,30,0.18);
+      transform: translateX(100%);
+      transition: transform 0.45s cubic-bezier(0.34,1.26,0.64,1);
+      display: flex; flex-direction: column;
+      overflow: hidden;
+    }
+    .alt-drawer.open { transform: translateX(0); }
+
+    .alt-drawer-close {
+      position: absolute; top: 1rem; inset-inline-end: 1rem;
+      width: 40px; height: 40px;
+      background: rgba(58,42,30,0.07);
+      border: 1px solid var(--border);
+      border-radius: 50%; color: var(--muted);
+      font-size: 0.9rem; display: flex;
+      align-items: center; justify-content: center;
+      cursor: pointer; transition: background 0.2s, color 0.2s;
+      z-index: 2;
+    }
+    .alt-drawer-close:hover { background: rgba(214,34,70,0.12); color: var(--red); }
+
+    .alt-drawer-content {
+      flex: 1; overflow-y: auto;
+      padding: 2.5rem 1.8rem 2rem;
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .alt-drawer-content::-webkit-scrollbar { width: 4px; }
+    .alt-drawer-content::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 2px; }
+
+    .alt-drawer-name {
+      font-size: 1.7rem; font-weight: 900;
+      line-height: 1.2; direction: rtl;
+      padding-inline-end: 3rem;
+    }
+    .alt-drawer-genre {
+      display: inline-block;
+      background: rgba(224,86,11,0.12); color: var(--orange);
+      border-radius: 50px; padding: 0.22rem 0.85rem;
+      font-size: 0.8rem; font-weight: 600;
+    }
+    .alt-drawer-desc {
+      font-size: 0.95rem; color: rgba(58,42,30,0.8);
+      line-height: 1.8; direction: rtl;
+    }
+    .alt-drawer-shows {
+      display: flex; flex-direction: column; gap: 0.55rem;
+    }
+    .alt-drawer-show-row {
+      display: flex; align-items: stretch; gap: 0;
+      background: rgba(58,42,30,0.04);
+      border: 1px solid var(--border);
+      border-radius: 11px; overflow: hidden;
+    }
+    .alt-drawer-show-accent { width: 4px; flex-shrink: 0; }
+    .alt-drawer-show-info { padding: 0.7rem 1rem; flex: 1; }
+    .alt-drawer-show-stage { font-size: 0.82rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .alt-drawer-show-meta  { font-size: 0.78rem; color: var(--muted); }
+
+    @media (max-width: 480px) {
+      .alt-drawer { width: 100vw; border-inline-end: none; }
+    }
+  </style>
+
+  <script>
+    // ── Alt Artist Drawer Data ────────────────────────────────────
+    var altArtistData = {
+      'anat-cohen': {
+        name: 'Anat Cohen — Artist in Residence',
+        genre: 'ג׳אז',
+        desc: 'ענת כהן היא אחת מגדולות נגניות הג׳אז העולמי — חביבת הביקורת ומנצחת פרסי גראמי. בפסטיבל 2026 היא תשמש כאמנית-בית ותופיע בכמה הרכבים שונים, כולל מאסטר-קלאס פתוח.',
+        shows: [
+          { stage:'DE future', color:'var(--pink)', date:'13.11 · יום ו׳', time:'09:30', label:'Master Class' },
+          { stage:'Red Note Club', color:'var(--teal)', date:'14.11 · שבת', time:'12:30', label:'Artist Resident' }
+        ]
+      },
+      'three-cohens': {
+        name: 'The 3 Cohens Big Band',
+        genre: 'ג׳אז / ביג-בנד',
+        desc: 'שלושת האחים כהן — רוני, ענת ואלדר — מתאחדים בהרכב ביג-בנד לאירוע מיוחד לכבוד 40 שנות פסטיבל. מופע שכזה מתרחש רק פעם בחיים.',
+        shows: [
+          { stage:'Port arena', color:'var(--orange)', date:'12.11 · יום ה׳', time:'20:00', label:'מיוחד לפסטיבל' }
+        ]
+      },
+      'eli-degibri': {
+        name: 'Eli Degibri Quartet',
+        genre: 'ג׳אז / פוסט-בופ',
+        desc: 'אלי דה-ג׳יברי הוא נגן סקסופון מוביל שעשה את שמו בניו-יורק לצד רון קרטר ואחרים. בפסטיבל 2026 יציג את הרביעייה שלו עם רביעיית כלי מיתר ואורח מיוחד: שם טוב לוי.',
+        shows: [
+          { stage:'Port arena', color:'var(--orange)', date:'13.11 · יום ו׳', time:'12:30', label:'עם רביעיית מיתרים + שם טוב לוי' }
+        ]
+      },
+      'hava-albershtein': {
+        name: 'חוה אלברשטיין',
+        genre: 'מוסיקה ישראלית / ג׳אז',
+        desc: 'אחת הזמרות הגדולות בהיסטוריה המוסיקלית הישראלית. ערב מיוחד שיחבר בין הרפרטואר הלאגנדרי שלה לבין עיבודי ג׳אז חדשים.',
+        shows: [
+          { stage:'Port arena', color:'var(--orange)', date:'13.11 · יום ו׳', time:'20:00', label:'מיוחד לפסטיבל' }
+        ]
+      },
+      'shalosh': {
+        name: 'SHALOSH',
+        genre: 'ג׳אז עכשווי',
+        desc: 'שלישיית הג׳אז הישראלית SHALOSH (אורי גינסבורג, אסף ששון ולורן לוי) מציגה את אלבומה החדש. מופע השקה עם אורח מיוחד: רוני איתן.',
+        shows: [
+          { stage:'Red Note Club', color:'var(--teal)', date:'13.11 · יום ו׳', time:'21:45', label:'השקת אלבום + אורח רוני איתן' }
+        ]
+      },
+      'hagay-amir': {
+        name: 'שישיית חגי אמיר',
+        genre: 'ג׳אז ישראלי / אפרו-ג׳אז',
+        desc: 'פסנתרן ומלחין חגי אמיר מציג יצירה מקורית המשלבת מוסיקה ישראלית עם ריתמוס אפריקאי — בהרכב שישייה. המופע הוא חלק מפרויקט "דיאלוגים עם ברטוק".',
+        shows: [
+          { stage:'DE future', color:'var(--pink)', date:'13.11 · יום ו׳', time:'18:00', label:'דיאלוגים עם ברטוק' }
+        ]
+      },
+      'uriel-herman': {
+        name: 'רביעיית אוריאל הרמן מארחת את רמי קליינשטיין',
+        genre: 'ג׳אז / פופ',
+        desc: 'פגישה נדירה בין אמנות הג׳אז העמוקה של אוריאל הרמן לבין הקול הייחודי של רמי קליינשטיין. מסע מוסיקלי שיחבר בין עולמות.',
+        shows: [
+          { stage:'Red Note Club', color:'var(--teal)', date:'13.11 · יום ו׳', time:'14:00', label:'מארחת את רמי קליינשטיין' }
+        ]
+      },
+      'idit-mintzer': {
+        name: 'עידית מינצר — קונצרט בשני חלקים',
+        genre: 'ווקאל ג׳אז',
+        desc: 'עידית מינצר היא אחת מגדולות הזמרות בסגנון ווקאל ג׳אז בישראל. בפסטיבל 2026 תציג קונצרט מיוחד בשני חלקים: בחלק ב׳ יצטרף אליה יחזקאל רז.',
+        shows: [
+          { stage:'DE future', color:'var(--pink)', date:'13.11 · יום ו׳', time:'15:15', label:'חלק א׳' },
+          { stage:'DE future', color:'var(--pink)', date:'14.11 · שבת', time:'13:45', label:'חלק ב׳ + יחזקאל רז' }
+        ]
+      },
+      'yotam-zilberstein': {
+        name: 'שלישיית יותם זילברשטיין',
+        genre: 'ג׳אז',
+        desc: 'יותם זילברשטיין הוא גיטריסט ישראלי שהפך לשם עולמי. שלישיית הג׳אז שלו מביאה עדינות, חדשנות ומקוריות בכל הופעה.',
+        shows: [
+          { stage:'Red Note Club', color:'var(--teal)', date:'13.11 · יום ו׳', time:'16:30', label:'' }
+        ]
+      },
+      'hadar-noibeg': {
+        name: 'הדר נויברג New Quartet',
+        genre: 'ג׳אז / פיוז׳ן',
+        desc: 'הדר נויברג, נגנית חליל ומלחינה מוכשרת שפרצה לעולמיות, תציג בפסטיבל 2026 את ה-New Quartet — יצירה חדשה שמשלבת ג׳אז עם מוסיקה עולמית.',
+        shows: [
+          { stage:'DE future', color:'var(--pink)', date:'14.11 · שבת', time:'11:00', label:'' }
+        ]
+      },
+      'las-piratas': {
+        name: 'Las Piratas Piratas',
+        genre: 'ג׳אז לטיני / קובני',
+        desc: 'הרכב ג׳אז לטיני אנרגטי ומלא חיים שיביא חגיגה אמיתית לנמל אילת. כניסה חופשית לשעת לילה של ריקוד ומוסיקה מתפוצצת.',
+        shows: [
+          { stage:'DE future', color:'var(--pink)', date:'13.11 · יום ו׳', time:'22:30', label:'כניסה חופשית' }
+        ]
+      },
+      'ijazz-orch': {
+        name: 'תזמורת הג׳אז הישראלית',
+        genre: 'ביג-בנד / ג׳אז',
+        desc: 'תזמורת הג׳אז הלאומית של ישראל — 20+ נגנים על הבמה הגדולה. מופע סיום חגיגי לפסטיבל ה-40, עם אורחות מיוחדות: נטע ברזילי, גל דה פז, נונו ולירז צ׳רכי.',
+        shows: [
+          { stage:'Port arena', color:'var(--orange)', date:'14.11 · שבת', time:'14:45', label:'מופע סיום + נטע ברזילי, גל דה פז, נונו, לירז צ׳רכי' }
+        ]
+      }
+    };
+
+    function openArtistDrawer(id) {
+      var data = altArtistData[id];
+      if (!data) return;
+      document.getElementById('altDrawerName').textContent  = data.name;
+      document.getElementById('altDrawerGenre').textContent = data.genre;
+      document.getElementById('altDrawerDesc').textContent  = data.desc;
+
+      var showsEl = document.getElementById('altDrawerShows');
+      showsEl.innerHTML = '';
+      if (data.shows && data.shows.length) {
+        var label = document.createElement('div');
+        label.style.cssText = 'font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0;font-weight:600;margin-bottom:0.5rem';
+        label.textContent = 'הופעות בפסטיבל';
+        showsEl.appendChild(label);
+        data.shows.forEach(function(s) {
+          var row = document.createElement('div');
+          row.className = 'alt-drawer-show-row';
+          row.innerHTML =
+            '<div class="alt-drawer-show-accent" style="background:' + s.color + '"></div>' +
+            '<div class="alt-drawer-show-info">' +
+              '<div class="alt-drawer-show-stage" style="color:' + s.color + '">' + s.stage + '</div>' +
+              '<div class="alt-drawer-show-meta">' + s.date + ' · ' + s.time + (s.label ? ' · ' + s.label : '') + '</div>' +
+            '</div>';
+          showsEl.appendChild(row);
+        });
+      }
+
+      document.getElementById('altDrawer').classList.add('open');
+      document.getElementById('altDrawerOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeArtistDrawer() {
+      document.getElementById('altDrawer').classList.remove('open');
+      document.getElementById('altDrawerOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && document.getElementById('altDrawer').classList.contains('open'))
+        closeArtistDrawer();
+    });
+  </script>
 
   <div class="divider"></div>
 
@@ -2631,6 +2799,198 @@
     </div>
   </div>
 
+  <div class="divider"></div>
+
+  <!-- ── TICKET PLANS ── -->
+  <section id="ticket-plans" style="background: var(--bg); text-align:center;">
+    <div class="section-header reveal">
+      <div class="section-tag">Tickets · כרטיסים</div>
+      <h2 class="section-title">בחרו את <span class="accent">המסלול</span> שלכם</h2>
+      <p class="section-desc">שלושה מסלולי כניסה לפסטיבל ג׳אז ים סוף 2026</p>
+    </div>
+
+    <div class="ticket-plans-grid reveal">
+
+      <!-- Plan 1: פס -->
+      <div class="ticket-plan-card ticket-plan-featured">
+        <div class="ticket-plan-badge">הכי פופולרי</div>
+        <div class="ticket-plan-icon" aria-hidden="true">🎫</div>
+        <div class="ticket-plan-name">פס</div>
+        <div class="ticket-plan-desc">
+          כניסה לכל ימי הפסטיבל (11–14 בנובמבר) + כל ההופעות על 4 הבמות.
+          הגישה הטובה ביותר לחוויה המלאה.
+        </div>
+        <ul class="ticket-plan-perks">
+          <li>✓ 4 ימי פסטיבל מלאים</li>
+          <li>✓ כניסה לכל 4 הבמות</li>
+          <li>✓ עדיפות בכניסה</li>
+          <li>✓ תוכנייה מיוחדת</li>
+        </ul>
+        <a href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" class="ticket-plan-cta ticket-plan-cta-primary">
+          לרכישה ←
+        </a>
+      </div>
+
+      <!-- Plan 2: כניסה יומית -->
+      <div class="ticket-plan-card">
+        <div class="ticket-plan-icon" aria-hidden="true">📅</div>
+        <div class="ticket-plan-name">כניסה יומית</div>
+        <div class="ticket-plan-desc">
+          בחרו יום אחד (11, 12, 13 או 14 בנובמבר) וקבלו כניסה לכל ההופעות באותו יום על כל הבמות.
+        </div>
+        <ul class="ticket-plan-perks">
+          <li>✓ יום לבחירה</li>
+          <li>✓ כניסה לכל הבמות באותו יום</li>
+          <li>✓ ניתן לשדרג לפס</li>
+        </ul>
+        <a href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" class="ticket-plan-cta ticket-plan-cta-secondary">
+          לרכישה ←
+        </a>
+      </div>
+
+      <!-- Plan 3: הופעה בודדת -->
+      <div class="ticket-plan-card">
+        <div class="ticket-plan-icon" aria-hidden="true">🎵</div>
+        <div class="ticket-plan-name">הופעה בודדת</div>
+        <div class="ticket-plan-desc">
+          בחרו הופעה אחת ספציפית — אמן, תאריך ובמה. הדרך הגמישה לחוות את הפסטיבל.
+        </div>
+        <ul class="ticket-plan-perks">
+          <li>✓ הופעה אחת לבחירה</li>
+          <li>✓ גמישות מלאה</li>
+          <li>✓ זמין לכל ההופעות</li>
+        </ul>
+        <a href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" class="ticket-plan-cta ticket-plan-cta-secondary">
+          לרכישה ←
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <style>
+    /* ── TICKET PLANS GRID ── */
+    .ticket-plans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin-inline: auto;
+    }
+
+    .ticket-plan-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      padding: 2.2rem 1.8rem 1.8rem;
+      display: flex; flex-direction: column;
+      align-items: flex-start;
+      gap: 0.9rem;
+      text-align: right;
+      position: relative;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+    .ticket-plan-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 48px var(--shadow-strong);
+    }
+
+    .ticket-plan-card.ticket-plan-featured {
+      border-color: var(--orange);
+      background: linear-gradient(145deg, #fff9f2, var(--card-bg));
+      box-shadow: 0 8px 32px rgba(224,86,11,0.15);
+    }
+    .ticket-plan-card.ticket-plan-featured:hover {
+      box-shadow: 0 20px 56px rgba(224,86,11,0.28);
+    }
+
+    .ticket-plan-badge {
+      position: absolute;
+      top: -14px; inset-inline-start: 50%;
+      transform: translateX(50%);
+      background: linear-gradient(135deg, var(--orange), var(--red));
+      color: #fff;
+      border-radius: 50px;
+      padding: 0.28rem 1.1rem;
+      font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      box-shadow: 0 4px 14px rgba(224,86,11,0.38);
+    }
+
+    .ticket-plan-icon {
+      font-size: 2.2rem;
+      line-height: 1;
+    }
+
+    .ticket-plan-name {
+      font-size: 1.55rem;
+      font-weight: 900;
+      color: var(--text);
+      line-height: 1.1;
+    }
+    .ticket-plan-featured .ticket-plan-name {
+      background: linear-gradient(135deg, var(--orange), var(--red));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .ticket-plan-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+      flex: 1;
+    }
+
+    .ticket-plan-perks {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 0.42rem;
+      width: 100%;
+    }
+    .ticket-plan-perks li {
+      font-size: 0.88rem;
+      color: var(--text);
+      display: flex; gap: 0.5rem; align-items: flex-start;
+    }
+
+    .ticket-plan-cta {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 100%;
+      border-radius: 50px;
+      padding: 0.85rem 1.5rem;
+      font-size: 0.97rem; font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+      margin-top: 0.3rem;
+    }
+    .ticket-plan-cta:hover { transform: translateY(-2px); }
+    .ticket-plan-cta-primary {
+      background: linear-gradient(135deg, var(--orange), var(--red));
+      color: #fff;
+      border: none;
+      box-shadow: 0 4px 20px rgba(224,86,11,0.35);
+    }
+    .ticket-plan-cta-primary:hover {
+      box-shadow: 0 8px 32px rgba(224,86,11,0.55);
+      color: #fff;
+    }
+    .ticket-plan-cta-secondary {
+      background: transparent;
+      color: var(--orange);
+      border: 2px solid var(--orange);
+    }
+    .ticket-plan-cta-secondary:hover {
+      background: rgba(224,86,11,0.08);
+    }
+
+    @media (max-width: 700px) {
+      .ticket-plans-grid { grid-template-columns: 1fr; }
+      .ticket-plan-badge { inset-inline-start: 1.5rem; transform: none; }
+    }
+  </style>
+
   <!-- ── FOOTER ── -->
   <footer>
     <div class="footer-grid">
@@ -2662,7 +3022,7 @@
       <div>
         <div class="footer-col-title">מידע</div>
         <ul class="footer-links">
-          <li><a href="#">אודות הפסטיבל</a></li>
+          <li><a href="./about.html">אודות הפסטיבל</a></li>
           <li><a href="#">שאלות נפוצות</a></li>
           <li><a href="#">נגישות</a></li>
           <li><a href="#">יצירת קשר</a></li>
@@ -3205,24 +3565,24 @@
     // ── Show panel artist data ────────────────────────────────────
     const showsData = {
       'אבות ובנים':               { image:'', origin:'ישראל', genre:'ג׳אז',              isHeadliner:false, description:'מפגש בין-דורי ייחודי בין אבות ובניהם המוסיקאים.' },
-      'The 3 Cohens':             { image:'', origin:'ישראל / ארה״ב', genre:'ג׳אז',       isHeadliner:true,  description:'שלושת האחים כהן – רוני, אנת ואלדר – מופיעים יחד בהרכב ייחודי.' },
-      'Lay Z Gordon':             { image:'', origin:'ישראל', genre:'ג׳אז / היפ-הופ',    isHeadliner:false, description:'נגן שופר וקול ייחודי המשלב ג׳אז עם השפעות עכשוויות.' },
+      'The 3 Cohens':             { image:'https://f4.bcbits.com/img/0022089960_10.jpg', origin:'ישראל / ארה״ב', genre:'ג׳אז',       isHeadliner:true,  description:'שלושת האחים כהן – רוני, אנת ואלדר – מופיעים יחד בהרכב ייחודי.' },
+      'Lay Z Gordon':             { image:'https://www.lazygordon.com/assets/layz-color-1.png', origin:'ישראל', genre:'ג׳אז / היפ-הופ',    isHeadliner:false, description:'נגן שופר וקול ייחודי המשלב ג׳אז עם השפעות עכשוויות.' },
       'ג׳ימבו ג׳אז':              { image:'', origin:'ישראל', genre:'ג׳אז',              isHeadliner:false, description:'הרכב ג׳אז ישראלי אנרגטי ומרתק.' },
-      'שישיית קאי גלוסקא':        { image:'', origin:'ישראל', genre:'ג׳אז עכשווי',       isHeadliner:false, description:'שישיית הג׳אז של קאי גלוסקא – מוסיקה ישראלית עכשווית.' },
-      'ענת כהן':                  { image:'', origin:'ישראל', genre:'ג׳אז',              isHeadliner:true,  description:'Master Class עם ענת כהן – שיעור חי של אחת מגדולות אמניות הג׳אז העולמי.' },
-      'שלישיית אריאל ברט':        { image:'', origin:'ישראל', genre:'ג׳אז',              isHeadliner:false, description:'השקת אלבום חדש עם שלישיית אריאל ברט.' },
-      'Eli Degibri Quartet':      { image:'', origin:'ישראל', genre:'ג׳אז',              isHeadliner:true,  description:'רביעיית הג׳אז של אלי דה-ג׳יברי – מופע מיוחד לפסטיבל.' },
-      'רביעיית אוריאל הרמן':      { image:'', origin:'ישראל', genre:'ג׳אז',              isHeadliner:false, description:'הרמוניות ג׳אז עדינות ועשירות מהרביעייה של אוריאל הרמן.' },
+      'שישיית קאי גלוסקא':        { image:'https://images.squarespace-cdn.com/content/v1/638f88b9af204e3c9b998725/80f6c39b-ba3b-4c98-b64e-47e5eed76aa2/Golan-Dana-1-2.JPG', origin:'ישראל', genre:'ג׳אז עכשווי',       isHeadliner:false, description:'שישיית הג׳אז של קאי גלוסקא – מוסיקה ישראלית עכשווית.' },
+      'ענת כהן':                  { image:'https://upload.wikimedia.org/wikipedia/commons/4/4d/Anat_Cohen_2014.jpg', origin:'ישראל', genre:'ג׳אז',              isHeadliner:true,  description:'Master Class עם ענת כהן – שיעור חי של אחת מגדולות אמניות הג׳אז העולמי.' },
+      'שלישיית אריאל ברט':        { image:'https://static.wixstatic.com/media/238280_84a3720a074d4cb388f90eb893fbba9b~mv2.jpg', origin:'ישראל', genre:'ג׳אז',              isHeadliner:false, description:'השקת אלבום חדש עם שלישיית אריאל ברט.' },
+      'Eli Degibri Quartet':      { image:'https://images.squarespace-cdn.com/content/v1/5ed02f8b922ddc1c09361885/1646537617034-XNL71N94WPPP4Y75449P/Eli+Degibri+credit+Dan+Balilty-6251-half-size.jpg', origin:'ישראל', genre:'ג׳אז',              isHeadliner:true,  description:'רביעיית הג׳אז של אלי דה-ג׳יברי – מופע מיוחד לפסטיבל.' },
+      'רביעיית אוריאל הרמן':      { image:'https://urielherman.com/wp-content/uploads/2019/08/uriel-herman-about-4.jpg', origin:'ישראל', genre:'ג׳אז',              isHeadliner:false, description:'הרמוניות ג׳אז עדינות ועשירות מהרביעייה של אוריאל הרמן.' },
       'עידית מינצר – א':          { image:'', origin:'ישראל', genre:'וואקל ג׳אז',        isHeadliner:false, description:'חלק ראשון של מופע מיוחד עם עידית מינצר – קולנית ג׳אז מובילה.' },
       'שלישיית יותם זילברשטיין':  { image:'', origin:'ישראל', genre:'ג׳אז',              isHeadliner:false, description:'שלישיית פסנתר-ג׳אז עם יותם זילברשטיין.' },
       'שישיית חגי אמיר':          { image:'', origin:'ישראל', genre:'ג׳אז ישראלי',       isHeadliner:false, description:'שישיית הג׳אז של חגי אמיר מביאה מוסיקה ישראלית מקורית.' },
-      'חוה אלברשטיין':            { image:'', origin:'ישראל', genre:'מוסיקה ישראלית',   isHeadliner:true,  description:'ערב מיוחד עם גדולת הזמרת הישראלית – חוה אלברשטיין.' },
-      'SHALOSH':                  { image:'', origin:'ישראל', genre:'ג׳אז',              isHeadliner:false, description:'השקת אלבום חדש עם שלישיית SHALOSH.' },
-      'Las Piratas Piratas':      { image:'', origin:'ישראל', genre:'ג׳אז לטיני',        isHeadliner:false, description:'כניסה חופשית לערב ג׳אז לטיני חגיגי עם Las Piratas Piratas.' },
-      'הדר נויברג':               { image:'', origin:'ישראל', genre:'ג׳אז / פופ',        isHeadliner:false, description:'מופע מיוחד עם הדר נויברג.' },
-      'Anat Cohen':               { image:'', origin:'ישראל / ארה״ב', genre:'ג׳אז',       isHeadliner:true,  description:'ענת כהן כ-Artist Resident – גולת הכותרת של פסטיבל האדום 2026.' },
+      'חוה אלברשטיין':            { image:'https://upload.wikimedia.org/wikipedia/commons/e/ef/Chava_Alberstein_tight_composition.jpg', origin:'ישראל', genre:'מוסיקה ישראלית',   isHeadliner:true,  description:'ערב מיוחד עם גדולת הזמרת הישראלית – חוה אלברשטיין.' },
+      'SHALOSH':                  { image:'https://shalosh.net/wp-content/uploads/2026/01/001A1247-Edit-scaled.jpg', origin:'ישראל', genre:'ג׳אז',              isHeadliner:false, description:'השקת אלבום חדש עם שלישיית SHALOSH.' },
+      'Las Piratas Piratas':      { image:'https://static.wixstatic.com/media/80be20_67e5266f3aa741e1b80325c3c3757e4ff000.jpg', origin:'ישראל', genre:'ג׳אז לטיני',        isHeadliner:false, description:'כניסה חופשית לערב ג׳אז לטיני חגיגי עם Las Piratas Piratas.' },
+      'הדר נויברג':               { image:'https://hadarnoiberg.com/wp-content/uploads/2025/10/Hadar-Noiberg-1024x683.jpg', origin:'ישראל', genre:'ג׳אז / פופ',        isHeadliner:false, description:'מופע מיוחד עם הדר נויברג.' },
+      'Anat Cohen':               { image:'https://upload.wikimedia.org/wikipedia/commons/4/4d/Anat_Cohen_2014.jpg', origin:'ישראל / ארה״ב', genre:'ג׳אז',       isHeadliner:true,  description:'ענת כהן כ-Artist Resident – גולת הכותרת של פסטיבל האדום 2026.' },
       'עידית מינצר ויחזקאל רז':   { image:'', origin:'ישראל', genre:'וואקל ג׳אז',        isHeadliner:false, description:'חלק שני של מופע עידית מינצר – כעת בצוותא עם יחזקאל רז.' },
-      'תזמורת הג׳אז הישראלית':    { image:'', origin:'ישראל', genre:'ביג-בנד',           isHeadliner:true,  description:'הפקת מקור – מופע סיום מרהיב עם תזמורת הג׳אז הישראלית.' },
+      'תזמורת הג׳אז הישראלית':    { image:'https://upload.wikimedia.org/wikipedia/commons/7/72/Israel_Jazz_Orchestra_03.jpg', origin:'ישראל', genre:'ביג-בנד',           isHeadliner:true,  description:'הפקת מקור – מופע סיום מרהיב עם תזמורת הג׳אז הישראלית.' },
     };
     const _stageNames  = { '1': 'Port arena', '2': 'Red Note Club', '3': 'DE future', '4': 'the present' };
     const _stageColors = { '1': 'var(--orange)', '2': 'var(--teal)', '3': 'var(--pink)', '4': 'var(--yellow)' };
