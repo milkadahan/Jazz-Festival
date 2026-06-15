@@ -108,7 +108,7 @@
       will-change: transform;
       width: max-content;
     }
-    .ticker-track:hover { animation-play-state: paused; }
+
     .ticker-item {
       display: inline-flex; align-items: center; gap: 0.5rem;
       font-size: 0.78rem; color: #e6d8d6;
@@ -1019,9 +1019,10 @@
     .hotel-banner {
       position: relative; overflow: hidden;
       border-radius: 24px;
-      /* חמרה/סיינה חם — מתאים לצבעוניות הבהירה החמה והים-תיכונית */
-      background: #8B4513;
-      border: 1px solid rgba(255,107,26,0.25);
+      /* Light Mode — רקע שמנת תואם ל-Figma node 213-919 (#f5efe6 ≈ --bg2) */
+      --banner-fg: #2b5038;  /* ירוק כהה — secondary-foreground מ-Figma, קריא על שמנת */
+      background: var(--bg2);
+      border: 1px solid rgba(224,86,11,0.25);
       padding-block: 2.5rem;
       padding-inline-start: 40px;
       padding-inline-end: 3.5rem;
@@ -1032,8 +1033,8 @@
       transition: border-color 0.3s, box-shadow 0.3s;
     }
     .hotel-banner:hover {
-      border-color: rgba(255,107,26,0.6);
-      box-shadow: 0 0 60px rgba(255,107,26,0.15), 0 30px 80px rgba(0,0,0,0.5);
+      border-color: rgba(224,86,11,0.6);
+      box-shadow: 0 0 60px rgba(224,86,11,0.15), 0 24px 60px rgba(58,42,30,0.18);
     }
     .banner-glow-orange {
       position: absolute; left: 440px; top: -274px;
@@ -1061,10 +1062,10 @@
       object-fit: cover; object-position: center top;
       display: block;
     }
-    /* Gradient overlay inside the image container */
+    /* Gradient overlay inside the image container — מתמזג לרקע השמנת (Figma: from-#f5efe6 to-transparent) */
     .banner-photo-overlay {
       position: absolute; inset: 0; z-index: 1; pointer-events: none;
-      background: linear-gradient(to left, #8B4513 20%, rgba(139,69,19,0) 100%);
+      background: linear-gradient(to right, var(--bg2) 0%, rgba(243,233,214,0) 52%);
     }
 
     /* Eilat silhouette strip inside banner */
@@ -1083,13 +1084,13 @@
       font-size: clamp(1.5rem, 3vw, 2.375rem);
       font-weight: 900; line-height: normal;
     }
-    .hotel-banner-title .title-line1 { color: #f5efe6; }
+    .hotel-banner-title .title-line1 { color: var(--banner-fg); }
     .hotel-banner-title .hl {
       background: linear-gradient(161deg, var(--orange), #e84021);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    .hotel-banner-sub { color: rgba(245,239,230,0.72); font-size: 0.875rem; line-height: 1.6; text-align: end; }
+    .hotel-banner-sub { color: var(--banner-fg); font-size: 0.875rem; line-height: 1.6; text-align: end; }
 
     .hotel-banner-cta { position: relative; z-index: 2; flex-shrink: 0; }
     .hotel-banner-btn {
@@ -1114,9 +1115,9 @@
       align-items: center;
     }
     .hotel-logo-chip {
-      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 8px; padding: 0.4rem 0.9rem;
-      font-size: 0.78rem; color: rgba(255,255,255,0.88); font-weight: 500;
+      background: rgba(255,255,255,0.6); border: 1px solid #fff;
+      border-radius: 8px; padding: 0.31rem 0.75rem;
+      font-size: 0.75rem; color: var(--banner-fg); font-weight: 400;
     }
 
     /* ─── NEWS ─────────────────────────────────────────────────── */
@@ -1167,7 +1168,7 @@
       position: relative;
     }
     #venue-map-container { position: absolute; inset: 0; }
-    .leaflet-tile-pane { filter: sepia(0.14) brightness(0.88); }
+    .leaflet-tile-pane { filter: sepia(0.18) saturate(0.85); }
     .leaflet-popup-content-wrapper {
       background: var(--card-bg) !important;
       color: var(--text) !important;
@@ -3316,7 +3317,7 @@ section { padding: 3rem 1rem; }
         touchZoom: true,
       });
 
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
         subdomains: 'abcd',
         maxZoom: 19,
