@@ -96,10 +96,10 @@
     }
     .ticker-label {
       flex-shrink: 0;
-      padding: 0 1rem 0 1.4rem;
+      padding: 0 1.4rem 0 1rem;
       font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
       color: var(--orange); text-transform: uppercase;
-      border-left: 1px solid rgba(224,86,11,0.35);
+      border-right: 1px solid rgba(224,86,11,0.35);
       white-space: nowrap;
     }
     .ticker-track-wrap { flex: 1; overflow: hidden; position: relative; }
@@ -1085,7 +1085,7 @@
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    .hotel-banner-sub { color: var(--banner-fg); font-size: 18px; line-height: 1.6; text-align: end; }
+    .hotel-banner-sub { color: var(--banner-fg); font-size: 18px; line-height: 1.6; text-align: right; }
 
     .hotel-banner-cta { position: relative; z-index: 2; flex-shrink: 0; }
     .hotel-banner-btn {
@@ -1528,7 +1528,6 @@ section { padding: 3rem 1rem; }
 
   <!-- ── TICKER BAR ── -->
   <div class="ticker-bar" role="marquee" aria-label="עדכוני פסטיבל">
-    <span class="ticker-label">עדכונים</span>
     <div class="ticker-track-wrap">
       <div class="ticker-track" id="tickerTrack">
         <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
@@ -1549,6 +1548,7 @@ section { padding: 3rem 1rem; }
         <span class="ticker-item">11–14 בנובמבר 2026 · נמל אילת · 40 שנות פסטיבל ג׳אז ים סוף</span>
       </div>
     </div>
+    <span class="ticker-label">עדכונים</span>
   </div>
 
   <!-- ── NAV ── -->
