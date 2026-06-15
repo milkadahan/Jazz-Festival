@@ -45,7 +45,7 @@
       --font:      'Hepta Slab', 'Noto Sans Hebrew', serif;
     }
 
-    html { scroll-behavior: smooth; direction: rtl; }
+    html { scroll-behavior: smooth; direction: rtl; scroll-padding-top: calc(var(--ticker-h) + 100px); }
 
     body {
       background: var(--bg);
@@ -83,9 +83,55 @@
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 3px; }
 
+    /* ─── TICKER BAR ──────────────────────────────────────────── */
+    :root { --ticker-h: 36px; }
+    .ticker-bar {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--ticker-h); z-index: 101;
+      background: #2d2726;
+      display: flex; align-items: center;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(224,86,11,0.3);
+    }
+    .ticker-label {
+      flex-shrink: 0;
+      padding: 0 1rem 0 1.4rem;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+      color: var(--orange); text-transform: uppercase;
+      border-left: 1px solid rgba(224,86,11,0.35);
+      white-space: nowrap;
+    }
+    .ticker-track-wrap { flex: 1; overflow: hidden; position: relative; }
+    .ticker-track {
+      display: flex; gap: 0;
+      animation: ticker-scroll 28s linear infinite;
+      will-change: transform;
+      width: max-content;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+    .ticker-item {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.78rem; color: #e6d8d6;
+      padding: 0 2.5rem;
+      white-space: nowrap;
+    }
+    .ticker-item::before {
+      content: '♪';
+      color: var(--orange); font-size: 0.65rem;
+    }
+    @keyframes ticker-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @media (max-width: 700px) {
+      :root { --ticker-h: 32px; }
+      .ticker-label { padding: 0 0.7rem 0 0.9rem; font-size: 0.65rem; }
+      .ticker-item { font-size: 0.73rem; padding: 0 1.8rem; }
+    }
+
     /* ─── NAV ─────────────────────────────────────────────────── */
     nav {
-      position: fixed; top: 0; width: 100%; z-index: 100;
+      position: fixed; top: var(--ticker-h); width: 100%; z-index: 100;
       display: flex; align-items: center;
       height: 100px;
       background: rgba(250,244,233,0.94);
@@ -1484,6 +1530,24 @@ section { padding: 3rem 1rem; }
   <!-- Skip link for keyboard users -->
   <a class="skip-link" href="#page-body">דלג לתוכן הראשי</a>
 
+  <!-- ── TICKER BAR ── -->
+  <div class="ticker-bar" role="marquee" aria-label="עדכוני פסטיבל">
+    <span class="ticker-label">עדכונים</span>
+    <div class="ticker-track-wrap">
+      <div class="ticker-track" id="tickerTrack">
+        <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
+        <span class="ticker-item">ההופעה הראשונה הוכרזה — פרטים נוספים בקרוב</span>
+        <span class="ticker-item">חבילות נופש חדשות עם מלונות אילת — 3 לילות + שאטל לנמל</span>
+        <span class="ticker-item">11–14 בנובמבר 2026 · נמל אילת · 40 שנות פסטיבל ג׳אז ים סוף</span>
+        <!-- duplicate for seamless loop -->
+        <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
+        <span class="ticker-item">ההופעה הראשונה הוכרזה — פרטים נוספים בקרוב</span>
+        <span class="ticker-item">חבילות נופש חדשות עם מלונות אילת — 3 לילות + שאטל לנמל</span>
+        <span class="ticker-item">11–14 בנובמבר 2026 · נמל אילת · 40 שנות פסטיבל ג׳אז ים סוף</span>
+      </div>
+    </div>
+  </div>
+
   <!-- ── NAV ── -->
   <nav id="navbar">
 
@@ -1509,7 +1573,7 @@ section { padding: 3rem 1rem; }
           חבילות נופש
         </a>
         <a class="nav-btn-primary" data-he="כרטיסים" data-en="Tickets"
-          href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener">
+          href="#ticket-plans">
           כרטיסים
         </a>
         <div class="nav-lang-sep"></div>
