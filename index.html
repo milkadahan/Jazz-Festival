@@ -1593,47 +1593,127 @@ section { padding: 3rem 1rem; }
     </div>
   </div>
 
-  <div class="divider"></div>
-
   <!-- ── ARTIST LINEUP TEXT SECTION ── -->
-  <section id="artist-lineup-text" style="
-    background: var(--bg2);
-    padding: 5rem 3rem;
-    text-align: center;
-  ">
-    <div class="section-header reveal" style="margin-bottom:2.5rem">
-      <div class="section-tag">Lineup · אמנים</div>
-      <h2 class="section-title">מציגים: <span class="accent">אמני 2026</span></h2>
-      <p class="section-desc">לחצו על שם אמן לפרטים נוספים</p>
-    </div>
+  <section id="artist-lineup-text">
+    <div class="alt-lineup-section-inner">
 
-    <div class="alt-lineup-grid reveal" style="
-      display: flex; flex-wrap: wrap; justify-content: center;
-      gap: 0.75rem 1.2rem;
-      max-width: 900px; margin-inline: auto 3rem auto;
-    ">
+      <div class="alt-lineup-header reveal">
+        <div class="section-tag" style="color:var(--orange)">Lineup · אמנים</div>
+        <h2 class="alt-lineup-title">מציגים: <span class="alt-lineup-title-accent">אמני 2026</span></h2>
+        <p class="alt-lineup-desc">לחצו על שם אמן לפרטים נוספים</p>
+      </div>
 
-      <button class="alt-artist-btn" onclick="openArtistDrawer('anat-cohen')">Anat Cohen — Artist in Residence</button>
-      <button class="alt-artist-btn" onclick="openArtistDrawer('three-cohens')">The 3 Cohens Big Band</button>
-      <button class="alt-artist-btn" onclick="openArtistDrawer('eli-degibri')">Eli Degibri Quartet</button>
-      <button class="alt-artist-btn" onclick="openArtistDrawer('hava-albershtein')">חוה אלברשטיין</button>
-      <button class="alt-artist-btn" onclick="openArtistDrawer('shalosh')">SHALOSH</button>
-      <button class="alt-artist-btn" onclick="openArtistDrawer('hagay-amir')">שישיית חגי אמיר</button>
-      <button class="alt-artist-btn" onclick="openArtistDrawer('uriel-herman')">רביעיית אוריאל הרמן מארחת את רמי קליינשטיין</button>
-      <button class="alt-artist-btn" onclick="openArtistDrawer('idit-mintzer')">עידית מינצר — קונצרט בשני חלקים</button>
-      <button class="alt-artist-btn" onclick="openArtistDrawer('yotam-zilberstein')">שלישיית יותם זילברשטיין</button>
-      <button class="alt-artist-btn" onclick="openArtistDrawer('hadar-noibeg')">הדר נויברג New Quartet</button>
-      <button class="alt-artist-btn" onclick="openArtistDrawer('las-piratas')">Las Piratas Piratas</button>
-      <button class="alt-artist-btn" onclick="openArtistDrawer('ijazz-orch')">תזמורת הג׳אז הישראלית</button>
+      <div class="alt-lineup-grid reveal">
 
-    </div>
+        <button class="alt-artist-btn" onclick="openArtistDrawer('anat-cohen')">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">Artist in Residence - Anat Cohen</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
 
-    <div style="margin-top:2.5rem">
-      <a href="./lineup.html" class="btn-primary" style="
-        display:inline-block; padding:0.9rem 2.8rem;
-        font-size:1rem; text-decoration:none;
-      ">לליינאפ המלא ←</a>
-    </div>
+        <button class="alt-artist-btn" onclick="openArtistDrawer('hava-albershtein')">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">אבות ובנים - מפגש דורות אינטימי, <span class="featuring-pill-sub">בהשתתפות:</span> אלוארצי׳ק, גרוס, נחמיה, סאלם, פורטוגלי, צור, שטרקר</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" onclick="openArtistDrawer('three-cohens')">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">Yuval, Anat &amp; Avishai: The 3 Cohens Big Band</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" onclick="openArtistDrawer('hagay-amir')">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">שישיית קאי גלוסקא</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" onclick="openArtistDrawer('eli-degibri')">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">Lay Z Gordon</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" onclick="openArtistDrawer('shalosh')">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">שלישיית אריאל ברט</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" onclick="openArtistDrawer('shalosh')">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">ג׳ימבו ג׳אז <span class="featuring-pill-sub">אורח</span> תמיר בר</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" onclick="openArtistDrawer('idit-mintzer')">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">עידית מינצר קונצרט בשני חלקים</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" onclick="openArtistDrawer('eli-degibri')">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">Eli Degibri Quartet <span class="featuring-pill-sub">עם</span> רביעיית כלי מיתר <span class="featuring-pill-sub">אורח מיוחד:</span> שם טוב לוי</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" onclick="openArtistDrawer('uriel-herman')">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">רביעיית אוריאל הרמן <span class="featuring-pill-sub">מארחת את</span> רמי קליינשטיין</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" onclick="openArtistDrawer('las-piratas')">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">Las Piratas Piratas</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" onclick="openArtistDrawer('yotam-zilberstein')">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">שלישיית יותם זילברשטיין</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" onclick="openArtistDrawer('hadar-noibeg')">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">New Quartet הדר נויברג</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" onclick="openArtistDrawer('shalosh')">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">SHALOSH <span class="featuring-pill-sub">אורח</span> רוני איתן</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" onclick="openArtistDrawer('anat-cohen')">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">Anat Cohen &amp; Marcello Goncalves</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" onclick="openArtistDrawer('hagay-amir')">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">שישיית חגי אמיר דיאלוגים עם ברטוק</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" onclick="openArtistDrawer('ijazz-orch')">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">תזמורת הג׳אז הישראלית, <span class="featuring-pill-sub">מציגה את:</span> נטע ברזילי, גל דה פז, נונו ולירז צ׳רכי</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+      </div><!-- /alt-lineup-grid -->
+
+      <div class="alt-lineup-cta reveal">
+        <a href="./lineup.html" class="alt-lineup-btn">לליינאפ המלא ←</a>
+      </div>
+
+    </div><!-- /alt-lineup-section-inner -->
   </section>
 
   <!-- ── ARTIST DRAWER (aside) ── -->
@@ -1653,27 +1733,162 @@ section { padding: 3rem 1rem; }
   </aside>
 
   <style>
-    /* ── ALT ARTIST BUTTONS ── */
+    /* ── ARTIST LINEUP TEXT SECTION (Light Mode, token-driven) ── */
+    /* Figma node 142:819 — "ענן" של צ'יפים עם קצוות קרועים (torn-paper) */
+    #artist-lineup-text {
+      --pill-bg: #e6d8d6;
+      --pill-text: #2d2726;
+      background: #2d2726;
+      padding: 0;
+    }
+    .alt-lineup-section-inner {
+      padding: 5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3rem;
+    }
+    .alt-lineup-header {
+      text-align: center;
+    }
+    .alt-lineup-title {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      color: #e6d8d6;
+    }
+    .alt-lineup-title-accent {
+      background: linear-gradient(135deg, var(--orange), var(--yellow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .alt-lineup-desc {
+      color: rgba(230,216,214,0.55);
+      font-size: 1rem;
+      margin-top: 0.8rem;
+      line-height: 1.7;
+    }
+
+    /* ── THE GRID OF PILLS ── */
+    .alt-lineup-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 16px 40px;
+      max-width: 1100px;
+      width: 100%;
+    }
+
+    /* ── EACH PILL BUTTON ── */
     .alt-artist-btn {
-      background: var(--card-bg);
-      border: 1.5px solid var(--border-strong);
-      color: var(--text);
-      border-radius: 8px;
-      padding: 0.6rem 1.4rem;
-      font-family: var(--font);
-      font-size: 1.05rem;
-      font-weight: 700;
+      background: transparent;
+      border: none;
+      padding: 0;
       cursor: pointer;
-      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+      display: inline-flex;
+      align-items: stretch;
+      position: relative;
       direction: rtl;
-      line-height: 1.4;
+      transition: transform 0.2s, filter 0.2s;
     }
     .alt-artist-btn:hover {
-      background: linear-gradient(135deg, var(--orange), var(--yellow));
+      transform: translateY(-3px);
+      filter: brightness(0.97) saturate(1.05);
+    }
+    .alt-artist-btn:focus-visible {
+      outline: 2px solid var(--orange);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* Pill decorative side elements — קצוות קרועים (torn-paper edges).
+       מיושמים כ-mask על ה-SVG מהפיגמה; הצבע מגיע מ--pill-bg כך שהם תמיד
+       זהים לצבע גוף הצ'יפ. גרסת ה-mask: צללית מלאה של אותו path. */
+    .featuring-pill-deco {
+      display: block;
+      flex-shrink: 0;
+      align-self: stretch;
+      width: 11px;
+      background: var(--pill-bg);
+      -webkit-mask-repeat: no-repeat;
+              mask-repeat: no-repeat;
+      -webkit-mask-size: 100% 100%;
+              mask-size: 100% 100%;
+    }
+    .featuring-pill-deco--left {
+      /* viewBox 0 0 11 56 — הקצה השמאלי (התחלת הצ'יפ ב-RTL) */
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg preserveAspectRatio='none' viewBox='0 0 11 56' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.57144 0H11V56H1.57144C1.57144 56 3.14287 53.2982 3.14287 49C3.14287 44.7018 1.57144 42 1.57144 42C1.57144 42 -0.000127875 40.7719 7.80415e-09 37.3333C0.00012789 33.8947 1.57144 25.7895 1.57144 22.1053C1.57144 20.4326 2.25121 17.0235 2.44866 13.2632C2.50045 12.2768 1.55744 11.2767 1.57144 10.3158C1.62162 6.87109 2.44866 3.92982 2.44866 3.92982L1.57144 0Z' fill='%23000'/%3E%3C/svg%3E");
+              mask-image: url("data:image/svg+xml,%3Csvg preserveAspectRatio='none' viewBox='0 0 11 56' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.57144 0H11V56H1.57144C1.57144 56 3.14287 53.2982 3.14287 49C3.14287 44.7018 1.57144 42 1.57144 42C1.57144 42 -0.000127875 40.7719 7.80415e-09 37.3333C0.00012789 33.8947 1.57144 25.7895 1.57144 22.1053C1.57144 20.4326 2.25121 17.0235 2.44866 13.2632C2.50045 12.2768 1.55744 11.2767 1.57144 10.3158C1.62162 6.87109 2.44866 3.92982 2.44866 3.92982L1.57144 0Z' fill='%23000'/%3E%3C/svg%3E");
+    }
+    .featuring-pill-deco--right {
+      width: 10px;
+      /* viewBox 0 0 10 56 — הקצה הימני (סוף הצ'יפ ב-RTL) */
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg preserveAspectRatio='none' viewBox='0 0 10 56' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.42856 0H0V56H8.42856C8.42856 56 7.00001 50.3509 7.00001 46.0526C7.00001 41.7544 8.42856 39.0526 8.42856 39.0526C8.42856 39.0526 10.0001 37.8246 10 34.386C9.99988 30.9474 8.42856 22.8421 8.42856 19.1579C8.42856 17.4852 7.81059 17.0235 7.63109 13.2632C7.58401 12.2768 8.44128 11.2767 8.42856 10.3158C8.38294 6.87109 7.63109 3.92982 7.63109 3.92982L8.42856 0Z' fill='%23000'/%3E%3C/svg%3E");
+              mask-image: url("data:image/svg+xml,%3Csvg preserveAspectRatio='none' viewBox='0 0 10 56' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.42856 0H0V56H8.42856C8.42856 56 7.00001 50.3509 7.00001 46.0526C7.00001 41.7544 8.42856 39.0526 8.42856 39.0526C8.42856 39.0526 10.0001 37.8246 10 34.386C9.99988 30.9474 8.42856 22.8421 8.42856 19.1579C8.42856 17.4852 7.81059 17.0235 7.63109 13.2632C7.58401 12.2768 8.44128 11.2767 8.42856 10.3158C8.38294 6.87109 7.63109 3.92982 7.63109 3.92982L8.42856 0Z' fill='%23000'/%3E%3C/svg%3E");
+    }
+
+    /* Pill text body */
+    .featuring-pill-text {
+      display: inline-block;
+      background: var(--pill-bg);
+      color: var(--pill-text);
+      font-family: 'Hepta Slab', 'Noto Sans Hebrew', serif;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.334;
+      padding: 12px;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    /* Sub-text (smaller, semi-condensed style for "אורח", "מציגה את:" etc.) */
+    .featuring-pill-sub {
+      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 0.15px;
+      line-height: 1.28;
+    }
+
+    /* ── CTA BUTTON ── */
+    .alt-lineup-cta {
+      text-align: center;
+    }
+    .alt-lineup-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--orange), var(--red));
       color: #fff;
-      border-color: transparent;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(224,86,11,0.28);
+      border: none;
+      border-radius: 50px;
+      padding: 0.9rem 2.8rem;
+      font-family: var(--font);
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 0 30px rgba(255,107,26,0.45);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .alt-lineup-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 0 50px rgba(255,107,26,0.7);
+      color: #fff;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .alt-lineup-section-inner { padding: 4rem 1.5rem; }
+      .featuring-pill-text { font-size: 18px; }
+      .featuring-pill-sub { font-size: 15px; }
+      .alt-lineup-grid { gap: 12px 24px; }
+    }
+    @media (max-width: 600px) {
+      .alt-lineup-section-inner { padding: 3rem 1rem; }
+      .featuring-pill-text { font-size: 15px; white-space: normal; max-width: calc(100vw - 5rem); }
+      .featuring-pill-sub { font-size: 13px; }
+      .alt-lineup-grid { gap: 10px 16px; }
     }
 
     /* ── DRAWER OVERLAY ── */
@@ -2480,6 +2695,75 @@ section { padding: 3rem 1rem; }
 
   <div class="divider"></div>
 
+  <!-- ── TICKET PLANS ── -->
+  <section id="ticket-plans" style="background: var(--bg); text-align:center;">
+    <div class="section-header reveal">
+      <div class="section-tag">Tickets · כרטיסים</div>
+      <h2 class="section-title">בחרו את <span class="accent">המסלול</span> שלכם</h2>
+      <p class="section-desc">שלושה מסלולי כניסה לפסטיבל ג׳אז ים סוף 2026</p>
+    </div>
+
+    <div class="ticket-plans-grid reveal">
+
+      <!-- Plan 2: כניסה יומית -->
+      <div class="ticket-plan-card">
+        <div class="ticket-plan-icon" aria-hidden="true">📅</div>
+        <div class="ticket-plan-name">כניסה יומית</div>
+        <div class="ticket-plan-desc">
+          בחרו יום אחד (11, 12, 13 או 14 בנובמבר) וקבלו כניסה לכל ההופעות באותו יום על כל הבמות.
+        </div>
+        <ul class="ticket-plan-perks">
+          <li>✓ יום לבחירה</li>
+          <li>✓ כניסה לכל הבמות באותו יום</li>
+          <li>✓ ניתן לשדרג לפס</li>
+        </ul>
+        <a href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" class="ticket-plan-cta ticket-plan-cta-secondary">
+          לרכישה ←
+        </a>
+      </div>
+
+      <!-- Plan 1: פס (הכי פופולרי) — מוצג באמצע -->
+      <div class="ticket-plan-card ticket-plan-featured">
+        <div class="ticket-plan-badge">הכי פופולרי</div>
+        <div class="ticket-plan-icon" aria-hidden="true">🎫</div>
+        <div class="ticket-plan-name">פס</div>
+        <div class="ticket-plan-desc">
+          כניסה לכל ימי הפסטיבל (11–14 בנובמבר) + כל ההופעות על 4 הבמות.
+          הגישה הטובה ביותר לחוויה המלאה.
+        </div>
+        <ul class="ticket-plan-perks">
+          <li>✓ 4 ימי פסטיבל מלאים</li>
+          <li>✓ כניסה לכל 4 הבמות</li>
+          <li>✓ עדיפות בכניסה</li>
+          <li>✓ תוכנייה מיוחדת</li>
+        </ul>
+        <a href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" class="ticket-plan-cta ticket-plan-cta-primary">
+          לרכישה ←
+        </a>
+      </div>
+
+      <!-- Plan 3: הופעה בודדת -->
+      <div class="ticket-plan-card">
+        <div class="ticket-plan-icon" aria-hidden="true">🎵</div>
+        <div class="ticket-plan-name">הופעה בודדת</div>
+        <div class="ticket-plan-desc">
+          בחרו הופעה אחת ספציפית — אמן, תאריך ובמה. הדרך הגמישה לחוות את הפסטיבל.
+        </div>
+        <ul class="ticket-plan-perks">
+          <li>✓ הופעה אחת לבחירה</li>
+          <li>✓ גמישות מלאה</li>
+          <li>✓ זמין לכל ההופעות</li>
+        </ul>
+        <a href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" class="ticket-plan-cta ticket-plan-cta-secondary">
+          לרכישה ←
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
   <!-- ── NEWS ── -->
   <section id="news">
     <div class="section-header reveal">
@@ -2799,74 +3083,6 @@ section { padding: 3rem 1rem; }
     </div>
   </div>
 
-  <div class="divider"></div>
-
-  <!-- ── TICKET PLANS ── -->
-  <section id="ticket-plans" style="background: var(--bg); text-align:center;">
-    <div class="section-header reveal">
-      <div class="section-tag">Tickets · כרטיסים</div>
-      <h2 class="section-title">בחרו את <span class="accent">המסלול</span> שלכם</h2>
-      <p class="section-desc">שלושה מסלולי כניסה לפסטיבל ג׳אז ים סוף 2026</p>
-    </div>
-
-    <div class="ticket-plans-grid reveal">
-
-      <!-- Plan 1: פס -->
-      <div class="ticket-plan-card ticket-plan-featured">
-        <div class="ticket-plan-badge">הכי פופולרי</div>
-        <div class="ticket-plan-icon" aria-hidden="true">🎫</div>
-        <div class="ticket-plan-name">פס</div>
-        <div class="ticket-plan-desc">
-          כניסה לכל ימי הפסטיבל (11–14 בנובמבר) + כל ההופעות על 4 הבמות.
-          הגישה הטובה ביותר לחוויה המלאה.
-        </div>
-        <ul class="ticket-plan-perks">
-          <li>✓ 4 ימי פסטיבל מלאים</li>
-          <li>✓ כניסה לכל 4 הבמות</li>
-          <li>✓ עדיפות בכניסה</li>
-          <li>✓ תוכנייה מיוחדת</li>
-        </ul>
-        <a href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" class="ticket-plan-cta ticket-plan-cta-primary">
-          לרכישה ←
-        </a>
-      </div>
-
-      <!-- Plan 2: כניסה יומית -->
-      <div class="ticket-plan-card">
-        <div class="ticket-plan-icon" aria-hidden="true">📅</div>
-        <div class="ticket-plan-name">כניסה יומית</div>
-        <div class="ticket-plan-desc">
-          בחרו יום אחד (11, 12, 13 או 14 בנובמבר) וקבלו כניסה לכל ההופעות באותו יום על כל הבמות.
-        </div>
-        <ul class="ticket-plan-perks">
-          <li>✓ יום לבחירה</li>
-          <li>✓ כניסה לכל הבמות באותו יום</li>
-          <li>✓ ניתן לשדרג לפס</li>
-        </ul>
-        <a href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" class="ticket-plan-cta ticket-plan-cta-secondary">
-          לרכישה ←
-        </a>
-      </div>
-
-      <!-- Plan 3: הופעה בודדת -->
-      <div class="ticket-plan-card">
-        <div class="ticket-plan-icon" aria-hidden="true">🎵</div>
-        <div class="ticket-plan-name">הופעה בודדת</div>
-        <div class="ticket-plan-desc">
-          בחרו הופעה אחת ספציפית — אמן, תאריך ובמה. הדרך הגמישה לחוות את הפסטיבל.
-        </div>
-        <ul class="ticket-plan-perks">
-          <li>✓ הופעה אחת לבחירה</li>
-          <li>✓ גמישות מלאה</li>
-          <li>✓ זמין לכל ההופעות</li>
-        </ul>
-        <a href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" class="ticket-plan-cta ticket-plan-cta-secondary">
-          לרכישה ←
-        </a>
-      </div>
-
-    </div>
-  </section>
 
   <style>
     /* ── TICKET PLANS GRID ── */
