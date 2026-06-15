@@ -1168,7 +1168,7 @@
       position: relative;
     }
     #venue-map-container { position: absolute; inset: 0; }
-    .leaflet-tile-pane { filter: sepia(0.18) saturate(0.85); }
+    .leaflet-tile-pane { filter: saturate(1.15) brightness(0.97); }
     .leaflet-popup-content-wrapper {
       background: var(--card-bg) !important;
       color: var(--text) !important;
@@ -2675,7 +2675,6 @@ section { padding: 3rem 1rem; }
       </div>
 
       <div class="hotel-banner-content">
-        <div class="hotel-banner-tag"><span aria-hidden="true">🏨</span> חבילות נופש · Hotel Packages</div>
         <div class="hotel-banner-title">
           <span class="title-line1">חגגו את הפסטיבל</span>
           <span class="hl">עם לינה באילת</span>
@@ -3317,7 +3316,7 @@ section { padding: 3rem 1rem; }
         touchZoom: true,
       });
 
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
         subdomains: 'abcd',
         maxZoom: 19,
