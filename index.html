@@ -587,7 +587,8 @@
     }
     #lineup-sticky .section-header { flex-shrink: 0; padding: 3rem 3rem 60px; margin-bottom: 0; }
     .horiz-track-wrap {
-      overflow: hidden; flex: 1; display: flex; align-items: flex-start;
+      overflow: visible; flex: 1; display: flex; align-items: flex-start;
+      clip-path: inset(-40px 0);
     }
     .horiz-track {
       display: flex; gap: 1.5rem; padding: 0 3rem;
@@ -1120,7 +1121,7 @@
       position: relative;
     }
     #venue-map-container { position: absolute; inset: 0; }
-    /* מפה ב-Light Mode — ללא filter, tiles בצבעים בהירים רגילים */
+    .leaflet-tile-pane { filter: sepia(0.14) brightness(0.88); }
     .leaflet-popup-content-wrapper {
       background: var(--card-bg) !important;
       color: var(--text) !important;
@@ -1600,7 +1601,6 @@ section { padding: 3rem 1rem; }
       <div class="alt-lineup-header reveal">
         <div class="section-tag" style="color:var(--orange)">Lineup · אמנים</div>
         <h2 class="alt-lineup-title">מציגים: <span class="alt-lineup-title-accent">אמני 2026</span></h2>
-        <p class="alt-lineup-desc">לחצו על שם אמן לפרטים נוספים</p>
       </div>
 
       <div class="alt-lineup-grid reveal">
@@ -1775,7 +1775,7 @@ section { padding: 3rem 1rem; }
       flex-wrap: wrap;
       justify-content: center;
       align-items: flex-start;
-      gap: 16px 40px;
+      gap: 16px;
       max-width: 1100px;
       width: 100%;
     }
@@ -1815,6 +1815,7 @@ section { padding: 3rem 1rem; }
               mask-repeat: no-repeat;
       -webkit-mask-size: 100% 100%;
               mask-size: 100% 100%;
+      transform: scaleX(-1);
     }
     .featuring-pill-deco--left {
       /* viewBox 0 0 11 56 — הקצה השמאלי (התחלת הצ'יפ ב-RTL) */
@@ -1834,7 +1835,7 @@ section { padding: 3rem 1rem; }
       background: var(--pill-bg);
       color: var(--pill-text);
       font-family: 'Hepta Slab', 'Noto Sans Hebrew', serif;
-      font-size: 24px;
+      font-size: 16px;
       font-weight: 700;
       line-height: 1.334;
       padding: 12px;
@@ -1845,7 +1846,7 @@ section { padding: 3rem 1rem; }
     /* Sub-text (smaller, semi-condensed style for "אורח", "מציגה את:" etc.) */
     .featuring-pill-sub {
       font-family: 'Noto Sans Hebrew', sans-serif;
-      font-size: 20px;
+      font-size: 13px;
       font-weight: 600;
       letter-spacing: 0.15px;
       line-height: 1.28;
@@ -3281,28 +3282,33 @@ section { padding: 3rem 1rem; }
 
       const stages = [
         {
-          latlng: [29.5182, 34.9228],
+          latlng: [29.5515, 34.9460],
           color:  '#FF6B1A',
           label:  'P',
           name:   'Port arena',
           sub:    'כיכר הנמל',
+          info:   `<div style="margin-top:0.45rem;padding-top:0.45rem;border-top:1px solid rgba(224,86,11,0.25);font-size:0.78rem;line-height:1.85;color:#8A7F72">
+            ✈️ שדה התעופה – 10 דקות נסיעה<br>
+            🚌 שאטל חינם ממרחבת המלונות<br>
+            🚗 חניה ציבורית בשער הנמל
+          </div>`,
         },
         {
-          latlng: [29.5200, 34.9210],
+          latlng: [29.5535, 34.9438],
           color:  '#00C9C8',
           label:  'R',
           name:   'Red Note Club',
           sub:    'המזח הצפוני',
         },
         {
-          latlng: [29.5168, 34.9245],
+          latlng: [29.5498, 34.9481],
           color:  '#FF6EB4',
           label:  'D',
           name:   'DE future',
           sub:    'המחסן הישן',
         },
         {
-          latlng: [29.5148, 34.9218],
+          latlng: [29.5478, 34.9450],
           color:  '#FFD234',
           label:  'T',
           name:   'the present',
@@ -3314,12 +3320,11 @@ section { padding: 3rem 1rem; }
       let mainMarker = null;
       stages.forEach((s, i) => {
         bounds.push(s.latlng);
+        const popupHtml = `<strong>${s.name}</strong><br>
+             <span style="color:#8A7F72">${s.sub}</span>${s.info || ''}`;
         const marker = L.marker(s.latlng, { icon: makePin(s.color, s.label) })
           .addTo(map)
-          .bindPopup(
-            `<strong>${s.name}</strong><br>
-             <span style="color:#8A7F72">${s.sub}</span>`
-          );
+          .bindPopup(popupHtml, { maxWidth: 220 });
         if (i === 0) mainMarker = marker;
       });
 
