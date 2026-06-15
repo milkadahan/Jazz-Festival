@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ליינאפ 2026 · Red Sea Jazz Festival</title>
+  <meta name="description" content="הליינאפ המלא של פסטיבל ג'אז ים סוף 2026 — 11–14 בנובמבר · נמל אילת · 4 ימים · 4 במות" />
+  <link href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@100;300;400;500;700;900&family=Noto+Sans+Hebrew:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+  <style>
+    /* ─── RESET & BASE ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #FAF4E9;
+      --bg2:       #F3E9D6;
+      --orange:    #E0560B;
+      --yellow:    #E0A800;
+      --red:       #D62246;
+      --pink:      #E0568F;
+      --teal:      #0A8F8E;
+      --warm-glow: #FF8C42;
+      --text:      #3A2A1E;
+      --muted:     #8A7256;
+      --card-bg:   #FFFDF8;
+      --border:    rgba(58,42,30,0.12);
+      --border-strong: rgba(58,42,30,0.22);
+      --shadow:    rgba(58,42,30,0.10);
+      --shadow-strong: rgba(58,42,30,0.16);
+      --on-accent: #FFFDF8;
+      --font:      'Hepta Slab', 'Noto Sans Hebrew', serif;
+    }
+
+    html { scroll-behavior: smooth; direction: rtl; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.7;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: var(--font); cursor: pointer; }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 3px; }
+
+    :focus-visible {
+      outline: 2px solid var(--orange);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* ─── NAV ─────────────────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; width: 100%; z-index: 100;
+      display: flex; align-items: center;
+      height: 72px;
+      background: rgba(250,244,233,0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 16px var(--shadow);
+    }
+    .nav-logo-tab {
+      flex-shrink: 0; padding: 0.5rem 1.4rem;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .nav-logo-tab:hover { opacity: 0.75; }
+    .nav-logo-img {
+      height: 44px; width: auto; display: block;
+      filter: brightness(0) saturate(100%) invert(15%) sepia(28%) saturate(900%) hue-rotate(350deg);
+    }
+    .nav-inner {
+      flex: 1; display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+    }
+    .nav-links {
+      display: flex; gap: 1.8rem; list-style: none;
+      font-size: 0.88rem; font-weight: 500;
+    }
+    .nav-links a {
+      position: relative; padding-bottom: 3px;
+      transition: color 0.25s; color: rgba(58,42,30,0.78);
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
+      width: 0; height: 2px;
+      background: linear-gradient(90deg, var(--orange), var(--yellow));
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--yellow); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-actions { display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0; }
+    .nav-btn-primary {
+      background: linear-gradient(135deg, var(--orange), #c43d0e);
+      color: var(--on-accent); border: none; border-radius: 50px;
+      padding: 0.5rem 1.3rem; font-size: 0.85rem; font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(224,86,11,0.32);
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none; display: inline-block;
+    }
+    .nav-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(224,86,11,0.45);
+    }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; border:none; background:transparent; }
+    .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-inner { padding: 0 1rem; }
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: fixed; inset: 0; top: 72px;
+        background: rgba(250,244,233,0.98); backdrop-filter: blur(10px);
+        padding: 2rem; gap: 1.5rem; font-size: 1.2rem;
+        z-index: 99;
+      }
+    }
+
+    /* ─── PAGE HERO ────────────────────────────────────────────── */
+    .page-hero {
+      background: linear-gradient(135deg, #3A2A1E 0%, #5C3A20 60%, #2A1A10 100%);
+      padding: 5rem 3rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(224,86,11,0.35) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .page-hero-tag {
+      display: inline-block;
+      color: var(--yellow); font-size: 0.82rem;
+      letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600;
+      margin-bottom: 0.8rem;
+      position: relative;
+    }
+    .page-hero-title {
+      font-size: clamp(2.8rem, 8vw, 6rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: 0.95;
+      position: relative;
+      letter-spacing: -0.02em;
+    }
+    .page-hero-title .accent {
+      background: linear-gradient(135deg, var(--orange), var(--yellow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .page-hero-sub {
+      color: rgba(245,239,230,0.72);
+      font-size: 1rem;
+      margin-top: 1.2rem;
+      position: relative;
+    }
+    .page-hero-stats {
+      display: flex; gap: 2.5rem; justify-content: center; flex-wrap: wrap;
+      margin-top: 2.2rem;
+      position: relative;
+    }
+    .page-hero-stat {
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .page-hero-stat-num {
+      font-size: 2rem; font-weight: 900;
+      background: linear-gradient(135deg, var(--orange), var(--yellow));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .page-hero-stat-label {
+      font-size: 0.78rem; color: rgba(255,255,255,0.55);
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+
+    /* ─── DAY NAVIGATION ───────────────────────────────────────── */
+    .day-nav {
+      position: sticky; top: 72px; z-index: 50;
+      background: rgba(250,244,233,0.97);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.85rem 3rem;
+      display: flex; gap: 0.6rem; flex-wrap: wrap;
+      align-items: center; justify-content: center;
+    }
+    .day-nav-btn {
+      background: transparent;
+      border: 1.5px solid var(--border);
+      color: var(--muted); border-radius: 50px;
+      padding: 0.48rem 1.3rem; font-size: 0.9rem; font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s; white-space: nowrap;
+      font-family: var(--font);
+    }
+    .day-nav-btn:hover { border-color: var(--orange); color: var(--orange); }
+    .day-nav-btn.active {
+      background: linear-gradient(135deg, var(--orange), var(--red));
+      border-color: transparent; color: #fff;
+      box-shadow: 0 0 20px rgba(255,107,26,0.35);
+    }
+
+    /* ─── STAGE FILTER ──────────────────────────────────────────── */
+    .stage-filter {
+      position: sticky; top: 131px; z-index: 49;
+      background: rgba(243,233,214,0.97);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.55rem 3rem;
+      display: flex; gap: 0.45rem; flex-wrap: wrap;
+      align-items: center; justify-content: center;
+    }
+    .stage-filter-label {
+      font-size: 0.75rem; color: var(--muted); font-weight: 600;
+      margin-inline-end: 0.3rem; white-space: nowrap;
+    }
+    .stage-filter-btn {
+      background: transparent;
+      border: 1.5px solid var(--border);
+      color: var(--muted); border-radius: 50px;
+      padding: 0.32rem 0.95rem; font-size: 0.8rem; font-weight: 600;
+      cursor: pointer; font-family: var(--font);
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      transition: all 0.18s; white-space: nowrap;
+    }
+    .stage-filter-btn:hover { border-color: var(--orange); color: var(--orange); }
+    .stage-filter-btn.active {
+      background: var(--text); border-color: transparent; color: #fff;
+    }
+    .stage-filter-dot {
+      width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+    }
+    .stage-group.sf-hidden { display: none; }
+
+    /* ─── MAIN CONTENT ─────────────────────────────────────────── */
+    main { max-width: 1200px; margin-inline: auto; padding: 3rem 2rem 5rem; }
+
+    /* ─── DAY BLOCK ─────────────────────────────────────────────── */
+    .day-block {
+      margin-bottom: 4.5rem;
+      scroll-margin-top: 135px;
+    }
+    .day-block-header {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--border);
+    }
+    .day-block-num {
+      width: 56px; height: 56px; border-radius: 14px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--orange), var(--red));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; font-weight: 900; color: #fff;
+      box-shadow: 0 6px 20px rgba(224,86,11,0.35);
+    }
+    .day-block-info { flex: 1; }
+    .day-block-title {
+      font-size: 1.7rem; font-weight: 900; color: var(--text);
+      line-height: 1.1;
+    }
+    .day-block-subtitle {
+      font-size: 0.88rem; color: var(--muted); margin-top: 0.2rem;
+    }
+    .day-block-count {
+      background: rgba(224,86,11,0.1);
+      color: var(--orange);
+      border: 1px solid rgba(224,86,11,0.25);
+      border-radius: 50px; padding: 0.3rem 0.9rem;
+      font-size: 0.8rem; font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ─── STAGE GROUP ──────────────────────────────────────────── */
+    .stage-group { margin-bottom: 2rem; }
+    .stage-group-header {
+      display: flex; align-items: center; gap: 0.7rem;
+      margin-bottom: 0.9rem;
+    }
+    .stage-dot {
+      width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+    }
+    .stage-group-name {
+      font-size: 0.82rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .stage-group-line {
+      flex: 1; height: 1px; background: var(--border);
+    }
+
+    /* ─── SHOW ROWS ─────────────────────────────────────────────── */
+    .shows-list { display: flex; flex-direction: column; gap: 0.7rem; }
+    .show-row {
+      display: flex; align-items: center; gap: 0;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px; overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+      cursor: default;
+    }
+    .show-row:hover {
+      transform: translateX(-4px);
+      box-shadow: 0 6px 24px var(--shadow);
+    }
+    .show-row-accent { width: 5px; flex-shrink: 0; }
+    .show-row-time {
+      min-width: 64px;
+      padding: 1rem 0.8rem 1rem 0.5rem;
+      font-size: 1rem; font-weight: 700;
+      text-align: center;
+      color: var(--text);
+      flex-shrink: 0;
+    }
+    .show-row-divider {
+      width: 1px; height: 36px;
+      background: var(--border); flex-shrink: 0;
+    }
+    .show-row-info { flex: 1; padding: 1rem 1.2rem; }
+    .show-row-name { font-size: 1.05rem; font-weight: 700; line-height: 1.3; }
+    .show-row-meta { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
+    .show-row-tag {
+      display: inline-block; margin-top: 0.35rem;
+      background: rgba(224,86,11,0.1); color: var(--orange);
+      border-radius: 50px; padding: 0.15rem 0.7rem; font-size: 0.72rem; font-weight: 600;
+    }
+    .show-row-headliner { color: var(--red) !important; background: rgba(214,34,70,0.1) !important; }
+
+    /* ─── FOOTER ───────────────────────────────────────────────── */
+    footer {
+      background: #EFE3CE;
+      border-top: 1px solid var(--border);
+      padding: 3rem 3rem 2rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem; margin-bottom: 2.5rem;
+      max-width: 1200px; margin-inline: auto;
+    }
+    .footer-logo {
+      font-size: 1.2rem; font-weight: 900;
+      background: linear-gradient(135deg, var(--yellow), var(--orange));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; margin-bottom: 0.8rem;
+    }
+    .footer-tagline { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+    .footer-col-title { font-size: 0.8rem; color: var(--orange); letter-spacing: 0; text-transform: uppercase; margin-bottom: 1rem; font-weight: 600; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+    .footer-links a { font-size: 0.9rem; color: var(--muted); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 1.2rem; display: flex;
+      justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+      font-size: 0.8rem; color: var(--muted);
+      max-width: 1200px; margin-inline: auto;
+    }
+    .footer-bottom a { color: var(--teal); }
+
+    /* ─── RESPONSIVE ───────────────────────────────────────────── */
+    @media (max-width: 700px) {
+      .page-hero { padding: 3.5rem 1.5rem 3rem; }
+      main { padding: 2rem 1rem 4rem; }
+      .day-nav { padding: 0.75rem 1rem; }
+      .stage-filter { padding: 0.5rem 1rem; top: 128px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 1.8rem; }
+      .show-row-time { min-width: 52px; font-size: 0.88rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav id="navbar">
+    <a class="nav-logo-tab" href="./index.html">
+      <img src="State=Vertical.svg" alt="Red Sea Jazz Festival" class="nav-logo-img" />
+    </a>
+    <div class="nav-inner">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="./index.html">בית</a></li>
+        <li><a href="./index.html#lineup">אמנים</a></li>
+        <li><a href="./index.html#schedule">לוח הופעות</a></li>
+        <li><a href="./index.html#hotels">מלונות</a></li>
+        <li><a href="./index.html#venue">מיקום</a></li>
+        <li><a href="./index.html#news">עדכונים</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a class="nav-btn-primary"
+          href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener">
+          כרטיסים ←
+        </a>
+        <button class="hamburger" id="hamburger" aria-label="תפריט ניווט" aria-expanded="false"
+                onclick="document.getElementById('navLinks').classList.toggle('open'); this.setAttribute('aria-expanded', document.getElementById('navLinks').classList.contains('open'))">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── PAGE HERO ── -->
+  <div class="page-hero">
+    <div class="page-hero-tag">Full Lineup · ליינאפ מלא</div>
+    <h1 class="page-hero-title">ליינאפ <span class="accent">2026</span></h1>
+    <p class="page-hero-sub">11–14 בנובמבר · נמל אילת · 4 ימים · 4 במות</p>
+    <div class="page-hero-stats">
+      <div class="page-hero-stat">
+        <div class="page-hero-stat-num">40+</div>
+        <div class="page-hero-stat-label">הופעות</div>
+      </div>
+      <div class="page-hero-stat">
+        <div class="page-hero-stat-num">4</div>
+        <div class="page-hero-stat-label">ימים</div>
+      </div>
+      <div class="page-hero-stat">
+        <div class="page-hero-stat-num">4</div>
+        <div class="page-hero-stat-label">במות</div>
+      </div>
+      <div class="page-hero-stat">
+        <div class="page-hero-stat-num">40</div>
+        <div class="page-hero-stat-label">שנות פסטיבל</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DAY NAVIGATION ── -->
+  <nav class="day-nav" aria-label="ניווט לפי יום">
+    <button class="day-nav-btn active" onclick="scrollToDay('day-1', this)">יום ד׳ · 11.11</button>
+    <button class="day-nav-btn" onclick="scrollToDay('day-2', this)">יום ה׳ · 12.11</button>
+    <button class="day-nav-btn" onclick="scrollToDay('day-3', this)">יום ו׳ · 13.11</button>
+    <button class="day-nav-btn" onclick="scrollToDay('day-4', this)">שבת · 14.11</button>
+  </nav>
+
+  <!-- ── STAGE FILTER ── -->
+  <div class="stage-filter" aria-label="סינון לפי במה">
+    <span class="stage-filter-label">במה:</span>
+    <button class="stage-filter-btn active" data-stage-filter="all">כולן</button>
+    <button class="stage-filter-btn" data-stage-filter="Main Stage">
+      <span class="stage-filter-dot" style="background:var(--orange)"></span>Main Stage
+    </button>
+    <button class="stage-filter-btn" data-stage-filter="Red Tent">
+      <span class="stage-filter-dot" style="background:var(--red)"></span>Red Tent
+    </button>
+    <button class="stage-filter-btn" data-stage-filter="Blue Dome">
+      <span class="stage-filter-dot" style="background:var(--teal)"></span>Blue Dome
+    </button>
+    <button class="stage-filter-btn" data-stage-filter="Green Pavilion">
+      <span class="stage-filter-dot" style="background:var(--yellow)"></span>Green Pavilion
+    </button>
+  </div>
+
+  <!-- ── MAIN LINEUP ── -->
+  <main>
+
+    <!-- ════ יום ד׳ — 11 בנובמבר ════ -->
+    <section class="day-block" id="day-1">
+      <div class="day-block-header">
+        <div class="day-block-num">ד׳</div>
+        <div class="day-block-info">
+          <div class="day-block-title">יום ד׳ · 11 בנובמבר 2026</div>
+          <div class="day-block-subtitle">פתיחת הפסטיבל</div>
+        </div>
+        <div class="day-block-count">8 הופעות</div>
+      </div>
+
+      <!-- Main Stage -->
+      <div class="stage-group">
+        <div class="stage-group-header">
+          <div class="stage-dot" style="background:var(--orange)"></div>
+          <div class="stage-group-name" style="color:var(--orange)">Main Stage</div>
+          <div class="stage-group-line"></div>
+        </div>
+        <div class="shows-list">
+          <div class="show-row">
+            <div class="show-row-accent" style="background:var(--orange)"></div>
+            <div class="show-row-time">18:00</div>
+            <div class="show-row-divider"></div>
+            <div class="show-row-info">
+              <div class="show-row-name">פתיחה רשמית — טקס יובל</div>
+              <div class="show-row-meta">טקס פתיחה חגיגי לכבוד 40 שנות הפסטיבל</div>
+              <span class="show-row-tag">אירוע פתיחה</span>
+            </div>
+          </div>
+          <div class="show-row">
+            <div class="show-row-accent" style="background:var(--orange)"></div>
+            <div class="show-row-time">20:00</div>
+            <div class="show-row-divider"></div>
+            <div class="show-row-info">
+              <div class="show-row-name">SHALOSH</div>
+              <div class="show-row-meta">אלבום ראשון בפסטיבל + אורח: רוני איתן</div>
+              <span class="show-row-tag">השקת אלבום</span>
+            </div>
+          </div>
+          <div class="show-row">
+            <div class="show-row-accent" style="background:var(--orange)"></div>
+            <div class="show-row-time">22:00</div>
+            <div class="show-row-divider"></div>
+            <div class="show-row-info">
+              <div class="show-row-name">Las Piratas Piratas</div>
+              <div class="show-row-meta">ג׳אז לטיני — פתיחת פסטיבל חגיגית</div>
+              <span class="show-row-tag">כניסה חופשית</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Red Tent -->
+      <div class="stage-group">
+        <div class="stage-group-header">
+          <div class="stage-dot" style="background:var(--red)"></div>
+          <div class="stage-group-name" style="color:var(--red)">Red Tent</div>
+          <div class="stage-group-line"></div>
+        </div>
+        <div class="shows-list">
+          <div class="show-row">
+            <div class="show-row-accent" style="background:var(--red)"></div>
+            <div class="show-row-time">19:00</div>
+            <div class="show-row-divider"></div>
+            <div class="show-row-info">
+              <div class="show-row-name">שלישיית יותם זילברשטיין</div>
+              <div class="show-row-meta">גיטרה, בס ותופים — ג׳אז עכשווי</div>
+            </div>
+          </div>
+          <div class="show-row">
+            <div class="show-row-accent" style="background:var(--red)"></div>
+            <div class="show-row-time">21:00</div>
+            <div class="show-row-divider"></div>
+            <div class="show-row-info">
+              <div class="show-row-name">הדר נויברג New Quartet</div>
+              <div class="show-row-meta">חליל, פסנתר, בס ותופים — ג׳אז / פיוז׳ן</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blue Dome -->
+      <div class="stage-group">
+        <div class="stage-group-header">
+          <div class="stage-dot" style="background:var(--teal)"></div>
+          <div class="stage-group-name" style="color:var(--teal)">Blue Dome</div>
+          <div class="stage-group-line"></div>
+        </div>
+        <div class="shows-list">
+          <div class="show-row">
+            <div class="show-row-accent" style="background:var(--teal)"></div>
+            <div class="show-row-time">18:30</div>
+            <div class="show-row-divider"></div>
+            <div class="show-row-info">
+              <div class="show-row-name">שישיית קאי גלוסקא</div>
+              <div class="show-row-meta">ג׳אז עכשווי ישראלי</div>
+            </div>
+          </div>
+          <div class="show-row">
+            <div class="show-row-accent" style="background:var(--teal)"></div>
+            <div class="show-row-time">20:30</div>
+            <div class="show-row-divider"></div>
+            <div class="show-row-info">
+              <div class="show-row-name">שלישיית אריאל ברט</div>
+              <div class="show-row-meta">השקת אלבום חדש</div>
+              <span class="show-row-tag">השקת אלבום</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════ יום ה׳ — 12 בנובמבר ════ -->
+    <section class="day-block" id="day-2">
+      <div class="day-block-header">
+        <div class="day-block-num" style="background:linear-gradient(135deg,var(--teal),#006d6d)">ה׳</div>
+        <div class="day-block-info">
+          <div class="day-block-title">יום ה׳ · 12 בנובמבר 2026</div>
+          <div class="day-block-subtitle">לילה של ג׳אז</div>
+        </div>
+        <div class="day-block-count">7 הופעות</div>
+      </div>
+
+      <!-- Main Stage -->
+      <div class="stage-group">
+        <div class="stage-group-header">
+          <div class="stage-dot" style="background:var(--orange)"></div>
+          <div class="stage-group-name" style="color:var(--orange)">Main Stage</div>
+          <div class="stage-group-line"></div>
+        </div>
+        <div class="shows-list">
+          <div class="show-row">
+            <div class="show-row-accent" style="background:var(--orange)"></div>
+            <div class="show-row-time">20:00</div>
+            <div class="show-row-divider"></div>
+            <div class="show-row-info">
+              <div class="show-row-name">The 3 Cohens Big Band</div>
+              <div class="show-row-meta">רוני, ענת ואלדר כהן — מופע יובל מיוחד</div>
+              <span class="show-row-tag show-row-headliner">Headliner · מיוחד לפסטיבל</span>
+            </div>
+          </div>
+          <div class="show-row">
+            <div class="show-row-accent" style="background:var(--orange)"></div>
+            <div class="show-row-time">22:30</div>
+            <div class="show-row-divider"></div>
+            <div class="show-row-info">
+              <div class="show-row-name">ג׳ימבו ג׳אז — אורח: תמיר בר</div>
+              <div class="show-row-meta">ג׳אז ישראלי אנרגטי</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Red Tent -->
+      <div class="stage-group">
+        <div class="stage-group-header">
+          <div class="stage-dot" style="background:var(--red)"></div>
+          <div class="stage-group-name" style="color:var(--red)">Red Tent</div>
+          <div class="stage-group-line"></div>
+        </div>
+        <div class="shows-list">
+          <div class="show-row">
+            <div class="show-row-accent" style="background:var(--red)"></div>
+            <div class="show-row-time">18:00</div>
+            <div class="show-row-divider"></div>
+            <div class="show-row-info">
+              <div class="show-row-name">אבות ובנים — מפגש דורות</div>
+              <div class="show-row-meta">אלוארצ׳יק, גרוס, נחמיה, סאלם, פורטוגלי, צור, שטרקר</div>
+              <span class="show-row-tag">הפקת מקור</span>
+            </div>
+          </div>
+          <div class="show-row">
+            <div class="show-row-accent" style="background:var(--red)"></div>
+            <div class="show-row-time">21:00</div>
+            <div class="show-row-divider"></div>
+            <div class="show-row-info">
+              <div class="show-row-name">Lay Z Gordon</div>
+              <div class="show-row-meta">שופר, ג׳אז / היפ-הופ ישראלי</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blue Dome -->
+      <div class="stage-group">
+        <div class="stage-group-header">
+          <div class="stage-dot" style="background:var(--teal)"></div>
+          <div class="stage-group-name" style="color:var(--teal)">Blue Dome</div>
+          <div class="stage-group-line"></div>
+        </div>
+        <div class="shows-list">
+          <div class="show-row">
+            <div class="show-row-accent" style="background:var(--teal)"></div>
+            <div class="show-row-time">22:30</div>
+            <div class="show-row-divider"></div>
+            <div class="show-row-info">
+              <div class="show-row-name">שישיית קאי גלוסקא</div>
+              <div class="show-row-meta">כניסה חופשית</div>
+              <span class="show-row-tag">כניסה חופשית</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════ יום ו׳ — 13 בנובמבר ════ -->
+    <section class="day-block" id="day-3">
+      <div class="day-block-header">
+        <div class="day-block-num" style="background:linear-gradient(135deg,var(--pink),#a0205a)">ו׳</div>
+        <div class="day-block-info">
+          <div class="day-block-title">יום ו׳ · 13 בנובמבר 2026</div>
+          <div class="day-block-subtitle">היום הגדול</div>
+        </div>
+        <div class="day-block-count">12 הופעות</div>
+      </div>
+
+      <!-- Main Stage -->
+      <div class="stage-group">
+        <div class="stage-group-header">
+          <div class="stage-dot" style="background:var(--orange)"></div>
+          <div class="stage-group-name" style="color:var(--orange)">Main Stage</div>
+          <div class="stage-group-line"></div>
+        </div>
+        <div class="shows-list">
+          <div class="show-row">
+            <div class="show-row-accent" style="background:var(--orange)"></div>
+            <div class="show-row-time">12:30</div>
+            <div class="show-row-divider"></div>
+            <div class="show-row-info">
+              <div class="show-row-name">Eli Degibri Quartet</div>
+              <div class="show-row-meta">עם רביעיית כלי מיתר + אורח מיוחד: שם טוב לוי</div>
+              <span class="show-row-tag show-row-headliner">Headliner · מיוחד לפסטיבל</span>
+            </div>
+          </div>
+          <div class="show-row">
+            <div class="show-row-accent" style="background:var(--orange)"></div>
+            <div class="show-row-time">20:00</div>
+            <div class="show-row-divider"></div>
+            <div class="show-row-info">
+              <div class="show-row-name">חוה אלברשטיין</div>
+              <div class="show-row-meta">ערב מיוחד עם עיבודי ג׳אז</div>
+              <span class="show-row-tag show-row-headliner">Headliner · מיוחד לפסטיבל</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Red Tent -->
+      <div class="stage-group">
+        <div class="stage-group-header">
+          <div class="stage-dot" style="background:var(--red)"></div>
+          <div class="stage-group-name" style="color:var(--red)">Red Tent</div>
+          <div class="stage-group-line"></div>
+        </div>
+        <div class="shows-list">
+          <div class="show-row">
+            <div class="show-row-accent" style="background:var(--red)"></div>
+            <div class="show-row-time">11:00</div>
+            <div class="show-row-divider"></div>
+            <div class="show-row-info">
+              <div class="show-row-name">שלישיית אריאל ברט</div>
+              <div class="show-row-meta">השקת האלבום הרשמית</div>
+              <span class="show-row-tag">השקת אלבום</span>
+            </div>
+          </div>
+          <div class="show-row">
+            <div class="show-row-accent" style="background:var(--red)"></div>
+            <div class="show-row-time">14:00</div>
+            <div class="show-row-divider"></div>
+            <div class="show-row-info">
+              <div class="show-row-name">רביעיית אוריאל הרמן מארחת את רמי קליינשטיין</div>
+              <div class="show-row-meta">ג׳אז פגש פופ — מפגש מיוחד</div>
+            </div>
+          </div>
+          <div class="show-row">
+            <div class="show-row-accent" style="background:var(--red)"></div>
+            <div class="show-row-time">16:30</div>
+            <div class="show-row-divider"></div>
+            <div class="show-row-info">
+              <div class="show-row-name">שלישיית יותם זילברשטיין</div>
+              <div class="show-row-meta">גיטרה ג׳אז — אמנות ורגישות</div>
+            </div>
+          </div>
+          <div class="show-row">
+            <div class="show-row-accent" style="background:var(--red)"></div>
+            <div class="show-row-time">21:45</div>
+            <div class="show-row-divider"></div>
+            <div class="show-row-info">
+              <div class="show-row-name">SHALOSH — אורח: רוני איתן</div>
+              <div class="show-row-meta">הופעת לילה סוחפת</div>
+              <span class="show-row-tag">השקת אלבום</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blue Dome -->
+      <div class="stage-group">
+        <div class="stage-group-header">
+          <div class="stage-dot" style="background:var(--teal)"></div>
+          <div class="stage-group-name" style="color:var(--teal)">Blue Dome</div>
+          <div class="stage-group-line"></div>
+        </div>
+        <div class="shows-list">
+          <div class="show-row">
+            <div class="show-row-accent" style="background:var(--teal)"></div>
+            <div class="show-row-time">09:30</div>
+            <div class="show-row-divider"></div>
+            <div class="show-row-info">
+              <div class="show-row-name">Anat Cohen — Master Class</div>
+              <div class="show-row-meta">שיעור חי פתוח לכולם עם Artist in Residence</div>
+              <span class="show-row-tag">Master Class</span>
+            </div>
+          </div>
+          <div class="show-row">
+            <div class="show-row-accent" style="background:var(--teal)"></div>
+            <div class="show-row-time">15:15</div>
+            <div class="show-row-divider"></div>
+            <div class="show-row-info">
+              <div class="show-row-name">עידית מינצר — קונצרט חלק א׳</div>
+              <div class="show-row-meta">ווקאל ג׳אז — הופעה ראשונה מתוך שתיים</div>
+            </div>
+          </div>
+          <div class="show-row">
+            <div class="show-row-accent" style="background:var(--teal)"></div>
+            <div class="show-row-time">18:00</div>
+            <div class="show-row-divider"></div>
+            <div class="show-row-info">
+              <div class="show-row-name">שישיית חגי אמיר — דיאלוגים עם ברטוק</div>
+              <div class="show-row-meta">מוסיקה מקורית שמשלבת ג׳אז ואפרו-ריתמוס</div>
+            </div>
+          </div>
+          <div class="show-row">
+            <div class="show-row-accent" style="background:var(--teal)"></div>
+            <div class="show-row-time">22:30</div>
+            <div class="show-row-divider"></div>
+            <div class="show-row-info">
+              <div class="show-row-name">Las Piratas Piratas</div>
+              <div class="show-row-meta">כניסה חופשית — לילה לטיני</div>
+              <span class="show-row-tag">כניסה חופשית</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════ שבת — 14 בנובמבר ════ -->
+    <section class="day-block" id="day-4">
+      <div class="day-block-header">
+        <div class="day-block-num" style="background:linear-gradient(135deg,var(--yellow),#b07a00)">שב׳</div>
+        <div class="day-block-info">
+          <div class="day-block-title">שבת · 14 בנובמבר 2026</div>
+          <div class="day-block-subtitle">מופע הסיום — לילה של שיאים</div>
+        </div>
+        <div class="day-block-count">7 הופעות</div>
+      </div>
+
+      <!-- Main Stage -->
+      <div class="stage-group">
+        <div class="stage-group-header">
+          <div class="stage-dot" style="background:var(--orange)"></div>
+          <div class="stage-group-name" style="color:var(--orange)">Main Stage</div>
+          <div class="stage-group-line"></div>
+        </div>
+        <div class="shows-list">
+          <div class="show-row">
+            <div class="show-row-accent" style="background:var(--orange)"></div>
+            <div class="show-row-time">14:45</div>
+            <div class="show-row-divider"></div>
+            <div class="show-row-info">
+              <div class="show-row-name">תזמורת הג׳אז הישראלית</div>
+              <div class="show-row-meta">מופע סיום — אורחות: נטע ברזילי, גל דה פז, נונו ולירז צ׳רכי</div>
+              <span class="show-row-tag show-row-headliner">Headliner · מופע סיום · הפקת מקור</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Red Tent -->
+      <div class="stage-group">
+        <div class="stage-group-header">
+          <div class="stage-dot" style="background:var(--red)"></div>
+          <div class="stage-group-name" style="color:var(--red)">Red Tent</div>
+          <div class="stage-group-line"></div>
+        </div>
+        <div class="shows-list">
+          <div class="show-row">
+            <div class="show-row-accent" style="background:var(--red)"></div>
+            <div class="show-row-time">11:00</div>
+            <div class="show-row-divider"></div>
+            <div class="show-row-info">
+              <div class="show-row-name">הדר נויברג New Quartet</div>
+              <div class="show-row-meta">חליל, פסנתר, בס ותופים — שבת בוקר מוסיקלי</div>
+            </div>
+          </div>
+          <div class="show-row">
+            <div class="show-row-accent" style="background:var(--red)"></div>
+            <div class="show-row-time">13:45</div>
+            <div class="show-row-divider"></div>
+            <div class="show-row-info">
+              <div class="show-row-name">עידית מינצר ויחזקאל רז</div>
+              <div class="show-row-meta">קונצרט חלק ב׳ — ווקאל ג׳אז + גיטרה</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blue Dome -->
+      <div class="stage-group">
+        <div class="stage-group-header">
+          <div class="stage-dot" style="background:var(--teal)"></div>
+          <div class="stage-group-name" style="color:var(--teal)">Blue Dome</div>
+          <div class="stage-group-line"></div>
+        </div>
+        <div class="shows-list">
+          <div class="show-row">
+            <div class="show-row-accent" style="background:var(--teal)"></div>
+            <div class="show-row-time">12:30</div>
+            <div class="show-row-divider"></div>
+            <div class="show-row-info">
+              <div class="show-row-name">Anat Cohen — Artist in Residence</div>
+              <div class="show-row-meta">Anat Cohen & Marcello Goncalves — מופע אינטימי</div>
+              <span class="show-row-tag show-row-headliner">Artist Resident · הופעת יובל</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Green Pavilion -->
+      <div class="stage-group">
+        <div class="stage-group-header">
+          <div class="stage-dot" style="background:var(--yellow)"></div>
+          <div class="stage-group-name" style="color:var(--yellow)">Green Pavilion</div>
+          <div class="stage-group-line"></div>
+        </div>
+        <div class="shows-list">
+          <div class="show-row">
+            <div class="show-row-accent" style="background:var(--yellow)"></div>
+            <div class="show-row-time">10:00</div>
+            <div class="show-row-divider"></div>
+            <div class="show-row-info">
+              <div class="show-row-name">Yuval, Anat & Avishai: The 3 Cohens</div>
+              <div class="show-row-meta">הופעה אינטימית של שלושת האחים — ג׳אז אקוסטי</div>
+            </div>
+          </div>
+          <div class="show-row">
+            <div class="show-row-accent" style="background:var(--yellow)"></div>
+            <div class="show-row-time">12:00</div>
+            <div class="show-row-divider"></div>
+            <div class="show-row-info">
+              <div class="show-row-name">שישיית חגי אמיר</div>
+              <div class="show-row-meta">דיאלוגים עם ברטוק — גרסת אחר-הצהריים</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA בתחתית -->
+    <div style="text-align:center; padding:2rem 0 1rem; border-top: 1px solid var(--border);">
+      <p style="color:var(--muted); font-size:0.92rem; margin-bottom:1.5rem">
+        * הליינאפ עשוי להתעדכן. עקבו אחר הפסטיבל לעדכונים.
+      </p>
+      <a href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener"
+         style="
+           display:inline-flex; align-items:center; gap:0.6rem;
+           background:linear-gradient(135deg,var(--orange),var(--red));
+           color:#fff; border-radius:50px; padding:1rem 2.8rem;
+           font-size:1rem; font-weight:700; text-decoration:none;
+           box-shadow:0 4px 24px rgba(224,86,11,0.38);
+           transition:transform 0.2s, box-shadow 0.2s;
+         "
+         onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 36px rgba(224,86,11,0.55)'"
+         onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(224,86,11,0.38)'">
+        רכישת כרטיסים ←
+      </a>
+      <a href="./index.html"
+         style="
+           display:inline-flex; align-items:center; gap:0.5rem;
+           margin-inline-start:1rem;
+           color:var(--muted); font-size:0.9rem;
+           text-decoration: none;
+         ">
+        → חזרה לדף הבית
+      </a>
+    </div>
+
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">RED SEA JAZZ FESTIVAL</div>
+        <div class="footer-tagline">
+          40 שנות מוזיקה על חוף ים סוף.<br>
+          נמל אילת · 11–14 בנובמבר 2026
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">ניווט</div>
+        <ul class="footer-links">
+          <li><a href="./index.html">דף הבית</a></li>
+          <li><a href="./index.html#lineup">אמנים</a></li>
+          <li><a href="./index.html#schedule">לוח הופעות</a></li>
+          <li><a href="./index.html#hotels">מלונות ונופש</a></li>
+          <li><a href="./index.html#venue">מיקום</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">מידע</div>
+        <ul class="footer-links">
+          <li><a href="./about.html">אודות הפסטיבל</a></li>
+          <li><a href="#">שאלות נפוצות</a></li>
+          <li><a href="#">נגישות</a></li>
+          <li><a href="#">יצירת קשר</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Red Sea Jazz Festival. כל הזכויות שמורות.</span>
+      <span><a href="#">מדיניות פרטיות</a> · <a href="#">תנאי שימוש</a></span>
+    </div>
+  </footer>
+
+  <script>
+    function scrollToDay(id, btn) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+      document.querySelectorAll('.day-nav-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    // Stage filter
+    document.querySelectorAll('[data-stage-filter]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('[data-stage-filter]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.stageFilter;
+        document.querySelectorAll('.stage-group').forEach(group => {
+          const stageName = group.querySelector('.stage-group-name')?.textContent.trim();
+          if (filter === 'all' || stageName === filter) {
+            group.classList.remove('sf-hidden');
+          } else {
+            group.classList.add('sf-hidden');
+          }
+        });
+      });
+    });
+
+    // Highlight active day on scroll
+    const dayBlocks = document.querySelectorAll('.day-block');
+    const dayBtns   = document.querySelectorAll('.day-nav-btn');
+    window.addEventListener('scroll', function() {
+      var current = '';
+      dayBlocks.forEach(function(block) {
+        var rect = block.getBoundingClientRect();
+        if (rect.top <= 160) current = block.id;
+      });
+      if (!current) return;
+      dayBtns.forEach(function(btn) {
+        btn.classList.remove('active');
+      });
+      var idx = ['day-1','day-2','day-3','day-4'].indexOf(current);
+      if (dayBtns[idx]) dayBtns[idx].classList.add('active');
+    }, { passive: true });
+  </script>
+</body>
+</html>
