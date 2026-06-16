@@ -26,7 +26,6 @@
   <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
   <link rel="manifest" href="./site.webmanifest" />
   <link href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@100;300;400;500;700;900&family=Noto+Sans+Hebrew:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
-  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
   <style>
     /* ─── RESET & BASE ─────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -257,16 +256,33 @@
     .page-hero {
       position: relative;
       overflow: hidden;
-      min-height: calc(400px + var(--ticker-h) + var(--nav-h));
-      padding-top: calc(var(--ticker-h) + var(--nav-h) + 60px);
-      padding-bottom: 60px;
-      padding-inline: 120px;
+      padding-top: calc(var(--ticker-h) + var(--nav-h));
+      background: #f5efe6;
+      border-bottom: 1px solid rgba(255,107,26,0.25);
+    }
+    /* 400px visual frame — exact Figma dimensions */
+    .page-hero-visual {
+      position: relative;
+      height: 400px;
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      background: #f5efe6 url('./Graphig assets/banner-lineup.jpg') center 47% / cover no-repeat;
-      border-bottom: 1px solid rgba(255,107,26,0.25);
+    }
+    /* Background image positioned exactly as in Figma (node 234:1716) */
+    .page-hero-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .page-hero-bg img {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 236.97%;
+      top: -111.51%;
+      display: block;
     }
     .page-hero-glow-orange {
       position: absolute;
@@ -287,6 +303,7 @@
       position: relative; z-index: 2;
       display: flex; flex-direction: column;
       gap: 12px; align-items: center;
+      padding-inline: 120px;
     }
     .page-hero-tag {
       display: flex; align-items: center; gap: 8px; justify-content: center;
@@ -324,8 +341,8 @@
     }
 
     /* ─── DAY NAVIGATION ───────────────────────────────────────── */
-    /* --view-toggle-h מחושב לפי גובה ה-view-toggle-bar (כ-46px) */
-    :root { --view-toggle-h: 46px; }
+    /* --view-toggle-h מחושב לפי גובה ה-view-toggle-bar: padding*2 + כפתור 42px + border */
+    :root { --view-toggle-h: 62px; }
     .day-nav {
       position: sticky; top: calc(var(--ticker-h) + var(--nav-h) + var(--view-toggle-h)); z-index: 50;
       background: rgba(250,244,233,0.97);
@@ -512,34 +529,44 @@
       background: rgba(250,244,233,0.97);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--border);
-      padding: 0.7rem 3rem;
+      padding: 0.55rem 3rem;
       display: flex; align-items: center; justify-content: center;
       gap: 0.4rem;
       position: sticky; top: calc(var(--ticker-h) + var(--nav-h)); z-index: 51;
     }
-    .view-toggle-label {
-      font-size: 0.75rem; color: var(--muted); font-weight: 600;
-      margin-inline-end: 0.6rem; white-space: nowrap;
-    }
     .view-toggle-group {
-      display: inline-flex; border: 1.5px solid var(--border-strong);
-      border-radius: 50px; overflow: hidden;
-      background: var(--card-bg);
+      display: inline-flex;
+      align-items: center;
+      background: #F8F4EE;
+      border: 1.5px solid #E6D8D6;
+      border-radius: 50px;
+      padding: 5.5px;
+      height: 42px;
+      gap: 0;
     }
     .view-toggle-btn {
       background: transparent;
       border: none;
-      color: var(--muted);
-      padding: 0.42rem 1.15rem;
-      font-size: 0.82rem; font-weight: 600;
-      cursor: pointer; font-family: var(--font);
-      display: inline-flex; align-items: center; gap: 0.38rem;
-      transition: background 0.18s, color 0.18s;
+      color: #483F3B;
+      width: 108px;
+      height: 100%;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Noto Sans Hebrew', sans-serif;
+      display: inline-flex; align-items: center; justify-content: center;
+      transition: color 0.18s;
       white-space: nowrap;
+      border-radius: 50px;
+      letter-spacing: 0.1px;
     }
-    .view-toggle-btn:first-child { border-inline-end: 1.5px solid var(--border-strong); }
     .view-toggle-btn.active {
-      background: var(--text); color: #fff;
+      background: linear-gradient(163.98deg, #E0560B 0%, #D62246 100%);
+      color: #fff;
+      font-family: 'Hepta Slab', serif;
+      font-weight: 700;
+      letter-spacing: 0.17px;
+      box-shadow: 0 0 10px rgba(255,107,26,0.35);
     }
     .view-toggle-btn:not(.active):hover { color: var(--orange); }
 
@@ -645,7 +672,7 @@
       .hero-stats-bar { padding: 1rem 1.5rem; gap: 1.2rem; }
       main { padding: 2rem 1rem 4rem; }
       .day-nav { padding: 0.75rem 1rem; }
-      .stage-filter { padding: 0.5rem 1rem; top: calc(var(--ticker-h) + var(--nav-h) + 55px + 46px); }
+      .stage-filter { padding: 0.5rem 1rem; top: calc(var(--ticker-h) + var(--nav-h) + var(--view-toggle-h) + 55px); }
       .view-toggle-bar { padding: 0.6rem 1rem; }
       .footer-grid { grid-template-columns: 1fr; gap: 1.8rem; }
       .show-row-time { min-width: 52px; font-size: 0.88rem; }
@@ -728,39 +755,15 @@
     </div>
   </div>
 
-  <!-- ── HERO STATS ── -->
-  <div class="hero-stats-bar">
-    <div class="hero-stat">
-      <div class="hero-stat-num">40+</div>
-      <div class="hero-stat-label">הופעות</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-num">4</div>
-      <div class="hero-stat-label">ימים</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-num">4</div>
-      <div class="hero-stat-label">במות</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-num">40</div>
-      <div class="hero-stat-label">שנות פסטיבל</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-num" style="font-size:1rem;font-weight:600;-webkit-text-fill-color:var(--muted);color:var(--muted);">11–14 נובמבר · נמל אילת</div>
-      <div class="hero-stat-label">תאריכים ומיקום</div>
-    </div>
-  </div>
 
   <!-- ── VIEW TOGGLE ── -->
   <div class="view-toggle-bar" role="group" aria-label="בחירת תצוגה">
-    <span class="view-toggle-label">תצוגה:</span>
     <div class="view-toggle-group">
       <button class="view-toggle-btn active" id="btnList" onclick="switchView('list')" aria-pressed="true">
-        ☰ רשימה
+        Line-up
       </button>
       <button class="view-toggle-btn" id="btnCal" onclick="switchView('calendar')" aria-pressed="false">
-        ◫ יומן
+        לוח זמנים
       </button>
     </div>
   </div>
