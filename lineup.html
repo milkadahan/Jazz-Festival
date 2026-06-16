@@ -300,8 +300,10 @@
     }
 
     /* ─── DAY NAVIGATION ───────────────────────────────────────── */
+    /* --view-toggle-h מחושב לפי גובה ה-view-toggle-bar (כ-46px) */
+    :root { --view-toggle-h: 46px; }
     .day-nav {
-      position: sticky; top: calc(var(--ticker-h) + var(--nav-h)); z-index: 50;
+      position: sticky; top: calc(var(--ticker-h) + var(--nav-h) + var(--view-toggle-h)); z-index: 50;
       background: rgba(250,244,233,0.97);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--border);
@@ -327,7 +329,7 @@
 
     /* ─── STAGE FILTER ──────────────────────────────────────────── */
     .stage-filter {
-      position: sticky; top: calc(var(--ticker-h) + var(--nav-h) + 59px); z-index: 49;
+      position: sticky; top: calc(var(--ticker-h) + var(--nav-h) + var(--view-toggle-h) + 59px); z-index: 49;
       background: rgba(243,233,214,0.97);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--border);
@@ -481,14 +483,146 @@
     }
     .footer-bottom a { color: var(--teal); }
 
+    /* ─── VIEW TOGGLE ──────────────────────────────────────────── */
+    .view-toggle-bar {
+      background: rgba(250,244,233,0.97);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.7rem 3rem;
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.4rem;
+      position: sticky; top: calc(var(--ticker-h) + var(--nav-h)); z-index: 51;
+    }
+    .view-toggle-label {
+      font-size: 0.75rem; color: var(--muted); font-weight: 600;
+      margin-inline-end: 0.6rem; white-space: nowrap;
+    }
+    .view-toggle-group {
+      display: inline-flex; border: 1.5px solid var(--border-strong);
+      border-radius: 50px; overflow: hidden;
+      background: var(--card-bg);
+    }
+    .view-toggle-btn {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      padding: 0.42rem 1.15rem;
+      font-size: 0.82rem; font-weight: 600;
+      cursor: pointer; font-family: var(--font);
+      display: inline-flex; align-items: center; gap: 0.38rem;
+      transition: background 0.18s, color 0.18s;
+      white-space: nowrap;
+    }
+    .view-toggle-btn:first-child { border-inline-end: 1.5px solid var(--border-strong); }
+    .view-toggle-btn.active {
+      background: var(--text); color: #fff;
+    }
+    .view-toggle-btn:not(.active):hover { color: var(--orange); }
+
+    /* ─── CALENDAR VIEW ─────────────────────────────────────────── */
+    .calendar-section { display: none; }
+    .calendar-section.cv-visible { display: block; }
+    /* ממסתיר רשימה ומציג יומן */
+    body.view-calendar .day-block { display: none; }
+    body.view-calendar .calendar-section { display: block; }
+    /* ממסתיר CTA בתצוגת יומן */
+    body.view-calendar .lineup-cta { display: none; }
+
+    .cal-day-label {
+      font-size: 1.1rem; font-weight: 800; color: var(--text);
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 2px solid var(--border);
+      display: flex; align-items: center; gap: 0.7rem;
+    }
+    .cal-day-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+      font-size: 1rem; font-weight: 900; color: #fff;
+    }
+    .cal-day-date {
+      font-size: 0.8rem; color: var(--muted); font-weight: 500;
+    }
+
+    /* Grid של היומן */
+    .cal-grid {
+      display: grid;
+      grid-template-columns: 64px repeat(4, 1fr);
+      gap: 0;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 3rem;
+      background: var(--card-bg);
+    }
+    .cal-header-cell {
+      padding: 0.65rem 0.7rem;
+      font-size: 0.74rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      background: var(--bg2);
+      border-bottom: 1.5px solid var(--border);
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .cal-header-cell:not(:last-child) { border-inline-end: 1px solid var(--border); }
+    .cal-header-time { color: var(--muted); font-size: 0.7rem; text-align: center; justify-content: center; }
+
+    .cal-row { display: contents; }
+    .cal-time-cell {
+      padding: 0.85rem 0.5rem;
+      font-size: 0.8rem; font-weight: 700; color: var(--muted);
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      border-inline-end: 1px solid var(--border);
+      background: var(--bg2);
+      display: flex; align-items: flex-start; justify-content: center;
+      padding-top: 0.9rem;
+    }
+    .cal-cell {
+      padding: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      border-inline-end: 1px solid var(--border);
+      min-height: 68px;
+      vertical-align: top;
+      display: flex; flex-direction: column; gap: 0.4rem;
+    }
+    .cal-cell:last-child, .cal-time-cell:last-child { border-inline-end: none; }
+    .cal-row:last-child .cal-cell,
+    .cal-row:last-child .cal-time-cell { border-bottom: none; }
+
+    .cal-show-card {
+      border-radius: 9px;
+      padding: 0.45rem 0.65rem;
+      font-size: 0.77rem;
+      line-height: 1.35;
+      border-right: 4px solid transparent;
+      flex: 1;
+    }
+    .cal-show-name { font-weight: 700; color: var(--text); }
+    .cal-show-time { font-size: 0.7rem; color: var(--muted); font-weight: 600; margin-top: 0.2rem; }
+    .cal-show-tag {
+      display: inline-block; margin-top: 0.25rem;
+      font-size: 0.65rem; font-weight: 700;
+      background: rgba(214,34,70,0.12); color: var(--red);
+      border-radius: 50px; padding: 0.1rem 0.45rem;
+    }
+    .cal-empty {
+      display: flex; align-items: center; justify-content: center;
+      color: var(--border-strong);
+      font-size: 0.75rem;
+      opacity: 0.4;
+    }
+
     /* ─── RESPONSIVE ───────────────────────────────────────────── */
     @media (max-width: 700px) {
       .page-hero { padding-top: calc(var(--ticker-h) + var(--nav-h) + 2rem); padding-inline: 1.5rem; padding-bottom: 3rem; }
       main { padding: 2rem 1rem 4rem; }
       .day-nav { padding: 0.75rem 1rem; }
-      .stage-filter { padding: 0.5rem 1rem; top: calc(var(--ticker-h) + var(--nav-h) + 55px); }
+      .stage-filter { padding: 0.5rem 1rem; top: calc(var(--ticker-h) + var(--nav-h) + 55px + 46px); }
+      .view-toggle-bar { padding: 0.6rem 1rem; }
       .footer-grid { grid-template-columns: 1fr; gap: 1.8rem; }
       .show-row-time { min-width: 52px; font-size: 0.88rem; }
+      /* יומן במובייל — scroll אופקי */
+      .cal-grid { grid-template-columns: 52px repeat(4, minmax(120px, 1fr)); overflow-x: auto; }
     }
   </style>
 </head>
@@ -574,6 +708,19 @@
         <div class="page-hero-stat-num">40</div>
         <div class="page-hero-stat-label">שנות פסטיבל</div>
       </div>
+    </div>
+  </div>
+
+  <!-- ── VIEW TOGGLE ── -->
+  <div class="view-toggle-bar" role="group" aria-label="בחירת תצוגה">
+    <span class="view-toggle-label">תצוגה:</span>
+    <div class="view-toggle-group">
+      <button class="view-toggle-btn active" id="btnList" onclick="switchView('list')" aria-pressed="true">
+        ☰ רשימה
+      </button>
+      <button class="view-toggle-btn" id="btnCal" onclick="switchView('calendar')" aria-pressed="false">
+        ◫ יומן
+      </button>
     </div>
   </div>
 
@@ -1064,8 +1211,362 @@
       </div>
     </section>
 
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- ── CALENDAR VIEW (נסתר כברירת מחדל) ── -->
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <!-- יום ד׳ — יומן -->
+    <div class="calendar-section" id="cal-day-1">
+      <div class="cal-day-label">
+        <div class="cal-day-badge" style="background:linear-gradient(135deg,var(--orange),var(--red))">ד׳</div>
+        <div>
+          יום ד׳ · 11 בנובמבר 2026
+          <div class="cal-day-date">פתיחת הפסטיבל · 8 הופעות</div>
+        </div>
+      </div>
+      <div class="cal-grid">
+        <!-- כותרות בימות -->
+        <div class="cal-header-cell cal-header-time">שעה</div>
+        <div class="cal-header-cell" style="color:var(--orange)"><span style="display:inline-block;width:8px;height:8px;background:var(--orange);border-radius:50%;margin-left:4px"></span>Main Stage</div>
+        <div class="cal-header-cell" style="color:var(--red)"><span style="display:inline-block;width:8px;height:8px;background:var(--red);border-radius:50%;margin-left:4px"></span>Red Tent</div>
+        <div class="cal-header-cell" style="color:var(--teal)"><span style="display:inline-block;width:8px;height:8px;background:var(--teal);border-radius:50%;margin-left:4px"></span>Blue Dome</div>
+        <div class="cal-header-cell" style="color:var(--yellow)"><span style="display:inline-block;width:8px;height:8px;background:var(--yellow);border-radius:50%;margin-left:4px"></span>Green Pavilion</div>
+        <!-- 18:00 -->
+        <div class="cal-time-cell">18:00</div>
+        <div class="cal-cell">
+          <div class="cal-show-card" style="background:rgba(224,86,11,0.08);border-right-color:var(--orange)">
+            <div class="cal-show-name">פתיחה רשמית — טקס יובל</div>
+            <div class="cal-show-time">18:00</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-show-card" style="background:rgba(214,34,70,0.08);border-right-color:var(--red)">
+            <div class="cal-show-name">שלישיית יותם זילברשטיין</div>
+            <div class="cal-show-time">19:00</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-show-card" style="background:rgba(10,143,142,0.08);border-right-color:var(--teal)">
+            <div class="cal-show-name">שישיית קאי גלוסקא</div>
+            <div class="cal-show-time">18:30</div>
+          </div>
+        </div>
+        <div class="cal-cell cal-empty">—</div>
+        <!-- 20:00 -->
+        <div class="cal-time-cell">20:00</div>
+        <div class="cal-cell">
+          <div class="cal-show-card" style="background:rgba(224,86,11,0.08);border-right-color:var(--orange)">
+            <div class="cal-show-name">SHALOSH</div>
+            <div class="cal-show-time">20:00</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-show-card" style="background:rgba(214,34,70,0.08);border-right-color:var(--red)">
+            <div class="cal-show-name">הדר נויברג New Quartet</div>
+            <div class="cal-show-time">21:00</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-show-card" style="background:rgba(10,143,142,0.08);border-right-color:var(--teal)">
+            <div class="cal-show-name">שלישיית אריאל ברט</div>
+            <div class="cal-show-time">20:30</div>
+          </div>
+        </div>
+        <div class="cal-cell cal-empty">—</div>
+        <!-- 22:00 -->
+        <div class="cal-time-cell">22:00</div>
+        <div class="cal-cell">
+          <div class="cal-show-card" style="background:rgba(224,86,11,0.08);border-right-color:var(--orange)">
+            <div class="cal-show-name">Las Piratas Piratas</div>
+            <div class="cal-show-time">22:00</div>
+          </div>
+        </div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell cal-empty">—</div>
+      </div>
+    </div>
+
+    <!-- יום ה׳ — יומן -->
+    <div class="calendar-section" id="cal-day-2">
+      <div class="cal-day-label">
+        <div class="cal-day-badge" style="background:linear-gradient(135deg,var(--teal),#006d6d)">ה׳</div>
+        <div>
+          יום ה׳ · 12 בנובמבר 2026
+          <div class="cal-day-date">לילה של ג׳אז · 7 הופעות</div>
+        </div>
+      </div>
+      <div class="cal-grid">
+        <div class="cal-header-cell cal-header-time">שעה</div>
+        <div class="cal-header-cell" style="color:var(--orange)"><span style="display:inline-block;width:8px;height:8px;background:var(--orange);border-radius:50%;margin-left:4px"></span>Main Stage</div>
+        <div class="cal-header-cell" style="color:var(--red)"><span style="display:inline-block;width:8px;height:8px;background:var(--red);border-radius:50%;margin-left:4px"></span>Red Tent</div>
+        <div class="cal-header-cell" style="color:var(--teal)"><span style="display:inline-block;width:8px;height:8px;background:var(--teal);border-radius:50%;margin-left:4px"></span>Blue Dome</div>
+        <div class="cal-header-cell" style="color:var(--yellow)"><span style="display:inline-block;width:8px;height:8px;background:var(--yellow);border-radius:50%;margin-left:4px"></span>Green Pavilion</div>
+        <!-- 18:00 -->
+        <div class="cal-time-cell">18:00</div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell">
+          <div class="cal-show-card" style="background:rgba(214,34,70,0.08);border-right-color:var(--red)">
+            <div class="cal-show-name">אבות ובנים — מפגש דורות</div>
+            <div class="cal-show-time">18:00</div>
+          </div>
+        </div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell cal-empty">—</div>
+        <!-- 20:00 -->
+        <div class="cal-time-cell">20:00</div>
+        <div class="cal-cell">
+          <div class="cal-show-card" style="background:rgba(224,86,11,0.08);border-right-color:var(--orange)">
+            <div class="cal-show-name">The 3 Cohens Big Band</div>
+            <div class="cal-show-time">20:00</div>
+            <span class="cal-show-tag">Headliner</span>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-show-card" style="background:rgba(214,34,70,0.08);border-right-color:var(--red)">
+            <div class="cal-show-name">Lay Z Gordon</div>
+            <div class="cal-show-time">21:00</div>
+          </div>
+        </div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell cal-empty">—</div>
+        <!-- 22:00 -->
+        <div class="cal-time-cell">22:00</div>
+        <div class="cal-cell">
+          <div class="cal-show-card" style="background:rgba(224,86,11,0.08);border-right-color:var(--orange)">
+            <div class="cal-show-name">ג׳ימבו ג׳אז — אורח: תמיר בר</div>
+            <div class="cal-show-time">22:30</div>
+          </div>
+        </div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell">
+          <div class="cal-show-card" style="background:rgba(10,143,142,0.08);border-right-color:var(--teal)">
+            <div class="cal-show-name">שישיית קאי גלוסקא</div>
+            <div class="cal-show-time">22:30</div>
+          </div>
+        </div>
+        <div class="cal-cell cal-empty">—</div>
+      </div>
+    </div>
+
+    <!-- יום ו׳ — יומן -->
+    <div class="calendar-section" id="cal-day-3">
+      <div class="cal-day-label">
+        <div class="cal-day-badge" style="background:linear-gradient(135deg,var(--pink),#a0205a)">ו׳</div>
+        <div>
+          יום ו׳ · 13 בנובמבר 2026
+          <div class="cal-day-date">היום הגדול · 12 הופעות</div>
+        </div>
+      </div>
+      <div class="cal-grid">
+        <div class="cal-header-cell cal-header-time">שעה</div>
+        <div class="cal-header-cell" style="color:var(--orange)"><span style="display:inline-block;width:8px;height:8px;background:var(--orange);border-radius:50%;margin-left:4px"></span>Main Stage</div>
+        <div class="cal-header-cell" style="color:var(--red)"><span style="display:inline-block;width:8px;height:8px;background:var(--red);border-radius:50%;margin-left:4px"></span>Red Tent</div>
+        <div class="cal-header-cell" style="color:var(--teal)"><span style="display:inline-block;width:8px;height:8px;background:var(--teal);border-radius:50%;margin-left:4px"></span>Blue Dome</div>
+        <div class="cal-header-cell" style="color:var(--yellow)"><span style="display:inline-block;width:8px;height:8px;background:var(--yellow);border-radius:50%;margin-left:4px"></span>Green Pavilion</div>
+        <!-- 09:30 -->
+        <div class="cal-time-cell">09:30</div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell">
+          <div class="cal-show-card" style="background:rgba(10,143,142,0.08);border-right-color:var(--teal)">
+            <div class="cal-show-name">Anat Cohen — Master Class</div>
+            <div class="cal-show-time">09:30</div>
+          </div>
+        </div>
+        <div class="cal-cell cal-empty">—</div>
+        <!-- 11:00 -->
+        <div class="cal-time-cell">11:00</div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell">
+          <div class="cal-show-card" style="background:rgba(214,34,70,0.08);border-right-color:var(--red)">
+            <div class="cal-show-name">שלישיית אריאל ברט</div>
+            <div class="cal-show-time">11:00</div>
+          </div>
+        </div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell cal-empty">—</div>
+        <!-- 12:30 -->
+        <div class="cal-time-cell">12:30</div>
+        <div class="cal-cell">
+          <div class="cal-show-card" style="background:rgba(224,86,11,0.08);border-right-color:var(--orange)">
+            <div class="cal-show-name">Eli Degibri Quartet</div>
+            <div class="cal-show-time">12:30</div>
+            <span class="cal-show-tag">Headliner</span>
+          </div>
+        </div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell cal-empty">—</div>
+        <!-- 14:00 -->
+        <div class="cal-time-cell">14:00</div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell">
+          <div class="cal-show-card" style="background:rgba(214,34,70,0.08);border-right-color:var(--red)">
+            <div class="cal-show-name">רביעיית אוריאל הרמן מארחת את רמי קליינשטיין</div>
+            <div class="cal-show-time">14:00</div>
+          </div>
+        </div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell cal-empty">—</div>
+        <!-- 15:15 -->
+        <div class="cal-time-cell">15:15</div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell">
+          <div class="cal-show-card" style="background:rgba(10,143,142,0.08);border-right-color:var(--teal)">
+            <div class="cal-show-name">עידית מינצר — קונצרט חלק א׳</div>
+            <div class="cal-show-time">15:15</div>
+          </div>
+        </div>
+        <div class="cal-cell cal-empty">—</div>
+        <!-- 16:30 -->
+        <div class="cal-time-cell">16:30</div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell">
+          <div class="cal-show-card" style="background:rgba(214,34,70,0.08);border-right-color:var(--red)">
+            <div class="cal-show-name">שלישיית יותם זילברשטיין</div>
+            <div class="cal-show-time">16:30</div>
+          </div>
+        </div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell cal-empty">—</div>
+        <!-- 18:00 -->
+        <div class="cal-time-cell">18:00</div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell">
+          <div class="cal-show-card" style="background:rgba(10,143,142,0.08);border-right-color:var(--teal)">
+            <div class="cal-show-name">שישיית חגי אמיר</div>
+            <div class="cal-show-time">18:00</div>
+          </div>
+        </div>
+        <div class="cal-cell cal-empty">—</div>
+        <!-- 20:00 -->
+        <div class="cal-time-cell">20:00</div>
+        <div class="cal-cell">
+          <div class="cal-show-card" style="background:rgba(224,86,11,0.08);border-right-color:var(--orange)">
+            <div class="cal-show-name">חוה אלברשטיין</div>
+            <div class="cal-show-time">20:00</div>
+            <span class="cal-show-tag">Headliner</span>
+          </div>
+        </div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell cal-empty">—</div>
+        <!-- 21:45 -->
+        <div class="cal-time-cell">21:45</div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell">
+          <div class="cal-show-card" style="background:rgba(214,34,70,0.08);border-right-color:var(--red)">
+            <div class="cal-show-name">SHALOSH — אורח: רוני איתן</div>
+            <div class="cal-show-time">21:45</div>
+          </div>
+        </div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell cal-empty">—</div>
+        <!-- 22:30 -->
+        <div class="cal-time-cell">22:30</div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell">
+          <div class="cal-show-card" style="background:rgba(10,143,142,0.08);border-right-color:var(--teal)">
+            <div class="cal-show-name">Las Piratas Piratas</div>
+            <div class="cal-show-time">22:30</div>
+          </div>
+        </div>
+        <div class="cal-cell cal-empty">—</div>
+      </div>
+    </div>
+
+    <!-- שבת — יומן -->
+    <div class="calendar-section" id="cal-day-4">
+      <div class="cal-day-label">
+        <div class="cal-day-badge" style="background:linear-gradient(135deg,var(--yellow),#b07a00)">שב׳</div>
+        <div>
+          שבת · 14 בנובמבר 2026
+          <div class="cal-day-date">מופע הסיום · 7 הופעות</div>
+        </div>
+      </div>
+      <div class="cal-grid">
+        <div class="cal-header-cell cal-header-time">שעה</div>
+        <div class="cal-header-cell" style="color:var(--orange)"><span style="display:inline-block;width:8px;height:8px;background:var(--orange);border-radius:50%;margin-left:4px"></span>Main Stage</div>
+        <div class="cal-header-cell" style="color:var(--red)"><span style="display:inline-block;width:8px;height:8px;background:var(--red);border-radius:50%;margin-left:4px"></span>Red Tent</div>
+        <div class="cal-header-cell" style="color:var(--teal)"><span style="display:inline-block;width:8px;height:8px;background:var(--teal);border-radius:50%;margin-left:4px"></span>Blue Dome</div>
+        <div class="cal-header-cell" style="color:var(--yellow)"><span style="display:inline-block;width:8px;height:8px;background:var(--yellow);border-radius:50%;margin-left:4px"></span>Green Pavilion</div>
+        <!-- 10:00 -->
+        <div class="cal-time-cell">10:00</div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell">
+          <div class="cal-show-card" style="background:rgba(224,168,0,0.1);border-right-color:var(--yellow)">
+            <div class="cal-show-name">Yuval, Anat & Avishai: The 3 Cohens</div>
+            <div class="cal-show-time">10:00</div>
+          </div>
+        </div>
+        <!-- 11:00 -->
+        <div class="cal-time-cell">11:00</div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell">
+          <div class="cal-show-card" style="background:rgba(214,34,70,0.08);border-right-color:var(--red)">
+            <div class="cal-show-name">הדר נויברג New Quartet</div>
+            <div class="cal-show-time">11:00</div>
+          </div>
+        </div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell cal-empty">—</div>
+        <!-- 12:00 -->
+        <div class="cal-time-cell">12:00</div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell">
+          <div class="cal-show-card" style="background:rgba(224,168,0,0.1);border-right-color:var(--yellow)">
+            <div class="cal-show-name">שישיית חגי אמיר</div>
+            <div class="cal-show-time">12:00</div>
+          </div>
+        </div>
+        <!-- 12:30 -->
+        <div class="cal-time-cell">12:30</div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell">
+          <div class="cal-show-card" style="background:rgba(10,143,142,0.08);border-right-color:var(--teal)">
+            <div class="cal-show-name">Anat Cohen — Artist in Residence</div>
+            <div class="cal-show-time">12:30</div>
+            <span class="cal-show-tag">Artist Resident</span>
+          </div>
+        </div>
+        <div class="cal-cell cal-empty">—</div>
+        <!-- 13:45 -->
+        <div class="cal-time-cell">13:45</div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell">
+          <div class="cal-show-card" style="background:rgba(214,34,70,0.08);border-right-color:var(--red)">
+            <div class="cal-show-name">עידית מינצר ויחזקאל רז</div>
+            <div class="cal-show-time">13:45</div>
+          </div>
+        </div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell cal-empty">—</div>
+        <!-- 14:45 -->
+        <div class="cal-time-cell">14:45</div>
+        <div class="cal-cell">
+          <div class="cal-show-card" style="background:rgba(224,86,11,0.08);border-right-color:var(--orange)">
+            <div class="cal-show-name">תזמורת הג׳אז הישראלית</div>
+            <div class="cal-show-time">14:45</div>
+            <span class="cal-show-tag">Headliner · מופע סיום</span>
+          </div>
+        </div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell cal-empty">—</div>
+        <div class="cal-cell cal-empty">—</div>
+      </div>
+    </div>
+
     <!-- CTA בתחתית -->
-    <div style="text-align:center; padding:2rem 0 1rem; border-top: 1px solid var(--border);">
+    <div class="lineup-cta" style="text-align:center; padding:2rem 0 1rem; border-top: 1px solid var(--border);">
       <p style="color:var(--muted); font-size:0.92rem; margin-bottom:1.5rem">
         * הליינאפ עשוי להתעדכן. עקבו אחר הפסטיבל לעדכונים.
       </p>
@@ -1132,6 +1633,49 @@
   </footer>
 
   <script>
+    /* ── View Toggle ── */
+    var currentView = 'list';
+
+    function switchView(view) {
+      currentView = view;
+      var btnList = document.getElementById('btnList');
+      var btnCal  = document.getElementById('btnCal');
+
+      if (view === 'calendar') {
+        document.body.classList.add('view-calendar');
+        document.body.classList.remove('view-list');
+        btnList.classList.remove('active');
+        btnCal.classList.add('active');
+        btnList.setAttribute('aria-pressed', 'false');
+        btnCal.setAttribute('aria-pressed', 'true');
+        // הצג את כל סקשיינות היומן
+        document.querySelectorAll('.calendar-section').forEach(function(s) {
+          s.classList.add('cv-visible');
+        });
+        // הסתר day-nav ו-stage-filter (לא רלוונטיים ביומן)
+        var dayNav = document.querySelector('.day-nav');
+        var stageFilter = document.querySelector('.stage-filter');
+        if (dayNav) dayNav.style.display = 'none';
+        if (stageFilter) stageFilter.style.display = 'none';
+      } else {
+        document.body.classList.remove('view-calendar');
+        document.body.classList.add('view-list');
+        btnCal.classList.remove('active');
+        btnList.classList.add('active');
+        btnCal.setAttribute('aria-pressed', 'false');
+        btnList.setAttribute('aria-pressed', 'true');
+        // הסתר סקשיינות יומן
+        document.querySelectorAll('.calendar-section').forEach(function(s) {
+          s.classList.remove('cv-visible');
+        });
+        // הצג day-nav ו-stage-filter
+        var dayNav = document.querySelector('.day-nav');
+        var stageFilter = document.querySelector('.stage-filter');
+        if (dayNav) dayNav.style.display = '';
+        if (stageFilter) stageFilter.style.display = '';
+      }
+    }
+
     function scrollToDay(id, btn) {
       document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
       document.querySelectorAll('.day-nav-btn').forEach(b => b.classList.remove('active'));
