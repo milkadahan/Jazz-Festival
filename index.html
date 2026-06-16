@@ -9,10 +9,17 @@
   <meta property="og:title" content="Red Sea Jazz Festival 2026 · 40 שנות מוזיקה" />
   <meta property="og:description" content="11–14 בנובמבר 2026 · נמל אילת · 40+ הופעות על 4 במות. 40 שנות פסטיבל ג'אז ים סוף." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="./Graphig assets/State=Horizontal.png" />
+  <meta property="og:image" content="./Graphig assets/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Red Sea Jazz Festival 2026 — 40 שנות מוזיקה, נמל אילת" />
+  <meta property="og:locale" content="he_IL" />
+  <meta property="og:site_name" content="Red Sea Jazz Festival" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Red Sea Jazz Festival 2026" />
-  <meta name="twitter:description" content="11–14 בנובמבר 2026 · נמל אילת · 40 שנות מוזיקה" />
+  <meta name="twitter:title" content="Red Sea Jazz Festival 2026 · 40 שנות מוזיקה" />
+  <meta name="twitter:description" content="11–14 בנובמבר 2026 · נמל אילת · 40 שנות מוזיקה · 40+ הופעות על 4 במות" />
+  <meta name="twitter:image" content="./Graphig assets/og-image.jpg" />
+  <meta name="twitter:image:alt" content="Red Sea Jazz Festival 2026" />
   <link rel="icon" type="image/x-icon" href="./favicon.ico" />
   <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
@@ -85,7 +92,7 @@
     ::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 3px; }
 
     /* ─── TICKER BAR ──────────────────────────────────────────── */
-    :root { --ticker-h: 36px; }
+    :root { --ticker-h: 36px; --nav-h: 100px; }
     .ticker-bar {
       position: fixed; top: 0; left: 0; right: 0;
       height: var(--ticker-h); z-index: 101;
@@ -149,6 +156,7 @@
       background: rgba(250,244,233,0.97);
       box-shadow: 0 2px 16px var(--shadow);
     }
+    :root:has(nav.scrolled) { --nav-h: 64px; }
 
     /* ── Logo ── */
     .nav-logo-tab {
@@ -243,19 +251,18 @@
 
     /* ─── HERO – STICKY BG IMAGE ──────────────────────────────── */
     #hero-wrapper {
-      position: sticky; top: calc(var(--ticker-h) + 100px);
+      position: sticky; top: 0;
       height: 100vh; z-index: 0;
-      overflow: hidden;
-      /* הטולבר (טיקר 36px + nav 100px) = 136px.
-         margin-top מוציא את ה-hero ממצב ״מוסתר מאחורי הטולבר״ בטעינה ראשונית.
-         top: זהה = כשגוללים, ה-hero נדבק בדיוק מתחת לטולבר ולא מאחוריו.
-         בגלילה — הטולבר (fixed) עולה מעל שאר התוכן באופן טבעי. */
-      margin-top: calc(var(--ticker-h) + 100px);
+      display: flex; flex-direction: column;
+      padding-top: calc(var(--ticker-h) + var(--nav-h) + 2px);
+      box-sizing: border-box;
+      transition: padding-top 0.35s;
     }
 
     #hero {
-      position: relative; width: 100%; height: 100%;
-      background: #FAF4E9; /* רקע מאחורי מסגרת ה-hero — צבע רקע האתר (Light Mode) */
+      position: relative;
+      width: 100%; flex: 1; min-height: 0;
+      background: #FAF4E9;
       display: flex; align-items: center; justify-content: center;
       overflow: hidden;
       border-radius: 26px 26px 0 0;
@@ -322,7 +329,7 @@
     /* Hero main content — logo + subtitle row, centered */
     .hero-main-content {
       position: absolute;
-      top: 144px;
+      top: 80px;
       left: 50%;
       transform: translateX(-50%);
       width: min(792px, 90%);
@@ -504,6 +511,18 @@
     .btn-primary:hover {
       transform: translateY(-3px) scale(1.03);
       box-shadow: 0 0 50px rgba(255,107,26,0.7);
+    }
+    .btn-schedule-full {
+      display: inline-block; text-decoration: none;
+      background: var(--card-bg); color: var(--orange);
+      border: 1.5px solid var(--orange); border-radius: 50px;
+      padding: 0.75rem 2.2rem; font-size: 0.95rem; font-weight: 600;
+      transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-schedule-full:hover {
+      background: var(--btn-gradient); color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(255,107,26,0.3);
     }
     .btn-secondary {
       background: transparent;
@@ -716,13 +735,15 @@
 
     /* ─── SHOW BLOCK THUMBNAIL ────────────────────────────────── */
     .show-block-inner {
-      display: flex; gap: 0.6rem; align-items: flex-start;
+      display: flex; gap: 0.6rem; align-items: center;
     }
     .show-thumb {
-      width: 42px; height: 42px; border-radius: 8px; flex-shrink: 0;
+      flex-shrink: 0; align-self: center;
+      margin: 8px 0; margin-inline-start: 8px;
+      width: 52px; height: 52px; border-radius: 8px;
       background: linear-gradient(135deg, #1a1030, #0a1525);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem; border: 1px solid var(--border);
+      background-size: cover; background-position: center top;
+      border: 1px solid var(--border);
       overflow: hidden; position: relative;
     }
     .show-thumb::after {
@@ -741,7 +762,7 @@
     .show-text { flex: 1; min-width: 0; }
 
     /* ─── SCHEDULE ─────────────────────────────────────────────── */
-    #schedule { background: var(--bg); }
+    #schedule { position: relative; isolation: isolate; }
 
     .schedule-controls {
       display: grid;
@@ -754,8 +775,8 @@
       display: flex; gap: 0.6rem; flex-wrap: wrap;
       justify-content: center;
     }
-    .schedule-controls .view-toggle { justify-self: start; }
-    .schedule-controls .stage-dropdown { justify-self: end; }
+    .schedule-controls .view-toggle { justify-self: start; align-self: center; }
+    .schedule-controls .stage-dropdown { justify-self: end; align-self: center; }
     /* ── Stage dropdown ── */
     .stage-dropdown { position: relative; }
     .stage-dropdown-trigger {
@@ -913,15 +934,21 @@
 
     /* Artist photo in lineup list */
     .lineup-artist-thumb {
-      width: 52px; height: 52px; border-radius: 12px; flex-shrink: 0;
+      flex-shrink: 0;
+      align-self: stretch;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      width: 80px; /* = 96px row height − 2×8px margins */
+      border-radius: 8px;
       background: linear-gradient(135deg, #1a1030, #0a1525);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.4rem; border: 1px solid var(--border);
-      position: relative; overflow: hidden;
+      background-size: cover; background-position: center top;
+      border: 1px solid var(--border);
+      overflow: hidden;
     }
     .lineup-artist-thumb::after {
       content: ''; position: absolute; inset: 0;
-      background: radial-gradient(circle at 40% 60%, rgba(255,107,26,0.18), transparent 70%);
+      background: radial-gradient(circle at 40% 60%, rgba(255,107,26,0.04), transparent 45%);
+      z-index: -1;
     }
 
     /* Schedule grid view */
@@ -942,9 +969,14 @@
     .show-block {
       background: rgba(255,107,26,0.1);
       border: 1px solid rgba(255,107,26,0.3);
-      border-radius: 10px; padding: 0.7rem 0.9rem;
+      border-radius: 10px; padding: 0;
       cursor: pointer; transition: all 0.25s;
       position: relative; overflow: hidden;
+      display: flex; align-items: stretch;
+      min-height: 68px; gap: 8px;
+    }
+    .show-block-inner {
+      flex: 1; padding: 0.7rem 0.9rem;
     }
     .show-block::before {
       content: ''; position: absolute; inset-inline-start: 0; top: 0; bottom: 0;
@@ -984,30 +1016,40 @@
     /* Lineup list view */
     .lineup-list { display: flex; flex-direction: column; gap: 1rem; }
     .lineup-list-item {
-      display: flex; align-items: center; gap: 1.5rem;
+      display: flex; align-items: center; gap: 24px;
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 14px; padding: 1.2rem 1.5rem;
+      border-radius: 14px;
+      padding: 0 8px 0 1.5rem;
+      height: 96px;
       transition: all 0.3s; cursor: pointer;
+      overflow: hidden;
     }
     .lineup-list-item:hover {
       border-color: rgba(255,107,26,0.4);
       transform: translateX(-4px);
-      background: rgba(255,107,26,0.05);
+      background: color-mix(in srgb, #FFFDF8 94%, #FF6B1A 6%);
     }
     .lineup-num { font-size: 1.8rem; font-weight: 900; color: var(--border); min-width: 3rem; }
     .lineup-info { flex: 1; }
     .lineup-name { font-size: 1.1rem; font-weight: 700; }
     .lineup-details { font-size: 0.85rem; color: var(--muted); margin-top: 2px; }
+    .lineup-tag {
+      font-size: 0.72rem; padding: 0.2rem 0.7rem;
+      border-radius: 6px; border: 1px solid var(--border);
+      color: var(--muted); font-weight: 500;
+      flex-shrink: 0; white-space: nowrap;
+      background: rgba(58,42,30,0.06);
+    }
     .lineup-stage {
       font-size: 0.78rem; padding: 0.3rem 0.9rem;
       border-radius: 50px; border: 1px solid;
       font-weight: 500;
     }
-    .lineup-stage.stage-1 { color: var(--orange); border-color: rgba(255,107,26,0.4); }
-    .lineup-stage.stage-2 { color: var(--teal);   border-color: rgba(0,200,200,0.4); }
-    .lineup-stage.stage-3 { color: var(--pink);   border-color: rgba(255,110,180,0.4); }
-    .lineup-stage.stage-4 { color: var(--yellow); border-color: rgba(255,210,52,0.4); }
+    .lineup-stage.stage-1 { color: var(--orange); border-color: rgba(255,107,26,0.4); background: rgba(255,107,26,0.08); }
+    .lineup-stage.stage-2 { color: var(--teal);   border-color: rgba(0,200,200,0.4);   background: rgba(0,200,200,0.08); }
+    .lineup-stage.stage-3 { color: var(--pink);   border-color: rgba(255,110,180,0.4); background: rgba(255,110,180,0.08); }
+    .lineup-stage.stage-4 { color: var(--yellow); border-color: rgba(255,210,52,0.4);  background: rgba(255,210,52,0.08); }
 
     /* ─── HOTEL BANNER ────────────────────────────────────────── */
     #hotels {
@@ -1201,8 +1243,8 @@
 
     /* ─── FOOTER ──────────────────────────────────────────────── */
     footer {
-      background: #EFE3CE;
-      border-top: 1px solid var(--border);
+      background: #2d2726;
+      border-top: 1px solid rgba(224,86,11,0.3);
       padding: 4rem 3rem 2rem;
     }
     .footer-grid {
@@ -1212,29 +1254,32 @@
     }
     .footer-brand { }
     .footer-logo {
-      font-size: 1.3rem; font-weight: 900; letter-spacing: 0.05em;
-      color: var(--orange); margin-bottom: 1rem;
+      margin-bottom: 1rem;
     }
-    .footer-tagline { font-size: 0.9rem; color: var(--muted); line-height: 1.7; max-width: 280px; }
+    .footer-logo-img {
+      height: 44px; width: auto; display: block;
+      filter: brightness(0) invert(1);
+    }
+    .footer-tagline { font-size: 0.9rem; color: rgba(230,216,214,0.65); line-height: 1.7; max-width: 280px; }
     .footer-social { display: flex; gap: 0.8rem; margin-top: 1.2rem; }
     .social-btn {
       width: 44px; height: 44px; border-radius: 10px;
-      background: rgba(58,42,30,0.06);
-      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.14);
       display: flex; align-items: center; justify-content: center;
       font-size: 1rem; transition: all 0.2s; cursor: pointer;
-      color: var(--text); font-family: var(--font);
+      color: #e6d8d6; font-family: var(--font);
     }
-    .social-btn:hover { background: rgba(255,107,26,0.2); border-color: var(--orange); }
+    .social-btn:hover { background: rgba(255,107,26,0.25); border-color: var(--orange); }
     .footer-col-title { font-size: 0.8rem; color: var(--orange); letter-spacing: 0; text-transform: uppercase; margin-bottom: 1.2rem; font-weight: 600; }
     .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
-    .footer-links a { font-size: 0.9rem; color: var(--muted); transition: color 0.2s; }
-    .footer-links a:hover { color: var(--text); }
+    .footer-links a { font-size: 0.9rem; color: rgba(230,216,214,0.65); transition: color 0.2s; }
+    .footer-links a:hover { color: #fff; }
     .footer-bottom {
-      border-top: 1px solid var(--border);
+      border-top: 1px solid rgba(255,255,255,0.1);
       padding-top: 1.5rem; display: flex;
       justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
-      font-size: 0.8rem; color: var(--muted);
+      font-size: 0.8rem; color: rgba(230,216,214,0.45);
     }
     .footer-bottom a { color: var(--teal); }
 
@@ -2176,7 +2221,7 @@ section { padding: 3rem 1rem; }
 
           <div class="artist-card featured">
           <div class="headliner-badge">מיוחד לפסטיבל</div>
-            <div class="artist-img"><div class="artist-img-overlay"></div></div>
+            <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/3-cohens.jpg')"><div class="artist-img-overlay"></div></div>
             <div class="artist-info">
               <div class="artist-name">The 3 Cohens</div>
               <div class="artist-origin">Port arena · יום ה׳</div>
@@ -2184,7 +2229,7 @@ section { padding: 3rem 1rem; }
           </div>
           <div class="artist-card featured">
           <div class="headliner-badge">מיוחד לפסטיבל</div>
-            <div class="artist-img"><div class="artist-img-overlay"></div></div>
+            <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/chava-alberstein.jpg')"><div class="artist-img-overlay"></div></div>
             <div class="artist-info">
               <div class="artist-name">חוה אלברשטיין</div>
               <div class="artist-origin">Port arena · יום ו׳</div>
@@ -2192,14 +2237,14 @@ section { padding: 3rem 1rem; }
           </div>
           <div class="artist-card featured">
           <div class="headliner-badge">Artist Resident</div>
-            <div class="artist-img"><div class="artist-img-overlay"></div></div>
+            <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/anat-cohen.jpg')"><div class="artist-img-overlay"></div></div>
             <div class="artist-info">
               <div class="artist-name">Anat Cohen</div>
               <div class="artist-origin">Red Note Club · שבת</div>
             </div>
           </div>
           <div class="artist-card">
-            <div class="artist-img"><div class="artist-img-overlay"></div></div>
+            <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/eli-degibri.jpg')"><div class="artist-img-overlay"></div></div>
             <div class="artist-info">
               <div class="artist-name">Eli Degibri Quartet</div>
               <div class="artist-origin">Port arena · יום ו׳</div>
@@ -2213,7 +2258,7 @@ section { padding: 3rem 1rem; }
             </div>
           </div>
           <div class="artist-card">
-            <div class="artist-img"><div class="artist-img-overlay"></div></div>
+            <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/shalosh.jpg')"><div class="artist-img-overlay"></div></div>
             <div class="artist-info">
               <div class="artist-name">SHALOSH</div>
               <div class="artist-origin">Red Note Club · יום ו׳</div>
@@ -2227,7 +2272,7 @@ section { padding: 3rem 1rem; }
             </div>
           </div>
           <div class="artist-card">
-            <div class="artist-img"><div class="artist-img-overlay"></div></div>
+            <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/las-piratas.jpg')"><div class="artist-img-overlay"></div></div>
             <div class="artist-info">
               <div class="artist-name">Las Piratas Piratas</div>
               <div class="artist-origin">DE future · יום ו׳</div>
@@ -2334,13 +2379,13 @@ section { padding: 3rem 1rem; }
             <tr data-day="2">
               <td class="time-col">18:00</td>
               <td class="show-cell" data-stage="1"></td>
-              <td class="show-cell" data-stage="2"><div class="show-block teal"><div class="show-block-inner"><div class="show-text"><div class="show-name">אבות ובנים</div><div class="show-time">18:00</div></div></div></div></td>
+              <td class="show-cell" data-stage="2"><div class="show-block teal"><div class="show-thumb"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">אבות ובנים</div><div class="show-time">18:00</div></div></div></div></td>
               <td class="show-cell" data-stage="3"></td>
               <td class="show-cell" data-stage="4"></td>
             </tr>
             <tr data-day="2">
               <td class="time-col">20:00</td>
-              <td class="show-cell" data-stage="1"><div class="show-block"><div class="show-block-inner"><div class="show-text"><div class="show-name">The 3 Cohens</div><div class="show-time">20:00</div></div></div></div></td>
+              <td class="show-cell" data-stage="1"><div class="show-block"><div class="show-thumb" style="background-image: url('./Graphig assets/artist-photos/3-cohens.jpg')"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">The 3 Cohens</div><div class="show-time">20:00</div></div></div></div></td>
               <td class="show-cell" data-stage="2"></td>
               <td class="show-cell" data-stage="3"></td>
               <td class="show-cell" data-stage="4"></td>
@@ -2349,33 +2394,33 @@ section { padding: 3rem 1rem; }
               <td class="time-col">21:00</td>
               <td class="show-cell" data-stage="1"></td>
               <td class="show-cell" data-stage="2"></td>
-              <td class="show-cell" data-stage="3"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">Lay Z Gordon</div><div class="show-time">21:00</div></div></div></div></td>
+              <td class="show-cell" data-stage="3"><div class="show-block pink"><div class="show-thumb"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">Lay Z Gordon</div><div class="show-time">21:00</div></div></div></div></td>
               <td class="show-cell" data-stage="4"></td>
             </tr>
             <tr data-day="2">
               <td class="time-col">22:30</td>
-              <td class="show-cell" data-stage="1"><div class="show-block"><div class="show-block-inner"><div class="show-text"><div class="show-name">ג׳ימבו ג׳אז</div><div class="show-time">22:30</div></div></div></div></td>
+              <td class="show-cell" data-stage="1"><div class="show-block"><div class="show-thumb"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">ג׳ימבו ג׳אז</div><div class="show-time">22:30</div></div></div></div></td>
               <td class="show-cell" data-stage="2"></td>
-              <td class="show-cell" data-stage="3"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">שישיית קאי גלוסקא</div><div class="show-time">22:30</div></div></div></div></td>
+              <td class="show-cell" data-stage="3"><div class="show-block pink"><div class="show-thumb"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">שישיית קאי גלוסקא</div><div class="show-time">22:30</div></div></div></div></td>
               <td class="show-cell" data-stage="4"></td>
             </tr>
             <tr data-day="3">
               <td class="time-col">09:30</td>
               <td class="show-cell" data-stage="1"></td>
               <td class="show-cell" data-stage="2"></td>
-              <td class="show-cell" data-stage="3"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">ענת כהן</div><div class="show-time">09:30</div></div></div></div></td>
+              <td class="show-cell" data-stage="3"><div class="show-block pink"><div class="show-thumb" style="background-image: url('./Graphig assets/artist-photos/anat-cohen.jpg')"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">ענת כהן</div><div class="show-time">09:30</div></div></div></div></td>
               <td class="show-cell" data-stage="4"></td>
             </tr>
             <tr data-day="3">
               <td class="time-col">11:00</td>
               <td class="show-cell" data-stage="1"></td>
-              <td class="show-cell" data-stage="2"><div class="show-block teal"><div class="show-block-inner"><div class="show-text"><div class="show-name">שלישיית אריאל ברט</div><div class="show-time">11:00</div></div></div></div></td>
+              <td class="show-cell" data-stage="2"><div class="show-block teal"><div class="show-thumb"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">שלישיית אריאל ברט</div><div class="show-time">11:00</div></div></div></div></td>
               <td class="show-cell" data-stage="3"></td>
               <td class="show-cell" data-stage="4"></td>
             </tr>
             <tr data-day="3">
               <td class="time-col">12:30</td>
-              <td class="show-cell" data-stage="1"><div class="show-block"><div class="show-block-inner"><div class="show-text"><div class="show-name">Eli Degibri Quartet</div><div class="show-time">12:30</div></div></div></div></td>
+              <td class="show-cell" data-stage="1"><div class="show-block"><div class="show-thumb" style="background-image: url('./Graphig assets/artist-photos/eli-degibri.jpg')"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">Eli Degibri Quartet</div><div class="show-time">12:30</div></div></div></div></td>
               <td class="show-cell" data-stage="2"></td>
               <td class="show-cell" data-stage="3"></td>
               <td class="show-cell" data-stage="4"></td>
@@ -2383,7 +2428,7 @@ section { padding: 3rem 1rem; }
             <tr data-day="3">
               <td class="time-col">14:00</td>
               <td class="show-cell" data-stage="1"></td>
-              <td class="show-cell" data-stage="2"><div class="show-block teal"><div class="show-block-inner"><div class="show-text"><div class="show-name">רביעיית אוריאל הרמן</div><div class="show-time">14:00</div></div></div></div></td>
+              <td class="show-cell" data-stage="2"><div class="show-block teal"><div class="show-thumb"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">רביעיית אוריאל הרמן</div><div class="show-time">14:00</div></div></div></div></td>
               <td class="show-cell" data-stage="3"></td>
               <td class="show-cell" data-stage="4"></td>
             </tr>
@@ -2391,13 +2436,13 @@ section { padding: 3rem 1rem; }
               <td class="time-col">15:15</td>
               <td class="show-cell" data-stage="1"></td>
               <td class="show-cell" data-stage="2"></td>
-              <td class="show-cell" data-stage="3"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">עידית מינצר – א</div><div class="show-time">15:15</div></div></div></div></td>
+              <td class="show-cell" data-stage="3"><div class="show-block pink"><div class="show-thumb"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">עידית מינצר – א</div><div class="show-time">15:15</div></div></div></div></td>
               <td class="show-cell" data-stage="4"></td>
             </tr>
             <tr data-day="3">
               <td class="time-col">16:30</td>
               <td class="show-cell" data-stage="1"></td>
-              <td class="show-cell" data-stage="2"><div class="show-block teal"><div class="show-block-inner"><div class="show-text"><div class="show-name">שלישיית יותם זילברשטיין</div><div class="show-time">16:30</div></div></div></div></td>
+              <td class="show-cell" data-stage="2"><div class="show-block teal"><div class="show-thumb"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">שלישיית יותם זילברשטיין</div><div class="show-time">16:30</div></div></div></div></td>
               <td class="show-cell" data-stage="3"></td>
               <td class="show-cell" data-stage="4"></td>
             </tr>
@@ -2405,12 +2450,12 @@ section { padding: 3rem 1rem; }
               <td class="time-col">18:00</td>
               <td class="show-cell" data-stage="1"></td>
               <td class="show-cell" data-stage="2"></td>
-              <td class="show-cell" data-stage="3"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">שישיית חגי אמיר</div><div class="show-time">18:00</div></div></div></div></td>
+              <td class="show-cell" data-stage="3"><div class="show-block pink"><div class="show-thumb"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">שישיית חגי אמיר</div><div class="show-time">18:00</div></div></div></div></td>
               <td class="show-cell" data-stage="4"></td>
             </tr>
             <tr data-day="3">
               <td class="time-col">20:00</td>
-              <td class="show-cell" data-stage="1"><div class="show-block"><div class="show-block-inner"><div class="show-text"><div class="show-name">חוה אלברשטיין</div><div class="show-time">20:00</div></div></div></div></td>
+              <td class="show-cell" data-stage="1"><div class="show-block"><div class="show-thumb" style="background-image: url('./Graphig assets/artist-photos/chava-alberstein.jpg')"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">חוה אלברשטיין</div><div class="show-time">20:00</div></div></div></div></td>
               <td class="show-cell" data-stage="2"></td>
               <td class="show-cell" data-stage="3"></td>
               <td class="show-cell" data-stage="4"></td>
@@ -2418,7 +2463,7 @@ section { padding: 3rem 1rem; }
             <tr data-day="3">
               <td class="time-col">21:45</td>
               <td class="show-cell" data-stage="1"></td>
-              <td class="show-cell" data-stage="2"><div class="show-block teal"><div class="show-block-inner"><div class="show-text"><div class="show-name">SHALOSH</div><div class="show-time">21:45</div></div></div></div></td>
+              <td class="show-cell" data-stage="2"><div class="show-block teal"><div class="show-thumb" style="background-image: url('./Graphig assets/artist-photos/shalosh.jpg')"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">SHALOSH</div><div class="show-time">21:45</div></div></div></div></td>
               <td class="show-cell" data-stage="3"></td>
               <td class="show-cell" data-stage="4"></td>
             </tr>
@@ -2426,20 +2471,20 @@ section { padding: 3rem 1rem; }
               <td class="time-col">22:30</td>
               <td class="show-cell" data-stage="1"></td>
               <td class="show-cell" data-stage="2"></td>
-              <td class="show-cell" data-stage="3"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">Las Piratas Piratas</div><div class="show-time">22:30</div></div></div></div></td>
+              <td class="show-cell" data-stage="3"><div class="show-block pink"><div class="show-thumb" style="background-image: url('./Graphig assets/artist-photos/las-piratas.jpg')"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">Las Piratas Piratas</div><div class="show-time">22:30</div></div></div></div></td>
               <td class="show-cell" data-stage="4"></td>
             </tr>
             <tr data-day="4">
               <td class="time-col">11:00</td>
               <td class="show-cell" data-stage="1"></td>
               <td class="show-cell" data-stage="2"></td>
-              <td class="show-cell" data-stage="3"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">הדר נויברג</div><div class="show-time">11:00</div></div></div></div></td>
+              <td class="show-cell" data-stage="3"><div class="show-block pink"><div class="show-thumb"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">הדר נויברג</div><div class="show-time">11:00</div></div></div></div></td>
               <td class="show-cell" data-stage="4"></td>
             </tr>
             <tr data-day="4">
               <td class="time-col">12:30</td>
               <td class="show-cell" data-stage="1"></td>
-              <td class="show-cell" data-stage="2"><div class="show-block teal"><div class="show-block-inner"><div class="show-text"><div class="show-name">Anat Cohen</div><div class="show-time">12:30</div></div></div></div></td>
+              <td class="show-cell" data-stage="2"><div class="show-block teal"><div class="show-thumb" style="background-image: url('./Graphig assets/artist-photos/anat-cohen.jpg')"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">Anat Cohen</div><div class="show-time">12:30</div></div></div></div></td>
               <td class="show-cell" data-stage="3"></td>
               <td class="show-cell" data-stage="4"></td>
             </tr>
@@ -2447,12 +2492,12 @@ section { padding: 3rem 1rem; }
               <td class="time-col">13:45</td>
               <td class="show-cell" data-stage="1"></td>
               <td class="show-cell" data-stage="2"></td>
-              <td class="show-cell" data-stage="3"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">עידית מינצר ויחזקאל רז</div><div class="show-time">13:45</div></div></div></div></td>
+              <td class="show-cell" data-stage="3"><div class="show-block pink"><div class="show-thumb"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">עידית מינצר ויחזקאל רז</div><div class="show-time">13:45</div></div></div></div></td>
               <td class="show-cell" data-stage="4"></td>
             </tr>
             <tr data-day="4">
               <td class="time-col">14:45</td>
-              <td class="show-cell" data-stage="1"><div class="show-block"><div class="show-block-inner"><div class="show-text"><div class="show-name">תזמורת הג׳אז הישראלית</div><div class="show-time">14:45</div></div></div></div></td>
+              <td class="show-cell" data-stage="1"><div class="show-block"><div class="show-thumb"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">תזמורת הג׳אז הישראלית</div><div class="show-time">14:45</div></div></div></div></td>
               <td class="show-cell" data-stage="2"></td>
               <td class="show-cell" data-stage="3"></td>
               <td class="show-cell" data-stage="4"></td>
@@ -2463,39 +2508,49 @@ section { padding: 3rem 1rem; }
       <p style="text-align:center; color:var(--muted); font-size:0.85rem; margin-top:1.5rem;">
         * הלו״ז המלא יפורסם כשהאמנים יאושרו
       </p>
+      <div style="text-align:center; margin-top:2rem;">
+        <a href="./lineup.html" class="btn-schedule-full">ללוח ההופעות המלא ←</a>
+      </div>
     </div>
 
     <!-- Lineup list view -->
     <div class="schedule-view active" id="view-lineup">
       <div class="lineup-list">
         <div class="lineup-list-item" data-stage="2" data-day="2">
+          <div class="lineup-artist-thumb"></div>
           <div class="lineup-num">01</div>
           <div class="lineup-info">
             <div class="lineup-name">אבות ובנים</div>
             <div class="lineup-details">Red Note Club · 12.11 · 18:00</div>
-            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">הפקת מקור</div>
+            
           </div>
+          <span class="lineup-tag">הפקת מקור</span>
           <span class="lineup-stage stage-2">Red Note Club</span>
         </div>
         <div class="lineup-list-item" data-stage="1" data-day="2">
+          <div class="lineup-artist-thumb" style="background-image: url('./Graphig assets/artist-photos/3-cohens.jpg')"></div>
           <div class="lineup-num">02</div>
           <div class="lineup-info">
             <div class="lineup-name">The 3 Cohens</div>
             <div class="lineup-details">Port arena · 12.11 · 20:00</div>
-            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">מיוחד לפסטיבל</div>
+            
           </div>
+          <span class="lineup-tag">מיוחד לפסטיבל</span>
           <span class="lineup-stage stage-1">Port arena</span>
         </div>
         <div class="lineup-list-item" data-stage="3" data-day="2">
+          <div class="lineup-artist-thumb"></div>
           <div class="lineup-num">03</div>
           <div class="lineup-info">
             <div class="lineup-name">Lay Z Gordon</div>
             <div class="lineup-details">DE future · 12.11 · 21:00</div>
-            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">כניסה חופשית</div>
+            
           </div>
+          <span class="lineup-tag">כניסה חופשית</span>
           <span class="lineup-stage stage-3">DE future</span>
         </div>
         <div class="lineup-list-item" data-stage="1" data-day="2">
+          <div class="lineup-artist-thumb"></div>
           <div class="lineup-num">04</div>
           <div class="lineup-info">
             <div class="lineup-name">ג'ימבו ג'אז</div>
@@ -2504,42 +2559,51 @@ section { padding: 3rem 1rem; }
           <span class="lineup-stage stage-1">Port arena</span>
         </div>
         <div class="lineup-list-item" data-stage="3" data-day="2">
+          <div class="lineup-artist-thumb"></div>
           <div class="lineup-num">05</div>
           <div class="lineup-info">
             <div class="lineup-name">שישיית קאי גלוסקא</div>
             <div class="lineup-details">DE future · 12.11 · 22:30</div>
-            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">כניסה חופשית</div>
+            
           </div>
+          <span class="lineup-tag">כניסה חופשית</span>
           <span class="lineup-stage stage-3">DE future</span>
         </div>
         <div class="lineup-list-item" data-stage="3" data-day="3">
+          <div class="lineup-artist-thumb" style="background-image: url('./Graphig assets/artist-photos/anat-cohen.jpg')"></div>
           <div class="lineup-num">06</div>
           <div class="lineup-info">
             <div class="lineup-name">ענת כהן</div>
             <div class="lineup-details">DE future · 13.11 · 09:30</div>
-            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">Master Class</div>
+            
           </div>
+          <span class="lineup-tag">Master Class</span>
           <span class="lineup-stage stage-3">DE future</span>
         </div>
         <div class="lineup-list-item" data-stage="2" data-day="3">
+          <div class="lineup-artist-thumb"></div>
           <div class="lineup-num">07</div>
           <div class="lineup-info">
             <div class="lineup-name">שלישיית אריאל ברט</div>
             <div class="lineup-details">Red Note Club · 13.11 · 11:00</div>
-            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">השקת אלבום</div>
+            
           </div>
+          <span class="lineup-tag">השקת אלבום</span>
           <span class="lineup-stage stage-2">Red Note Club</span>
         </div>
         <div class="lineup-list-item" data-stage="1" data-day="3">
+          <div class="lineup-artist-thumb" style="background-image: url('./Graphig assets/artist-photos/eli-degibri.jpg')"></div>
           <div class="lineup-num">08</div>
           <div class="lineup-info">
             <div class="lineup-name">Eli Degibri Quartet</div>
             <div class="lineup-details">Port arena · 13.11 · 12:30</div>
-            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">מיוחד לפסטיבל</div>
+            
           </div>
+          <span class="lineup-tag">מיוחד לפסטיבל</span>
           <span class="lineup-stage stage-1">Port arena</span>
         </div>
         <div class="lineup-list-item" data-stage="2" data-day="3">
+          <div class="lineup-artist-thumb"></div>
           <div class="lineup-num">09</div>
           <div class="lineup-info">
             <div class="lineup-name">רביעיית אוריאל הרמן</div>
@@ -2548,15 +2612,18 @@ section { padding: 3rem 1rem; }
           <span class="lineup-stage stage-2">Red Note Club</span>
         </div>
         <div class="lineup-list-item" data-stage="3" data-day="3">
+          <div class="lineup-artist-thumb"></div>
           <div class="lineup-num">10</div>
           <div class="lineup-info">
             <div class="lineup-name">עידית מינצר – א</div>
             <div class="lineup-details">DE future · 13.11 · 15:15</div>
-            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">Part 1</div>
+            
           </div>
+          <span class="lineup-tag">Part 1</span>
           <span class="lineup-stage stage-3">DE future</span>
         </div>
         <div class="lineup-list-item" data-stage="2" data-day="3">
+          <div class="lineup-artist-thumb"></div>
           <div class="lineup-num">11</div>
           <div class="lineup-info">
             <div class="lineup-name">שלישיית יותם זילברשטיין</div>
@@ -2565,6 +2632,7 @@ section { padding: 3rem 1rem; }
           <span class="lineup-stage stage-2">Red Note Club</span>
         </div>
         <div class="lineup-list-item" data-stage="3" data-day="3">
+          <div class="lineup-artist-thumb"></div>
           <div class="lineup-num">12</div>
           <div class="lineup-info">
             <div class="lineup-name">שישיית חגי אמיר</div>
@@ -2573,33 +2641,40 @@ section { padding: 3rem 1rem; }
           <span class="lineup-stage stage-3">DE future</span>
         </div>
         <div class="lineup-list-item" data-stage="1" data-day="3">
+          <div class="lineup-artist-thumb" style="background-image: url('./Graphig assets/artist-photos/chava-alberstein.jpg')"></div>
           <div class="lineup-num">13</div>
           <div class="lineup-info">
             <div class="lineup-name">חוה אלברשטיין</div>
             <div class="lineup-details">Port arena · 13.11 · 20:00</div>
-            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">מיוחד לפסטיבל</div>
+            
           </div>
+          <span class="lineup-tag">מיוחד לפסטיבל</span>
           <span class="lineup-stage stage-1">Port arena</span>
         </div>
         <div class="lineup-list-item" data-stage="2" data-day="3">
+          <div class="lineup-artist-thumb" style="background-image: url('./Graphig assets/artist-photos/shalosh.jpg')"></div>
           <div class="lineup-num">14</div>
           <div class="lineup-info">
             <div class="lineup-name">SHALOSH</div>
             <div class="lineup-details">Red Note Club · 13.11 · 21:45</div>
-            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">השקת אלבום</div>
+            
           </div>
+          <span class="lineup-tag">השקת אלבום</span>
           <span class="lineup-stage stage-2">Red Note Club</span>
         </div>
         <div class="lineup-list-item" data-stage="3" data-day="3">
+          <div class="lineup-artist-thumb" style="background-image: url('./Graphig assets/artist-photos/las-piratas.jpg')"></div>
           <div class="lineup-num">15</div>
           <div class="lineup-info">
             <div class="lineup-name">Las Piratas Piratas</div>
             <div class="lineup-details">DE future · 13.11 · 22:30</div>
-            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">כניסה חופשית</div>
+            
           </div>
+          <span class="lineup-tag">כניסה חופשית</span>
           <span class="lineup-stage stage-3">DE future</span>
         </div>
         <div class="lineup-list-item" data-stage="3" data-day="4">
+          <div class="lineup-artist-thumb"></div>
           <div class="lineup-num">16</div>
           <div class="lineup-info">
             <div class="lineup-name">הדר נויברג</div>
@@ -2608,30 +2683,36 @@ section { padding: 3rem 1rem; }
           <span class="lineup-stage stage-3">DE future</span>
         </div>
         <div class="lineup-list-item" data-stage="2" data-day="4">
+          <div class="lineup-artist-thumb" style="background-image: url('./Graphig assets/artist-photos/anat-cohen.jpg')"></div>
           <div class="lineup-num">17</div>
           <div class="lineup-info">
             <div class="lineup-name">Anat Cohen</div>
             <div class="lineup-details">Red Note Club · 14.11 · 12:30</div>
-            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">Artist Resident</div>
+            
           </div>
+          <span class="lineup-tag">Artist Resident</span>
           <span class="lineup-stage stage-2">Red Note Club</span>
         </div>
         <div class="lineup-list-item" data-stage="3" data-day="4">
+          <div class="lineup-artist-thumb"></div>
           <div class="lineup-num">18</div>
           <div class="lineup-info">
             <div class="lineup-name">עידית מינצר ויחזקאל רז</div>
             <div class="lineup-details">DE future · 14.11 · 13:45</div>
-            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">Part 2</div>
+            
           </div>
+          <span class="lineup-tag">Part 2</span>
           <span class="lineup-stage stage-3">DE future</span>
         </div>
         <div class="lineup-list-item" data-stage="1" data-day="4">
+          <div class="lineup-artist-thumb"></div>
           <div class="lineup-num">19</div>
           <div class="lineup-info">
             <div class="lineup-name">תזמורת הג'אז הישראלית</div>
             <div class="lineup-details">Port arena · 14.11 · 14:45</div>
-            <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">הפקת מקור</div>
+            
           </div>
+          <span class="lineup-tag">הפקת מקור</span>
           <span class="lineup-stage stage-1">Port arena</span>
         </div>
       </div>
@@ -2698,7 +2779,7 @@ section { padding: 3rem 1rem; }
     <div class="section-header reveal">
       <div class="section-tag">Venue · מיקום</div>
       <h2 class="section-title">נמל <span class="accent">אילת</span></h2>
-      <p class="section-desc">על חוף ים סוף, מתחת לכוכבים. הבמות ממוקמות לאורך הטיילת של נמל אילת.</p>
+      <p class="section-desc">על חוף ים סוף, מתחת לכוכבים.<br>הבמות ממוקמות לאורך הטיילת של נמל אילת.</p>
     </div>
 
     <div class="venue-map reveal" id="venueMapWrapper">
@@ -2814,21 +2895,11 @@ section { padding: 3rem 1rem; }
 
     <div class="news-grid reveal">
       <div class="news-card">
-        <div class="news-img" aria-hidden="true">🎺</div>
+        <div class="news-img" aria-hidden="true">🎷</div>
         <div class="news-body">
-          <div class="news-date">ינואר 2026</div>
-          <div class="news-title">הכרטיסים Early Bird כבר במכירה</div>
-          <div class="news-excerpt">מהרו לרכוש כרטיסים במחיר מוקדם לפסטיבל ה-40 של Red Sea Jazz. ההנחה בתוקף עד סוף מרץ.</div>
-          <div class="news-more">קרא עוד ←</div>
-        </div>
-      </div>
-
-      <div class="news-card">
-        <div class="news-img" aria-hidden="true">🎸</div>
-        <div class="news-body">
-          <div class="news-date">פברואר 2026</div>
-          <div class="news-title">ההופעה הראשונה הוכרזה – פרטים בקרוב</div>
-          <div class="news-excerpt">שמחים להודיע על ההופעה הראשונה שתפתח את הפסטיבל. ההכרזה הרשמית תגיע בקרוב.</div>
+          <div class="news-date">מאי 2026</div>
+          <div class="news-title">הלינאפ המלא של פסטיבל 2026 הוכרז רשמית</div>
+          <div class="news-excerpt">19 הופעות על פני 4 במות ו-4 ימים. ענת כהן, חוה אלברשטיין, SHALOSH, The 3 Cohens ועוד שמות מהמובילים בג'אז הישראלי והעולמי — כולם יעלו לבמות נמל אילת בנובמבר.</div>
           <div class="news-more">קרא עוד ←</div>
         </div>
       </div>
@@ -2836,9 +2907,19 @@ section { padding: 3rem 1rem; }
       <div class="news-card">
         <div class="news-img" aria-hidden="true">🏖️</div>
         <div class="news-body">
-          <div class="news-date">מרץ 2026</div>
-          <div class="news-title">חבילות הנופש החדשות פתוחות להזמנה</div>
-          <div class="news-excerpt">בשיתוף עם מלונות אילת המובילים, אנחנו מציעים השנה חבילות נופש מיוחדות לפסטיבל.</div>
+          <div class="news-date">אפריל 2026</div>
+          <div class="news-title">נמל אילת מתכונן לפסטיבל — כל מה שצריך לדעת</div>
+          <div class="news-excerpt">הפסטיבל יתקיים על 4 במות בנמל אילת הציורי. שאטל חינם ממלונות אילת המרכזיים, חניון מאורגן ומפה אינטראקטיבית — כל המידע על הגעה ולוגיסטיקה כבר כאן.</div>
+          <div class="news-more">קרא עוד ←</div>
+        </div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-img" aria-hidden="true">🎤</div>
+        <div class="news-body">
+          <div class="news-date">יוני 2026</div>
+          <div class="news-title">חוה אלברשטיין — קונצרט הגדול של פסטיבל 2026</div>
+          <div class="news-excerpt">המוסיקאית האגדית חוה אלברשטיין תעלה לבמה הראשית ב-13 בנובמבר בערב חגיגי מיוחד, עם ביצועים מ-50 שנות קריירה בליווי הרכב ג'אז ייחודי. כרטיסים בהרשמה מוקדמת.</div>
           <div class="news-more">קרא עוד ←</div>
         </div>
       </div>
@@ -2868,20 +2949,23 @@ section { padding: 3rem 1rem; }
             <div class="lineup-list-item" data-stage="2" data-day="2">
               <div class="lineup-num">01</div>
               <div class="lineup-info"><div class="lineup-name">אבות ובנים</div><div class="lineup-details">Red Note Club · 12.11 · 18:00</div>
-              <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">הפקת מקור</div></div>
-              <span class="lineup-stage stage-2">Red Note Club</span>
+              </div>
+              <span class="lineup-tag">הפקת מקור</span>
+          <span class="lineup-stage stage-2">Red Note Club</span>
             </div>
             <div class="lineup-list-item" data-stage="1" data-day="2">
               <div class="lineup-num">02</div>
               <div class="lineup-info"><div class="lineup-name">The 3 Cohens</div><div class="lineup-details">Port arena · 12.11 · 20:00</div>
-              <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">מיוחד לפסטיבל</div></div>
-              <span class="lineup-stage stage-1">Port arena</span>
+              </div>
+              <span class="lineup-tag">מיוחד לפסטיבל</span>
+          <span class="lineup-stage stage-1">Port arena</span>
             </div>
             <div class="lineup-list-item" data-stage="3" data-day="2">
               <div class="lineup-num">03</div>
               <div class="lineup-info"><div class="lineup-name">Lay Z Gordon</div><div class="lineup-details">DE future · 12.11 · 21:00</div>
-              <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">כניסה חופשית</div></div>
-              <span class="lineup-stage stage-3">DE future</span>
+              </div>
+              <span class="lineup-tag">כניסה חופשית</span>
+          <span class="lineup-stage stage-3">DE future</span>
             </div>
             <div class="lineup-list-item" data-stage="1" data-day="2">
               <div class="lineup-num">04</div>
@@ -2891,26 +2975,30 @@ section { padding: 3rem 1rem; }
             <div class="lineup-list-item" data-stage="3" data-day="2">
               <div class="lineup-num">05</div>
               <div class="lineup-info"><div class="lineup-name">שישיית קאי גלוסקא</div><div class="lineup-details">DE future · 12.11 · 22:30</div>
-              <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">כניסה חופשית</div></div>
-              <span class="lineup-stage stage-3">DE future</span>
+              </div>
+              <span class="lineup-tag">כניסה חופשית</span>
+          <span class="lineup-stage stage-3">DE future</span>
             </div>
             <div class="lineup-list-item" data-stage="3" data-day="3">
               <div class="lineup-num">06</div>
               <div class="lineup-info"><div class="lineup-name">ענת כהן</div><div class="lineup-details">DE future · 13.11 · 09:30</div>
-              <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">Master Class</div></div>
-              <span class="lineup-stage stage-3">DE future</span>
+              </div>
+              <span class="lineup-tag">Master Class</span>
+          <span class="lineup-stage stage-3">DE future</span>
             </div>
             <div class="lineup-list-item" data-stage="2" data-day="3">
               <div class="lineup-num">07</div>
               <div class="lineup-info"><div class="lineup-name">שלישיית אריאל ברט</div><div class="lineup-details">Red Note Club · 13.11 · 11:00</div>
-              <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">השקת אלבום</div></div>
-              <span class="lineup-stage stage-2">Red Note Club</span>
+              </div>
+              <span class="lineup-tag">השקת אלבום</span>
+          <span class="lineup-stage stage-2">Red Note Club</span>
             </div>
             <div class="lineup-list-item" data-stage="1" data-day="3">
               <div class="lineup-num">08</div>
               <div class="lineup-info"><div class="lineup-name">Eli Degibri Quartet</div><div class="lineup-details">Port arena · 13.11 · 12:30</div>
-              <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">מיוחד לפסטיבל</div></div>
-              <span class="lineup-stage stage-1">Port arena</span>
+              </div>
+              <span class="lineup-tag">מיוחד לפסטיבל</span>
+          <span class="lineup-stage stage-1">Port arena</span>
             </div>
             <div class="lineup-list-item" data-stage="2" data-day="3">
               <div class="lineup-num">09</div>
@@ -2920,8 +3008,9 @@ section { padding: 3rem 1rem; }
             <div class="lineup-list-item" data-stage="3" data-day="3">
               <div class="lineup-num">10</div>
               <div class="lineup-info"><div class="lineup-name">עידית מינצר – א</div><div class="lineup-details">DE future · 13.11 · 15:15</div>
-              <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">Part 1</div></div>
-              <span class="lineup-stage stage-3">DE future</span>
+              </div>
+              <span class="lineup-tag">Part 1</span>
+          <span class="lineup-stage stage-3">DE future</span>
             </div>
             <div class="lineup-list-item" data-stage="2" data-day="3">
               <div class="lineup-num">11</div>
@@ -2936,20 +3025,23 @@ section { padding: 3rem 1rem; }
             <div class="lineup-list-item" data-stage="1" data-day="3">
               <div class="lineup-num">13</div>
               <div class="lineup-info"><div class="lineup-name">חוה אלברשטיין</div><div class="lineup-details">Port arena · 13.11 · 20:00</div>
-              <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">מיוחד לפסטיבל</div></div>
-              <span class="lineup-stage stage-1">Port arena</span>
+              </div>
+              <span class="lineup-tag">מיוחד לפסטיבל</span>
+          <span class="lineup-stage stage-1">Port arena</span>
             </div>
             <div class="lineup-list-item" data-stage="2" data-day="3">
               <div class="lineup-num">14</div>
               <div class="lineup-info"><div class="lineup-name">SHALOSH</div><div class="lineup-details">Red Note Club · 13.11 · 21:45</div>
-              <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">השקת אלבום</div></div>
-              <span class="lineup-stage stage-2">Red Note Club</span>
+              </div>
+              <span class="lineup-tag">השקת אלבום</span>
+          <span class="lineup-stage stage-2">Red Note Club</span>
             </div>
             <div class="lineup-list-item" data-stage="3" data-day="3">
               <div class="lineup-num">15</div>
               <div class="lineup-info"><div class="lineup-name">Las Piratas Piratas</div><div class="lineup-details">DE future · 13.11 · 22:30</div>
-              <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">כניסה חופשית</div></div>
-              <span class="lineup-stage stage-3">DE future</span>
+              </div>
+              <span class="lineup-tag">כניסה חופשית</span>
+          <span class="lineup-stage stage-3">DE future</span>
             </div>
             <div class="lineup-list-item" data-stage="3" data-day="4">
               <div class="lineup-num">16</div>
@@ -2959,20 +3051,23 @@ section { padding: 3rem 1rem; }
             <div class="lineup-list-item" data-stage="2" data-day="4">
               <div class="lineup-num">17</div>
               <div class="lineup-info"><div class="lineup-name">Anat Cohen</div><div class="lineup-details">Red Note Club · 14.11 · 12:30</div>
-              <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">Artist Resident</div></div>
-              <span class="lineup-stage stage-2">Red Note Club</span>
+              </div>
+              <span class="lineup-tag">Artist Resident</span>
+          <span class="lineup-stage stage-2">Red Note Club</span>
             </div>
             <div class="lineup-list-item" data-stage="3" data-day="4">
               <div class="lineup-num">18</div>
               <div class="lineup-info"><div class="lineup-name">עידית מינצר ויחזקאל רז</div><div class="lineup-details">DE future · 14.11 · 13:45</div>
-              <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">Part 2</div></div>
-              <span class="lineup-stage stage-3">DE future</span>
+              </div>
+              <span class="lineup-tag">Part 2</span>
+          <span class="lineup-stage stage-3">DE future</span>
             </div>
             <div class="lineup-list-item" data-stage="1" data-day="4">
               <div class="lineup-num">19</div>
               <div class="lineup-info"><div class="lineup-name">תזמורת הג׳אז הישראלית</div><div class="lineup-details">Port arena · 14.11 · 14:45</div>
-              <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">הפקת מקור</div></div>
-              <span class="lineup-stage stage-1">Port arena</span>
+              </div>
+              <span class="lineup-tag">הפקת מקור</span>
+          <span class="lineup-stage stage-1">Port arena</span>
             </div>
           </div>
         </div>
@@ -2992,13 +3087,13 @@ section { padding: 3rem 1rem; }
                 <tr data-day="2">
                   <td class="time-col">18:00</td>
                   <td class="show-cell"></td>
-                  <td class="show-cell"><div class="show-block teal"><div class="show-block-inner"><div class="show-text"><div class="show-name">אבות ובנים</div><div class="show-time">18:00</div></div></div></div></td>
+                  <td class="show-cell"><div class="show-block teal"><div class="show-thumb"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">אבות ובנים</div><div class="show-time">18:00</div></div></div></div></td>
                   <td class="show-cell"></td>
                   <td class="show-cell"></td>
                 </tr>
                 <tr data-day="2">
                   <td class="time-col">20:00</td>
-                  <td class="show-cell"><div class="show-block"><div class="show-block-inner"><div class="show-text"><div class="show-name">The 3 Cohens</div><div class="show-time">20:00</div></div></div></div></td>
+                  <td class="show-cell"><div class="show-block"><div class="show-thumb" style="background-image: url('./Graphig assets/artist-photos/3-cohens.jpg')"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">The 3 Cohens</div><div class="show-time">20:00</div></div></div></div></td>
                   <td class="show-cell"></td>
                   <td class="show-cell"></td>
                   <td class="show-cell"></td>
@@ -3007,33 +3102,33 @@ section { padding: 3rem 1rem; }
                   <td class="time-col">21:00</td>
                   <td class="show-cell"></td>
                   <td class="show-cell"></td>
-                  <td class="show-cell"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">Lay Z Gordon</div><div class="show-time">21:00</div></div></div></div></td>
+                  <td class="show-cell"><div class="show-block pink"><div class="show-thumb"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">Lay Z Gordon</div><div class="show-time">21:00</div></div></div></div></td>
                   <td class="show-cell"></td>
                 </tr>
                 <tr data-day="2">
                   <td class="time-col">22:30</td>
-                  <td class="show-cell"><div class="show-block"><div class="show-block-inner"><div class="show-text"><div class="show-name">ג׳ימבו ג׳אז</div><div class="show-time">22:30</div></div></div></div></td>
+                  <td class="show-cell"><div class="show-block"><div class="show-thumb"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">ג׳ימבו ג׳אז</div><div class="show-time">22:30</div></div></div></div></td>
                   <td class="show-cell"></td>
-                  <td class="show-cell"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">שישיית קאי גלוסקא</div><div class="show-time">22:30</div></div></div></div></td>
+                  <td class="show-cell"><div class="show-block pink"><div class="show-thumb"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">שישיית קאי גלוסקא</div><div class="show-time">22:30</div></div></div></div></td>
                   <td class="show-cell"></td>
                 </tr>
                 <tr data-day="3">
                   <td class="time-col">09:30</td>
                   <td class="show-cell"></td>
                   <td class="show-cell"></td>
-                  <td class="show-cell"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">ענת כהן</div><div class="show-time">09:30</div></div></div></div></td>
+                  <td class="show-cell"><div class="show-block pink"><div class="show-thumb" style="background-image: url('./Graphig assets/artist-photos/anat-cohen.jpg')"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">ענת כהן</div><div class="show-time">09:30</div></div></div></div></td>
                   <td class="show-cell"></td>
                 </tr>
                 <tr data-day="3">
                   <td class="time-col">11:00</td>
                   <td class="show-cell"></td>
-                  <td class="show-cell"><div class="show-block teal"><div class="show-block-inner"><div class="show-text"><div class="show-name">שלישיית אריאל ברט</div><div class="show-time">11:00</div></div></div></div></td>
+                  <td class="show-cell"><div class="show-block teal"><div class="show-thumb"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">שלישיית אריאל ברט</div><div class="show-time">11:00</div></div></div></div></td>
                   <td class="show-cell"></td>
                   <td class="show-cell"></td>
                 </tr>
                 <tr data-day="3">
                   <td class="time-col">12:30</td>
-                  <td class="show-cell"><div class="show-block"><div class="show-block-inner"><div class="show-text"><div class="show-name">Eli Degibri Quartet</div><div class="show-time">12:30</div></div></div></div></td>
+                  <td class="show-cell"><div class="show-block"><div class="show-thumb" style="background-image: url('./Graphig assets/artist-photos/eli-degibri.jpg')"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">Eli Degibri Quartet</div><div class="show-time">12:30</div></div></div></div></td>
                   <td class="show-cell"></td>
                   <td class="show-cell"></td>
                   <td class="show-cell"></td>
@@ -3041,7 +3136,7 @@ section { padding: 3rem 1rem; }
                 <tr data-day="3">
                   <td class="time-col">14:00</td>
                   <td class="show-cell"></td>
-                  <td class="show-cell"><div class="show-block teal"><div class="show-block-inner"><div class="show-text"><div class="show-name">רביעיית אוריאל הרמן</div><div class="show-time">14:00</div></div></div></div></td>
+                  <td class="show-cell"><div class="show-block teal"><div class="show-thumb"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">רביעיית אוריאל הרמן</div><div class="show-time">14:00</div></div></div></div></td>
                   <td class="show-cell"></td>
                   <td class="show-cell"></td>
                 </tr>
@@ -3049,13 +3144,13 @@ section { padding: 3rem 1rem; }
                   <td class="time-col">15:15</td>
                   <td class="show-cell"></td>
                   <td class="show-cell"></td>
-                  <td class="show-cell"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">עידית מינצר – א</div><div class="show-time">15:15</div></div></div></div></td>
+                  <td class="show-cell"><div class="show-block pink"><div class="show-thumb"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">עידית מינצר – א</div><div class="show-time">15:15</div></div></div></div></td>
                   <td class="show-cell"></td>
                 </tr>
                 <tr data-day="3">
                   <td class="time-col">16:30</td>
                   <td class="show-cell"></td>
-                  <td class="show-cell"><div class="show-block teal"><div class="show-block-inner"><div class="show-text"><div class="show-name">שלישיית יותם זילברשטיין</div><div class="show-time">16:30</div></div></div></div></td>
+                  <td class="show-cell"><div class="show-block teal"><div class="show-thumb"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">שלישיית יותם זילברשטיין</div><div class="show-time">16:30</div></div></div></div></td>
                   <td class="show-cell"></td>
                   <td class="show-cell"></td>
                 </tr>
@@ -3063,12 +3158,12 @@ section { padding: 3rem 1rem; }
                   <td class="time-col">18:00</td>
                   <td class="show-cell"></td>
                   <td class="show-cell"></td>
-                  <td class="show-cell"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">שישיית חגי אמיר</div><div class="show-time">18:00</div></div></div></div></td>
+                  <td class="show-cell"><div class="show-block pink"><div class="show-thumb"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">שישיית חגי אמיר</div><div class="show-time">18:00</div></div></div></div></td>
                   <td class="show-cell"></td>
                 </tr>
                 <tr data-day="3">
                   <td class="time-col">20:00</td>
-                  <td class="show-cell"><div class="show-block"><div class="show-block-inner"><div class="show-text"><div class="show-name">חוה אלברשטיין</div><div class="show-time">20:00</div></div></div></div></td>
+                  <td class="show-cell"><div class="show-block"><div class="show-thumb" style="background-image: url('./Graphig assets/artist-photos/chava-alberstein.jpg')"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">חוה אלברשטיין</div><div class="show-time">20:00</div></div></div></div></td>
                   <td class="show-cell"></td>
                   <td class="show-cell"></td>
                   <td class="show-cell"></td>
@@ -3076,7 +3171,7 @@ section { padding: 3rem 1rem; }
                 <tr data-day="3">
                   <td class="time-col">21:45</td>
                   <td class="show-cell"></td>
-                  <td class="show-cell"><div class="show-block teal"><div class="show-block-inner"><div class="show-text"><div class="show-name">SHALOSH</div><div class="show-time">21:45</div></div></div></div></td>
+                  <td class="show-cell"><div class="show-block teal"><div class="show-thumb" style="background-image: url('./Graphig assets/artist-photos/shalosh.jpg')"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">SHALOSH</div><div class="show-time">21:45</div></div></div></div></td>
                   <td class="show-cell"></td>
                   <td class="show-cell"></td>
                 </tr>
@@ -3084,20 +3179,20 @@ section { padding: 3rem 1rem; }
                   <td class="time-col">22:30</td>
                   <td class="show-cell"></td>
                   <td class="show-cell"></td>
-                  <td class="show-cell"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">Las Piratas Piratas</div><div class="show-time">22:30</div></div></div></div></td>
+                  <td class="show-cell"><div class="show-block pink"><div class="show-thumb" style="background-image: url('./Graphig assets/artist-photos/las-piratas.jpg')"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">Las Piratas Piratas</div><div class="show-time">22:30</div></div></div></div></td>
                   <td class="show-cell"></td>
                 </tr>
                 <tr data-day="4">
                   <td class="time-col">11:00</td>
                   <td class="show-cell"></td>
                   <td class="show-cell"></td>
-                  <td class="show-cell"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">הדר נויברג</div><div class="show-time">11:00</div></div></div></div></td>
+                  <td class="show-cell"><div class="show-block pink"><div class="show-thumb"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">הדר נויברג</div><div class="show-time">11:00</div></div></div></div></td>
                   <td class="show-cell"></td>
                 </tr>
                 <tr data-day="4">
                   <td class="time-col">12:30</td>
                   <td class="show-cell"></td>
-                  <td class="show-cell"><div class="show-block teal"><div class="show-block-inner"><div class="show-text"><div class="show-name">Anat Cohen</div><div class="show-time">12:30</div></div></div></div></td>
+                  <td class="show-cell"><div class="show-block teal"><div class="show-thumb" style="background-image: url('./Graphig assets/artist-photos/anat-cohen.jpg')"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">Anat Cohen</div><div class="show-time">12:30</div></div></div></div></td>
                   <td class="show-cell"></td>
                   <td class="show-cell"></td>
                 </tr>
@@ -3105,12 +3200,12 @@ section { padding: 3rem 1rem; }
                   <td class="time-col">13:45</td>
                   <td class="show-cell"></td>
                   <td class="show-cell"></td>
-                  <td class="show-cell"><div class="show-block pink"><div class="show-block-inner"><div class="show-text"><div class="show-name">עידית מינצר ויחזקאל רז</div><div class="show-time">13:45</div></div></div></div></td>
+                  <td class="show-cell"><div class="show-block pink"><div class="show-thumb"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">עידית מינצר ויחזקאל רז</div><div class="show-time">13:45</div></div></div></div></td>
                   <td class="show-cell"></td>
                 </tr>
                 <tr data-day="4">
                   <td class="time-col">14:45</td>
-                  <td class="show-cell"><div class="show-block"><div class="show-block-inner"><div class="show-text"><div class="show-name">תזמורת הג׳אז הישראלית</div><div class="show-time">14:45</div></div></div></div></td>
+                  <td class="show-cell"><div class="show-block"><div class="show-thumb"></div><div class="show-block-inner"><div class="show-text"><div class="show-name">תזמורת הג׳אז הישראלית</div><div class="show-time">14:45</div></div></div></div></td>
                   <td class="show-cell"></td>
                   <td class="show-cell"></td>
                   <td class="show-cell"></td>
@@ -3249,7 +3344,9 @@ section { padding: 3rem 1rem; }
   <footer>
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="footer-logo">RED SEA JAZZ FESTIVAL</div>
+        <div class="footer-logo">
+          <img src="./Graphig assets/State=Horizontal.png" alt="Red Sea Jazz Festival" class="footer-logo-img" />
+        </div>
         <div class="footer-tagline">
           40 שנות מוזיקה על חוף ים סוף.<br>
           נמל אילת · 11–14 בנובמבר 2026
@@ -3998,6 +4095,20 @@ document.getElementById('panelGenre').textContent  = data.genre  || '';
         openShowPanel(iNameEl.textContent.trim(), { time: time, stage: stage, stageColor: cmap[matched], date: date });
       }
     });
+  </script>
+  <script>
+    (function() {
+      var nav = document.getElementById('navbar');
+      var ticker = document.querySelector('.ticker-bar');
+      function setHeroGap() {
+        var navH = nav ? nav.getBoundingClientRect().height : 100;
+        var tickerH = ticker ? ticker.getBoundingClientRect().height : 36;
+        document.documentElement.style.setProperty('--nav-h', navH + 'px');
+        document.documentElement.style.setProperty('--ticker-h', tickerH + 'px');
+      }
+      setHeroGap();
+      window.addEventListener('resize', setHeroGap);
+    })();
   </script>
 </body>
 </html>

@@ -5,6 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ליינאפ 2026 · Red Sea Jazz Festival</title>
   <meta name="description" content="הליינאפ המלא של פסטיבל ג'אז ים סוף 2026 — 11–14 בנובמבר · נמל אילת · 4 ימים · 4 במות" />
+  <meta name="keywords" content="Red Sea Jazz Festival, ליינאפ, לוח הופעות, אמנים, אילת, 2026" />
+  <meta property="og:title" content="ליינאפ מלא · Red Sea Jazz Festival 2026" />
+  <meta property="og:description" content="הליינאפ המלא — 40+ הופעות על 4 במות · 11–14 בנובמבר 2026 · נמל אילת" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="./Graphig assets/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Red Sea Jazz Festival 2026 — ליינאפ מלא" />
+  <meta property="og:locale" content="he_IL" />
+  <meta property="og:site_name" content="Red Sea Jazz Festival" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ליינאפ מלא · Red Sea Jazz Festival 2026" />
+  <meta name="twitter:description" content="40+ הופעות · 4 במות · 11–14 בנובמבר 2026 · נמל אילת" />
+  <meta name="twitter:image" content="./Graphig assets/og-image.jpg" />
+  <meta name="twitter:image:alt" content="Red Sea Jazz Festival 2026 — ליינאפ מלא" />
   <link rel="icon" type="image/x-icon" href="./favicon.ico" />
   <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
@@ -240,62 +255,71 @@
 
     /* ─── PAGE HERO ────────────────────────────────────────────── */
     .page-hero {
-      background: linear-gradient(135deg, #3A2A1E 0%, #5C3A20 60%, #2A1A10 100%);
-      padding: 5rem 3rem 4rem;
-      padding-top: calc(var(--ticker-h) + var(--nav-h) + 3rem);
-      text-align: center;
       position: relative;
       overflow: hidden;
+      min-height: calc(400px + var(--ticker-h) + var(--nav-h));
+      padding-top: calc(var(--ticker-h) + var(--nav-h) + 60px);
+      padding-bottom: 60px;
+      padding-inline: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: #f5efe6 url('./Graphig assets/banner-lineup.jpg') center 47% / cover no-repeat;
+      border-bottom: 1px solid rgba(255,107,26,0.25);
     }
-    .page-hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 50% 0%, rgba(224,86,11,0.35) 0%, transparent 65%);
+    .page-hero-glow-orange {
+      position: absolute;
+      left: -22px; top: -103px;
+      width: 390px; height: 390px;
       pointer-events: none;
+      transform: scaleX(-1);
+      z-index: 1;
+    }
+    .page-hero-glow-teal {
+      position: absolute;
+      bottom: -115px; right: -503px;
+      width: 441px; height: 441px;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .page-hero-content {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column;
+      gap: 12px; align-items: center;
     }
     .page-hero-tag {
-      display: inline-block;
-      color: var(--yellow); font-size: 0.82rem;
-      letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600;
-      margin-bottom: 0.8rem;
-      position: relative;
+      display: flex; align-items: center; gap: 8px; justify-content: center;
+      font-size: 1rem; font-weight: 400;
+      color: rgba(14,13,8,0.85);
+      line-height: 1.5; letter-spacing: 0.01em;
     }
     .page-hero-title {
-      font-size: clamp(2.8rem, 8vw, 6rem);
-      font-weight: 900;
-      color: #fff;
-      line-height: 0.95;
-      position: relative;
-      letter-spacing: -0.02em;
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.1;
+      letter-spacing: -0.025em;
     }
-    .page-hero-title .accent {
-      background: linear-gradient(135deg, var(--orange), var(--yellow));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    /* ─── HERO STATS STRIP ─────────────────────────────────────── */
+    .hero-stats-bar {
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      padding: 1.4rem 3rem;
+      display: flex; gap: 2.5rem;
+      justify-content: center; flex-wrap: wrap; align-items: center;
     }
-    .page-hero-sub {
-      color: rgba(245,239,230,0.72);
-      font-size: 1rem;
-      margin-top: 1.2rem;
-      position: relative;
+    .hero-stat {
+      display: flex; flex-direction: column; align-items: center; text-align: center;
     }
-    .page-hero-stats {
-      display: flex; gap: 2.5rem; justify-content: center; flex-wrap: wrap;
-      margin-top: 2.2rem;
-      position: relative;
-    }
-    .page-hero-stat {
-      display: flex; flex-direction: column; align-items: center;
-    }
-    .page-hero-stat-num {
-      font-size: 2rem; font-weight: 900;
+    .hero-stat-num {
+      font-size: 1.8rem; font-weight: 900; line-height: 1.2;
       background: linear-gradient(135deg, var(--orange), var(--yellow));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    .page-hero-stat-label {
-      font-size: 0.78rem; color: rgba(255,255,255,0.55);
+    .hero-stat-label {
+      font-size: 0.75rem; color: var(--muted);
       text-transform: uppercase; letter-spacing: 0.06em;
     }
 
@@ -614,7 +638,11 @@
 
     /* ─── RESPONSIVE ───────────────────────────────────────────── */
     @media (max-width: 700px) {
-      .page-hero { padding-top: calc(var(--ticker-h) + var(--nav-h) + 2rem); padding-inline: 1.5rem; padding-bottom: 3rem; }
+      .page-hero { padding-top: calc(var(--ticker-h) + var(--nav-h) + 2.5rem); padding-inline: 1.5rem; padding-bottom: 2.5rem; min-height: calc(300px + var(--ticker-h) + var(--nav-h)); }
+      .page-hero-title { font-size: clamp(2.2rem, 10vw, 3.5rem); }
+      .page-hero-glow-orange { width: 200px; height: 200px; top: -50px; left: -30px; }
+      .page-hero-glow-teal { width: 220px; height: 220px; right: -250px; bottom: -60px; }
+      .hero-stats-bar { padding: 1rem 1.5rem; gap: 1.2rem; }
       main { padding: 2rem 1rem 4rem; }
       .day-nav { padding: 0.75rem 1rem; }
       .stage-filter { padding: 0.5rem 1rem; top: calc(var(--ticker-h) + var(--nav-h) + 55px + 46px); }
@@ -688,26 +716,39 @@
 
   <!-- ── PAGE HERO ── -->
   <div class="page-hero">
-    <div class="page-hero-tag">Full Lineup · ליינאפ מלא</div>
-    <h1 class="page-hero-title">ליינאפ <span class="accent">2026</span></h1>
-    <p class="page-hero-sub">11–14 בנובמבר · נמל אילת · 4 ימים · 4 במות</p>
-    <div class="page-hero-stats">
-      <div class="page-hero-stat">
-        <div class="page-hero-stat-num">40+</div>
-        <div class="page-hero-stat-label">הופעות</div>
+    <img class="page-hero-glow-orange" src="./Graphig assets/glow-orange.png" alt="" aria-hidden="true" />
+    <img class="page-hero-glow-teal"   src="./Graphig assets/glow-teal.png"   alt="" aria-hidden="true" />
+    <div class="page-hero-content">
+      <div class="page-hero-tag">
+        <span>Full Lineup</span>
+        <span>·</span>
+        <span>ליינאפ מלא</span>
       </div>
-      <div class="page-hero-stat">
-        <div class="page-hero-stat-num">4</div>
-        <div class="page-hero-stat-label">ימים</div>
-      </div>
-      <div class="page-hero-stat">
-        <div class="page-hero-stat-num">4</div>
-        <div class="page-hero-stat-label">במות</div>
-      </div>
-      <div class="page-hero-stat">
-        <div class="page-hero-stat-num">40</div>
-        <div class="page-hero-stat-label">שנות פסטיבל</div>
-      </div>
+      <h1 class="page-hero-title">ליינאפ 2026</h1>
+    </div>
+  </div>
+
+  <!-- ── HERO STATS ── -->
+  <div class="hero-stats-bar">
+    <div class="hero-stat">
+      <div class="hero-stat-num">40+</div>
+      <div class="hero-stat-label">הופעות</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">4</div>
+      <div class="hero-stat-label">ימים</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">4</div>
+      <div class="hero-stat-label">במות</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">40</div>
+      <div class="hero-stat-label">שנות פסטיבל</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num" style="font-size:1rem;font-weight:600;-webkit-text-fill-color:var(--muted);color:var(--muted);">11–14 נובמבר · נמל אילת</div>
+      <div class="hero-stat-label">תאריכים ומיקום</div>
     </div>
   </div>
 
