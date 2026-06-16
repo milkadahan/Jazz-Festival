@@ -39,6 +39,7 @@
       --card-bg:   #FFFDF8;   /* רקע כרטיסים — לבן-שמנת */
       --border:    rgba(58,42,30,0.12);  /* מסגרות — חום שקוף */
       --border-strong: rgba(58,42,30,0.22);
+      --btn-gradient:  linear-gradient(135deg, var(--orange), var(--red)); /* גרדיאנט אחיד לכל הכפתורים */
       --shadow:    rgba(58,42,30,0.10);  /* צללים רכים על בהיר */
       --shadow-strong: rgba(58,42,30,0.16);
       --on-accent: #FFFDF8;  /* טקסט על רקע צבעוני מלא */
@@ -199,7 +200,7 @@
       display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0;
     }
     .nav-btn-primary {
-      background: linear-gradient(135deg, var(--orange), #c43d0e);
+      background: var(--btn-gradient);
       color: var(--on-accent); border: none; border-radius: 50px;
       padding: 0.5rem 1.3rem; font-size: 0.85rem; font-weight: 700;
       letter-spacing: normal; cursor: pointer;
@@ -242,9 +243,14 @@
 
     /* ─── HERO – STICKY BG IMAGE ──────────────────────────────── */
     #hero-wrapper {
-      position: sticky; top: 0;
+      position: sticky; top: calc(var(--ticker-h) + 100px);
       height: 100vh; z-index: 0;
       overflow: hidden;
+      /* הטולבר (טיקר 36px + nav 100px) = 136px.
+         margin-top מוציא את ה-hero ממצב ״מוסתר מאחורי הטולבר״ בטעינה ראשונית.
+         top: זהה = כשגוללים, ה-hero נדבק בדיוק מתחת לטולבר ולא מאחוריו.
+         בגלילה — הטולבר (fixed) עולה מעל שאר התוכן באופן טבעי. */
+      margin-top: calc(var(--ticker-h) + 100px);
     }
 
     #hero {
@@ -401,10 +407,7 @@
       font-weight: 900;
       line-height: 0.9;
       letter-spacing: -0.02em;
-      background: linear-gradient(135deg, var(--yellow) 0%, var(--orange) 40%, var(--red) 70%, var(--pink) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--orange);
       filter: drop-shadow(0 0 30px rgba(255,140,66,0.5));
       animation: fadeUp 0.9s 0.2s ease both;
     }
@@ -424,9 +427,7 @@
     }
     .hero-40-num {
       font-size: clamp(4rem, 12vw, 10rem); font-weight: 900;
-      background: linear-gradient(161deg, var(--orange), #e84021);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--orange);
       filter: drop-shadow(0 0 40px rgba(255,210,52,0.6));
       line-height: 1;
     }
@@ -475,10 +476,7 @@
       line-height: 1.1;
       width: 100%;
       text-align: center;
-      background: linear-gradient(135deg, var(--yellow), var(--orange));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--orange);
     }
     .countdown-label {
       font-family: 'Noto Sans Hebrew', sans-serif;
@@ -496,7 +494,7 @@
       animation: fadeUp 0.9s 0.95s ease both;
     }
     .btn-primary {
-      background: linear-gradient(135deg, var(--orange), var(--red));
+      background: var(--btn-gradient);
       color: #fff; border: none; border-radius: 50px;
       padding: 0.9rem 2.5rem; font-size: 1rem; font-weight: 700;
       letter-spacing: normal;
@@ -573,9 +571,7 @@
       font-weight: 900; line-height: 1.1;
     }
     .section-title .accent {
-      background: linear-gradient(135deg, var(--orange), var(--yellow));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--orange);
     }
     .section-desc {
       color: var(--muted); font-size: 1rem; margin-top: 0.8rem; max-width: 500px;
@@ -607,9 +603,7 @@
     .stat:last-child { border-inline-end: none; }
     .stat-num {
       font-size: 2.5rem; font-weight: 900;
-      background: linear-gradient(135deg, var(--orange), var(--yellow));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--orange);
     }
     .stat-label { font-size: 0.85rem; color: var(--muted); margin-top: 0.2rem; }
 
@@ -684,6 +678,8 @@
     .artist-img {
       width: 100%; aspect-ratio: 1;
       background: linear-gradient(135deg, #1a1025, #0d1a2a);
+      background-size: cover;
+      background-position: center top;
       display: flex; align-items: center; justify-content: center;
       position: relative; overflow: hidden;
     }
@@ -712,7 +708,7 @@
     /* Headliner tag */
     .headliner-badge {
       position: absolute; top: 12px; inset-inline-start: 12px;
-      background: linear-gradient(135deg, var(--orange), var(--red));
+      background: var(--btn-gradient);
       color: #fff; border-radius: 50px; padding: 0.25rem 0.8rem;
       font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
       text-transform: uppercase; z-index: 2;
@@ -775,7 +771,7 @@
     .stage-dropdown-trigger:hover,
     .stage-dropdown-trigger.open { border-color: var(--orange); color: var(--orange); }
     .stage-dropdown-trigger.has-selection {
-      background: linear-gradient(135deg, var(--orange), var(--red));
+      background: var(--btn-gradient);
       border-color: transparent; color: #fff;
       box-shadow: 0 0 20px rgba(255,107,26,0.35);
     }
@@ -821,7 +817,7 @@
       transition: background 0.15s, border-color 0.15s;
     }
     .stage-option.checked .stage-checkbox {
-      background: linear-gradient(135deg, var(--orange), var(--red));
+      background: var(--btn-gradient);
       border-color: transparent;
     }
     .stage-checkbox svg { opacity: 0; transition: opacity 0.15s; }
@@ -835,7 +831,7 @@
     }
     .filter-btn:hover { border-color: var(--orange); color: var(--orange); }
     .filter-btn.active {
-      background: linear-gradient(135deg, var(--orange), var(--red));
+      background: var(--btn-gradient);
       border-color: transparent; color: #fff;
       box-shadow: 0 0 20px rgba(255,107,26,0.35);
     }
@@ -861,7 +857,7 @@
     .pill-indicator {
       position: absolute; top: 4px; bottom: 4px;
       border-radius: 50px;
-      background: linear-gradient(135deg, var(--orange), var(--red));
+      background: var(--btn-gradient);
       box-shadow: 0 0 16px rgba(255,107,26,0.45);
       transition: left 0.3s cubic-bezier(0.34,1.56,0.64,1), width 0.3s;
       pointer-events: none;
@@ -1073,7 +1069,7 @@
     /* Eilat silhouette strip inside banner */
     .banner-silhouette { display: none; }
 
-    .hotel-banner-content { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 14px; align-items: flex-end; flex: 1; min-width: 0; text-align: right; }
+    .hotel-banner-content { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 14px; align-items: flex-start; flex: 1; min-width: 0; text-align: right; padding-inline-end: 80px; }
     .hotel-banner-title {
       display: flex; flex-direction: column; align-items: flex-start;
       font-size: clamp(1.5rem, 3vw, 2.375rem);
@@ -1081,16 +1077,14 @@
     }
     .hotel-banner-title .title-line1 { color: var(--banner-fg); }
     .hotel-banner-title .hl {
-      background: linear-gradient(161deg, var(--orange), #e84021);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--orange);
     }
     .hotel-banner-sub { color: var(--banner-fg); font-size: 18px; line-height: 1.6; text-align: right; }
 
     .hotel-banner-cta { position: relative; z-index: 2; flex-shrink: 0; }
     .hotel-banner-btn {
       display: inline-flex; align-items: center; gap: 0.7rem;
-      background: linear-gradient(153deg, var(--orange), #e84021);
+      background: var(--btn-gradient);
       color: #fff; border: none; border-radius: 50px;
       padding: 1rem 2.2rem; font-size: 1rem; font-weight: 700;
       letter-spacing: 0; cursor: pointer;
@@ -1219,9 +1213,7 @@
     .footer-brand { }
     .footer-logo {
       font-size: 1.3rem; font-weight: 900; letter-spacing: 0.05em;
-      background: linear-gradient(135deg, var(--yellow), var(--orange));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text; margin-bottom: 1rem;
+      color: var(--orange); margin-bottom: 1rem;
     }
     .footer-tagline { font-size: 0.9rem; color: var(--muted); line-height: 1.7; max-width: 280px; }
     .footer-social { display: flex; gap: 0.8rem; margin-top: 1.2rem; }
@@ -1390,7 +1382,7 @@ section { padding: 3rem 1rem; }
 
     .show-panel-headliner-badge {
       position: absolute; top: 1rem; inset-inline-start: 1rem;
-      background: linear-gradient(135deg, var(--orange), var(--red));
+      background: var(--btn-gradient);
       color: #fff; border-radius: 50px;
       padding: 0.28rem 0.9rem;
       font-size: 0.7rem; font-weight: 700;
@@ -1455,7 +1447,7 @@ section { padding: 3rem 1rem; }
 
     .show-panel-ticket-btn {
       display: flex; align-items: center; justify-content: center; gap: 0.6rem;
-      background: linear-gradient(135deg, var(--orange), var(--red));
+      background: var(--btn-gradient);
       color: #fff; border: none; border-radius: 50px;
       padding: 1rem 1.5rem; font-size: 0.97rem; font-weight: 700;
       cursor: pointer; text-decoration: none;
@@ -1824,10 +1816,7 @@ section { padding: 3rem 1rem; }
       color: var(--text);
     }
     .alt-lineup-title-accent {
-      background: linear-gradient(135deg, var(--orange), var(--yellow));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--orange);
     }
     .alt-lineup-desc {
       color: var(--muted);
@@ -3176,7 +3165,7 @@ section { padding: 3rem 1rem; }
       position: absolute;
       top: -14px; inset-inline-start: 50%;
       transform: translateX(50%);
-      background: linear-gradient(135deg, var(--orange), var(--red));
+      background: var(--btn-gradient);
       color: #fff;
       border-radius: 50px;
       padding: 0.28rem 1.1rem;
@@ -3198,10 +3187,7 @@ section { padding: 3rem 1rem; }
       line-height: 1.1;
     }
     .ticket-plan-featured .ticket-plan-name {
-      background: linear-gradient(135deg, var(--orange), var(--red));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--orange);
     }
 
     .ticket-plan-desc {
@@ -3235,7 +3221,7 @@ section { padding: 3rem 1rem; }
     }
     .ticket-plan-cta:hover { transform: translateY(-2px); }
     .ticket-plan-cta-primary {
-      background: linear-gradient(135deg, var(--orange), var(--red));
+      background: var(--btn-gradient);
       color: #fff;
       border: none;
       box-shadow: 0 4px 20px rgba(224,86,11,0.35);
