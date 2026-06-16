@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ליינאפ 2026 · Red Sea Jazz Festival</title>
   <meta name="description" content="הליינאפ המלא של פסטיבל ג'אז ים סוף 2026 — 11–14 בנובמבר · נמל אילת · 4 ימים · 4 במות" />
+  <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+  <link rel="manifest" href="./site.webmanifest" />
   <link href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@100;300;400;500;700;900&family=Noto+Sans+Hebrew:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
   <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
   <style>
@@ -25,13 +30,16 @@
       --card-bg:   #FFFDF8;
       --border:    rgba(58,42,30,0.12);
       --border-strong: rgba(58,42,30,0.22);
+      --btn-gradient:  linear-gradient(135deg, var(--orange), var(--red));
       --shadow:    rgba(58,42,30,0.10);
       --shadow-strong: rgba(58,42,30,0.16);
       --on-accent: #FFFDF8;
       --font:      'Hepta Slab', 'Noto Sans Hebrew', serif;
+      --ticker-h:  36px;
+      --nav-h:     100px;
     }
 
-    html { scroll-behavior: smooth; direction: rtl; }
+    html { scroll-behavior: smooth; direction: rtl; scroll-padding-top: calc(var(--ticker-h) + var(--nav-h)); }
     body {
       background: var(--bg);
       color: var(--text);
@@ -53,32 +61,100 @@
       border-radius: 4px;
     }
 
+    /* ─── TICKER BAR ──────────────────────────────────────────── */
+    .ticker-bar {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--ticker-h); z-index: 101;
+      background: #2d2726;
+      display: flex; align-items: center;
+      direction: ltr;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(224,86,11,0.3);
+    }
+    .ticker-label {
+      flex-shrink: 0;
+      padding: 0 1.4rem 0 1rem;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+      color: var(--orange); text-transform: uppercase;
+      border-right: 1px solid rgba(224,86,11,0.35);
+      white-space: nowrap;
+    }
+    .ticker-track-wrap { flex: 1; overflow: hidden; position: relative; }
+    .ticker-track {
+      display: flex; gap: 0;
+      direction: ltr;
+      animation: ticker-scroll 28s linear infinite;
+      will-change: transform;
+      width: max-content;
+    }
+    .ticker-item {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.78rem; color: #e6d8d6;
+      padding: 0 2.5rem;
+      white-space: nowrap;
+    }
+    .ticker-item::before {
+      content: '♪';
+      color: var(--orange); font-size: 0.65rem;
+    }
+    @keyframes ticker-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-25%); }
+    }
+    @media (max-width: 700px) {
+      :root { --ticker-h: 32px; }
+      .ticker-label { padding: 0 0.7rem 0 0.9rem; font-size: 0.65rem; }
+      .ticker-item { font-size: 0.73rem; padding: 0 1.8rem; }
+    }
+
     /* ─── NAV ─────────────────────────────────────────────────── */
     nav {
-      position: sticky; top: 0; width: 100%; z-index: 100;
+      position: fixed; top: var(--ticker-h); width: 100%; z-index: 100;
       display: flex; align-items: center;
-      height: 72px;
-      background: rgba(250,244,233,0.96);
+      height: 100px;
+      background: rgba(250,244,233,0.94);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
+      transition: background 0.35s, height 0.35s;
+      overflow: hidden;
+      animation: navSlideIn 0.65s 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    nav.scrolled {
+      height: 64px;
+      background: rgba(250,244,233,0.97);
       box-shadow: 0 2px 16px var(--shadow);
     }
+    :root:has(nav.scrolled) { --nav-h: 64px; }
+    @keyframes navSlideIn {
+      from { opacity: 0; transform: translateY(-18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Logo */
     .nav-logo-tab {
-      flex-shrink: 0; padding: 0.5rem 1.4rem;
+      flex-shrink: 0;
+      padding: 0.6rem 1.4rem;
       display: flex; align-items: center; justify-content: center;
       cursor: pointer; text-decoration: none;
-      transition: opacity 0.2s;
+      transition: opacity 0.2s, padding 0.35s;
     }
     .nav-logo-tab:hover { opacity: 0.75; }
+    nav.scrolled .nav-logo-tab { padding: 0.25rem 1.4rem; }
     .nav-logo-img {
-      height: 44px; width: auto; display: block;
+      height: 80px; width: auto; display: block;
       filter: brightness(0) saturate(100%) invert(15%) sepia(28%) saturate(900%) hue-rotate(350deg);
+      transition: height 0.35s;
     }
+    nav.scrolled .nav-logo-img { height: 44px; }
+
+    /* Nav inner */
     .nav-inner {
       flex: 1; display: flex; align-items: center;
       justify-content: space-between;
       padding: 0 2rem;
     }
+
+    /* Nav links */
     .nav-links {
       display: flex; gap: 1.8rem; list-style: none;
       font-size: 0.88rem; font-weight: 500;
@@ -95,12 +171,18 @@
     }
     .nav-links a:hover { color: var(--yellow); }
     .nav-links a:hover::after { width: 100%; }
-    .nav-actions { display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0; }
+    .nav-links a.active { color: var(--orange); font-weight: 700; }
+    .nav-links a.active::after { width: 100%; }
+
+    /* Nav action buttons */
+    .nav-actions {
+      display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0;
+    }
     .nav-btn-primary {
-      background: linear-gradient(135deg, var(--orange), #c43d0e);
+      background: var(--btn-gradient);
       color: var(--on-accent); border: none; border-radius: 50px;
       padding: 0.5rem 1.3rem; font-size: 0.85rem; font-weight: 700;
-      cursor: pointer;
+      letter-spacing: normal; cursor: pointer;
       box-shadow: 0 4px 14px rgba(224,86,11,0.32);
       transition: transform 0.2s, box-shadow 0.2s;
       text-decoration: none; display: inline-block;
@@ -109,6 +191,34 @@
       transform: translateY(-2px);
       box-shadow: 0 6px 22px rgba(224,86,11,0.45);
     }
+    .nav-btn-secondary {
+      background: transparent;
+      color: var(--text); border: 1.5px solid var(--border-strong);
+      border-radius: 50px; padding: 0.48rem 1.2rem;
+      font-size: 0.85rem; font-weight: 600; cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+      text-decoration: none; display: inline-block;
+    }
+    .nav-btn-secondary:hover {
+      border-color: var(--orange); color: var(--orange);
+      transform: translateY(-2px);
+    }
+    .nav-lang-sep {
+      width: 1px; height: 20px; flex-shrink: 0;
+      background: var(--border-strong);
+      margin-inline: 0.3rem;
+    }
+    .nav-btn-lang {
+      background: transparent;
+      color: rgba(58,42,30,0.62);
+      border: 1.5px solid var(--border);
+      border-radius: 50px; padding: 0.45rem 0.9rem;
+      font-size: 0.85rem; font-weight: 600; cursor: pointer;
+      display: flex; align-items: center; gap: 0.35rem;
+      transition: border-color 0.2s, color 0.2s;
+      font-family: var(--font);
+    }
+    .nav-btn-lang:hover { border-color: var(--orange); color: var(--orange); }
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; border:none; background:transparent; }
     .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
 
@@ -116,9 +226,12 @@
       .nav-links { display: none; }
       .hamburger { display: flex; }
       .nav-inner { padding: 0 1rem; }
+      .nav-btn-secondary { display: none; }
+      .nav-btn-lang { display: none; }
+      .nav-lang-sep { display: none; }
       .nav-links.open {
         display: flex; flex-direction: column;
-        position: fixed; inset: 0; top: 72px;
+        position: fixed; inset: 0; top: calc(var(--ticker-h) + 64px);
         background: rgba(250,244,233,0.98); backdrop-filter: blur(10px);
         padding: 2rem; gap: 1.5rem; font-size: 1.2rem;
         z-index: 99;
@@ -129,6 +242,7 @@
     .page-hero {
       background: linear-gradient(135deg, #3A2A1E 0%, #5C3A20 60%, #2A1A10 100%);
       padding: 5rem 3rem 4rem;
+      padding-top: calc(var(--ticker-h) + var(--nav-h) + 3rem);
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -187,7 +301,7 @@
 
     /* ─── DAY NAVIGATION ───────────────────────────────────────── */
     .day-nav {
-      position: sticky; top: 72px; z-index: 50;
+      position: sticky; top: calc(var(--ticker-h) + var(--nav-h)); z-index: 50;
       background: rgba(250,244,233,0.97);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--border);
@@ -213,7 +327,7 @@
 
     /* ─── STAGE FILTER ──────────────────────────────────────────── */
     .stage-filter {
-      position: sticky; top: 131px; z-index: 49;
+      position: sticky; top: calc(var(--ticker-h) + var(--nav-h) + 59px); z-index: 49;
       background: rgba(243,233,214,0.97);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--border);
@@ -249,7 +363,7 @@
     /* ─── DAY BLOCK ─────────────────────────────────────────────── */
     .day-block {
       margin-bottom: 4.5rem;
-      scroll-margin-top: 135px;
+      scroll-margin-top: calc(var(--ticker-h) + var(--nav-h) + 120px);
     }
     .day-block-header {
       display: flex; align-items: center; gap: 1rem;
@@ -369,16 +483,41 @@
 
     /* ─── RESPONSIVE ───────────────────────────────────────────── */
     @media (max-width: 700px) {
-      .page-hero { padding: 3.5rem 1.5rem 3rem; }
+      .page-hero { padding-top: calc(var(--ticker-h) + var(--nav-h) + 2rem); padding-inline: 1.5rem; padding-bottom: 3rem; }
       main { padding: 2rem 1rem 4rem; }
       .day-nav { padding: 0.75rem 1rem; }
-      .stage-filter { padding: 0.5rem 1rem; top: 128px; }
+      .stage-filter { padding: 0.5rem 1rem; top: calc(var(--ticker-h) + var(--nav-h) + 55px); }
       .footer-grid { grid-template-columns: 1fr; gap: 1.8rem; }
       .show-row-time { min-width: 52px; font-size: 0.88rem; }
     }
   </style>
 </head>
 <body>
+
+  <!-- ── TICKER BAR ── -->
+  <div class="ticker-bar" role="marquee" aria-label="עדכוני פסטיבל">
+    <div class="ticker-track-wrap">
+      <div class="ticker-track" id="tickerTrack">
+        <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
+        <span class="ticker-item">ההופעה הראשונה הוכרזה — פרטים נוספים בקרוב</span>
+        <span class="ticker-item">חבילות נופש חדשות עם מלונות אילת — 3 לילות + שאטל לנמל</span>
+        <span class="ticker-item">11–14 בנובמבר 2026 · נמל אילת · 40 שנות פסטיבל ג׳אז ים סוף</span>
+        <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
+        <span class="ticker-item">ההופעה הראשונה הוכרזה — פרטים נוספים בקרוב</span>
+        <span class="ticker-item">חבילות נופש חדשות עם מלונות אילת — 3 לילות + שאטל לנמל</span>
+        <span class="ticker-item">11–14 בנובמבר 2026 · נמל אילת · 40 שנות פסטיבל ג׳אז ים סוף</span>
+        <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
+        <span class="ticker-item">ההופעה הראשונה הוכרזה — פרטים נוספים בקרוב</span>
+        <span class="ticker-item">חבילות נופש חדשות עם מלונות אילת — 3 לילות + שאטל לנמל</span>
+        <span class="ticker-item">11–14 בנובמבר 2026 · נמל אילת · 40 שנות פסטיבל ג׳אז ים סוף</span>
+        <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
+        <span class="ticker-item">ההופעה הראשונה הוכרזה — פרטים נוספים בקרוב</span>
+        <span class="ticker-item">חבילות נופש חדשות עם מלונות אילת — 3 לילות + שאטל לנמל</span>
+        <span class="ticker-item">11–14 בנובמבר 2026 · נמל אילת · 40 שנות פסטיבל ג׳אז ים סוף</span>
+      </div>
+    </div>
+    <span class="ticker-label">עדכונים</span>
+  </div>
 
   <!-- ── NAV ── -->
   <nav id="navbar">
@@ -387,20 +526,26 @@
     </a>
     <div class="nav-inner">
       <ul class="nav-links" id="navLinks">
-        <li><a href="./index.html">בית</a></li>
-        <li><a href="./lineup.html" class="active">אמנים</a></li>
-        <li><a href="./index.html#schedule">לוח הופעות</a></li>
-        <li><a href="./index.html#hotels">מלונות</a></li>
-        <li><a href="./index.html#venue">מיקום</a></li>
-        <li><a href="./index.html#news">עדכונים</a></li>
+        <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
+        <li><a href="./index.html#lineup" data-he="אמנים" data-en="Artists">אמנים</a></li>
+        <li><a href="./lineup.html" class="active" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
+        <li><a href="./index.html#hotels" data-he="מלונות" data-en="Hotels">מלונות</a></li>
+        <li><a href="./index.html#venue" data-he="מיקום" data-en="Location">מיקום</a></li>
+        <li><a href="./index.html#news" data-he="עדכונים" data-en="News">עדכונים</a></li>
       </ul>
       <div class="nav-actions">
-        <a class="nav-btn-primary"
+        <a class="nav-btn-secondary" data-he="חבילות נופש" data-en="Stay Packages"
+          href="./index.html#hotels" rel="noopener">
+          חבילות נופש
+        </a>
+        <a class="nav-btn-primary" data-he="כרטיסים" data-en="Tickets"
           href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener">
           כרטיסים ←
         </a>
+        <div class="nav-lang-sep"></div>
+        <button class="nav-btn-lang" id="langBtn" onclick="switchLang()">🇺🇸 EN</button>
         <button class="hamburger" id="hamburger" aria-label="תפריט ניווט" aria-expanded="false"
-                onclick="document.getElementById('navLinks').classList.toggle('open'); this.setAttribute('aria-expanded', document.getElementById('navLinks').classList.contains('open'))">
+                onclick="toggleMenu()">
           <span></span><span></span><span></span>
         </button>
       </div>
@@ -1026,6 +1171,34 @@
       var idx = ['day-1','day-2','day-3','day-4'].indexOf(current);
       if (dayBtns[idx]) dayBtns[idx].classList.add('active');
     }, { passive: true });
+
+    // Nav scroll shrink
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 40) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    }, { passive: true });
+
+    // Mobile menu toggle
+    function toggleMenu() {
+      const navLinks = document.getElementById('navLinks');
+      const hamburger = document.getElementById('hamburger');
+      const isOpen = navLinks.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', isOpen);
+    }
+
+    // Language switch (UI toggle, preserves Hebrew as default)
+    let currentLang = 'he';
+    function switchLang() {
+      currentLang = currentLang === 'he' ? 'en' : 'he';
+      document.getElementById('langBtn').textContent = currentLang === 'he' ? '🇺🇸 EN' : '🇮🇱 HE';
+      document.querySelectorAll('[data-he]').forEach(el => {
+        el.textContent = el.getAttribute('data-' + currentLang) || el.textContent;
+      });
+    }
   </script>
 </body>
 </html>
