@@ -157,6 +157,9 @@
     }
 
     /* ─── NAV ─────────────────────────────────────────────────── */
+    body.panel-open nav,
+    body.panel-open .ticker-bar { z-index: 0 !important; }
+
     nav {
       position: fixed; top: var(--ticker-h); width: 100%; z-index: 100;
       display: flex; align-items: center;
@@ -164,7 +167,7 @@
       background: rgba(250,244,233,0.94);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
-      transition: background 0.35s, height 0.35s;
+      transition: background 0.35s, height 0.35s, opacity 0.25s ease;
       overflow: hidden;
       animation: navSlideIn 0.65s 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
@@ -1664,6 +1667,7 @@
         <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
         <li><a href="#lineup" data-he="אמנים" data-en="Artists">אמנים</a></li>
         <li><a href="#schedule" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
+        <li><a href="./past-artists.html" data-he="אמנים משנים קודמות" data-en="Past Artists">אמנים משנים קודמות</a></li>
         <li><a href="#hotels" data-he="מלונות" data-en="Hotels">מלונות</a></li>
         <li><a href="#venue" data-he="מיקום" data-en="Location">מיקום</a></li>
         <li><a href="#news" data-he="עדכונים" data-en="News">עדכונים</a></li>
@@ -2129,6 +2133,14 @@
     @media (max-width: 480px) {
       .alt-drawer { width: 100vw; border-inline-end: none; }
     }
+
+    /* ── הסתרת טולבר ו-nav כשכרטיס אמן פתוח ── */
+    .ticker-bar { transition: opacity 0.25s ease; }
+    body.artist-drawer-open .ticker-bar,
+    body.artist-drawer-open nav {
+      opacity: 0;
+      pointer-events: none;
+    }
   </style>
 
   <script>
@@ -2263,12 +2275,14 @@
 
       document.getElementById('altDrawer').classList.add('open');
       document.getElementById('altDrawerOverlay').classList.add('open');
+      document.body.classList.add('artist-drawer-open');
       document.body.style.overflow = 'hidden';
     }
 
     function closeArtistDrawer() {
       document.getElementById('altDrawer').classList.remove('open');
       document.getElementById('altDrawerOverlay').classList.remove('open');
+      document.body.classList.remove('artist-drawer-open');
       document.body.style.overflow = '';
     }
 
@@ -4129,12 +4143,14 @@ document.getElementById('panelGenre').textContent  = data.genre  || '';
       document.getElementById('showPanel').classList.add('open');
       document.getElementById('showPanelOverlay').classList.add('open');
       document.body.style.overflow = 'hidden';
+      document.body.classList.add('panel-open');
     }
 
     function closeShowPanel() {
       document.getElementById('showPanel').classList.remove('open');
       document.getElementById('showPanelOverlay').classList.remove('open');
       document.body.style.overflow = '';
+      document.body.classList.remove('panel-open');
     }
 
     document.addEventListener('keydown', function(e) {
