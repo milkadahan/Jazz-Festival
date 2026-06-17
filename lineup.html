@@ -27,6 +27,11 @@
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
   <link rel="manifest" href="./site.webmanifest" />
+  <!-- Preconnect to external origins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Preload above-the-fold hero image -->
+  <link rel="preload" href="./Graphig assets/banner-lineup.png" as="image" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@100;300;400;500;700;900&family=Noto+Sans+Hebrew:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
   <style>
     /* ─── RESET & BASE ─────────────────────────────────────────── */
@@ -731,7 +736,7 @@
   <!-- ── NAV ── -->
   <nav id="navbar">
     <a class="nav-logo-tab" href="./index.html">
-      <img src="State=Vertical.svg" alt="Red Sea Jazz Festival" class="nav-logo-img" />
+      <img src="State=Vertical.svg" alt="Red Sea Jazz Festival" class="nav-logo-img" width="80" height="80" />
     </a>
     <div class="nav-inner">
       <ul class="nav-links" id="navLinks">
@@ -763,9 +768,9 @@
 
   <!-- ── PAGE HERO ── -->
   <div class="page-hero">
-    <img class="page-hero-bg-img" src="./Graphig assets/banner-lineup.png" alt="" aria-hidden="true" />
-    <img class="page-hero-glow-orange" src="./Graphig assets/glow-orange.png" alt="" aria-hidden="true" />
-    <img class="page-hero-glow-teal"   src="./Graphig assets/glow-teal.png"   alt="" aria-hidden="true" />
+    <img class="page-hero-bg-img" src="./Graphig assets/banner-lineup.png" alt="" aria-hidden="true" width="4096" height="2578" fetchpriority="high" />
+    <img class="page-hero-glow-orange" src="./Graphig assets/glow-orange.png" alt="" aria-hidden="true" loading="lazy" />
+    <img class="page-hero-glow-teal"   src="./Graphig assets/glow-teal.png"   alt="" aria-hidden="true" loading="lazy" />
     <div class="page-hero-content">
       <div class="page-hero-tag">
         <span>Full Lineup</span>

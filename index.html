@@ -27,8 +27,23 @@
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
   <link rel="manifest" href="./site.webmanifest" />
+  <!-- Preconnect to external origins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://unpkg.com" />
+  <link rel="dns-prefetch" href="https://tile.openstreetmap.org" />
+  <link rel="dns-prefetch" href="https://upload.wikimedia.org" />
+  <link rel="dns-prefetch" href="https://static.wixstatic.com" />
+  <link rel="dns-prefetch" href="https://images.squarespace-cdn.com" />
+  <!-- Preload critical assets -->
+  <link rel="preload" href="./Graphig assets/hero-poster.jpg" as="image" fetchpriority="high" />
+  <link rel="preload" href="./Graphig assets/festival-logo.svg" as="image" />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@700;900&family=Noto+Sans+Hebrew:wght@700;900&display=swap" as="style" />
+  <!-- Fonts (critical — loaded sync for above-the-fold text) -->
   <link href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@100;300;400;500;700;900&family=Noto+Sans+Hebrew:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <!-- Leaflet CSS — deferred via print trick (map is below fold) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" /></noscript>
   <style>
     /* ─── RESET & BASE ─────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1640,7 +1655,7 @@
 
     <!-- Logo tab – white hanging badge on the right -->
     <a class="nav-logo-tab" href="#">
-      <img src="State=Vertical.svg" alt="Red Sea Jazz Festival" class="nav-logo-img" />
+      <img src="State=Vertical.svg" alt="Red Sea Jazz Festival" class="nav-logo-img" width="80" height="80" />
     </a>
 
     <!-- Nav inner: links (center) + action buttons (left) -->
@@ -1689,18 +1704,19 @@
            src="./Graphig assets/hero-poster.jpg"
            alt=""
            aria-hidden="true"
-           loading="lazy">
+           width="1280" height="720"
+           fetchpriority="high">
     </div>
 
     <!-- Logo (includes Hebrew subtitle + date badge) -->
     <div class="hero-main-content">
-      <img src="./Graphig assets/festival-logo.svg" class="hero-logo-svg" alt="Red Sea Jazz Festival">
+      <img src="./Graphig assets/festival-logo.svg" class="hero-logo-svg" alt="Red Sea Jazz Festival" width="792" height="220" fetchpriority="high">
     </div>
 
     <!-- Countdown — bottom-left of hero -->
     <div class="hero-content">
-      <img src="./Graphig assets/corner-subtract.svg" class="hero-corner hero-corner-tl" alt="">
-      <img src="./Graphig assets/corner-subtract.svg" class="hero-corner hero-corner-br" alt="">
+      <img src="./Graphig assets/corner-subtract.svg" class="hero-corner hero-corner-tl" alt="" width="32" height="32">
+      <img src="./Graphig assets/corner-subtract.svg" class="hero-corner hero-corner-br" alt="" width="32" height="32">
       <div class="countdown" id="countdown">
         <div class="countdown-item">
           <span class="countdown-num" id="cd-days">--</span>
