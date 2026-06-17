@@ -20,6 +20,8 @@
   <meta name="twitter:description" content="40+ הופעות · 4 במות · 11–14 בנובמבר 2026 · נמל אילת" />
   <meta name="twitter:image" content="./Graphig assets/og-image.jpg" />
   <meta name="twitter:image:alt" content="Red Sea Jazz Festival 2026 — ליינאפ מלא" />
+  <meta name="theme-color" content="#E0560B" />
+  <meta name="msapplication-TileColor" content="#E0560B" />
   <link rel="icon" type="image/x-icon" href="./favicon.ico" />
   <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
@@ -58,7 +60,7 @@
       background: var(--bg);
       color: var(--text);
       font-family: var(--font);
-      overflow-x: hidden;
+      overflow-x: clip; /* iOS Safari: clip doesn't break nested horizontal scroll */
       -webkit-font-smoothing: antialiased;
       line-height: 1.7;
     }
@@ -256,37 +258,26 @@
     .page-hero {
       position: relative;
       overflow: hidden;
-      padding-top: calc(var(--ticker-h) + var(--nav-h));
-      background: #f5efe6;
-      border-bottom: 1px solid rgba(255,107,26,0.25);
-    }
-    /* 400px visual frame — exact Figma dimensions */
-    .page-hero-visual {
-      position: relative;
-      height: 400px;
-      overflow: hidden;
+      height: calc(400px + var(--ticker-h) + var(--nav-h));
       display: flex;
       align-items: center;
       justify-content: center;
+      padding-top: calc(var(--ticker-h) + var(--nav-h));
+      background: #f5efe6;
     }
-    /* Background image positioned exactly as in Figma (node 234:1716) */
-    .page-hero-bg {
+    /* BG image: Figma exact — 236.97%x400=947.88px tall, top=nav-111.51%x400 */
+    .page-hero-bg-img {
       position: absolute;
-      inset: 0;
-      overflow: hidden;
+      left: 0; width: 100%;
+      height: 947.88px;
+      top: calc(var(--ticker-h) + var(--nav-h) - 446.04px);
       pointer-events: none;
-    }
-    .page-hero-bg img {
-      position: absolute;
-      left: 0;
-      width: 100%;
-      height: 236.97%;
-      top: -111.51%;
       display: block;
     }
     .page-hero-glow-orange {
       position: absolute;
-      left: -22px; top: -103px;
+      left: -22px;
+      top: calc(var(--ticker-h) + var(--nav-h) - 103px);
       width: 390px; height: 390px;
       pointer-events: none;
       transform: scaleX(-1);
@@ -344,60 +335,79 @@
     /* --view-toggle-h מחושב לפי גובה ה-view-toggle-bar: padding*2 + כפתור 42px + border */
     :root { --view-toggle-h: 62px; }
     .day-nav {
-      position: sticky; top: calc(var(--ticker-h) + var(--nav-h) + var(--view-toggle-h)); z-index: 50;
-      background: rgba(250,244,233,0.97);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border);
-      padding: 0.85rem 3rem;
-      display: flex; gap: 0.6rem; flex-wrap: wrap;
-      align-items: center; justify-content: center;
+      display: flex; align-items: center; gap: 8px; flex: 1; justify-content: center;
+      flex-wrap: wrap;
     }
     .day-nav-btn {
       background: transparent;
-      border: 1.5px solid var(--border);
-      color: var(--muted); border-radius: 50px;
-      padding: 0.48rem 1.3rem; font-size: 0.9rem; font-weight: 600;
+      border: 1.5px solid #E6D8D6;
+      color: #483F3B;
+      border-radius: 50px;
+      height: 42px;
+      padding: 0 22px;
+      font-size: 14px; font-weight: 600;
+      font-family: 'Noto Sans Hebrew', sans-serif;
       cursor: pointer;
       transition: all 0.2s; white-space: nowrap;
-      font-family: var(--font);
+      display: inline-flex; align-items: center;
     }
     .day-nav-btn:hover { border-color: var(--orange); color: var(--orange); }
     .day-nav-btn.active {
-      background: linear-gradient(135deg, var(--orange), var(--red));
+      background: linear-gradient(161.51deg, #E0560B 0%, #D62246 100%);
       border-color: transparent; color: #fff;
-      box-shadow: 0 0 20px rgba(255,107,26,0.35);
+      filter: drop-shadow(0px 0px 10px rgba(255,107,26,0.35));
     }
 
-    /* ─── STAGE FILTER ──────────────────────────────────────────── */
-    .stage-filter {
-      position: sticky; top: calc(var(--ticker-h) + var(--nav-h) + var(--view-toggle-h) + 59px); z-index: 49;
-      background: rgba(243,233,214,0.97);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border);
-      padding: 0.55rem 3rem;
-      display: flex; gap: 0.45rem; flex-wrap: wrap;
-      align-items: center; justify-content: center;
-    }
-    .stage-filter-label {
-      font-size: 0.75rem; color: var(--muted); font-weight: 600;
-      margin-inline-end: 0.3rem; white-space: nowrap;
-    }
-    .stage-filter-btn {
+    /* ─── STAGE FILTER DROPDOWN ─────────────────────────────────── */
+    .stage-dropdown-wrap { position: relative; }
+    .stage-dropdown-toggle {
       background: transparent;
-      border: 1.5px solid var(--border);
-      color: var(--muted); border-radius: 50px;
-      padding: 0.32rem 0.95rem; font-size: 0.8rem; font-weight: 600;
-      cursor: pointer; font-family: var(--font);
-      display: inline-flex; align-items: center; gap: 0.35rem;
-      transition: all 0.18s; white-space: nowrap;
+      border: 1.5px solid #E6D8D6;
+      color: #483F3B; border-radius: 50px;
+      height: 42px; padding: 0 22px;
+      font-size: 14px; font-weight: 600;
+      font-family: 'Noto Sans Hebrew', sans-serif;
+      cursor: pointer;
+      display: inline-flex; align-items: center; gap: 4px;
+      transition: all 0.2s; white-space: nowrap;
     }
-    .stage-filter-btn:hover { border-color: var(--orange); color: var(--orange); }
-    .stage-filter-btn.active {
-      background: var(--text); border-color: transparent; color: #fff;
+    .stage-dropdown-toggle:hover,
+    .stage-dropdown-toggle.open { border-color: var(--orange); color: var(--orange); }
+    .stage-dropdown-toggle .chevron {
+      transition: transform 0.2s;
+    }
+    .stage-dropdown-toggle.open .chevron { transform: rotate(180deg); }
+    .stage-dropdown-panel {
+      display: none; flex-direction: column; gap: 4px;
+      position: absolute;
+      top: calc(100% + 8px); left: 0;
+      background: #fff;
+      border: 1.5px solid #E6D8D6;
+      border-radius: 16px;
+      padding: 8px;
+      min-width: 190px;
+      z-index: 200;
+      box-shadow: 0 4px 20px rgba(58,42,30,0.12);
+    }
+    .stage-dropdown-panel.open { display: flex; }
+    .stage-option {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 12px; border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px; font-weight: 600; color: #483F3B;
+      font-family: 'Noto Sans Hebrew', sans-serif;
+      transition: background 0.15s; white-space: nowrap;
+      direction: rtl;
+    }
+    .stage-option:hover { background: #F8F4EE; }
+    .stage-option input[type="checkbox"] {
+      accent-color: var(--orange);
+      width: 16px; height: 16px; cursor: pointer; flex-shrink: 0;
     }
     .stage-filter-dot {
-      width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
     }
+    .stage-group.sf-hidden { display: none; }
     .stage-group.sf-hidden { display: none; }
 
     /* ─── MAIN CONTENT ─────────────────────────────────────────── */
@@ -525,14 +535,13 @@
     .footer-bottom a { color: var(--teal); }
 
     /* ─── VIEW TOGGLE ──────────────────────────────────────────── */
-    .view-toggle-bar {
-      background: rgba(250,244,233,0.97);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border);
-      padding: 0.55rem 3rem;
-      display: flex; align-items: center; justify-content: center;
-      gap: 0.4rem;
-      position: sticky; top: calc(var(--ticker-h) + var(--nav-h)); z-index: 51;
+    .controls-strip {
+      background: #ffffff;
+      border-bottom: 1px solid rgba(58,42,30,0.12);
+      padding: 12px 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: calc(var(--ticker-h) + var(--nav-h));
+      z-index: 51;
     }
     .view-toggle-group {
       display: inline-flex;
@@ -665,19 +674,30 @@
 
     /* ─── RESPONSIVE ───────────────────────────────────────────── */
     @media (max-width: 700px) {
-      .page-hero { padding-top: calc(var(--ticker-h) + var(--nav-h) + 2.5rem); padding-inline: 1.5rem; padding-bottom: 2.5rem; min-height: calc(300px + var(--ticker-h) + var(--nav-h)); }
-      .page-hero-title { font-size: clamp(2.2rem, 10vw, 3.5rem); }
-      .page-hero-glow-orange { width: 200px; height: 200px; top: -50px; left: -30px; }
-      .page-hero-glow-teal { width: 220px; height: 220px; right: -250px; bottom: -60px; }
-      .hero-stats-bar { padding: 1rem 1.5rem; gap: 1.2rem; }
+      .page-hero { height: calc(260px + var(--ticker-h) + var(--nav-h)); }
+      .page-hero-bg-img { height: 618px; top: calc(var(--ticker-h) + var(--nav-h) - 290px); }
+      .page-hero-content { padding-inline: 1.5rem; }
+      .page-hero-title { font-size: clamp(2rem, 10vw, 3rem); }
+      .page-hero-glow-orange { width: 200px; height: 200px; top: calc(var(--ticker-h) + var(--nav-h) - 50px); left: -30px; }
+      .page-hero-glow-teal { width: 220px; height: 220px; right: -180px; bottom: -60px; }
       main { padding: 2rem 1rem 4rem; }
-      .day-nav { padding: 0.75rem 1rem; }
-      .stage-filter { padding: 0.5rem 1rem; top: calc(var(--ticker-h) + var(--nav-h) + var(--view-toggle-h) + 55px); }
-      .view-toggle-bar { padding: 0.6rem 1rem; }
       .footer-grid { grid-template-columns: 1fr; gap: 1.8rem; }
       .show-row-time { min-width: 52px; font-size: 0.88rem; }
+      /* controls-strip — stack vertically */
+      .controls-strip {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 10px 1rem;
+        gap: 8px;
+        top: calc(var(--ticker-h) + var(--nav-h));
+      }
+      .day-nav { justify-content: center; gap: 6px; }
+      .day-nav-btn { padding: 0 12px; font-size: 12px; height: 36px; }
+      .view-toggle-group { align-self: center; }
+      .stage-dropdown-wrap { align-self: center; }
       /* יומן במובייל — scroll אופקי */
-      .cal-grid { grid-template-columns: 52px repeat(4, minmax(120px, 1fr)); overflow-x: auto; }
+      .calendar-section { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .cal-grid { grid-template-columns: 52px repeat(4, minmax(120px, 1fr)); min-width: 540px; }
     }
   </style>
 </head>
@@ -743,6 +763,7 @@
 
   <!-- ── PAGE HERO ── -->
   <div class="page-hero">
+    <img class="page-hero-bg-img" src="./Graphig assets/banner-lineup.png" alt="" aria-hidden="true" />
     <img class="page-hero-glow-orange" src="./Graphig assets/glow-orange.png" alt="" aria-hidden="true" />
     <img class="page-hero-glow-teal"   src="./Graphig assets/glow-teal.png"   alt="" aria-hidden="true" />
     <div class="page-hero-content">
@@ -756,42 +777,53 @@
   </div>
 
 
-  <!-- ── VIEW TOGGLE ── -->
-  <div class="view-toggle-bar" role="group" aria-label="בחירת תצוגה">
-    <div class="view-toggle-group">
-      <button class="view-toggle-btn active" id="btnList" onclick="switchView('list')" aria-pressed="true">
-        Line-up
-      </button>
-      <button class="view-toggle-btn" id="btnCal" onclick="switchView('calendar')" aria-pressed="false">
-        לוח זמנים
-      </button>
+  <!-- ── CONTROLS STRIP: toggle (right) | days (center) | stage filter (left) ── -->
+  <div class="controls-strip">
+
+    <!-- RIGHT: View Toggle -->
+    <div class="view-toggle-group" role="group" aria-label="בחירת תצוגה">
+      <button class="view-toggle-btn active" id="btnList" onclick="switchView('list')" aria-pressed="true">Line-up</button>
+      <button class="view-toggle-btn" id="btnCal" onclick="switchView('calendar')" aria-pressed="false">לוח זמנים</button>
     </div>
-  </div>
 
-  <!-- ── DAY NAVIGATION ── -->
-  <nav class="day-nav" aria-label="ניווט לפי יום">
-    <button class="day-nav-btn active" onclick="scrollToDay('day-1', this)">יום ד׳ · 11.11</button>
-    <button class="day-nav-btn" onclick="scrollToDay('day-2', this)">יום ה׳ · 12.11</button>
-    <button class="day-nav-btn" onclick="scrollToDay('day-3', this)">יום ו׳ · 13.11</button>
-    <button class="day-nav-btn" onclick="scrollToDay('day-4', this)">שבת · 14.11</button>
-  </nav>
+    <!-- CENTER: Day Navigation -->
+    <div class="day-nav" role="navigation" aria-label="ניווט לפי יום">
+      <button class="day-nav-btn active" onclick="scrollToDay('day-1', this)">יום ד׳ · 11.11</button>
+      <button class="day-nav-btn" onclick="scrollToDay('day-2', this)">יום ה׳ · 12.11</button>
+      <button class="day-nav-btn" onclick="scrollToDay('day-3', this)">יום ו׳ · 13.11</button>
+      <button class="day-nav-btn" onclick="scrollToDay('day-4', this)">שבת · 14.11</button>
+    </div>
 
-  <!-- ── STAGE FILTER ── -->
-  <div class="stage-filter" aria-label="סינון לפי במה">
-    <span class="stage-filter-label">במה:</span>
-    <button class="stage-filter-btn active" data-stage-filter="all">כולן</button>
-    <button class="stage-filter-btn" data-stage-filter="Main Stage">
-      <span class="stage-filter-dot" style="background:var(--orange)"></span>Main Stage
-    </button>
-    <button class="stage-filter-btn" data-stage-filter="Red Tent">
-      <span class="stage-filter-dot" style="background:var(--red)"></span>Red Tent
-    </button>
-    <button class="stage-filter-btn" data-stage-filter="Blue Dome">
-      <span class="stage-filter-dot" style="background:var(--teal)"></span>Blue Dome
-    </button>
-    <button class="stage-filter-btn" data-stage-filter="Green Pavilion">
-      <span class="stage-filter-dot" style="background:var(--yellow)"></span>Green Pavilion
-    </button>
+    <!-- LEFT: Stage Filter Dropdown -->
+    <div class="stage-dropdown-wrap" id="stageDropdownWrap">
+      <button class="stage-dropdown-toggle" id="stageDropdownBtn" onclick="toggleStageDropdown()">
+        <svg class="chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        <span id="stageDropdownLabel">כל הבמות</span>
+      </button>
+      <div class="stage-dropdown-panel" id="stageDropdownPanel">
+        <label class="stage-option">
+          <input type="checkbox" value="Main Stage" checked onchange="applyStageFilter()">
+          <span class="stage-filter-dot" style="background:var(--orange)"></span>
+          Main Stage
+        </label>
+        <label class="stage-option">
+          <input type="checkbox" value="Red Tent" checked onchange="applyStageFilter()">
+          <span class="stage-filter-dot" style="background:var(--red)"></span>
+          Red Tent
+        </label>
+        <label class="stage-option">
+          <input type="checkbox" value="Blue Dome" checked onchange="applyStageFilter()">
+          <span class="stage-filter-dot" style="background:var(--teal)"></span>
+          Blue Dome
+        </label>
+        <label class="stage-option">
+          <input type="checkbox" value="Green Pavilion" checked onchange="applyStageFilter()">
+          <span class="stage-filter-dot" style="background:var(--yellow)"></span>
+          Green Pavilion
+        </label>
+      </div>
+    </div>
+
   </div>
 
   <!-- ── MAIN LINEUP ── -->
@@ -1698,7 +1730,7 @@
         });
         // הסתר day-nav ו-stage-filter (לא רלוונטיים ביומן)
         var dayNav = document.querySelector('.day-nav');
-        var stageFilter = document.querySelector('.stage-filter');
+        var stageFilter = document.querySelector('.stage-dropdown-wrap');
         if (dayNav) dayNav.style.display = 'none';
         if (stageFilter) stageFilter.style.display = 'none';
       } else {
@@ -1714,7 +1746,7 @@
         });
         // הצג day-nav ו-stage-filter
         var dayNav = document.querySelector('.day-nav');
-        var stageFilter = document.querySelector('.stage-filter');
+        var stageFilter = document.querySelector('.stage-dropdown-wrap');
         if (dayNav) dayNav.style.display = '';
         if (stageFilter) stageFilter.style.display = '';
       }
@@ -1726,22 +1758,44 @@
       btn.classList.add('active');
     }
 
-    // Stage filter
-    document.querySelectorAll('[data-stage-filter]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('[data-stage-filter]').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const filter = btn.dataset.stageFilter;
-        document.querySelectorAll('.stage-group').forEach(group => {
-          const stageName = group.querySelector('.stage-group-name')?.textContent.trim();
-          if (filter === 'all' || stageName === filter) {
-            group.classList.remove('sf-hidden');
-          } else {
-            group.classList.add('sf-hidden');
-          }
-        });
-      });
+    // Stage dropdown toggle
+    function toggleStageDropdown() {
+      const panel = document.getElementById('stageDropdownPanel');
+      const btn = document.getElementById('stageDropdownBtn');
+      const isOpen = panel.classList.toggle('open');
+      btn.classList.toggle('open', isOpen);
+    }
+
+    // Close dropdown on outside click
+    document.addEventListener('click', function(e) {
+      const wrap = document.getElementById('stageDropdownWrap');
+      if (wrap && !wrap.contains(e.target)) {
+        document.getElementById('stageDropdownPanel')?.classList.remove('open');
+        document.getElementById('stageDropdownBtn')?.classList.remove('open');
+      }
     });
+
+    // Multi-select stage filter
+    function applyStageFilter() {
+      const checkboxes = document.querySelectorAll('#stageDropdownPanel input[type="checkbox"]');
+      const selected = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value);
+      const label = document.getElementById('stageDropdownLabel');
+      if (selected.length === checkboxes.length) {
+        label.textContent = 'כל הבמות';
+      } else if (selected.length === 0) {
+        label.textContent = 'ללא במות';
+      } else {
+        label.textContent = selected.length + ' במות';
+      }
+      document.querySelectorAll('.stage-group').forEach(group => {
+        const stageName = group.querySelector('.stage-group-name')?.textContent.trim();
+        if (selected.length === 0 || selected.includes(stageName)) {
+          group.classList.remove('sf-hidden');
+        } else {
+          group.classList.add('sf-hidden');
+        }
+      });
+    }
 
     // Highlight active day on scroll
     const dayBlocks = document.querySelectorAll('.day-block');
