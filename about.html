@@ -183,35 +183,54 @@
 
     /* ─── PAGE HERO ───────────────────────────────────────────── */
     .page-hero {
-      padding-top: 120px;
-      padding-bottom: 5rem;
-      padding-inline: 3rem;
-      background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%);
-      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      height: calc(400px + var(--ticker-h) + var(--nav-h));
+      display: flex; align-items: center; justify-content: center;
+      padding-top: calc(var(--ticker-h) + var(--nav-h));
+      background: #1a1410;
       text-align: center;
     }
+    .page-hero-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 30% 60%, rgba(224,86,11,0.25) 0%, transparent 60%),
+                  radial-gradient(ellipse at 75% 40%, rgba(10,143,142,0.18) 0%, transparent 55%),
+                  radial-gradient(ellipse at 55% 80%, rgba(214,34,70,0.15) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .page-hero-grid {
+      position: absolute; inset: 0; opacity: 0.06;
+      background-image: linear-gradient(rgba(250,244,233,0.4) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(250,244,233,0.4) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+    .page-hero-content {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column;
+      gap: 14px; align-items: center;
+      padding-inline: 2rem;
+    }
     .page-hero .section-tag {
-      display: inline-block;
+      display: inline-flex; align-items: center; gap: 8px;
       font-size: 0.78rem; font-weight: 600;
       letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--orange); background: rgba(224,86,11,0.08);
-      border: 1px solid rgba(224,86,11,0.2);
+      color: rgba(250,244,233,0.65);
+      background: rgba(250,244,233,0.08);
+      border: 1px solid rgba(250,244,233,0.15);
       border-radius: 50px; padding: 0.35rem 1.1rem;
-      margin-bottom: 1.6rem;
     }
     .page-hero h1 {
       font-size: clamp(2.4rem, 6vw, 4.5rem);
       font-weight: 900; line-height: 1.1;
-      margin-bottom: 1.2rem;
+      color: #ffffff;
     }
     .page-hero h1 .accent {
-      background: linear-gradient(135deg, var(--orange), var(--yellow));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--orange);
     }
     .page-hero .hero-sub {
-      font-size: 1.1rem; color: var(--muted);
-      max-width: 600px; margin-inline: auto;
+      font-size: 1.1rem; color: rgba(250,244,233,0.6);
+      max-width: 600px;
     }
 
     /* ─── MAIN ABOUT CONTENT ──────────────────────────────────── */
@@ -234,9 +253,7 @@
       margin-bottom: 1.4rem;
     }
     .about-section h2 .accent {
-      background: linear-gradient(135deg, var(--orange), var(--yellow));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--orange);
     }
     .about-body {
       font-size: 1.05rem;
@@ -334,9 +351,7 @@
       font-weight: 900; line-height: 1.2;
     }
     .gallery-header h2 .accent {
-      background: linear-gradient(135deg, var(--orange), var(--yellow));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--orange);
     }
     .photo-gallery {
       display: grid;
@@ -391,6 +406,7 @@
         <li><a href="./about.html" class="active">אודות</a></li>
         <li><a href="./lineup.html">אמנים</a></li>
         <li><a href="./index.html#schedule">לוח הופעות</a></li>
+        <li><a href="./past-artists.html">שנים קודמות</a></li>
         <li><a href="./index.html#hotels">מלונות</a></li>
         <li><a href="./index.html#venue">מיקום</a></li>
         <li><a href="./index.html#news">עדכונים</a></li>
@@ -412,9 +428,13 @@
 
   <!-- ── PAGE HERO ── -->
   <header class="page-hero">
-    <span class="section-tag">About · אודות</span>
-    <h1>40 שנה של<br><span class="accent">ג'אז על הים</span></h1>
-    <p class="hero-sub">הסיפור של פסטיבל שהפך לאגדה — מנמל אילת לעולם כולו</p>
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-grid"></div>
+    <div class="page-hero-content">
+      <span class="section-tag">About · אודות</span>
+      <h1>40 שנה של<br><span class="accent">ג'אז על הים</span></h1>
+      <p class="hero-sub">הסיפור של פסטיבל שהפך לאגדה — מנמל אילת לעולם כולו</p>
+    </div>
   </header>
 
   <!-- ── MAIN CONTENT ── -->
@@ -526,7 +546,7 @@
 
     <!-- ── CTA ── -->
     <div class="about-cta">
-      <h3>מוכנים לחגוג <span style="background:linear-gradient(135deg,#E0560B,#E0A800);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">40 שנה?</span></h3>
+      <h3>מוכנים לחגוג <span style="color:var(--orange);">40 שנה?</span></h3>
       <p>פסטיבל ג'אז ים סוף · 11–14 בנובמבר 2026 · נמל אילת</p>
       <a class="cta-btn"
         href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener">
