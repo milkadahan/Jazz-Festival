@@ -158,7 +158,9 @@
 
     /* ─── NAV ─────────────────────────────────────────────────── */
     body.panel-open nav,
-    body.panel-open .ticker-bar { z-index: 0 !important; }
+    body.panel-open .ticker-bar,
+    body.artist-drawer-open nav,
+    body.artist-drawer-open .ticker-bar { z-index: 0 !important; }
 
     nav {
       position: fixed; top: var(--ticker-h); width: 100%; z-index: 100;
@@ -1623,6 +1625,7 @@
       .reveal { opacity: 1 !important; transform: none !important; }
     }
   </style>
+  <link rel="stylesheet" href="./page-transitions.css" />
 </head>
 <body>
 
@@ -1666,12 +1669,9 @@
     <div class="nav-inner">
       <ul class="nav-links" id="navLinks">
         <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
-        <li><a href="#lineup" data-he="אמנים" data-en="Artists">אמנים</a></li>
-        <li><a href="#schedule" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
-        <li><a href="./past-artists.html" data-he="אמנים משנים קודמות" data-en="Past Artists">אמנים משנים קודמות</a></li>
-        <li><a href="#hotels" data-he="מלונות" data-en="Hotels">מלונות</a></li>
-        <li><a href="#venue" data-he="מיקום" data-en="Location">מיקום</a></li>
-        <li><a href="#news" data-he="עדכונים" data-en="News">עדכונים</a></li>
+        <li><a href="./lineup.html" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
+        <li><a href="./past-artists.html" data-he="שנים קודמות" data-en="Past Artists">שנים קודמות</a></li>
+        <li><a href="https://www.hotels.com" target="_blank" rel="noopener" data-he="מלונות" data-en="Hotels">מלונות</a></li>
       </ul>
 
       <div class="nav-actions">
@@ -4183,5 +4183,6 @@ document.getElementById('panelGenre').textContent  = data.genre  || '';
       window.addEventListener('resize', setHeroGap);
     })();
   </script>
+  <script src="./page-transitions.js"></script>
 </body>
 </html>
