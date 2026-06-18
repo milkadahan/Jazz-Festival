@@ -279,28 +279,6 @@
     }
     .dir-info p { font-size: 0.95rem; color: var(--muted); line-height: 1.75; }
 
-    /* ─── VALUES GRID ─────────────────────────────────────────── */
-    .values-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5rem; margin-top: 2rem;
-    }
-    .value-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.8rem 1.6rem;
-      transition: box-shadow 0.25s, transform 0.25s;
-    }
-    .value-card:hover {
-      box-shadow: 0 8px 28px var(--shadow-strong);
-      transform: translateY(-3px);
-    }
-    .value-card .v-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
-    .value-card .v-title {
-      font-size: 1rem; font-weight: 800; margin-bottom: 0.5rem;
-    }
-    .value-card .v-text { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
-
     /* ─── CTA ─────────────────────────────────────────────────── */
     .about-cta {
       text-align: center;
@@ -484,35 +462,6 @@
         </div>
       </section>
 
-      <div class="about-divider"></div>
-
-      <!-- ערכים -->
-      <section class="about-section">
-        <div class="about-section-tag">הערכים שלנו · Our Values</div>
-        <h2>מה <span class="accent">מניע אותנו</span></h2>
-        <div class="values-grid">
-          <div class="value-card">
-            <div class="v-icon" aria-hidden="true">🎷</div>
-            <div class="v-title">חופש אמנותי</div>
-            <div class="v-text">הג'אז הוא מוזיקה של חופש מוחלט. אנחנו מציעים במה לאמנים שמאמינים בסיכון, בהפתעה ובאימפרוביזציה ללא פחד.</div>
-          </div>
-          <div class="value-card">
-            <div class="v-icon" aria-hidden="true">🌍</div>
-            <div class="v-title">גיוון תרבותי</div>
-            <div class="v-text">מניו אורלינס ועד טוקיו, מפריז ועד ת"א — הפסטיבל מחבר מסורות, שפות ומנגינות לדיאלוג אחד גדול.</div>
-          </div>
-          <div class="value-card">
-            <div class="v-icon" aria-hidden="true">🤝</div>
-            <div class="v-title">קהילה ושייכות</div>
-            <div class="v-text">30,000+ מבקרים מדי שנה — מעריכים ותיקים, סקרנים חדשים, משפחות וצעירים. פסטיבל הג'אז הוא בית לכולם.</div>
-          </div>
-          <div class="value-card">
-            <div class="v-icon" aria-hidden="true">✨</div>
-            <div class="v-title">חוויה שלמה</div>
-            <div class="v-text">הפסטיבל הוא הרבה יותר מהופעות — הוא הנמל בלילה, ריח הים, טעמי השוק, הפגישות המקריות שנשארות לנצח.</div>
-          </div>
-        </div>
-      </section>
 
     </div><!-- /about-page-content -->
 
@@ -559,11 +508,8 @@
   </main>
 
   <!-- ── FOOTER ── -->
-  <footer>
-    <div class="footer-logo-sm">RED SEA JAZZ FESTIVAL</div>
-    <div>40 שנות מוזיקה על חוף ים סוף · נמל אילת · 11–14 בנובמבר 2026</div>
-    <div class="footer-bottom-sm">© 2026 Red Sea Jazz Festival. כל הזכויות שמורות.</div>
-  </footer>
+  <footer></footer>
+  <script src="./footer.js"></script>
 
   <script>
     // Scroll shrink nav
