@@ -431,6 +431,47 @@
       letter-spacing: 0.03em;
     }
 
+    /* ─── LIGHTBOX ───────────────────────────────────────────── */
+    .lb-overlay {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(26,20,16,0.72);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .lb-overlay.open { opacity: 1; pointer-events: all; }
+    .lb-inner {
+      position: relative;
+      display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
+      max-width: 90vw; max-height: 90vh;
+    }
+    .lb-img {
+      max-width: 90vw; max-height: 80vh;
+      object-fit: contain; border-radius: 10px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.55);
+      transform: scale(0.92);
+      transition: transform 0.35s cubic-bezier(0.34,1.26,0.64,1);
+      display: block;
+    }
+    .lb-overlay.open .lb-img { transform: scale(1); }
+    .lb-caption {
+      color: rgba(230,216,214,0.9); font-size: 0.85rem;
+      letter-spacing: 0.03em; text-align: center;
+    }
+    .lb-close {
+      position: fixed; top: 1.2rem; inset-inline-start: 1.2rem;
+      width: 42px; height: 42px;
+      background: rgba(250,244,233,0.12);
+      border: 1.5px solid rgba(250,244,233,0.28);
+      border-radius: 50%; color: #fff; font-size: 1.1rem;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
+      z-index: 501;
+    }
+    .lb-close:hover { background: rgba(224,86,11,0.55); border-color: var(--orange); }
+
     /* ─── RESPONSIVE ──────────────────────────────────────────── */
     @media (max-width: 720px) {
       .page-hero { padding-inline: 1.5rem; }
@@ -639,5 +680,50 @@
   </script>
 
   <script src="./page-transitions.js"></script>
+
+  <!-- ── LIGHTBOX ── -->
+  <div class="lb-overlay" id="lbOverlay" role="dialog" aria-modal="true" aria-label="תמונה מוגדלת">
+    <div class="lb-inner" id="lbInner">
+      <img class="lb-img" id="lbImg" src="" alt="" />
+      <div class="lb-caption" id="lbCaption"></div>
+    </div>
+    <button class="lb-close" id="lbClose" aria-label="סגור">&#x2715;</button>
+  </div>
+
+  <script>
+    (function() {
+      var overlay = document.getElementById('lbOverlay');
+      var lbImg   = document.getElementById('lbImg');
+      var lbCap   = document.getElementById('lbCaption');
+      var lbInner = document.getElementById('lbInner');
+
+      document.querySelectorAll('.gallery-item').forEach(function(item) {
+        item.addEventListener('click', function() {
+          var imgEl = item.querySelector('img');
+          var cap   = item.querySelector('.gallery-caption');
+          lbImg.src = imgEl.src;
+          lbImg.alt = imgEl.alt;
+          lbCap.textContent = cap ? cap.textContent : '';
+          overlay.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+
+      function closeLb() {
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      document.getElementById('lbClose').addEventListener('click', closeLb);
+
+      overlay.addEventListener('click', function(e) {
+        if (!lbInner.contains(e.target)) closeLb();
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && overlay.classList.contains('open')) closeLb();
+      });
+    })();
+  </script>
 </body>
 </html>
