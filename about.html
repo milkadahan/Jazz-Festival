@@ -36,6 +36,8 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
+      --ticker-h:  36px;
+      --nav-h:     100px;
       --bg:        #FAF4E9;
       --bg2:       #F3E9D6;
       --orange:    #E0560B;
@@ -187,7 +189,7 @@
       overflow: hidden;
       height: calc(400px + var(--ticker-h) + var(--nav-h));
       display: flex; align-items: center; justify-content: center;
-      padding-top: calc(var(--ticker-h) + var(--nav-h));
+      padding-top: var(--nav-h);
       background: #1a1410;
       text-align: center;
     }
@@ -404,12 +406,9 @@
     <div class="nav-inner">
       <ul class="nav-links">
         <li><a href="./about.html" class="active">אודות</a></li>
-        <li><a href="./lineup.html">אמנים</a></li>
-        <li><a href="./index.html#schedule">לוח הופעות</a></li>
+        <li><a href="./lineup.html">לוח הופעות</a></li>
         <li><a href="./past-artists.html">שנים קודמות</a></li>
-        <li><a href="./index.html#hotels">מלונות</a></li>
-        <li><a href="./index.html#venue">מיקום</a></li>
-        <li><a href="./index.html#news">עדכונים</a></li>
+        <li><a href="https://www.hotels.com" target="_blank" rel="noopener">מלונות</a></li>
       </ul>
       <div class="nav-actions">
         <a class="nav-btn-secondary"
