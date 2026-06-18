@@ -165,6 +165,7 @@
       display: flex; align-items: center;
       height: 100px;
       background: rgba(250,244,233,0.94);
+      -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
       transition: background 0.35s, height 0.35s, opacity 0.25s ease;
@@ -1354,7 +1355,7 @@
       .nav-links.open {
         display: flex; flex-direction: column;
         position: fixed; inset: 0; top: calc(var(--ticker-h) + 64px);
-        background: rgba(250,244,233,0.98); backdrop-filter: blur(10px);
+        background: rgba(250,244,233,0.98); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
         padding: 2rem; gap: 1.5rem; font-size: 1.2rem;
         z-index: 99;
       }
@@ -3427,52 +3428,8 @@
   </style>
 
   <!-- ── FOOTER ── -->
-  <footer>
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="footer-logo">
-          <img src="./Graphig assets/State=Horizontal.png" alt="Red Sea Jazz Festival" class="footer-logo-img" />
-        </div>
-        <div class="footer-tagline">
-          40 שנות מוזיקה על חוף ים סוף.<br>
-          נמל אילת · 11–14 בנובמבר 2026
-        </div>
-        <div class="footer-social">
-          <button class="social-btn" aria-label="פייסבוק">f</button>
-          <button class="social-btn" aria-label="יוטיוב"><span aria-hidden="true">▶</span></button>
-          <button class="social-btn" aria-label="אינסטגרם"><span aria-hidden="true">📸</span></button>
-          <button class="social-btn" aria-label="ספוטיפיי"><span aria-hidden="true">♪</span></button>
-        </div>
-      </div>
-
-      <div>
-        <div class="footer-col-title">ניווט</div>
-        <ul class="footer-links">
-          <li><a href="#lineup">אמנים</a></li>
-          <li><a href="#schedule">לוח הופעות</a></li>
-          <li><a href="#hotels">מלונות ונופש</a></li>
-          <li><a href="#venue">מיקום</a></li>
-          <li><a href="#news">עדכונים</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <div class="footer-col-title">מידע</div>
-        <ul class="footer-links">
-          <li><a href="./about.html">אודות הפסטיבל</a></li>
-          <li><a href="#">שאלות נפוצות</a></li>
-          <li><a href="#">נגישות</a></li>
-          <li><a href="#">יצירת קשר</a></li>
-          <li><a href="#">מדיה ועיתונות</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="footer-bottom">
-      <span>© 2026 Red Sea Jazz Festival. כל הזכויות שמורות.</span>
-      <span><a href="#">מדיניות פרטיות</a> · <a href="#">תנאי שימוש</a></span>
-    </div>
-  </footer>
+  <footer></footer>
+  <script src="./footer.js"></script>
   </main><!-- /page-body -->
 
   <!-- ── LEAFLET MAP ── -->
@@ -3864,10 +3821,12 @@
     }
 
     // ── Hero bg subtle parallax ───────────────────────────────────
-    window.addEventListener('scroll', () => {
-      const bg = document.querySelector('.hero-bg-video');
-      if (bg) bg.style.transform = `scale(1.04) translateY(${window.scrollY * 0.08}px)`;
-    }, { passive: true });
+    if (!prefersReducedMotion) {
+      window.addEventListener('scroll', () => {
+        const bg = document.querySelector('.hero-bg-video');
+        if (bg) bg.style.transform = `scale(1.04) translateY(${window.scrollY * 0.08}px)`;
+      }, { passive: true });
+    }
 
     // ── Water ripple canvas ───────────────────────────────────────
     (function () {

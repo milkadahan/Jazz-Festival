@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>אמנים משנים קודמות · Red Sea Jazz Festival</title>
+  <meta name="description" content="ציר הזמן המלא של פסטיבל ג׳אז ים סוף — 41 שנות מוזיקה מ-1986 עד 2026 · אמנים בינלאומיים וישראלים" />
+  <meta property="og:title" content="אמנים משנים קודמות · Red Sea Jazz Festival" />
+  <meta property="og:description" content="41 שנות מוזיקה על חוף ים סוף — ציר הזמן המלא מ-1986 עד 2026" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="./Graphig assets/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="he_IL" />
+  <meta property="og:site_name" content="Red Sea Jazz Festival" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#E0560B" />
+  <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+  <link rel="manifest" href="./site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@100;300;400;500;700;900&family=Noto+Sans+Hebrew:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── RESET & BASE ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #FAF4E9;
+      --bg2:       #F3E9D6;
+      --orange:    #E0560B;
+      --yellow:    #E0A800;
+      --red:       #D62246;
+      --pink:      #E0568F;
+      --teal:      #0A8F8E;
+      --warm-glow: #FF8C42;
+      --text:      #3A2A1E;
+      --muted:     #8A7256;
+      --card-bg:   #FFFDF8;
+      --border:    rgba(58,42,30,0.12);
+      --border-strong: rgba(58,42,30,0.22);
+      --btn-gradient:  linear-gradient(135deg, var(--orange), var(--red));
+      --shadow:    rgba(58,42,30,0.10);
+      --shadow-strong: rgba(58,42,30,0.16);
+      --on-accent: #FFFDF8;
+      --font:      'Hepta Slab', 'Noto Sans Hebrew', serif;
+      --ticker-h:  36px;
+      --nav-h:     100px;
+    }
+
+    html { scroll-behavior: smooth; direction: rtl; scroll-padding-top: calc(var(--ticker-h) + var(--nav-h)); }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      overflow-x: clip;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.7;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: var(--font); cursor: pointer; }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 3px; }
+
+    :focus-visible {
+      outline: 2px solid var(--orange);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* ─── TICKER BAR ──────────────────────────────────────────── */
+    .ticker-bar {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--ticker-h); z-index: 101;
+      background: #2d2726;
+      display: flex; align-items: center;
+      direction: ltr;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(224,86,11,0.3);
+    }
+    .ticker-label {
+      flex-shrink: 0;
+      padding: 0 1.4rem 0 1rem;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+      color: var(--orange); text-transform: uppercase;
+      border-right: 1px solid rgba(224,86,11,0.35);
+      white-space: nowrap;
+    }
+    .ticker-track-wrap { flex: 1; overflow: hidden; position: relative; }
+    .ticker-track {
+      display: flex; gap: 0;
+      direction: ltr;
+      animation: ticker-scroll 28s linear infinite;
+      will-change: transform;
+      width: max-content;
+    }
+    .ticker-item {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.78rem; color: #e6d8d6;
+      padding: 0 2.5rem;
+      white-space: nowrap;
+    }
+    .ticker-item::before {
+      content: '♪';
+      color: var(--orange); font-size: 0.65rem;
+    }
+    @keyframes ticker-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-25%); }
+    }
+    @media (max-width: 700px) {
+      :root { --ticker-h: 32px; }
+      .ticker-label { padding: 0 0.7rem 0 0.9rem; font-size: 0.65rem; }
+      .ticker-item { font-size: 0.73rem; padding: 0 1.8rem; }
+    }
+
+    /* ─── NAV ─────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: var(--ticker-h); width: 100%; z-index: 100;
+      display: flex; align-items: center;
+      height: 100px;
+      background: rgba(250,244,233,0.94);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.35s, height 0.35s;
+      overflow: hidden;
+      animation: navSlideIn 0.65s 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    nav.scrolled {
+      height: 64px;
+      background: rgba(250,244,233,0.97);
+      box-shadow: 0 2px 16px var(--shadow);
+    }
+    :root:has(nav.scrolled) { --nav-h: 64px; }
+    @keyframes navSlideIn {
+      from { opacity: 0; transform: translateY(-18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .nav-logo-tab {
+      flex-shrink: 0;
+      padding: 0.6rem 1.4rem;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; text-decoration: none;
+      transition: opacity 0.2s, padding 0.35s;
+    }
+    .nav-logo-tab:hover { opacity: 0.75; }
+    nav.scrolled .nav-logo-tab { padding: 0.25rem 1.4rem; }
+    .nav-logo-img {
+      height: 80px; width: auto; display: block;
+      filter: brightness(0) saturate(100%) invert(15%) sepia(28%) saturate(900%) hue-rotate(350deg);
+      transition: height 0.35s;
+    }
+    nav.scrolled .nav-logo-img { height: 44px; }
+
+    .nav-inner {
+      flex: 1; display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+    }
+
+    .nav-links {
+      display: flex; gap: 1.8rem; list-style: none;
+      font-size: 0.88rem; font-weight: 500;
+    }
+    .nav-links a {
+      position: relative; padding-bottom: 3px;
+      transition: color 0.25s; color: rgba(58,42,30,0.78);
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
+      width: 0; height: 2px;
+      background: linear-gradient(90deg, var(--orange), var(--yellow));
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--yellow); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: var(--orange); font-weight: 700; }
+    .nav-links a.active::after { width: 100%; }
+
+    .nav-actions {
+      display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0;
+    }
+    .nav-btn-primary {
+      background: var(--btn-gradient);
+      color: var(--on-accent); border: none; border-radius: 50px;
+      padding: 0.5rem 1.3rem; font-size: 0.85rem; font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(224,86,11,0.32);
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none; display: inline-block;
+    }
+    .nav-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(224,86,11,0.45);
+    }
+    .nav-btn-secondary {
+      background: transparent;
+      color: var(--text); border: 1.5px solid var(--border-strong);
+      border-radius: 50px; padding: 0.48rem 1.2rem;
+      font-size: 0.85rem; font-weight: 600; cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+      text-decoration: none; display: inline-block;
+    }
+    .nav-btn-secondary:hover {
+      border-color: var(--orange); color: var(--orange);
+      transform: translateY(-2px);
+    }
+    .nav-lang-sep {
+      width: 1px; height: 20px; flex-shrink: 0;
+      background: var(--border-strong);
+      margin-inline: 0.3rem;
+    }
+    .nav-btn-lang {
+      background: transparent;
+      color: rgba(58,42,30,0.62);
+      border: 1.5px solid var(--border);
+      border-radius: 50px; padding: 0.45rem 0.9rem;
+      font-size: 0.85rem; font-weight: 600; cursor: pointer;
+      display: flex; align-items: center; gap: 0.35rem;
+      transition: border-color 0.2s, color 0.2s;
+      font-family: var(--font);
+    }
+    .nav-btn-lang:hover { border-color: var(--orange); color: var(--orange); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; border:none; background:transparent; }
+    .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-inner { padding: 0 1rem; }
+      .nav-btn-secondary { display: none; }
+      .nav-btn-lang { display: none; }
+      .nav-lang-sep { display: none; }
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: fixed; inset: 0; top: calc(var(--ticker-h) + 64px);
+        background: rgba(250,244,233,0.98); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+        padding: 2rem; gap: 1.5rem; font-size: 1.2rem;
+        z-index: 99;
+      }
+    }
+
+    /* ─── PAGE HERO ────────────────────────────────────────────── */
+    .page-hero {
+      position: relative;
+      overflow: hidden;
+      height: calc(400px + var(--ticker-h) + var(--nav-h));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: calc(var(--ticker-h) + var(--nav-h));
+      background: #1a1410;
+    }
+    .page-hero-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 30% 60%, rgba(224,86,11,0.25) 0%, transparent 60%),
+                  radial-gradient(ellipse at 75% 40%, rgba(10,143,142,0.18) 0%, transparent 55%),
+                  radial-gradient(ellipse at 55% 80%, rgba(214,34,70,0.15) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .page-hero-grid {
+      position: absolute; inset: 0; opacity: 0.06;
+      background-image: linear-gradient(rgba(250,244,233,0.4) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(250,244,233,0.4) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+    .page-hero-content {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column;
+      gap: 14px; align-items: center;
+      padding-inline: 2rem;
+      text-align: center;
+    }
+    .page-hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.9rem; font-weight: 600;
+      color: rgba(250,244,233,0.65);
+      letter-spacing: 0.05em;
+      background: rgba(250,244,233,0.08);
+      border: 1px solid rgba(250,244,233,0.15);
+      border-radius: 50px; padding: 0.3rem 1.1rem;
+    }
+    .page-hero-tag-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--orange);
+      display: inline-block;
+    }
+    .page-hero-title {
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+    }
+    .page-hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: rgba(250,244,233,0.6);
+      font-weight: 400;
+      max-width: 480px;
+      line-height: 1.6;
+    }
+    .page-hero-years-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: linear-gradient(135deg, var(--orange), var(--red));
+      color: #fff; border-radius: 50px;
+      padding: 0.45rem 1.4rem;
+      font-size: 0.9rem; font-weight: 700;
+      box-shadow: 0 4px 18px rgba(224,86,11,0.45);
+      margin-top: 4px;
+    }
+
+    /* ─── HERO STATS STRIP ─────────────────────────────────────── */
+    .hero-stats-bar {
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      padding: 1.4rem 3rem;
+      display: flex; gap: 2.5rem;
+      justify-content: center; flex-wrap: wrap; align-items: center;
+    }
+    .hero-stat {
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+    }
+    .hero-stat-num {
+      font-size: 1.8rem; font-weight: 900; line-height: 1.2;
+      background: linear-gradient(135deg, var(--orange), var(--yellow));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-stat-label {
+      font-size: 0.75rem; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .hero-stat-sep {
+      width: 1px; height: 40px;
+      background: var(--border-strong);
+    }
+
+    /* ─── MAIN CONTENT ─────────────────────────────────────────── */
+    main { display: none; }
+
+    /* ─── SECTION TITLE ────────────────────────────────────────── */
+    .section-eyebrow {
+      font-size: 0.78rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--orange); margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 900; color: var(--text);
+      line-height: 1.2; margin-bottom: 0.6rem;
+    }
+    .section-desc {
+      font-size: 0.95rem; color: var(--muted);
+      max-width: 600px; line-height: 1.7;
+    }
+
+    /* ─── ARTISTS GRID ──────────────────────────────────────────── */
+    .artists-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.1rem;
+      margin-top: 2rem;
+    }
+    .artist-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.2rem 1.4rem;
+      display: flex; flex-direction: column; gap: 0.5rem;
+      transition: box-shadow 0.25s, transform 0.25s;
+      cursor: default;
+    }
+    .artist-card:hover {
+      box-shadow: 0 8px 28px var(--shadow);
+      transform: translateY(-3px);
+    }
+    .artist-card-header {
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem;
+    }
+    .artist-name {
+      font-size: 1.05rem; font-weight: 800; color: var(--text); line-height: 1.3;
+    }
+    .artist-flag {
+      font-size: 1.2rem; flex-shrink: 0; line-height: 1;
+    }
+    .artist-country {
+      font-size: 0.78rem; color: var(--muted); font-weight: 500;
+    }
+    .artist-genre {
+      display: inline-flex; align-items: center;
+      background: rgba(224,86,11,0.08);
+      color: var(--orange);
+      border-radius: 50px; padding: 0.2rem 0.75rem;
+      font-size: 0.72rem; font-weight: 700;
+      align-self: flex-start;
+      margin-top: 0.1rem;
+    }
+    .artist-genre.genre-fusion { background: rgba(10,143,142,0.1); color: var(--teal); }
+    .artist-genre.genre-latin  { background: rgba(214,34,70,0.1); color: var(--red); }
+    .artist-genre.genre-vocal  { background: rgba(224,168,0,0.12); color: #b07a00; }
+    .artist-genre.genre-blues  { background: rgba(58,42,30,0.08); color: var(--muted); }
+    .artist-genre.genre-world  { background: rgba(224,86,143,0.1); color: var(--pink); }
+
+    /* ─── HEADLINER BADGE ──────────────────────────────────────── */
+    .artist-headliner {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--red);
+      display: flex; align-items: center; gap: 0.3rem;
+    }
+    .artist-headliner::before {
+      content: '';
+      display: inline-block; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--red);
+      flex-shrink: 0;
+    }
+
+    /* ─── EMPTY YEAR PLACEHOLDER ───────────────────────────────── */
+    .artists-empty {
+      grid-column: 1 / -1;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 3rem 2rem;
+      border: 1.5px dashed var(--border-strong);
+      border-radius: 16px;
+      color: var(--muted);
+      gap: 0.5rem;
+    }
+    .artists-empty-icon { font-size: 2rem; opacity: 0.4; }
+    .artists-empty-text { font-size: 0.9rem; }
+
+    /* ─── PAST TIMELINE SECTION ────────────────────────────────── */
+    .past-timeline-section {
+      background: var(--bg);
+      padding: 4rem 0 5rem;
+      border-top: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    /* Decorative background blobs */
+    .past-timeline-section::before {
+      content: '';
+      position: absolute;
+      width: 680px; height: 680px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(224,86,11,0.14) 0%, transparent 68%);
+      top: -160px;
+      right: -180px;
+      pointer-events: none;
+    }
+    .past-timeline-section::after {
+      content: '';
+      position: absolute;
+      width: 560px; height: 560px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(224,168,0,0.13) 0%, transparent 68%);
+      bottom: -100px;
+      left: -140px;
+      pointer-events: none;
+    }
+    .past-tl-inner {
+      max-width: 1200px;
+      margin-inline: auto;
+      padding: 0 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+    .past-tl-header { text-align: center; }
+    .past-tl-eyebrow {
+      font-size: 0.78rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--orange); margin-bottom: 0.5rem;
+    }
+    .past-tl-heading {
+      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      font-weight: 700; color: var(--text);
+    }
+
+    /* Big year number */
+    .past-tl-year-wrap { text-align: center; }
+    .past-tl-year-num {
+      font-family: 'Hepta Slab', serif;
+      font-size: clamp(5rem, 14vw, 9rem);
+      font-weight: 900;
+      line-height: 0.9;
+      color: #d9382d;
+      letter-spacing: -0.04em;
+      transition: opacity 0.2s;
+    }
+    .past-tl-year-num.fading { opacity: 0; }
+    .past-tl-year-edition {
+      font-size: 0.82rem; color: var(--muted);
+      letter-spacing: 0.06em; text-transform: uppercase;
+      margin-top: 0.6rem;
+    }
+
+    /* Horizontal dot-line timeline */
+    .past-tl-track-wrap {
+      width: 100%;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding: 8px 0 4px;
+      cursor: grab;
+    }
+    .past-tl-track-wrap::-webkit-scrollbar { display: none; }
+    .past-tl-track-wrap.is-dragging { cursor: grabbing; scroll-behavior: auto; }
+    .past-tl-track {
+      display: flex;
+      align-items: center;
+      direction: ltr;
+      position: relative;
+      min-width: max-content;
+      padding: 28px 4rem 16px;
+    }
+    .past-tl-track::before {
+      content: '';
+      position: absolute;
+      top: 36px;
+      left: 0; right: 0;
+      height: 2px;
+      background: var(--border-strong);
+    }
+    .past-tl-year-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 16px;
+      cursor: pointer;
+      position: relative;
+      z-index: 1;
+    }
+    .past-tl-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #c5b09a;
+      flex-shrink: 0;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s, width 0.2s, height 0.2s;
+      margin-bottom: 8px;
+    }
+    .past-tl-year-col.active .past-tl-dot {
+      width: 16px; height: 16px;
+      background: var(--orange);
+      box-shadow: 0 0 0 5px rgba(224,86,11,0.18);
+      margin-bottom: 5px;
+    }
+    .past-tl-year-col:hover:not(.active) .past-tl-dot {
+      background: var(--orange);
+      transform: scale(1.25);
+    }
+    .past-tl-year-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #8a7256;
+      white-space: nowrap;
+      transition: color 0.2s, font-size 0.2s, font-weight 0.2s;
+    }
+    .past-tl-year-col.active .past-tl-year-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--orange);
+    }
+    .past-tl-year-col:hover:not(.active) .past-tl-year-label { color: var(--text); }
+
+    /* Artists chips area */
+    .past-tl-artists-wrap {
+      width: 100%;
+      max-width: 1100px;
+      transition: opacity 0.25s;
+    }
+    .past-tl-artists-wrap.fading { opacity: 0; }
+    .past-artists-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 16px;
+      width: 100%;
+    }
+    .past-tl-empty {
+      text-align: center;
+      padding: 2.5rem 2rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      border: 1.5px dashed var(--border-strong);
+      border-radius: 14px;
+      width: 100%;
+    }
+
+    /* ── ALT-ARTIST CHIP ── */
+    .alt-artist-btn {
+      background: transparent;
+      border: none;
+      padding: 0;
+      cursor: default;
+      display: inline-flex;
+      align-items: stretch;
+      position: relative;
+      direction: rtl;
+      transition: transform 0.2s, filter 0.2s;
+    }
+    .alt-artist-btn:hover {
+      transform: translateY(-3px);
+      filter: brightness(0.97) saturate(1.05);
+    }
+    .featuring-pill-deco {
+      display: block;
+      flex-shrink: 0;
+      align-self: stretch;
+      width: 11px;
+      background: var(--pill-bg);
+      -webkit-mask-repeat: no-repeat;
+              mask-repeat: no-repeat;
+      -webkit-mask-size: 100% 100%;
+              mask-size: 100% 100%;
+      transform: scaleX(-1);
+    }
+    .featuring-pill-deco--left {
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg preserveAspectRatio='none' viewBox='0 0 11 56' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.57144 0H11V56H1.57144C1.57144 56 3.14287 53.2982 3.14287 49C3.14287 44.7018 1.57144 42 1.57144 42C1.57144 42 -0.000127875 40.7719 7.80415e-09 37.3333C0.00012789 33.8947 1.57144 25.7895 1.57144 22.1053C1.57144 20.4326 2.25121 17.0235 2.44866 13.2632C2.50045 12.2768 1.55744 11.2767 1.57144 10.3158C1.62162 6.87109 2.44866 3.92982 2.44866 3.92982L1.57144 0Z' fill='%23000'/%3E%3C/svg%3E");
+              mask-image: url("data:image/svg+xml,%3Csvg preserveAspectRatio='none' viewBox='0 0 11 56' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.57144 0H11V56H1.57144C1.57144 56 3.14287 53.2982 3.14287 49C3.14287 44.7018 1.57144 42 1.57144 42C1.57144 42 -0.000127875 40.7719 7.80415e-09 37.3333C0.00012789 33.8947 1.57144 25.7895 1.57144 22.1053C1.57144 20.4326 2.25121 17.0235 2.44866 13.2632C2.50045 12.2768 1.55744 11.2767 1.57144 10.3158C1.62162 6.87109 2.44866 3.92982 2.44866 3.92982L1.57144 0Z' fill='%23000'/%3E%3C/svg%3E");
+    }
+    .featuring-pill-deco--right {
+      width: 10px;
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg preserveAspectRatio='none' viewBox='0 0 10 56' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.42856 0H0V56H8.42856C8.42856 56 7.00001 50.3509 7.00001 46.0526C7.00001 41.7544 8.42856 39.0526 8.42856 39.0526C8.42856 39.0526 10.0001 37.8246 10 34.386C9.99988 30.9474 8.42856 22.8421 8.42856 19.1579C8.42856 17.4852 7.81059 17.0235 7.63109 13.2632C7.58401 12.2768 8.44128 11.2767 8.42856 10.3158C8.38294 6.87109 7.63109 3.92982 7.63109 3.92982L8.42856 0Z' fill='%23000'/%3E%3C/svg%3E");
+              mask-image: url("data:image/svg+xml,%3Csvg preserveAspectRatio='none' viewBox='0 0 10 56' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.42856 0H0V56H8.42856C8.42856 56 7.00001 50.3509 7.00001 46.0526C7.00001 41.7544 8.42856 39.0526 8.42856 39.0526C8.42856 39.0526 10.0001 37.8246 10 34.386C9.99988 30.9474 8.42856 22.8421 8.42856 19.1579C8.42856 17.4852 7.81059 17.0235 7.63109 13.2632C7.58401 12.2768 8.44128 11.2767 8.42856 10.3158C8.38294 6.87109 7.63109 3.92982 7.63109 3.92982L8.42856 0Z' fill='%23000'/%3E%3C/svg%3E");
+    }
+    .featuring-pill-text {
+      display: inline-block;
+      background: var(--pill-bg);
+      color: var(--pill-text);
+      font-family: 'Hepta Slab', 'Noto Sans Hebrew', serif;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.334;
+      padding: 12px;
+      white-space: nowrap;
+      text-align: center;
+    }
+    @media (max-width: 600px) {
+      .featuring-pill-text { font-size: 14px; padding: 10px; }
+      .past-artists-grid { gap: 10px; }
+    }
+
+    /* ─── FOOTER ───────────────────────────────────────────────── */
+    footer {
+      background: #EFE3CE;
+      border-top: 1px solid var(--border);
+      padding: 3rem 3rem 2rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem; margin-bottom: 2.5rem;
+      max-width: 1200px; margin-inline: auto;
+    }
+    .footer-logo {
+      font-size: 1.2rem; font-weight: 900;
+      background: linear-gradient(135deg, var(--yellow), var(--orange));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; margin-bottom: 0.8rem;
+    }
+    .footer-tagline { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+    .footer-col-title { font-size: 0.8rem; color: var(--orange); letter-spacing: 0; text-transform: uppercase; margin-bottom: 1rem; font-weight: 600; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+    .footer-links a { font-size: 0.9rem; color: var(--muted); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 1.2rem; display: flex;
+      justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+      font-size: 0.8rem; color: var(--muted);
+      max-width: 1200px; margin-inline: auto;
+    }
+    .footer-bottom a { color: var(--teal); }
+
+    /* ─── RESPONSIVE ───────────────────────────────────────────── */
+    @media (max-width: 700px) {
+      .page-hero { height: calc(300px + var(--ticker-h) + var(--nav-h)); }
+      .page-hero-content { padding-inline: 1.2rem; }
+      .footer-grid { grid-template-columns: 1fr; gap: 1.8rem; }
+      .hero-stats-bar { padding: 1rem 1.2rem; gap: 1.2rem; }
+      .hero-stat-sep { display: none; }
+      .past-timeline-section { padding: 2.5rem 0 3rem; }
+      .past-tl-year-num { font-size: clamp(4rem, 18vw, 7rem); }
+      footer { padding: 2rem 1rem; }
+    }
+    /* ─── REDUCED MOTION ────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── TICKER BAR ── -->
+  <div class="ticker-bar" role="marquee" aria-label="עדכוני פסטיבל">
+    <div class="ticker-track-wrap">
+      <div class="ticker-track">
+        <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
+        <span class="ticker-item">ההופעה הראשונה הוכרזה — פרטים נוספים בקרוב</span>
+        <span class="ticker-item">חבילות נופש חדשות עם מלונות אילת — 3 לילות + שאטל לנמל</span>
+        <span class="ticker-item">11–14 בנובמבר 2026 · נמל אילת · 40 שנות פסטיבל ג׳אז ים סוף</span>
+        <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
+        <span class="ticker-item">ההופעה הראשונה הוכרזה — פרטים נוספים בקרוב</span>
+        <span class="ticker-item">חבילות נופש חדשות עם מלונות אילת — 3 לילות + שאטל לנמל</span>
+        <span class="ticker-item">11–14 בנובמבר 2026 · נמל אילת · 40 שנות פסטיבל ג׳אז ים סוף</span>
+        <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
+        <span class="ticker-item">ההופעה הראשונה הוכרזה — פרטים נוספים בקרוב</span>
+        <span class="ticker-item">חבילות נופש חדשות עם מלונות אילת — 3 לילות + שאטל לנמל</span>
+        <span class="ticker-item">11–14 בנובמבר 2026 · נמל אילת · 40 שנות פסטיבל ג׳אז ים סוף</span>
+        <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
+        <span class="ticker-item">ההופעה הראשונה הוכרזה — פרטים נוספים בקרוב</span>
+        <span class="ticker-item">חבילות נופש חדשות עם מלונות אילת — 3 לילות + שאטל לנמל</span>
+        <span class="ticker-item">11–14 בנובמבר 2026 · נמל אילת · 40 שנות פסטיבל ג׳אז ים סוף</span>
+      </div>
+    </div>
+    <span class="ticker-label">עדכונים</span>
+  </div>
+
+  <!-- ── NAV ── -->
+  <nav id="navbar">
+    <a class="nav-logo-tab" href="./index.html">
+      <img src="State=Vertical.svg" alt="Red Sea Jazz Festival" class="nav-logo-img" width="80" height="80" />
+    </a>
+    <div class="nav-inner">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
+        <li><a href="./index.html#lineup" data-he="אמנים" data-en="Artists">אמנים</a></li>
+        <li><a href="./lineup.html" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
+        <li><a href="./past-artists.html" class="active" data-he="שנים קודמות" data-en="Past Artists">שנים קודמות</a></li>
+        <li><a href="./index.html#hotels" data-he="מלונות" data-en="Hotels">מלונות</a></li>
+        <li><a href="./index.html#venue" data-he="מיקום" data-en="Location">מיקום</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a class="nav-btn-secondary" data-he="חבילות נופש" data-en="Stay Packages"
+          href="./index.html#hotels" rel="noopener">
+          חבילות נופש
+        </a>
+        <a class="nav-btn-primary" data-he="כרטיסים" data-en="Tickets"
+          href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener">
+          כרטיסים ←
+        </a>
+        <div class="nav-lang-sep"></div>
+        <button class="nav-btn-lang" id="langBtn" onclick="switchLang()">🇺🇸 EN</button>
+        <button class="hamburger" id="hamburger" aria-label="תפריט ניווט" aria-expanded="false"
+                onclick="toggleMenu()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── PAGE HERO ── -->
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-grid"></div>
+    <div class="page-hero-content">
+      <div class="page-hero-tag">
+        <span class="page-hero-tag-dot"></span>
+        <span>Past Artists · אמנים לאורך ההיסטוריה</span>
+      </div>
+      <h1 class="page-hero-title">40 שנות מוזיקה</h1>
+      <p class="page-hero-subtitle">מ-1986 עד 2026 — מאות אמנים מהעולם ומישראל על חוף ים סוף</p>
+      <div class="page-hero-years-badge">1986 – 2026 · 41 מהדורות</div>
+    </div>
+  </div>
+
+  <!-- ── STATS BAR ── -->
+  <div class="hero-stats-bar">
+    <div class="hero-stat">
+      <div class="hero-stat-num">40</div>
+      <div class="hero-stat-label">שנות פסטיבל</div>
+    </div>
+    <div class="hero-stat-sep"></div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">600+</div>
+      <div class="hero-stat-label">אמנים</div>
+    </div>
+    <div class="hero-stat-sep"></div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">55+</div>
+      <div class="hero-stat-label">אמנים ממדינות שונות</div>
+    </div>
+    <div class="hero-stat-sep"></div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">אילת</div>
+      <div class="hero-stat-label">נמל ים סוף</div>
+    </div>
+  </div>
+
+  <!-- ── TIMELINE SECTION ── -->
+  <section class="past-timeline-section" aria-label="ציר זמן הפסטיבל">
+    <div class="past-tl-inner">
+
+      <!-- Header -->
+      <div class="past-tl-header">
+        <h2 class="past-tl-heading">פסטיבל הג׳אז על ציר הזמן</h2>
+      </div>
+
+      <!-- Big year number -->
+      <div class="past-tl-year-wrap">
+        <div class="past-tl-year-num" id="yearDisplayNum">2026</div>
+        <div class="past-tl-year-edition" id="yearDisplayEdition">מהדורה 41 · אילת</div>
+      </div>
+
+      <!-- Horizontal dot-line timeline -->
+      <div class="past-tl-track-wrap" id="pastTlWrap">
+        <div class="past-tl-track" id="pastTlTrack">
+          <!-- dots + year labels rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Artist chips -->
+      <div class="past-tl-artists-wrap" id="pastArtistsWrap">
+        <div class="past-artists-grid" id="tlArtistsGrid">
+          <!-- rendered by JS -->
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer></footer>
+  <script src="./footer.js"></script>
+
+  <script>
+    /* ═══════════════════════════════════════════════════════════
+       DATA — artists per year
+       ═══════════════════════════════════════════════════════════ */
+    var YEARS_DATA = {
+      2026: {
+        edition: 'מהדורה 41 · אילת',
+        artists: [
+          { name: 'Anat Cohen', country: 'ישראל / ניו יורק', flag: '🇮🇱', genre: 'Jazz', headliner: 'Artist in Residence' },
+          { name: 'The 3 Cohens Big Band', country: 'ישראל / ניו יורק', flag: '🇮🇱', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'Eli Degibri Quartet', country: 'ישראל', flag: '🇮🇱', genre: 'Fusion', headliner: 'Headliner' },
+          { name: 'חוה אלברשטיין', country: 'ישראל', flag: '🇮🇱', genre: 'Vocal Jazz', headliner: 'Headliner' },
+          { name: 'SHALOSH', country: 'ישראל', flag: '🇮🇱', genre: 'Jazz', headliner: '' },
+          { name: 'Las Piratas Piratas', country: 'ברזיל', flag: '🇧🇷', genre: 'Latin Jazz', headliner: '' },
+          { name: 'תזמורת הג׳אז הישראלית', country: 'ישראל', flag: '🇮🇱', genre: 'Big Band', headliner: 'מופע סיום' },
+          { name: 'שלישיית יותם זילברשטיין', country: 'ישראל', flag: '🇮🇱', genre: 'Guitar Jazz', headliner: '' },
+        ]
+      },
+      2025: {
+        edition: 'מהדורה 40 · אילת',
+        artists: [
+          { name: 'Wynton Marsalis & JLCO', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'Chucho Valdés', country: 'קובה', flag: '🇨🇺', genre: 'Latin Jazz', headliner: 'Headliner' },
+          { name: 'Avishai Cohen Trio', country: 'ישראל', flag: '🇮🇱', genre: 'Jazz', headliner: '' },
+          { name: 'Noa & Gil Dor', country: 'ישראל', flag: '🇮🇱', genre: 'Vocal Jazz', headliner: '' },
+          { name: 'Snarky Puppy', country: 'ארה״ב', flag: '🇺🇸', genre: 'Fusion', headliner: 'Headliner' },
+        ]
+      },
+      2024: {
+        edition: 'מהדורה 39 · אילת',
+        artists: [
+          { name: 'Ibrahim Maalouf', country: 'לבנון / צרפת', flag: '🇫🇷', genre: 'Fusion', headliner: 'Headliner' },
+          { name: 'Kamasi Washington', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'רוני איתן גרופ', country: 'ישראל', flag: '🇮🇱', genre: 'Jazz', headliner: '' },
+          { name: 'Tania Maria', country: 'ברזיל', flag: '🇧🇷', genre: 'Latin Jazz', headliner: '' },
+          { name: 'עידית מינצר', country: 'ישראל', flag: '🇮🇱', genre: 'Vocal Jazz', headliner: '' },
+        ]
+      },
+      2023: {
+        edition: 'מהדורה 38 · אילת',
+        artists: [
+          { name: 'Marcus Miller', country: 'ארה״ב', flag: '🇺🇸', genre: 'Fusion', headliner: 'Headliner' },
+          { name: 'Dianne Reeves', country: 'ארה״ב', flag: '🇺🇸', genre: 'Vocal Jazz', headliner: 'Headliner' },
+          { name: 'Anat Cohen & Marcello Goncalves', country: 'ישראל / ברזיל', flag: '🇮🇱', genre: 'Jazz', headliner: '' },
+          { name: 'הדר נויברג', country: 'ישראל', flag: '🇮🇱', genre: 'Jazz', headliner: '' },
+          { name: 'Antonio Sanchez', country: 'מקסיקו', flag: '🇲🇽', genre: 'Jazz', headliner: '' },
+        ]
+      },
+      2022: {
+        edition: 'מהדורה 37 · אילת',
+        artists: [
+          { name: 'Chick Corea Tribute', country: 'ארה״ב / בינלאומי', flag: '🌍', genre: 'Jazz', headliner: 'Headliner · מופע זיכרון' },
+          { name: 'Esperanza Spalding', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'חגי אמיר שישייה', country: 'ישראל', flag: '🇮🇱', genre: 'World Jazz', headliner: '' },
+          { name: 'Cory Henry', country: 'ארה״ב', flag: '🇺🇸', genre: 'Fusion', headliner: '' },
+          { name: 'שישיית קאי גלוסקא', country: 'ישראל', flag: '🇮🇱', genre: 'Jazz', headliner: '' },
+        ]
+      },
+      2021: {
+        edition: 'מהדורה 36 · אונליין',
+        artists: []
+      },
+      2020: {
+        edition: 'מהדורה 35 · אונליין',
+        artists: [
+          { name: 'Avishai Cohen', country: 'ישראל', flag: '🇮🇱', genre: 'Jazz', headliner: 'Headliner · פסטיבל דיגיטלי' },
+          { name: 'Gilad Hekselman', country: 'ישראל / ניו יורק', flag: '🇮🇱', genre: 'Jazz', headliner: '' },
+          { name: 'Noa', country: 'ישראל', flag: '🇮🇱', genre: 'Vocal Jazz', headliner: '' },
+        ]
+      },
+      2019: {
+        edition: 'מהדורה 34 · אילת',
+        artists: [
+          { name: 'Herbie Hancock', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'Melody Gardot', country: 'ארה״ב', flag: '🇺🇸', genre: 'Vocal Jazz', headliner: 'Headliner' },
+          { name: 'אלדר כהן', country: 'ישראל / ניו יורק', flag: '🇮🇱', genre: 'Jazz', headliner: '' },
+          { name: 'Lee Ritenour', country: 'ארה״ב', flag: '🇺🇸', genre: 'Fusion', headliner: '' },
+        ]
+      },
+      2018: {
+        edition: 'מהדורה 33 · אילת',
+        artists: [
+          { name: 'Chick Corea & Gary Burton', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'Kurt Elling', country: 'ארה״ב', flag: '🇺🇸', genre: 'Vocal Jazz', headliner: 'Headliner' },
+          { name: 'SHALOSH', country: 'ישראל', flag: '🇮🇱', genre: 'Jazz', headliner: '' },
+          { name: 'רביעיית אריאל ברט', country: 'ישראל', flag: '🇮🇱', genre: 'Jazz', headliner: '' },
+          { name: 'Nguyen Le', country: 'וייטנאם / צרפת', flag: '🇫🇷', genre: 'World Jazz', headliner: '' },
+        ]
+      },
+      2017: {
+        edition: 'מהדורה 32 · אילת',
+        artists: [
+          { name: 'Pat Metheny', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'Cassandra Wilson', country: 'ארה״ב', flag: '🇺🇸', genre: 'Vocal Jazz', headliner: 'Headliner' },
+          { name: 'Anat Cohen', country: 'ישראל', flag: '🇮🇱', genre: 'Jazz', headliner: '' },
+          { name: 'ג׳ימבו ג׳אז', country: 'ישראל', flag: '🇮🇱', genre: 'Jazz', headliner: '' },
+        ]
+      },
+      2016: {
+        edition: 'מהדורה 31 · אילת',
+        artists: [
+          { name: 'Maceo Parker', country: 'ארה״ב', flag: '🇺🇸', genre: 'Fusion', headliner: 'Headliner' },
+          { name: 'Eliane Elias', country: 'ברזיל', flag: '🇧🇷', genre: 'Latin Jazz', headliner: 'Headliner' },
+          { name: 'Avishai Cohen Trio', country: 'ישראל', flag: '🇮🇱', genre: 'Jazz', headliner: '' },
+        ]
+      },
+      2015: {
+        edition: 'מהדורה 30 · אילת',
+        artists: [
+          { name: 'Marcus Miller', country: 'ארה״ב', flag: '🇺🇸', genre: 'Fusion', headliner: 'Headliner · מהדורת יובל' },
+          { name: 'Bobby McFerrin', country: 'ארה״ב', flag: '🇺🇸', genre: 'Vocal Jazz', headliner: 'Headliner' },
+          { name: 'Noa & Gil Dor', country: 'ישראל', flag: '🇮🇱', genre: 'Vocal Jazz', headliner: '' },
+          { name: 'Dave Grusin', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: '' },
+          { name: 'גל דה פז', country: 'ישראל', flag: '🇮🇱', genre: 'Latin Jazz', headliner: '' },
+        ]
+      },
+      2014: {
+        edition: 'מהדורה 29 · אילת',
+        artists: [
+          { name: 'Chick Corea', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'Dee Dee Bridgewater', country: 'ארה״ב', flag: '🇺🇸', genre: 'Vocal Jazz', headliner: 'Headliner' },
+          { name: 'שלישיית אביב כהן', country: 'ישראל', flag: '🇮🇱', genre: 'Jazz', headliner: '' },
+        ]
+      },
+      2013: {
+        edition: 'מהדורה 28 · אילת',
+        artists: [
+          { name: 'Gilad Hekselman', country: 'ישראל / ניו יורק', flag: '🇮🇱', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'Richard Galliano', country: 'צרפת', flag: '🇫🇷', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'עידית מינצר', country: 'ישראל', flag: '🇮🇱', genre: 'Vocal Jazz', headliner: '' },
+        ]
+      },
+      2012: {
+        edition: 'מהדורה 27 · אילת',
+        artists: [
+          { name: 'Al Di Meola', country: 'ארה״ב', flag: '🇺🇸', genre: 'Fusion', headliner: 'Headliner' },
+          { name: 'Carla Bley', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'Lay Z Gordon', country: 'ישראל', flag: '🇮🇱', genre: 'Jazz/Hip-Hop', headliner: '' },
+        ]
+      },
+      2011: {
+        edition: 'מהדורה 26 · אילת',
+        artists: [
+          { name: 'Keith Jarrett Trio', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'Abdullah Ibrahim', country: 'דרום אפריקה', flag: '🇿🇦', genre: 'World Jazz', headliner: 'Headliner' },
+          { name: 'Anat Cohen', country: 'ישראל', flag: '🇮🇱', genre: 'Jazz', headliner: '' },
+        ]
+      },
+      2010: {
+        edition: 'מהדורה 25 · אילת',
+        artists: [
+          { name: 'Herbie Hancock', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner · יובל 25' },
+          { name: 'Ravi Coltrane', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'Chucho Valdés Quartet', country: 'קובה', flag: '🇨🇺', genre: 'Latin Jazz', headliner: '' },
+          { name: 'Noa & Gil Dor', country: 'ישראל', flag: '🇮🇱', genre: 'Vocal Jazz', headliner: '' },
+          { name: 'Avishai Cohen', country: 'ישראל', flag: '🇮🇱', genre: 'Jazz', headliner: '' },
+        ]
+      },
+      2009: {
+        edition: 'מהדורה 24 · אילת',
+        artists: [
+          { name: 'Pat Metheny Unity Band', country: 'ארה״ב', flag: '🇺🇸', genre: 'Fusion', headliner: 'Headliner' },
+          { name: 'Carla Bley & Steve Swallow', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: '' },
+          { name: 'גל דה פז', country: 'ישראל', flag: '🇮🇱', genre: 'Latin Jazz', headliner: '' },
+        ]
+      },
+      2008: {
+        edition: 'מהדורה 23 · אילת',
+        artists: [
+          { name: 'Arturo Sandoval', country: 'קובה / ארה״ב', flag: '🇨🇺', genre: 'Latin Jazz', headliner: 'Headliner' },
+          { name: 'John McLaughlin', country: 'בריטניה', flag: '🇬🇧', genre: 'Fusion', headliner: 'Headliner' },
+          { name: 'עידית מינצר', country: 'ישראל', flag: '🇮🇱', genre: 'Vocal Jazz', headliner: '' },
+        ]
+      },
+      2007: {
+        edition: 'מהדורה 22 · אילת',
+        artists: [
+          { name: 'Chick Corea Trio', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'Nnenna Freelon', country: 'ארה״ב', flag: '🇺🇸', genre: 'Vocal Jazz', headliner: '' },
+          { name: 'Avishai Cohen Trio', country: 'ישראל', flag: '🇮🇱', genre: 'Jazz', headliner: '' },
+        ]
+      },
+      2006: {
+        edition: 'מהדורה 21 · אילת',
+        artists: [
+          { name: 'Wayne Shorter Quartet', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'Tito Puente Jr.', country: 'ארה״ב', flag: '🇺🇸', genre: 'Latin Jazz', headliner: '' },
+          { name: 'Noa', country: 'ישראל', flag: '🇮🇱', genre: 'Vocal Jazz', headliner: '' },
+        ]
+      },
+      2005: {
+        edition: 'מהדורה 20 · אילת',
+        artists: [
+          { name: 'Herbie Hancock', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner · מהדורה 20' },
+          { name: 'Al Jarreau', country: 'ארה״ב', flag: '🇺🇸', genre: 'Vocal Jazz', headliner: 'Headliner' },
+          { name: 'Avishai Cohen', country: 'ישראל', flag: '🇮🇱', genre: 'Jazz', headliner: '' },
+          { name: 'Tania Maria', country: 'ברזיל', flag: '🇧🇷', genre: 'Latin Jazz', headliner: '' },
+          { name: 'לירז צ׳רכי', country: 'ישראל', flag: '🇮🇱', genre: 'World Jazz', headliner: '' },
+        ]
+      },
+      2004: {
+        edition: 'מהדורה 19 · אילת',
+        artists: [
+          { name: 'Pat Metheny', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'Cesaria Evora', country: 'קייפ ורדה', flag: '🇨🇻', genre: 'World Jazz', headliner: 'Headliner' },
+        ]
+      },
+      2003: {
+        edition: 'מהדורה 18 · אילת',
+        artists: [
+          { name: 'Ornette Coleman', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'Noa & Gil Dor', country: 'ישראל', flag: '🇮🇱', genre: 'Vocal Jazz', headliner: '' },
+        ]
+      },
+      2002: {
+        edition: 'מהדורה 17 · אילת',
+        artists: [
+          { name: 'Chick Corea', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'Toquinho', country: 'ברזיל', flag: '🇧🇷', genre: 'Latin Jazz', headliner: '' },
+          { name: 'Caetano Veloso', country: 'ברזיל', flag: '🇧🇷', genre: 'World Jazz', headliner: 'Headliner' },
+        ]
+      },
+      2001: {
+        edition: 'מהדורה 16 · אילת',
+        artists: [
+          { name: 'Joe Zawinul Syndicate', country: 'אוסטריה / ארה״ב', flag: '🇦🇹', genre: 'Fusion', headliner: 'Headliner' },
+          { name: 'Noa', country: 'ישראל', flag: '🇮🇱', genre: 'Vocal Jazz', headliner: '' },
+        ]
+      },
+      2000: {
+        edition: 'מהדורה 15 · אילת',
+        artists: [
+          { name: 'Miles Davis Legacy Band', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner · מחווה למיילס' },
+          { name: 'Herbie Hancock', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'Noa & Gil Dor', country: 'ישראל', flag: '🇮🇱', genre: 'Vocal Jazz', headliner: '' },
+          { name: 'Tania Maria Quartet', country: 'ברזיל', flag: '🇧🇷', genre: 'Latin Jazz', headliner: '' },
+          { name: 'Gonzalo Rubalcaba', country: 'קובה', flag: '🇨🇺', genre: 'Latin Jazz', headliner: '' },
+        ]
+      },
+      1999: {
+        edition: 'מהדורה 14 · אילת',
+        artists: [
+          { name: 'Pat Metheny Group', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'Chucho Valdés', country: 'קובה', flag: '🇨🇺', genre: 'Latin Jazz', headliner: '' },
+        ]
+      },
+      1998: {
+        edition: 'מהדורה 13 · אילת',
+        artists: [
+          { name: 'John McLaughlin', country: 'בריטניה', flag: '🇬🇧', genre: 'Fusion', headliner: 'Headliner' },
+          { name: 'Youssou N\'Dour', country: 'סנגל', flag: '🇸🇳', genre: 'World Jazz', headliner: 'Headliner' },
+        ]
+      },
+      1997: {
+        edition: 'מהדורה 12 · אילת',
+        artists: [
+          { name: 'Chick Corea', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'Eliane Elias', country: 'ברזיל', flag: '🇧🇷', genre: 'Latin Jazz', headliner: '' },
+          { name: 'Noa', country: 'ישראל', flag: '🇮🇱', genre: 'Vocal Jazz', headliner: '' },
+        ]
+      },
+      1996: {
+        edition: 'מהדורה 11 · אילת',
+        artists: [
+          { name: 'Herbie Hancock', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'Tito Puente', country: 'ארה״ב', flag: '🇺🇸', genre: 'Latin Jazz', headliner: 'Headliner' },
+        ]
+      },
+      1995: {
+        edition: 'מהדורה 10 · אילת',
+        artists: [
+          { name: 'Dave Brubeck Quartet', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner · מהדורה 10' },
+          { name: 'Dizzy Gillespie All-Stars', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner · מחווה' },
+          { name: 'Noa & Gil Dor', country: 'ישראל', flag: '🇮🇱', genre: 'Vocal Jazz', headliner: '' },
+          { name: 'Tania Maria', country: 'ברזיל', flag: '🇧🇷', genre: 'Latin Jazz', headliner: '' },
+          { name: 'Pat Metheny Trio', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: '' },
+        ]
+      },
+      1994: {
+        edition: 'מהדורה 9 · אילת',
+        artists: [
+          { name: 'Chick Corea', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'Eliane Elias', country: 'ברזיל', flag: '🇧🇷', genre: 'Latin Jazz', headliner: '' },
+        ]
+      },
+      1993: {
+        edition: 'מהדורה 8 · אילת',
+        artists: [
+          { name: 'Joe Henderson', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'Gonzalo Rubalcaba', country: 'קובה', flag: '🇨🇺', genre: 'Latin Jazz', headliner: '' },
+        ]
+      },
+      1992: {
+        edition: 'מהדורה 7 · אילת',
+        artists: [
+          { name: 'Miles Davis — In Memoriam', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'מחווה' },
+          { name: 'Joe Zawinul', country: 'אוסטריה', flag: '🇦🇹', genre: 'Fusion', headliner: 'Headliner' },
+          { name: 'Airto Moreira', country: 'ברזיל', flag: '🇧🇷', genre: 'Latin Jazz', headliner: '' },
+        ]
+      },
+      1991: {
+        edition: 'מהדורה 6 · אילת',
+        artists: [
+          { name: 'Dizzy Gillespie', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'Herbie Hancock', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: '' },
+        ]
+      },
+      1990: {
+        edition: 'מהדורה 5 · אילת',
+        artists: [
+          { name: 'Miles Davis', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner · הופעה היסטורית' },
+          { name: 'Wayne Shorter', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'Tania Maria', country: 'ברזיל', flag: '🇧🇷', genre: 'Latin Jazz', headliner: '' },
+          { name: 'John McLaughlin', country: 'בריטניה', flag: '🇬🇧', genre: 'Fusion', headliner: '' },
+          { name: 'Chick Corea', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: '' },
+        ]
+      },
+      1989: {
+        edition: 'מהדורה 4 · אילת',
+        artists: [
+          { name: 'Ornette Coleman', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'Pat Metheny', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: '' },
+        ]
+      },
+      1988: {
+        edition: 'מהדורה 3 · אילת',
+        artists: [
+          { name: 'Dizzy Gillespie Big Band', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'Chick Corea Trio', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: '' },
+          { name: 'Airto Moreira & Flora Purim', country: 'ברזיל', flag: '🇧🇷', genre: 'Latin Jazz', headliner: '' },
+        ]
+      },
+      1987: {
+        edition: 'מהדורה 2 · אילת',
+        artists: [
+          { name: 'Herbie Hancock', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'Chet Baker', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner' },
+          { name: 'Ron Carter Trio', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: '' },
+        ]
+      },
+      1986: {
+        edition: 'מהדורה 1 · אילת — מהדורת הפתיחה',
+        artists: [
+          { name: 'Dizzy Gillespie', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: 'Headliner · הופעת פתיחה' },
+          { name: 'Tania Maria', country: 'ברזיל', flag: '🇧🇷', genre: 'Latin Jazz', headliner: 'Headliner' },
+          { name: 'Paquito D\'Rivera', country: 'קובה', flag: '🇨🇺', genre: 'Latin Jazz', headliner: '' },
+          { name: 'Gary Burton', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: '' },
+          { name: 'Carla Bley', country: 'ארה״ב', flag: '🇺🇸', genre: 'Jazz', headliner: '' },
+        ]
+      }
+    };
+
+    /* ─── GENRE → CSS class mapping ─── */
+    var GENRE_CLASS = {
+      'Fusion':       'genre-fusion',
+      'Guitar Jazz':  'genre-fusion',
+      'Latin Jazz':   'genre-latin',
+      'Vocal Jazz':   'genre-vocal',
+      'Blues':        'genre-blues',
+      'World Jazz':   'genre-world',
+      'Jazz/Hip-Hop': 'genre-blues',
+    };
+
+    function genreClass(g) {
+      return GENRE_CLASS[g] || '';
+    }
+
+    /* ─── ALL YEARS LIST ─── */
+    var ALL_YEARS = Object.keys(YEARS_DATA)
+      .map(Number)
+      .sort(function(a, b) { return b - a; });  /* newest first */
+
+    var currentYearIdx = 0; /* index in ALL_YEARS (0 = 2026) */
+
+    /* ─── BUILD TIMELINE ─── */
+    function buildTimeline() {
+      var track = document.getElementById('pastTlTrack');
+      var html = '';
+      /* Build LTR: oldest first (1986 leftmost), newest last (2026 rightmost) */
+      for (var i = ALL_YEARS.length - 1; i >= 0; i--) {
+        var yr = ALL_YEARS[i];
+        var isActive = (i === currentYearIdx);
+        html += '<div class="past-tl-year-col' + (isActive ? ' active' : '') + '" '
+              + 'data-idx="' + i + '" '
+              + 'onclick="selectYearByIdx(' + i + ')" '
+              + 'tabindex="0" role="button" aria-label="שנת ' + yr + '">'
+              + '<div class="past-tl-dot"></div>'
+              + '<div class="past-tl-year-label">' + yr + '</div>'
+              + '</div>';
+      }
+      track.innerHTML = html;
+    }
+
+    /* ─── RENDER ARTISTS ─── */
+    function renderArtists(yearNum) {
+      var grid = document.getElementById('tlArtistsGrid');
+      var data = YEARS_DATA[yearNum];
+
+      if (!data || !data.artists || data.artists.length === 0) {
+        grid.innerHTML = '<div class="past-tl-empty">פרטי אמנים עבור ' + yearNum + ' אינם זמינים כעת.</div>';
+        return;
+      }
+
+      var html = '';
+      data.artists.forEach(function(a) {
+        html += '<div class="alt-artist-btn" style="--pill-bg:#e6d8d6;--pill-text:#2d2726;">'
+              + '<span class="featuring-pill-deco featuring-pill-deco--left"></span>'
+              + '<span class="featuring-pill-text">' + a.name + '</span>'
+              + '<span class="featuring-pill-deco featuring-pill-deco--right"></span>'
+              + '</div>';
+      });
+      grid.innerHTML = html;
+    }
+
+    /* ─── SCROLL TIMELINE TO ACTIVE YEAR ─── */
+    function scrollTlToYear(idx) {
+      var wrap = document.getElementById('pastTlWrap');
+      var col = wrap.querySelector('.past-tl-year-col[data-idx="' + idx + '"]');
+      if (!col || !wrap) return;
+      /* getBoundingClientRect gives viewport-relative positions; diff = scroll offset */
+      var wrapRect = wrap.getBoundingClientRect();
+      var colRect  = col.getBoundingClientRect();
+      var colCenter = wrap.scrollLeft + colRect.left - wrapRect.left + colRect.width / 2;
+      wrap.scrollLeft = colCenter - wrap.clientWidth / 2;
+    }
+
+    /* ─── SELECT YEAR ─── */
+    function selectYearByIdx(idx) {
+      if (idx < 0 || idx >= ALL_YEARS.length) return;
+      currentYearIdx = idx;
+      var yr = ALL_YEARS[idx];
+      var data = YEARS_DATA[yr];
+
+      /* Update big year number with fade */
+      var numEl = document.getElementById('yearDisplayNum');
+      numEl.classList.add('fading');
+      setTimeout(function() {
+        numEl.textContent = yr;
+        numEl.classList.remove('fading');
+      }, 180);
+      document.getElementById('yearDisplayEdition').textContent = data ? data.edition : 'אילת';
+
+      /* Update dot active state */
+      document.querySelectorAll('.past-tl-year-col').forEach(function(col) {
+        col.classList.toggle('active', parseInt(col.dataset.idx) === idx);
+      });
+
+      /* Scroll timeline to center the active year */
+      scrollTlToYear(idx);
+
+      /* Fade + re-render artist chips */
+      var wrap = document.getElementById('pastArtistsWrap');
+      wrap.classList.add('fading');
+      setTimeout(function() {
+        renderArtists(yr);
+        wrap.classList.remove('fading');
+      }, 220);
+    }
+
+    /* ─── DRAG-TO-SCROLL for timeline ─── */
+    (function() {
+      var wrap = null;
+      var isDown = false;
+      var startX, scrollLeft;
+
+      function init() {
+        wrap = document.getElementById('pastTlWrap');
+        wrap.addEventListener('mousedown', function(e) {
+          isDown = true;
+          wrap.classList.add('is-dragging');
+          startX = e.pageX - wrap.offsetLeft;
+          scrollLeft = wrap.scrollLeft;
+        });
+        ['mouseup', 'mouseleave'].forEach(function(ev) {
+          wrap.addEventListener(ev, function() {
+            isDown = false;
+            wrap.classList.remove('is-dragging');
+          });
+        });
+        wrap.addEventListener('mousemove', function(e) {
+          if (!isDown) return;
+          e.preventDefault();
+          var x = e.pageX - wrap.offsetLeft;
+          var walk = (x - startX) * 1.5;
+          wrap.scrollLeft = scrollLeft - walk;
+        });
+        /* Touch drag */
+        var touchStartX = 0;
+        var touchScrollLeft = 0;
+        wrap.addEventListener('touchstart', function(e) {
+          touchStartX = e.touches[0].clientX;
+          touchScrollLeft = wrap.scrollLeft;
+        }, { passive: true });
+        wrap.addEventListener('touchmove', function(e) {
+          var dx = touchStartX - e.touches[0].clientX;
+          wrap.scrollLeft = touchScrollLeft + dx;
+        }, { passive: true });
+      }
+
+      document.addEventListener('DOMContentLoaded', init);
+    })();
+
+    /* ─── NAV: scroll shrink ─── */
+    var navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function() {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    /* ─── Mobile menu ─── */
+    function toggleMenu() {
+      var navLinks = document.getElementById('navLinks');
+      var hamburger = document.getElementById('hamburger');
+      var isOpen = navLinks.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', isOpen);
+    }
+
+    /* ─── Language switch ─── */
+    var currentLang = 'he';
+    function switchLang() {
+      currentLang = currentLang === 'he' ? 'en' : 'he';
+      document.getElementById('langBtn').textContent = currentLang === 'he' ? '🇺🇸 EN' : '🇮🇱 HE';
+      document.querySelectorAll('[data-he]').forEach(function(el) {
+        el.textContent = el.getAttribute('data-' + currentLang) || el.textContent;
+      });
+    }
+
+    /* ─── INIT ─── */
+    buildTimeline();
+    /* Render initial year data without fade */
+    var _initYr = ALL_YEARS[0];
+    document.getElementById('yearDisplayNum').textContent = _initYr;
+    document.getElementById('yearDisplayEdition').textContent = YEARS_DATA[_initYr].edition;
+    renderArtists(_initYr);
+    /* Scroll to 2026 after layout paint */
+    requestAnimationFrame(function() { scrollTlToYear(0); });
+
+  </script>
+</body>
+</html>
