@@ -83,8 +83,52 @@
     ::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 3px; }
 
     /* ─── NAV ─────────────────────────────────────────────────── */
+    /* ─── TICKER ─────────────────────────────────────────────── */
+    .ticker-bar {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--ticker-h); z-index: 101;
+      background: #2d2726;
+      display: flex; align-items: center;
+      direction: ltr;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(224,86,11,0.3);
+    }
+    .ticker-label {
+      flex-shrink: 0;
+      padding: 0 1.4rem 0 1rem;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+      color: var(--orange); text-transform: uppercase;
+      border-right: 1px solid rgba(224,86,11,0.35);
+      white-space: nowrap;
+    }
+    .ticker-track-wrap { flex: 1; overflow: hidden; position: relative; }
+    .ticker-track {
+      display: flex; gap: 0;
+      direction: ltr;
+      animation: ticker-scroll 28s linear infinite;
+      will-change: transform;
+      width: max-content;
+    }
+    .ticker-item {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.78rem; color: #e6d8d6;
+      padding: 0 2.5rem;
+      white-space: nowrap;
+    }
+    .ticker-item::before { content: '♪'; color: var(--orange); font-size: 0.65rem; }
+    @keyframes ticker-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-25%); }
+    }
+    @media (max-width: 700px) {
+      :root { --ticker-h: 32px; }
+      .ticker-label { padding: 0 0.7rem 0 0.9rem; font-size: 0.65rem; }
+      .ticker-item { font-size: 0.73rem; padding: 0 1.8rem; }
+    }
+
+    /* ─── NAV ─────────────────────────────────────────────────── */
     nav {
-      position: fixed; top: 0; width: 100%; z-index: 100;
+      position: fixed; top: var(--ticker-h); width: 100%; z-index: 100;
       display: flex; align-items: center;
       height: 100px;
       background: rgba(250,244,233,0.94);
@@ -189,7 +233,7 @@
       overflow: hidden;
       height: calc(400px + var(--ticker-h) + var(--nav-h));
       display: flex; align-items: center; justify-content: center;
-      padding-top: var(--nav-h);
+      padding-top: calc(var(--ticker-h) + var(--nav-h));
       background: #1a1410;
       text-align: center;
     }
@@ -279,14 +323,17 @@
       padding: 2.4rem;
       display: flex; gap: 2rem; align-items: flex-start;
       box-shadow: 0 4px 24px var(--shadow);
-      margin-top: 2rem;
+      margin-top: 0;
     }
-    .artistic-dir-card .dir-icon {
+    .artistic-dir-card .dir-photo {
       flex-shrink: 0;
-      width: 56px; height: 56px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--orange), var(--yellow));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.5rem;
+      width: 76px; height: 92px; border-radius: 10px;
+      overflow: hidden;
+      background: #E2D5CF;
+      border: 1px solid var(--border);
+    }
+    .artistic-dir-card .dir-photo svg {
+      width: 100%; height: 100%; display: block;
     }
     .dir-info .dir-name {
       font-size: 1.2rem; font-weight: 800; margin-bottom: 0.3rem;
@@ -395,8 +442,26 @@
       .gallery-item.g-tall { grid-row: span 1; }
     }
   </style>
+  <link rel="stylesheet" href="./page-transitions.css" />
 </head>
 <body>
+
+  <!-- ── TICKER ── -->
+  <div class="ticker-bar" role="marquee" aria-label="עדכוני פסטיבל">
+    <div class="ticker-track-wrap">
+      <div class="ticker-track">
+        <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
+        <span class="ticker-item">ההופעה הראשונה הוכרזה — פרטים נוספים בקרוב</span>
+        <span class="ticker-item">חבילות נופש חדשות עם מלונות אילת — 3 לילות + שאטל לנמל</span>
+        <span class="ticker-item">11–14 בנובמבר 2026 · נמל אילת · 40 שנות פסטיבל ג׳אז ים סוף</span>
+        <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
+        <span class="ticker-item">ההופעה הראשונה הוכרזה — פרטים נוספים בקרוב</span>
+        <span class="ticker-item">חבילות נופש חדשות עם מלונות אילת — 3 לילות + שאטל לנמל</span>
+        <span class="ticker-item">11–14 בנובמבר 2026 · נמל אילת · 40 שנות פסטיבל ג׳אז ים סוף</span>
+      </div>
+    </div>
+    <div class="ticker-label">UPDATES</div>
+  </div>
 
   <!-- ── NAV ── -->
   <nav id="navbar">
@@ -469,7 +534,14 @@
         </div>
 
         <div class="artistic-dir-card">
-          <div class="dir-icon" aria-hidden="true">🎼</div>
+          <div class="dir-photo" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 76 92">
+              <rect width="76" height="92" fill="#E2D5CF"/>
+              <ellipse cx="38" cy="28" rx="15" ry="17" fill="#C4ABA4"/>
+              <path d="M23 27 Q22 13 38 11 Q54 13 53 27 Q53 15 38 14 Q23 15 23 27Z" fill="#A89090"/>
+              <path d="M2 92 Q2 63 21 57 Q28 54 38 53 Q48 54 55 57 Q74 63 74 92Z" fill="#C4ABA4"/>
+            </svg>
+          </div>
           <div class="dir-info">
             <div class="dir-name">ניבה עמלי מעוז</div>
             <div class="dir-role">מנהלת אמנותית · Artistic Director</div>
@@ -566,5 +638,6 @@
     }, { passive: true });
   </script>
 
+  <script src="./page-transitions.js"></script>
 </body>
 </html>
