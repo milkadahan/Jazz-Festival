@@ -129,7 +129,6 @@
       border-bottom: 1px solid var(--border);
       transition: background 0.35s, height 0.35s;
       overflow: hidden;
-      animation: navSlideIn 0.65s 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
     nav.scrolled {
       height: 64px;
@@ -137,10 +136,6 @@
       box-shadow: 0 2px 16px var(--shadow);
     }
     :root:has(nav.scrolled) { --nav-h: 64px; }
-    @keyframes navSlideIn {
-      from { opacity: 0; transform: translateY(-18px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
 
     .nav-logo-tab {
       flex-shrink: 0;
@@ -329,9 +324,7 @@
     }
     .hero-stat-num {
       font-size: 1.8rem; font-weight: 900; line-height: 1.2;
-      background: linear-gradient(135deg, var(--orange), var(--yellow));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--orange);
     }
     .hero-stat-label {
       font-size: 0.75rem; color: var(--muted);
@@ -472,6 +465,8 @@
       flex-direction: column;
       align-items: center;
       gap: 2rem;
+      position: relative;
+      z-index: 1;
     }
     .past-tl-header { text-align: center; }
     .past-tl-eyebrow {
@@ -506,6 +501,7 @@
     /* Horizontal dot-line timeline */
     .past-tl-track-wrap {
       width: 100%;
+      flex: 1;
       overflow-x: auto;
       scroll-behavior: smooth;
       scrollbar-width: none;
@@ -523,19 +519,62 @@
       min-width: max-content;
       padding: 28px 4rem 16px;
     }
-    .past-tl-track::before {
+    /* Full-width timeline row */
+    .past-tl-row {
+      position: relative;
+      display: flex;
+      align-items: center;
+      direction: ltr;
+      width: 100%;
+    }
+    /* Full-bleed gray line — spans the entire viewport width */
+    .past-tl-row::before {
       content: '';
       position: absolute;
-      top: 36px;
       left: 0; right: 0;
       height: 2px;
       background: var(--border-strong);
+      top: 44px; /* wrap-padding-top(8) + track-line-offset(36) */
+      pointer-events: none;
+      z-index: 0;
     }
+    /* Scroll arrows — absolutely positioned, centered on the gray line */
+    .past-tl-arrow {
+      position: absolute;
+      top: 44px;              /* = line position in row */
+      transform: translateY(-50%); /* center on the line */
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 1.5px solid var(--border-strong);
+      color: var(--muted);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem; line-height: 1;
+      font-family: var(--font);
+      z-index: 3;
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s, opacity 0.2s;
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+    .past-tl-arrow--prev { left:  1.5rem; }
+    .past-tl-arrow--next { right: 1.5rem; }
+    .past-tl-arrow:hover:not(:disabled) {
+      background: var(--orange);
+      border-color: var(--orange);
+      color: #fff;
+      transform: translateY(-50%) scale(1.08);
+    }
+    .past-tl-arrow:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+    /* Remove the old inline track line (replaced by row::before) */
+    .past-tl-track::before { display: none; }
     .past-tl-year-col {
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 0 16px;
+      padding: 0 28px;
       cursor: pointer;
       position: relative;
       z-index: 1;
@@ -576,6 +615,7 @@
     .past-tl-artists-wrap {
       width: 100%;
       max-width: 1100px;
+      margin-top: 80px;
       transition: opacity 0.25s;
     }
     .past-tl-artists-wrap.fading { opacity: 0; }
@@ -692,6 +732,10 @@
       .hero-stat-sep { display: none; }
       .past-timeline-section { padding: 2.5rem 0 3rem; }
       .past-tl-year-num { font-size: clamp(4rem, 18vw, 7rem); }
+      .past-tl-arrow { width: 32px; height: 32px; font-size: 0.88rem; }
+      .past-tl-arrow--prev { left: 0.75rem; }
+      .past-tl-arrow--next { right: 0.75rem; }
+      .past-tl-year-col { padding: 0 18px; }
       footer { padding: 2rem 1rem; }
     }
     /* ─── REDUCED MOTION ────────────────────────────────────── */
@@ -704,6 +748,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="./page-transitions.css" />
 </head>
 <body>
 
@@ -740,11 +785,9 @@
     <div class="nav-inner">
       <ul class="nav-links" id="navLinks">
         <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
-        <li><a href="./index.html#lineup" data-he="אמנים" data-en="Artists">אמנים</a></li>
         <li><a href="./lineup.html" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
         <li><a href="./past-artists.html" class="active" data-he="שנים קודמות" data-en="Past Artists">שנים קודמות</a></li>
-        <li><a href="./index.html#hotels" data-he="מלונות" data-en="Hotels">מלונות</a></li>
-        <li><a href="./index.html#venue" data-he="מיקום" data-en="Location">מיקום</a></li>
+        <li><a href="https://www.hotels.com" target="_blank" rel="noopener" data-he="מלונות" data-en="Hotels">מלונות</a></li>
       </ul>
       <div class="nav-actions">
         <a class="nav-btn-secondary" data-he="חבילות נופש" data-en="Stay Packages"
@@ -770,10 +813,6 @@
     <div class="page-hero-bg"></div>
     <div class="page-hero-grid"></div>
     <div class="page-hero-content">
-      <div class="page-hero-tag">
-        <span class="page-hero-tag-dot"></span>
-        <span>Past Artists · אמנים לאורך ההיסטוריה</span>
-      </div>
       <h1 class="page-hero-title">40 שנות מוזיקה</h1>
       <p class="page-hero-subtitle">מ-1986 עד 2026 — מאות אמנים מהעולם ומישראל על חוף ים סוף</p>
       <div class="page-hero-years-badge">1986 – 2026 · 41 מהדורות</div>
@@ -805,34 +844,39 @@
 
   <!-- ── TIMELINE SECTION ── -->
   <section class="past-timeline-section" aria-label="ציר זמן הפסטיבל">
-    <div class="past-tl-inner">
 
+    <div class="past-tl-inner">
       <!-- Header -->
       <div class="past-tl-header">
         <h2 class="past-tl-heading">פסטיבל הג׳אז על ציר הזמן</h2>
       </div>
-
       <!-- Big year number -->
       <div class="past-tl-year-wrap">
         <div class="past-tl-year-num" id="yearDisplayNum">2026</div>
         <div class="past-tl-year-edition" id="yearDisplayEdition">מהדורה 41 · אילת</div>
       </div>
+    </div>
 
-      <!-- Horizontal dot-line timeline -->
+    <!-- Full-width timeline row with arrows -->
+    <div class="past-tl-row">
+      <button class="past-tl-arrow past-tl-arrow--prev" id="pastTlPrev" onclick="scrollTimeline(-1)" aria-label="שנים קודמות">←</button>
       <div class="past-tl-track-wrap" id="pastTlWrap">
         <div class="past-tl-track" id="pastTlTrack">
           <!-- dots + year labels rendered by JS -->
         </div>
       </div>
+      <button class="past-tl-arrow past-tl-arrow--next" id="pastTlNext" onclick="scrollTimeline(1)" aria-label="שנים חדשות יותר">→</button>
+    </div>
 
+    <div class="past-tl-inner">
       <!-- Artist chips -->
       <div class="past-tl-artists-wrap" id="pastArtistsWrap">
         <div class="past-artists-grid" id="tlArtistsGrid">
           <!-- rendered by JS -->
         </div>
       </div>
-
     </div>
+
   </section>
 
   <!-- ── FOOTER ── -->
@@ -1298,6 +1342,25 @@
       }, 220);
     }
 
+    /* ─── ARROW SCROLL ─── */
+    function scrollTimeline(dir) {
+      /* dir: -1 = toward older years (left), +1 = toward newer (right) */
+      var wrap = document.getElementById('pastTlWrap');
+      wrap.scrollBy({ left: dir * 320, behavior: 'smooth' });
+      setTimeout(updateTlArrows, 380);
+    }
+
+    function updateTlArrows() {
+      var wrap = document.getElementById('pastTlWrap');
+      var prev = document.getElementById('pastTlPrev');
+      var next = document.getElementById('pastTlNext');
+      if (!wrap || !prev || !next) return;
+      var atStart = wrap.scrollLeft <= 2;
+      var atEnd   = wrap.scrollLeft >= wrap.scrollWidth - wrap.clientWidth - 2;
+      prev.disabled = atStart;
+      next.disabled = atEnd;
+    }
+
     /* ─── DRAG-TO-SCROLL for timeline ─── */
     (function() {
       var wrap = null;
@@ -1338,7 +1401,12 @@
         }, { passive: true });
       }
 
-      document.addEventListener('DOMContentLoaded', init);
+      document.addEventListener('DOMContentLoaded', function() {
+        init();
+        /* Update arrow states on scroll */
+        var w = document.getElementById('pastTlWrap');
+        if (w) w.addEventListener('scroll', updateTlArrows, { passive: true });
+      });
     })();
 
     /* ─── NAV: scroll shrink ─── */
@@ -1372,9 +1440,13 @@
     document.getElementById('yearDisplayNum').textContent = _initYr;
     document.getElementById('yearDisplayEdition').textContent = YEARS_DATA[_initYr].edition;
     renderArtists(_initYr);
-    /* Scroll to 2026 after layout paint */
-    requestAnimationFrame(function() { scrollTlToYear(0); });
+    /* Scroll to 2026 after layout paint, then sync arrow states */
+    requestAnimationFrame(function() {
+      scrollTlToYear(0);
+      setTimeout(updateTlArrows, 50);
+    });
 
   </script>
+  <script src="./page-transitions.js"></script>
 </body>
 </html>

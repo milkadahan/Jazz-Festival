@@ -172,7 +172,6 @@
       border-bottom: 1px solid var(--border);
       transition: background 0.35s, height 0.35s, opacity 0.25s ease;
       overflow: hidden;
-      animation: navSlideIn 0.65s 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
     nav.scrolled {
       height: 64px;
@@ -624,10 +623,6 @@
     }
     @keyframes fadeIn {
       from { opacity: 0; } to { opacity: 1; }
-    }
-    @keyframes navSlideIn {
-      from { opacity: 0; transform: translateY(-100%); }
-      to   { opacity: 1; transform: translateY(0); }
     }
 
     /* ─── SECTIONS SHARED ─────────────────────────────────────── */
@@ -1153,8 +1148,8 @@
     }
     .banner-bg-photo img {
       position: absolute;
-      left: 0; top: -10%;
-      width: 100%; height: 135%;
+      left: 0; top: -65%;
+      width: 100%; height: 170%;
       object-fit: cover; object-position: center top;
       display: block;
     }
@@ -1218,6 +1213,8 @@
       text-align: start; /* dir=rtl handles alignment */
     }
     .news-card {
+      display: block;
+      color: inherit; text-decoration: none;
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 16px; overflow: hidden;
@@ -2979,7 +2976,7 @@
     </div>
 
     <div class="news-grid reveal">
-      <div class="news-card">
+      <a class="news-card" href="./article.html">
         <div class="news-img" aria-hidden="true">🎷</div>
         <div class="news-body">
           <div class="news-date">מאי 2026</div>
@@ -2987,9 +2984,9 @@
           <div class="news-excerpt">19 הופעות על פני 4 במות ו-4 ימים. ענת כהן, חוה אלברשטיין, SHALOSH, The 3 Cohens ועוד שמות מהמובילים בג'אז הישראלי והעולמי — כולם יעלו לבמות נמל אילת בנובמבר.</div>
           <div class="news-more">קרא עוד ←</div>
         </div>
-      </div>
+      </a>
 
-      <div class="news-card">
+      <a class="news-card" href="./article-port.html">
         <div class="news-img" aria-hidden="true">🏖️</div>
         <div class="news-body">
           <div class="news-date">אפריל 2026</div>
@@ -2997,9 +2994,9 @@
           <div class="news-excerpt">הפסטיבל יתקיים על 4 במות בנמל אילת הציורי. שאטל חינם ממלונות אילת המרכזיים, חניון מאורגן ומפה אינטראקטיבית — כל המידע על הגעה ולוגיסטיקה כבר כאן.</div>
           <div class="news-more">קרא עוד ←</div>
         </div>
-      </div>
+      </a>
 
-      <div class="news-card">
+      <a class="news-card" href="./article-hava.html">
         <div class="news-img" aria-hidden="true">🎤</div>
         <div class="news-body">
           <div class="news-date">יוני 2026</div>
@@ -3007,7 +3004,7 @@
           <div class="news-excerpt">המוסיקאית האגדית חוה אלברשטיין תעלה לבמה הראשית ב-13 בנובמבר בערב חגיגי מיוחד, עם ביצועים מ-50 שנות קריירה בליווי הרכב ג'אז ייחודי. כרטיסים בהרשמה מוקדמת.</div>
           <div class="news-more">קרא עוד ←</div>
         </div>
-      </div>
+      </a>
     </div>
   </section>
 

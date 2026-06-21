@@ -139,7 +139,6 @@
       border-bottom: 1px solid var(--border);
       transition: background 0.35s, height 0.35s;
       overflow: hidden;
-      animation: navSlideIn 0.65s 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
     nav.scrolled {
       height: 64px;
@@ -147,10 +146,6 @@
       box-shadow: 0 2px 16px var(--shadow);
     }
     :root:has(nav.scrolled) { --nav-h: 64px; }
-    @keyframes navSlideIn {
-      from { opacity: 0; transform: translateY(-18px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
 
     /* Logo */
     .nav-logo-tab {
@@ -271,23 +266,14 @@
       padding-top: calc(var(--ticker-h) + var(--nav-h));
       background: #f5efe6;
     }
-    /* BG image: Figma exact — 236.97%x400=947.88px tall, top=nav-111.51%x400 */
+    /* BG image: Figma exact — 236.97%×400=947.88px tall, top=nav−111.51%×400px */
     .page-hero-bg-img {
       position: absolute;
       left: 0; width: 100%;
       height: 947.88px;
-      top: calc(var(--ticker-h) + var(--nav-h) - 446.04px);
+      top: calc(var(--ticker-h) + var(--nav-h) - 446px);
       pointer-events: none;
       display: block;
-    }
-    .page-hero-glow-orange {
-      position: absolute;
-      left: -22px;
-      top: calc(var(--ticker-h) + var(--nav-h) - 103px);
-      width: 390px; height: 390px;
-      pointer-events: none;
-      transform: scaleX(-1);
-      z-index: 1;
     }
     .page-hero-glow-teal {
       position: absolute;
@@ -299,22 +285,25 @@
     .page-hero-content {
       position: relative; z-index: 2;
       display: flex; flex-direction: column;
-      gap: 12px; align-items: center;
+      gap: 16px; align-items: center;
       padding-inline: 120px;
     }
     .page-hero-tag {
       display: flex; align-items: center; gap: 8px; justify-content: center;
       font-size: 1rem; font-weight: 400;
-      color: rgba(14,13,8,0.85);
-      line-height: 1.5; letter-spacing: 0.01em;
+      color: #0e0d08;
+      line-height: 1.5; letter-spacing: 0.15px;
     }
     .page-hero-title {
+      display: flex; align-items: center; gap: 26px;
       font-size: clamp(3rem, 7vw, 6rem);
       font-weight: 800;
       color: #ffffff;
       line-height: 1.1;
-      letter-spacing: -0.025em;
+      letter-spacing: -1.5px;
     }
+    .page-hero-title-he { font-family: 'Noto Sans Hebrew', sans-serif; }
+    .page-hero-title-en { font-family: 'Hepta Slab', serif; }
     /* ─── HERO STATS STRIP ─────────────────────────────────────── */
     .hero-stats-bar {
       background: var(--bg2);
@@ -425,32 +414,20 @@
       scroll-margin-top: calc(var(--ticker-h) + var(--nav-h) + 120px);
     }
     .day-block-header {
-      display: flex; align-items: center; gap: 1rem;
-      margin-bottom: 2rem;
-      padding-bottom: 1rem;
-      border-bottom: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.5rem;
     }
-    .day-block-num {
-      width: 56px; height: 56px; border-radius: 14px; flex-shrink: 0;
-      background: linear-gradient(135deg, var(--orange), var(--red));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.6rem; font-weight: 900; color: #fff;
-      box-shadow: 0 6px 20px rgba(224,86,11,0.35);
-    }
-    .day-block-info { flex: 1; }
     .day-block-title {
-      font-size: 1.7rem; font-weight: 900; color: var(--text);
-      line-height: 1.1;
-    }
-    .day-block-subtitle {
-      font-size: 0.88rem; color: var(--muted); margin-top: 0.2rem;
+      font-size: 1.7rem; font-weight: 900; color: #3a2a1e;
+      line-height: 1.2;
     }
     .day-block-count {
       background: rgba(224,86,11,0.1);
       color: var(--orange);
       border: 1px solid rgba(224,86,11,0.25);
       border-radius: 50px; padding: 0.3rem 0.9rem;
-      font-size: 0.8rem; font-weight: 600;
+      font-size: 0.875rem; font-weight: 600;
+      font-family: 'Noto Sans Hebrew', sans-serif;
       white-space: nowrap;
     }
 
@@ -461,52 +438,159 @@
       margin-bottom: 0.9rem;
     }
     .stage-dot {
-      width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+      width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0;
     }
     .stage-group-name {
-      font-size: 0.82rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.06em;
+      font-size: 1rem; font-weight: 600;
+      font-family: 'Hepta Slab', serif;
     }
     .stage-group-line {
-      flex: 1; height: 1px; background: var(--border);
+      flex: 1; height: 1px; background: rgba(58,42,30,0.12);
     }
 
-    /* ─── SHOW ROWS ─────────────────────────────────────────────── */
-    .shows-list { display: flex; flex-direction: column; gap: 0.7rem; }
-    .show-row {
-      display: flex; align-items: center; gap: 0;
+    /* ─── SHOW CARDS ─────────────────────────────────────────────── */
+    .shows-list { display: flex; flex-direction: column; gap: 11px; counter-reset: show-num; }
+    .show-card {
+      display: flex; align-items: center; gap: 16px;
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 14px; overflow: hidden;
+      border-radius: 14px;
+      padding: 9px 9px 9px 25px;
+      min-height: 110px;
+      cursor: pointer;
+      counter-increment: show-num;
       transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
-      cursor: default;
     }
-    .show-row:hover {
-      transform: translateX(-4px);
+    .show-card:hover {
+      transform: translateX(4px);
       box-shadow: 0 6px 24px var(--shadow);
+      border-color: var(--border-strong);
     }
-    .show-row-accent { width: 5px; flex-shrink: 0; }
-    .show-row-time {
-      min-width: 64px;
-      padding: 1rem 0.8rem 1rem 0.5rem;
-      font-size: 1rem; font-weight: 700;
-      text-align: center;
-      color: var(--text);
+    .show-card-img {
       flex-shrink: 0;
+      width: 92px; height: 92px;
+      border-radius: 8px;
+      background: linear-gradient(145deg, #2d2219, #3a2a1e);
+      display: flex; align-items: center; justify-content: center;
     }
-    .show-row-divider {
+    .show-card-img::after {
+      content: '♪';
+      font-size: 1.8rem;
+      color: rgba(250,244,233,0.14);
+    }
+    .show-card-num {
+      flex-shrink: 0;
+      font-size: 34px; font-weight: 700;
+      font-family: 'Hepta Slab', serif;
+      color: #a09593;
+      min-width: 2.2ch; text-align: center;
+    }
+    .show-card-num::before { content: counter(show-num, decimal-leading-zero); }
+    .show-card-info {
+      flex: 1;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .show-card-name {
+      font-size: 20px; font-weight: 600;
+      color: #3a2a1e; line-height: 1.3;
+    }
+    .show-card-sub {
+      font-size: 16px; font-weight: 400;
+      color: #8a7256; line-height: 1.4;
+    }
+    .show-card-tag {
+      display: inline-flex; align-items: center; flex-shrink: 0;
+      background: #f3f1ea;
+      border: 1px solid #d5c9b0;
+      border-radius: 8px;
+      padding: 5px 12px;
+      font-size: 14px; font-weight: 600;
+      color: #8f7152;
+      font-family: 'Noto Sans Hebrew', sans-serif;
+      white-space: nowrap;
+    }
+    .show-card-tag.headliner {
+      background: rgba(214,34,70,0.1);
+      border-color: rgba(214,34,70,0.25);
+      color: var(--red);
+    }
+    .show-card-divider {
       width: 1px; height: 36px;
-      background: var(--border); flex-shrink: 0;
+      background: rgba(58,42,30,0.12); flex-shrink: 0;
     }
-    .show-row-info { flex: 1; padding: 1rem 1.2rem; }
-    .show-row-name { font-size: 1.05rem; font-weight: 700; line-height: 1.3; }
-    .show-row-meta { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
-    .show-row-tag {
-      display: inline-block; margin-top: 0.35rem;
-      background: rgba(224,86,11,0.1); color: var(--orange);
-      border-radius: 50px; padding: 0.15rem 0.7rem; font-size: 0.72rem; font-weight: 600;
+    .show-card-time {
+      flex-shrink: 0;
+      font-size: 20px; font-weight: 600;
+      font-family: 'Hepta Slab', serif;
+      color: #483f3b;
+      min-width: 3.5ch; text-align: center;
     }
-    .show-row-headliner { color: var(--red) !important; background: rgba(214,34,70,0.1) !important; }
+
+    /* ─── SHOW DRAWER ──────────────────────────────────────────── */
+    body.show-drawer-open nav,
+    body.show-drawer-open .ticker-bar { z-index: 0 !important; }
+    .show-drawer-overlay {
+      position: fixed; inset: 0;
+      background: rgba(26,20,16,0.52);
+      backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+      z-index: 300; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    .show-drawer-overlay.open { opacity: 1; pointer-events: all; }
+    .show-drawer {
+      position: fixed; top: 0; right: 0;
+      width: min(460px, 95vw); height: 100dvh;
+      background: var(--card-bg); z-index: 301;
+      transform: translateX(calc(100% + 4px));
+      transition: transform 0.4s cubic-bezier(0.32,0.72,0,1);
+      overflow-y: auto; display: flex; flex-direction: column;
+      box-shadow: -4px 0 60px rgba(58,42,30,0.2);
+    }
+    .show-drawer.open { transform: translateX(0); }
+    .show-drawer-img-wrap { position: relative; flex-shrink: 0; }
+    .show-drawer-img {
+      width: 100%; aspect-ratio: 16/9;
+      background: linear-gradient(145deg, #2d2219, #3a2a1e);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4rem; color: rgba(250,244,233,0.12);
+    }
+    .show-drawer-img::after { content: '♪'; }
+    .show-drawer-close {
+      position: absolute; top: 1rem; left: 1rem;
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(26,20,16,0.5); border: 1.5px solid rgba(250,244,233,0.28);
+      color: #fff; font-size: 1rem;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .show-drawer-close:hover { background: rgba(26,20,16,0.82); border-color: rgba(250,244,233,0.6); }
+    .show-drawer-body {
+      padding: 1.6rem 1.8rem 2.5rem;
+      display: flex; flex-direction: column; gap: 0.75rem; flex: 1;
+    }
+    .show-drawer-meta { display: flex; align-items: center; gap: 6px; font-size: 0.88rem; font-weight: 600; }
+    .show-drawer-meta-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+    .show-drawer-day { font-size: 0.8rem; color: var(--muted); margin-top: -0.25rem; }
+    .show-drawer-name {
+      font-size: 1.7rem; font-weight: 900; color: var(--text);
+      line-height: 1.2; margin-top: 0.25rem;
+    }
+    .show-drawer-sub { font-size: 0.95rem; color: var(--muted); line-height: 1.65; }
+    .show-drawer-tag {
+      display: inline-flex; align-items: center; align-self: flex-start;
+      background: #f3f1ea; border: 1px solid #d5c9b0; border-radius: 8px; padding: 5px 14px;
+      font-size: 0.875rem; font-weight: 600; color: #8f7152; font-family: 'Noto Sans Hebrew', sans-serif;
+    }
+    .show-drawer-tag.headliner { background: rgba(214,34,70,0.1); border-color: rgba(214,34,70,0.25); color: var(--red); }
+    .show-drawer-divider { height: 1px; background: var(--border); margin: 0.25rem 0; }
+    .show-drawer-cta {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--btn-gradient); color: #fff; border-radius: 50px; padding: 0.9rem 2.4rem;
+      font-size: 1rem; font-weight: 700; text-decoration: none;
+      box-shadow: 0 4px 20px rgba(224,86,11,0.35); margin-top: 0.25rem; align-self: flex-start;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .show-drawer-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(224,86,11,0.5); }
+    .cal-show-card { cursor: pointer; }
 
     /* ─── FOOTER ───────────────────────────────────────────────── */
     footer {
@@ -590,7 +674,6 @@
     .calendar-section.cv-visible { display: block; }
     /* ממסתיר רשימה ומציג יומן */
     body.view-calendar .day-block { display: none; }
-    body.view-calendar .calendar-section { display: block; }
     /* ממסתיר CTA בתצוגת יומן */
     body.view-calendar .lineup-cta { display: none; }
 
@@ -655,22 +738,49 @@
     .cal-row:last-child .cal-cell,
     .cal-row:last-child .cal-time-cell { border-bottom: none; }
 
-    .cal-show-card {
-      border-radius: 9px;
-      padding: 0.45rem 0.65rem;
-      font-size: 0.77rem;
-      line-height: 1.35;
-      border-right: 4px solid transparent;
-      flex: 1;
+    /* Show blocks — same design as index.html */
+    .cal-cell .show-block { flex: 1; width: 100%; }
+    .show-block {
+      background: rgba(224,86,11,0.08);
+      border: 1px solid rgba(224,86,11,0.25);
+      border-radius: 10px; padding: 0;
+      cursor: pointer; transition: all 0.25s;
+      position: relative; overflow: hidden;
+      display: flex; align-items: stretch; gap: 8px;
     }
-    .cal-show-name { font-weight: 700; color: var(--text); }
-    .cal-show-time { font-size: 0.7rem; color: var(--muted); font-weight: 600; margin-top: 0.2rem; }
-    .cal-show-tag {
+    .show-block::before {
+      content: ''; position: absolute;
+      inset-inline-start: 0; top: 0; bottom: 0; width: 3px;
+      background: linear-gradient(to bottom, var(--orange), var(--red));
+    }
+    .show-block:hover { background: rgba(224,86,11,0.16); transform: scale(1.01); }
+    .show-block-inner { flex: 1; padding: 0.55rem 0.75rem; }
+    .show-name { font-weight: 700; font-size: 0.82rem; color: var(--text); }
+    .show-time { font-size: 0.7rem; color: var(--orange); font-weight: 600; margin-top: 0.2rem; }
+    .show-tag {
       display: inline-block; margin-top: 0.25rem;
-      font-size: 0.65rem; font-weight: 700;
-      background: rgba(214,34,70,0.12); color: var(--red);
+      font-size: 0.63rem; font-weight: 700;
       border-radius: 50px; padding: 0.1rem 0.45rem;
+      background: rgba(224,86,11,0.12); color: var(--orange);
     }
+    /* Red Tent */
+    .show-block.stage-red { background: rgba(214,34,70,0.07); border-color: rgba(214,34,70,0.25); }
+    .show-block.stage-red::before { background: linear-gradient(to bottom, var(--red), #a01030); }
+    .show-block.stage-red:hover { background: rgba(214,34,70,0.14); }
+    .show-block.stage-red .show-time { color: var(--red); }
+    .show-block.stage-red .show-tag { background: rgba(214,34,70,0.12); color: var(--red); }
+    /* Blue Dome */
+    .show-block.stage-teal { background: rgba(10,143,142,0.07); border-color: rgba(10,143,142,0.25); }
+    .show-block.stage-teal::before { background: linear-gradient(to bottom, var(--teal), #006d6c); }
+    .show-block.stage-teal:hover { background: rgba(10,143,142,0.14); }
+    .show-block.stage-teal .show-time { color: var(--teal); }
+    .show-block.stage-teal .show-tag { background: rgba(10,143,142,0.12); color: var(--teal); }
+    /* Green Pavilion */
+    .show-block.stage-yellow { background: rgba(224,168,0,0.08); border-color: rgba(224,168,0,0.25); }
+    .show-block.stage-yellow::before { background: linear-gradient(to bottom, var(--yellow), #a07a00); }
+    .show-block.stage-yellow:hover { background: rgba(224,168,0,0.16); }
+    .show-block.stage-yellow .show-time { color: var(--yellow); }
+    .show-block.stage-yellow .show-tag { background: rgba(224,168,0,0.12); color: var(--yellow); }
     .cal-empty {
       display: flex; align-items: center; justify-content: center;
       color: var(--border-strong);
@@ -683,12 +793,18 @@
       .page-hero { height: calc(260px + var(--ticker-h) + var(--nav-h)); }
       .page-hero-bg-img { height: 618px; top: calc(var(--ticker-h) + var(--nav-h) - 290px); }
       .page-hero-content { padding-inline: 1.5rem; }
-      .page-hero-title { font-size: clamp(2rem, 10vw, 3rem); }
-      .page-hero-glow-orange { width: 200px; height: 200px; top: calc(var(--ticker-h) + var(--nav-h) - 50px); left: -30px; }
+      .page-hero-title { font-size: clamp(2rem, 10vw, 3rem); gap: 16px; }
       .page-hero-glow-teal { width: 220px; height: 220px; right: -180px; bottom: -60px; }
       main { padding: 2rem 1rem 4rem; }
       .footer-grid { grid-template-columns: 1fr; gap: 1.8rem; }
-      .show-row-time { min-width: 52px; font-size: 0.88rem; }
+      .show-card { padding: 8px 8px 8px 14px; gap: 10px; min-height: 80px; }
+      .show-card-img { width: 60px; height: 60px; }
+      .show-card-num { font-size: 22px; }
+      .show-card-name { font-size: 15px; }
+      .show-card-sub { font-size: 13px; }
+      .show-card-time { font-size: 14px; min-width: 3ch; }
+      .show-card-tag { font-size: 12px; padding: 4px 8px; }
+      .day-block-title { font-size: 1.3rem; }
       /* controls-strip — stack vertically */
       .controls-strip {
         flex-direction: column;
@@ -715,6 +831,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="./page-transitions.css" />
 </head>
 <body>
 
@@ -751,12 +868,9 @@
     <div class="nav-inner">
       <ul class="nav-links" id="navLinks">
         <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
-        <li><a href="./index.html#lineup" data-he="אמנים" data-en="Artists">אמנים</a></li>
         <li><a href="./lineup.html" class="active" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
-        <li><a href="./past-artists.html" data-he="אמנים משנים קודמות" data-en="Past Artists">אמנים משנים קודמות</a></li>
-        <li><a href="./index.html#hotels" data-he="מלונות" data-en="Hotels">מלונות</a></li>
-        <li><a href="./index.html#venue" data-he="מיקום" data-en="Location">מיקום</a></li>
-        <li><a href="./index.html#news" data-he="עדכונים" data-en="News">עדכונים</a></li>
+        <li><a href="./past-artists.html" data-he="שנים קודמות" data-en="Past Artists">שנים קודמות</a></li>
+        <li><a href="https://www.hotels.com" target="_blank" rel="noopener" data-he="מלונות" data-en="Hotels">מלונות</a></li>
       </ul>
       <div class="nav-actions">
         <a class="nav-btn-secondary" data-he="חבילות נופש" data-en="Stay Packages"
@@ -780,15 +894,17 @@
   <!-- ── PAGE HERO ── -->
   <div class="page-hero">
     <img class="page-hero-bg-img" src="./Graphig assets/banner-lineup.png" alt="" aria-hidden="true" width="4096" height="2578" fetchpriority="high" />
-    <img class="page-hero-glow-orange" src="./Graphig assets/glow-orange.png" alt="" aria-hidden="true" loading="lazy" />
-    <img class="page-hero-glow-teal"   src="./Graphig assets/glow-teal.png"   alt="" aria-hidden="true" loading="lazy" />
+    <img class="page-hero-glow-teal" src="./Graphig assets/glow-teal.png" alt="" aria-hidden="true" loading="lazy" />
     <div class="page-hero-content">
       <div class="page-hero-tag">
         <span>Full Lineup</span>
         <span>·</span>
         <span>ליינאפ מלא</span>
       </div>
-      <h1 class="page-hero-title">ליינאפ 2026</h1>
+      <h1 class="page-hero-title">
+        <span class="page-hero-title-he">ליינאפ</span>
+        <span class="page-hero-title-en">2026</span>
+      </h1>
     </div>
   </div>
 
@@ -848,11 +964,7 @@
     <!-- ════ יום ד׳ — 11 בנובמבר ════ -->
     <section class="day-block" id="day-1">
       <div class="day-block-header">
-        <div class="day-block-num">ד׳</div>
-        <div class="day-block-info">
-          <div class="day-block-title">יום ד׳ · 11 בנובמבר 2026</div>
-          <div class="day-block-subtitle">פתיחת הפסטיבל</div>
-        </div>
+        <div class="day-block-title">יום ד׳ · 11 בנובמבר</div>
         <div class="day-block-count">8 הופעות</div>
       </div>
 
@@ -864,35 +976,38 @@
           <div class="stage-group-line"></div>
         </div>
         <div class="shows-list">
-          <div class="show-row">
-            <div class="show-row-accent" style="background:var(--orange)"></div>
-            <div class="show-row-time">18:00</div>
-            <div class="show-row-divider"></div>
-            <div class="show-row-info">
-              <div class="show-row-name">פתיחה רשמית — טקס יובל</div>
-              <div class="show-row-meta">טקס פתיחה חגיגי לכבוד 40 שנות הפסטיבל</div>
-              <span class="show-row-tag">אירוע פתיחה</span>
+          <div class="show-card">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-name">פתיחה רשמית — טקס יובל</div>
+              <div class="show-card-sub">טקס פתיחה חגיגי לכבוד 40 שנות הפסטיבל</div>
             </div>
+            <span class="show-card-tag">אירוע פתיחה</span>
+            <div class="show-card-divider"></div>
+            <div class="show-card-time">18:00</div>
           </div>
-          <div class="show-row">
-            <div class="show-row-accent" style="background:var(--orange)"></div>
-            <div class="show-row-time">20:00</div>
-            <div class="show-row-divider"></div>
-            <div class="show-row-info">
-              <div class="show-row-name">SHALOSH</div>
-              <div class="show-row-meta">אלבום ראשון בפסטיבל + אורח: רוני איתן</div>
-              <span class="show-row-tag">השקת אלבום</span>
+          <div class="show-card">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-name">SHALOSH</div>
+              <div class="show-card-sub">אלבום ראשון בפסטיבל + אורח: רוני איתן</div>
             </div>
+            <span class="show-card-tag">השקת אלבום</span>
+            <div class="show-card-divider"></div>
+            <div class="show-card-time">20:00</div>
           </div>
-          <div class="show-row">
-            <div class="show-row-accent" style="background:var(--orange)"></div>
-            <div class="show-row-time">22:00</div>
-            <div class="show-row-divider"></div>
-            <div class="show-row-info">
-              <div class="show-row-name">Las Piratas Piratas</div>
-              <div class="show-row-meta">ג׳אז לטיני — פתיחת פסטיבל חגיגית</div>
-              <span class="show-row-tag">כניסה חופשית</span>
+          <div class="show-card">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-name">Las Piratas Piratas</div>
+              <div class="show-card-sub">ג׳אז לטיני — פתיחת פסטיבל חגיגית</div>
             </div>
+            <span class="show-card-tag">כניסה חופשית</span>
+            <div class="show-card-divider"></div>
+            <div class="show-card-time">22:00</div>
           </div>
         </div>
       </div>
@@ -905,23 +1020,25 @@
           <div class="stage-group-line"></div>
         </div>
         <div class="shows-list">
-          <div class="show-row">
-            <div class="show-row-accent" style="background:var(--red)"></div>
-            <div class="show-row-time">19:00</div>
-            <div class="show-row-divider"></div>
-            <div class="show-row-info">
-              <div class="show-row-name">שלישיית יותם זילברשטיין</div>
-              <div class="show-row-meta">גיטרה, בס ותופים — ג׳אז עכשווי</div>
+          <div class="show-card">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-name">שלישיית יותם זילברשטיין</div>
+              <div class="show-card-sub">גיטרה, בס ותופים — ג׳אז עכשווי</div>
             </div>
+            <div class="show-card-divider"></div>
+            <div class="show-card-time">19:00</div>
           </div>
-          <div class="show-row">
-            <div class="show-row-accent" style="background:var(--red)"></div>
-            <div class="show-row-time">21:00</div>
-            <div class="show-row-divider"></div>
-            <div class="show-row-info">
-              <div class="show-row-name">הדר נויברג New Quartet</div>
-              <div class="show-row-meta">חליל, פסנתר, בס ותופים — ג׳אז / פיוז׳ן</div>
+          <div class="show-card">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-name">הדר נויברג New Quartet</div>
+              <div class="show-card-sub">חליל, פסנתר, בס ותופים — ג׳אז / פיוז׳ן</div>
             </div>
+            <div class="show-card-divider"></div>
+            <div class="show-card-time">21:00</div>
           </div>
         </div>
       </div>
@@ -934,24 +1051,26 @@
           <div class="stage-group-line"></div>
         </div>
         <div class="shows-list">
-          <div class="show-row">
-            <div class="show-row-accent" style="background:var(--teal)"></div>
-            <div class="show-row-time">18:30</div>
-            <div class="show-row-divider"></div>
-            <div class="show-row-info">
-              <div class="show-row-name">שישיית קאי גלוסקא</div>
-              <div class="show-row-meta">ג׳אז עכשווי ישראלי</div>
+          <div class="show-card">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-name">שישיית קאי גלוסקא</div>
+              <div class="show-card-sub">ג׳אז עכשווי ישראלי</div>
             </div>
+            <div class="show-card-divider"></div>
+            <div class="show-card-time">18:30</div>
           </div>
-          <div class="show-row">
-            <div class="show-row-accent" style="background:var(--teal)"></div>
-            <div class="show-row-time">20:30</div>
-            <div class="show-row-divider"></div>
-            <div class="show-row-info">
-              <div class="show-row-name">שלישיית אריאל ברט</div>
-              <div class="show-row-meta">השקת אלבום חדש</div>
-              <span class="show-row-tag">השקת אלבום</span>
+          <div class="show-card">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-name">שלישיית אריאל ברט</div>
+              <div class="show-card-sub">השקת אלבום חדש</div>
             </div>
+            <span class="show-card-tag">השקת אלבום</span>
+            <div class="show-card-divider"></div>
+            <div class="show-card-time">20:30</div>
           </div>
         </div>
       </div>
@@ -960,11 +1079,7 @@
     <!-- ════ יום ה׳ — 12 בנובמבר ════ -->
     <section class="day-block" id="day-2">
       <div class="day-block-header">
-        <div class="day-block-num" style="background:linear-gradient(135deg,var(--teal),#006d6d)">ה׳</div>
-        <div class="day-block-info">
-          <div class="day-block-title">יום ה׳ · 12 בנובמבר 2026</div>
-          <div class="day-block-subtitle">לילה של ג׳אז</div>
-        </div>
+        <div class="day-block-title">יום ה׳ · 12 בנובמבר</div>
         <div class="day-block-count">7 הופעות</div>
       </div>
 
@@ -976,24 +1091,26 @@
           <div class="stage-group-line"></div>
         </div>
         <div class="shows-list">
-          <div class="show-row">
-            <div class="show-row-accent" style="background:var(--orange)"></div>
-            <div class="show-row-time">20:00</div>
-            <div class="show-row-divider"></div>
-            <div class="show-row-info">
-              <div class="show-row-name">The 3 Cohens Big Band</div>
-              <div class="show-row-meta">רוני, ענת ואלדר כהן — מופע יובל מיוחד</div>
-              <span class="show-row-tag show-row-headliner">Headliner · מיוחד לפסטיבל</span>
+          <div class="show-card">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-name">The 3 Cohens Big Band</div>
+              <div class="show-card-sub">רוני, ענת ואלדר כהן — מופע יובל מיוחד</div>
             </div>
+            <span class="show-card-tag headliner">Headliner · מיוחד לפסטיבל</span>
+            <div class="show-card-divider"></div>
+            <div class="show-card-time">20:00</div>
           </div>
-          <div class="show-row">
-            <div class="show-row-accent" style="background:var(--orange)"></div>
-            <div class="show-row-time">22:30</div>
-            <div class="show-row-divider"></div>
-            <div class="show-row-info">
-              <div class="show-row-name">ג׳ימבו ג׳אז — אורח: תמיר בר</div>
-              <div class="show-row-meta">ג׳אז ישראלי אנרגטי</div>
+          <div class="show-card">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-name">ג׳ימבו ג׳אז — אורח: תמיר בר</div>
+              <div class="show-card-sub">ג׳אז ישראלי אנרגטי</div>
             </div>
+            <div class="show-card-divider"></div>
+            <div class="show-card-time">22:30</div>
           </div>
         </div>
       </div>
@@ -1006,24 +1123,26 @@
           <div class="stage-group-line"></div>
         </div>
         <div class="shows-list">
-          <div class="show-row">
-            <div class="show-row-accent" style="background:var(--red)"></div>
-            <div class="show-row-time">18:00</div>
-            <div class="show-row-divider"></div>
-            <div class="show-row-info">
-              <div class="show-row-name">אבות ובנים — מפגש דורות</div>
-              <div class="show-row-meta">אלוארצ׳יק, גרוס, נחמיה, סאלם, פורטוגלי, צור, שטרקר</div>
-              <span class="show-row-tag">הפקת מקור</span>
+          <div class="show-card">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-name">אבות ובנים — מפגש דורות</div>
+              <div class="show-card-sub">אלוארצ׳יק, גרוס, נחמיה, סאלם, פורטוגלי, צור, שטרקר</div>
             </div>
+            <span class="show-card-tag">הפקת מקור</span>
+            <div class="show-card-divider"></div>
+            <div class="show-card-time">18:00</div>
           </div>
-          <div class="show-row">
-            <div class="show-row-accent" style="background:var(--red)"></div>
-            <div class="show-row-time">21:00</div>
-            <div class="show-row-divider"></div>
-            <div class="show-row-info">
-              <div class="show-row-name">Lay Z Gordon</div>
-              <div class="show-row-meta">שופר, ג׳אז / היפ-הופ ישראלי</div>
+          <div class="show-card">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-name">Lay Z Gordon</div>
+              <div class="show-card-sub">שופר, ג׳אז / היפ-הופ ישראלי</div>
             </div>
+            <div class="show-card-divider"></div>
+            <div class="show-card-time">21:00</div>
           </div>
         </div>
       </div>
@@ -1036,15 +1155,16 @@
           <div class="stage-group-line"></div>
         </div>
         <div class="shows-list">
-          <div class="show-row">
-            <div class="show-row-accent" style="background:var(--teal)"></div>
-            <div class="show-row-time">22:30</div>
-            <div class="show-row-divider"></div>
-            <div class="show-row-info">
-              <div class="show-row-name">שישיית קאי גלוסקא</div>
-              <div class="show-row-meta">כניסה חופשית</div>
-              <span class="show-row-tag">כניסה חופשית</span>
+          <div class="show-card">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-name">שישיית קאי גלוסקא</div>
+              <div class="show-card-sub">כניסה חופשית</div>
             </div>
+            <span class="show-card-tag">כניסה חופשית</span>
+            <div class="show-card-divider"></div>
+            <div class="show-card-time">22:30</div>
           </div>
         </div>
       </div>
@@ -1053,11 +1173,7 @@
     <!-- ════ יום ו׳ — 13 בנובמבר ════ -->
     <section class="day-block" id="day-3">
       <div class="day-block-header">
-        <div class="day-block-num" style="background:linear-gradient(135deg,var(--pink),#a0205a)">ו׳</div>
-        <div class="day-block-info">
-          <div class="day-block-title">יום ו׳ · 13 בנובמבר 2026</div>
-          <div class="day-block-subtitle">היום הגדול</div>
-        </div>
+        <div class="day-block-title">יום ו׳ · 13 בנובמבר</div>
         <div class="day-block-count">12 הופעות</div>
       </div>
 
@@ -1069,25 +1185,27 @@
           <div class="stage-group-line"></div>
         </div>
         <div class="shows-list">
-          <div class="show-row">
-            <div class="show-row-accent" style="background:var(--orange)"></div>
-            <div class="show-row-time">12:30</div>
-            <div class="show-row-divider"></div>
-            <div class="show-row-info">
-              <div class="show-row-name">Eli Degibri Quartet</div>
-              <div class="show-row-meta">עם רביעיית כלי מיתר + אורח מיוחד: שם טוב לוי</div>
-              <span class="show-row-tag show-row-headliner">Headliner · מיוחד לפסטיבל</span>
+          <div class="show-card">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-name">Eli Degibri Quartet</div>
+              <div class="show-card-sub">עם רביעיית כלי מיתר + אורח מיוחד: שם טוב לוי</div>
             </div>
+            <span class="show-card-tag headliner">Headliner · מיוחד לפסטיבל</span>
+            <div class="show-card-divider"></div>
+            <div class="show-card-time">12:30</div>
           </div>
-          <div class="show-row">
-            <div class="show-row-accent" style="background:var(--orange)"></div>
-            <div class="show-row-time">20:00</div>
-            <div class="show-row-divider"></div>
-            <div class="show-row-info">
-              <div class="show-row-name">חוה אלברשטיין</div>
-              <div class="show-row-meta">ערב מיוחד עם עיבודי ג׳אז</div>
-              <span class="show-row-tag show-row-headliner">Headliner · מיוחד לפסטיבל</span>
+          <div class="show-card">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-name">חוה אלברשטיין</div>
+              <div class="show-card-sub">ערב מיוחד עם עיבודי ג׳אז</div>
             </div>
+            <span class="show-card-tag headliner">Headliner · מיוחד לפסטיבל</span>
+            <div class="show-card-divider"></div>
+            <div class="show-card-time">20:00</div>
           </div>
         </div>
       </div>
@@ -1100,43 +1218,47 @@
           <div class="stage-group-line"></div>
         </div>
         <div class="shows-list">
-          <div class="show-row">
-            <div class="show-row-accent" style="background:var(--red)"></div>
-            <div class="show-row-time">11:00</div>
-            <div class="show-row-divider"></div>
-            <div class="show-row-info">
-              <div class="show-row-name">שלישיית אריאל ברט</div>
-              <div class="show-row-meta">השקת האלבום הרשמית</div>
-              <span class="show-row-tag">השקת אלבום</span>
+          <div class="show-card">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-name">שלישיית אריאל ברט</div>
+              <div class="show-card-sub">השקת האלבום הרשמית</div>
             </div>
+            <span class="show-card-tag">השקת אלבום</span>
+            <div class="show-card-divider"></div>
+            <div class="show-card-time">11:00</div>
           </div>
-          <div class="show-row">
-            <div class="show-row-accent" style="background:var(--red)"></div>
-            <div class="show-row-time">14:00</div>
-            <div class="show-row-divider"></div>
-            <div class="show-row-info">
-              <div class="show-row-name">רביעיית אוריאל הרמן מארחת את רמי קליינשטיין</div>
-              <div class="show-row-meta">ג׳אז פגש פופ — מפגש מיוחד</div>
+          <div class="show-card">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-name">רביעיית אוריאל הרמן מארחת את רמי קליינשטיין</div>
+              <div class="show-card-sub">ג׳אז פגש פופ — מפגש מיוחד</div>
             </div>
+            <div class="show-card-divider"></div>
+            <div class="show-card-time">14:00</div>
           </div>
-          <div class="show-row">
-            <div class="show-row-accent" style="background:var(--red)"></div>
-            <div class="show-row-time">16:30</div>
-            <div class="show-row-divider"></div>
-            <div class="show-row-info">
-              <div class="show-row-name">שלישיית יותם זילברשטיין</div>
-              <div class="show-row-meta">גיטרה ג׳אז — אמנות ורגישות</div>
+          <div class="show-card">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-name">שלישיית יותם זילברשטיין</div>
+              <div class="show-card-sub">גיטרה ג׳אז — אמנות ורגישות</div>
             </div>
+            <div class="show-card-divider"></div>
+            <div class="show-card-time">16:30</div>
           </div>
-          <div class="show-row">
-            <div class="show-row-accent" style="background:var(--red)"></div>
-            <div class="show-row-time">21:45</div>
-            <div class="show-row-divider"></div>
-            <div class="show-row-info">
-              <div class="show-row-name">SHALOSH — אורח: רוני איתן</div>
-              <div class="show-row-meta">הופעת לילה סוחפת</div>
-              <span class="show-row-tag">השקת אלבום</span>
+          <div class="show-card">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-name">SHALOSH — אורח: רוני איתן</div>
+              <div class="show-card-sub">הופעת לילה סוחפת</div>
             </div>
+            <span class="show-card-tag">השקת אלבום</span>
+            <div class="show-card-divider"></div>
+            <div class="show-card-time">21:45</div>
           </div>
         </div>
       </div>
@@ -1149,43 +1271,47 @@
           <div class="stage-group-line"></div>
         </div>
         <div class="shows-list">
-          <div class="show-row">
-            <div class="show-row-accent" style="background:var(--teal)"></div>
-            <div class="show-row-time">09:30</div>
-            <div class="show-row-divider"></div>
-            <div class="show-row-info">
-              <div class="show-row-name">Anat Cohen — Master Class</div>
-              <div class="show-row-meta">שיעור חי פתוח לכולם עם Artist in Residence</div>
-              <span class="show-row-tag">Master Class</span>
+          <div class="show-card">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-name">Anat Cohen — Master Class</div>
+              <div class="show-card-sub">שיעור חי פתוח לכולם עם Artist in Residence</div>
             </div>
+            <span class="show-card-tag">Master Class</span>
+            <div class="show-card-divider"></div>
+            <div class="show-card-time">09:30</div>
           </div>
-          <div class="show-row">
-            <div class="show-row-accent" style="background:var(--teal)"></div>
-            <div class="show-row-time">15:15</div>
-            <div class="show-row-divider"></div>
-            <div class="show-row-info">
-              <div class="show-row-name">עידית מינצר — קונצרט חלק א׳</div>
-              <div class="show-row-meta">ווקאל ג׳אז — הופעה ראשונה מתוך שתיים</div>
+          <div class="show-card">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-name">עידית מינצר — קונצרט חלק א׳</div>
+              <div class="show-card-sub">ווקאל ג׳אז — הופעה ראשונה מתוך שתיים</div>
             </div>
+            <div class="show-card-divider"></div>
+            <div class="show-card-time">15:15</div>
           </div>
-          <div class="show-row">
-            <div class="show-row-accent" style="background:var(--teal)"></div>
-            <div class="show-row-time">18:00</div>
-            <div class="show-row-divider"></div>
-            <div class="show-row-info">
-              <div class="show-row-name">שישיית חגי אמיר — דיאלוגים עם ברטוק</div>
-              <div class="show-row-meta">מוסיקה מקורית שמשלבת ג׳אז ואפרו-ריתמוס</div>
+          <div class="show-card">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-name">שישיית חגי אמיר — דיאלוגים עם ברטוק</div>
+              <div class="show-card-sub">מוסיקה מקורית שמשלבת ג׳אז ואפרו-ריתמוס</div>
             </div>
+            <div class="show-card-divider"></div>
+            <div class="show-card-time">18:00</div>
           </div>
-          <div class="show-row">
-            <div class="show-row-accent" style="background:var(--teal)"></div>
-            <div class="show-row-time">22:30</div>
-            <div class="show-row-divider"></div>
-            <div class="show-row-info">
-              <div class="show-row-name">Las Piratas Piratas</div>
-              <div class="show-row-meta">כניסה חופשית — לילה לטיני</div>
-              <span class="show-row-tag">כניסה חופשית</span>
+          <div class="show-card">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-name">Las Piratas Piratas</div>
+              <div class="show-card-sub">כניסה חופשית — לילה לטיני</div>
             </div>
+            <span class="show-card-tag">כניסה חופשית</span>
+            <div class="show-card-divider"></div>
+            <div class="show-card-time">22:30</div>
           </div>
         </div>
       </div>
@@ -1194,11 +1320,7 @@
     <!-- ════ שבת — 14 בנובמבר ════ -->
     <section class="day-block" id="day-4">
       <div class="day-block-header">
-        <div class="day-block-num" style="background:linear-gradient(135deg,var(--yellow),#b07a00)">שב׳</div>
-        <div class="day-block-info">
-          <div class="day-block-title">שבת · 14 בנובמבר 2026</div>
-          <div class="day-block-subtitle">מופע הסיום — לילה של שיאים</div>
-        </div>
+        <div class="day-block-title">שבת · 14 בנובמבר</div>
         <div class="day-block-count">7 הופעות</div>
       </div>
 
@@ -1210,15 +1332,16 @@
           <div class="stage-group-line"></div>
         </div>
         <div class="shows-list">
-          <div class="show-row">
-            <div class="show-row-accent" style="background:var(--orange)"></div>
-            <div class="show-row-time">14:45</div>
-            <div class="show-row-divider"></div>
-            <div class="show-row-info">
-              <div class="show-row-name">תזמורת הג׳אז הישראלית</div>
-              <div class="show-row-meta">מופע סיום — אורחות: נטע ברזילי, גל דה פז, נונו ולירז צ׳רכי</div>
-              <span class="show-row-tag show-row-headliner">Headliner · מופע סיום · הפקת מקור</span>
+          <div class="show-card">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-name">תזמורת הג׳אז הישראלית</div>
+              <div class="show-card-sub">מופע סיום — אורחות: נטע ברזילי, גל דה פז, נונו ולירז צ׳רכי</div>
             </div>
+            <span class="show-card-tag headliner">Headliner · מופע סיום · הפקת מקור</span>
+            <div class="show-card-divider"></div>
+            <div class="show-card-time">14:45</div>
           </div>
         </div>
       </div>
@@ -1231,23 +1354,25 @@
           <div class="stage-group-line"></div>
         </div>
         <div class="shows-list">
-          <div class="show-row">
-            <div class="show-row-accent" style="background:var(--red)"></div>
-            <div class="show-row-time">11:00</div>
-            <div class="show-row-divider"></div>
-            <div class="show-row-info">
-              <div class="show-row-name">הדר נויברג New Quartet</div>
-              <div class="show-row-meta">חליל, פסנתר, בס ותופים — שבת בוקר מוסיקלי</div>
+          <div class="show-card">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-name">הדר נויברג New Quartet</div>
+              <div class="show-card-sub">חליל, פסנתר, בס ותופים — שבת בוקר מוסיקלי</div>
             </div>
+            <div class="show-card-divider"></div>
+            <div class="show-card-time">11:00</div>
           </div>
-          <div class="show-row">
-            <div class="show-row-accent" style="background:var(--red)"></div>
-            <div class="show-row-time">13:45</div>
-            <div class="show-row-divider"></div>
-            <div class="show-row-info">
-              <div class="show-row-name">עידית מינצר ויחזקאל רז</div>
-              <div class="show-row-meta">קונצרט חלק ב׳ — ווקאל ג׳אז + גיטרה</div>
+          <div class="show-card">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-name">עידית מינצר ויחזקאל רז</div>
+              <div class="show-card-sub">קונצרט חלק ב׳ — ווקאל ג׳אז + גיטרה</div>
             </div>
+            <div class="show-card-divider"></div>
+            <div class="show-card-time">13:45</div>
           </div>
         </div>
       </div>
@@ -1260,15 +1385,16 @@
           <div class="stage-group-line"></div>
         </div>
         <div class="shows-list">
-          <div class="show-row">
-            <div class="show-row-accent" style="background:var(--teal)"></div>
-            <div class="show-row-time">12:30</div>
-            <div class="show-row-divider"></div>
-            <div class="show-row-info">
-              <div class="show-row-name">Anat Cohen — Artist in Residence</div>
-              <div class="show-row-meta">Anat Cohen & Marcello Goncalves — מופע אינטימי</div>
-              <span class="show-row-tag show-row-headliner">Artist Resident · הופעת יובל</span>
+          <div class="show-card">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-name">Anat Cohen — Artist in Residence</div>
+              <div class="show-card-sub">Anat Cohen & Marcello Goncalves — מופע אינטימי</div>
             </div>
+            <span class="show-card-tag headliner">Artist Resident · הופעת יובל</span>
+            <div class="show-card-divider"></div>
+            <div class="show-card-time">12:30</div>
           </div>
         </div>
       </div>
@@ -1281,23 +1407,25 @@
           <div class="stage-group-line"></div>
         </div>
         <div class="shows-list">
-          <div class="show-row">
-            <div class="show-row-accent" style="background:var(--yellow)"></div>
-            <div class="show-row-time">10:00</div>
-            <div class="show-row-divider"></div>
-            <div class="show-row-info">
-              <div class="show-row-name">Yuval, Anat & Avishai: The 3 Cohens</div>
-              <div class="show-row-meta">הופעה אינטימית של שלושת האחים — ג׳אז אקוסטי</div>
+          <div class="show-card">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-name">Yuval, Anat & Avishai: The 3 Cohens</div>
+              <div class="show-card-sub">הופעה אינטימית של שלושת האחים — ג׳אז אקוסטי</div>
             </div>
+            <div class="show-card-divider"></div>
+            <div class="show-card-time">10:00</div>
           </div>
-          <div class="show-row">
-            <div class="show-row-accent" style="background:var(--yellow)"></div>
-            <div class="show-row-time">12:00</div>
-            <div class="show-row-divider"></div>
-            <div class="show-row-info">
-              <div class="show-row-name">שישיית חגי אמיר</div>
-              <div class="show-row-meta">דיאלוגים עם ברטוק — גרסת אחר-הצהריים</div>
+          <div class="show-card">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-name">שישיית חגי אמיר</div>
+              <div class="show-card-sub">דיאלוגים עם ברטוק — גרסת אחר-הצהריים</div>
             </div>
+            <div class="show-card-divider"></div>
+            <div class="show-card-time">12:00</div>
           </div>
         </div>
       </div>
@@ -1326,51 +1454,65 @@
         <!-- 18:00 -->
         <div class="cal-time-cell">18:00</div>
         <div class="cal-cell">
-          <div class="cal-show-card" style="background:rgba(224,86,11,0.08);border-right-color:var(--orange)">
-            <div class="cal-show-name">פתיחה רשמית — טקס יובל</div>
-            <div class="cal-show-time">18:00</div>
+          <div class="show-block">
+            <div class="show-block-inner">
+              <div class="show-name">פתיחה רשמית — טקס יובל</div>
+              <div class="show-time">18:00</div>
+            </div>
           </div>
         </div>
         <div class="cal-cell">
-          <div class="cal-show-card" style="background:rgba(214,34,70,0.08);border-right-color:var(--red)">
-            <div class="cal-show-name">שלישיית יותם זילברשטיין</div>
-            <div class="cal-show-time">19:00</div>
+          <div class="show-block stage-red">
+            <div class="show-block-inner">
+              <div class="show-name">שלישיית יותם זילברשטיין</div>
+              <div class="show-time">19:00</div>
+            </div>
           </div>
         </div>
         <div class="cal-cell">
-          <div class="cal-show-card" style="background:rgba(10,143,142,0.08);border-right-color:var(--teal)">
-            <div class="cal-show-name">שישיית קאי גלוסקא</div>
-            <div class="cal-show-time">18:30</div>
+          <div class="show-block stage-teal">
+            <div class="show-block-inner">
+              <div class="show-name">שישיית קאי גלוסקא</div>
+              <div class="show-time">18:30</div>
+            </div>
           </div>
         </div>
         <div class="cal-cell cal-empty">—</div>
         <!-- 20:00 -->
         <div class="cal-time-cell">20:00</div>
         <div class="cal-cell">
-          <div class="cal-show-card" style="background:rgba(224,86,11,0.08);border-right-color:var(--orange)">
-            <div class="cal-show-name">SHALOSH</div>
-            <div class="cal-show-time">20:00</div>
+          <div class="show-block">
+            <div class="show-block-inner">
+              <div class="show-name">SHALOSH</div>
+              <div class="show-time">20:00</div>
+            </div>
           </div>
         </div>
         <div class="cal-cell">
-          <div class="cal-show-card" style="background:rgba(214,34,70,0.08);border-right-color:var(--red)">
-            <div class="cal-show-name">הדר נויברג New Quartet</div>
-            <div class="cal-show-time">21:00</div>
+          <div class="show-block stage-red">
+            <div class="show-block-inner">
+              <div class="show-name">הדר נויברג New Quartet</div>
+              <div class="show-time">21:00</div>
+            </div>
           </div>
         </div>
         <div class="cal-cell">
-          <div class="cal-show-card" style="background:rgba(10,143,142,0.08);border-right-color:var(--teal)">
-            <div class="cal-show-name">שלישיית אריאל ברט</div>
-            <div class="cal-show-time">20:30</div>
+          <div class="show-block stage-teal">
+            <div class="show-block-inner">
+              <div class="show-name">שלישיית אריאל ברט</div>
+              <div class="show-time">20:30</div>
+            </div>
           </div>
         </div>
         <div class="cal-cell cal-empty">—</div>
         <!-- 22:00 -->
         <div class="cal-time-cell">22:00</div>
         <div class="cal-cell">
-          <div class="cal-show-card" style="background:rgba(224,86,11,0.08);border-right-color:var(--orange)">
-            <div class="cal-show-name">Las Piratas Piratas</div>
-            <div class="cal-show-time">22:00</div>
+          <div class="show-block">
+            <div class="show-block-inner">
+              <div class="show-name">Las Piratas Piratas</div>
+              <div class="show-time">22:00</div>
+            </div>
           </div>
         </div>
         <div class="cal-cell cal-empty">—</div>
@@ -1398,9 +1540,11 @@
         <div class="cal-time-cell">18:00</div>
         <div class="cal-cell cal-empty">—</div>
         <div class="cal-cell">
-          <div class="cal-show-card" style="background:rgba(214,34,70,0.08);border-right-color:var(--red)">
-            <div class="cal-show-name">אבות ובנים — מפגש דורות</div>
-            <div class="cal-show-time">18:00</div>
+          <div class="show-block stage-red">
+            <div class="show-block-inner">
+              <div class="show-name">אבות ובנים — מפגש דורות</div>
+              <div class="show-time">18:00</div>
+            </div>
           </div>
         </div>
         <div class="cal-cell cal-empty">—</div>
@@ -1408,16 +1552,20 @@
         <!-- 20:00 -->
         <div class="cal-time-cell">20:00</div>
         <div class="cal-cell">
-          <div class="cal-show-card" style="background:rgba(224,86,11,0.08);border-right-color:var(--orange)">
-            <div class="cal-show-name">The 3 Cohens Big Band</div>
-            <div class="cal-show-time">20:00</div>
-            <span class="cal-show-tag">Headliner</span>
+          <div class="show-block">
+            <div class="show-block-inner">
+              <div class="show-name">The 3 Cohens Big Band</div>
+              <div class="show-time">20:00</div>
+              <span class="show-tag">Headliner</span>
+            </div>
           </div>
         </div>
         <div class="cal-cell">
-          <div class="cal-show-card" style="background:rgba(214,34,70,0.08);border-right-color:var(--red)">
-            <div class="cal-show-name">Lay Z Gordon</div>
-            <div class="cal-show-time">21:00</div>
+          <div class="show-block stage-red">
+            <div class="show-block-inner">
+              <div class="show-name">Lay Z Gordon</div>
+              <div class="show-time">21:00</div>
+            </div>
           </div>
         </div>
         <div class="cal-cell cal-empty">—</div>
@@ -1425,16 +1573,20 @@
         <!-- 22:00 -->
         <div class="cal-time-cell">22:00</div>
         <div class="cal-cell">
-          <div class="cal-show-card" style="background:rgba(224,86,11,0.08);border-right-color:var(--orange)">
-            <div class="cal-show-name">ג׳ימבו ג׳אז — אורח: תמיר בר</div>
-            <div class="cal-show-time">22:30</div>
+          <div class="show-block">
+            <div class="show-block-inner">
+              <div class="show-name">ג׳ימבו ג׳אז — אורח: תמיר בר</div>
+              <div class="show-time">22:30</div>
+            </div>
           </div>
         </div>
         <div class="cal-cell cal-empty">—</div>
         <div class="cal-cell">
-          <div class="cal-show-card" style="background:rgba(10,143,142,0.08);border-right-color:var(--teal)">
-            <div class="cal-show-name">שישיית קאי גלוסקא</div>
-            <div class="cal-show-time">22:30</div>
+          <div class="show-block stage-teal">
+            <div class="show-block-inner">
+              <div class="show-name">שישיית קאי גלוסקא</div>
+              <div class="show-time">22:30</div>
+            </div>
           </div>
         </div>
         <div class="cal-cell cal-empty">—</div>
@@ -1461,9 +1613,11 @@
         <div class="cal-cell cal-empty">—</div>
         <div class="cal-cell cal-empty">—</div>
         <div class="cal-cell">
-          <div class="cal-show-card" style="background:rgba(10,143,142,0.08);border-right-color:var(--teal)">
-            <div class="cal-show-name">Anat Cohen — Master Class</div>
-            <div class="cal-show-time">09:30</div>
+          <div class="show-block stage-teal">
+            <div class="show-block-inner">
+              <div class="show-name">Anat Cohen — Master Class</div>
+              <div class="show-time">09:30</div>
+            </div>
           </div>
         </div>
         <div class="cal-cell cal-empty">—</div>
@@ -1471,9 +1625,11 @@
         <div class="cal-time-cell">11:00</div>
         <div class="cal-cell cal-empty">—</div>
         <div class="cal-cell">
-          <div class="cal-show-card" style="background:rgba(214,34,70,0.08);border-right-color:var(--red)">
-            <div class="cal-show-name">שלישיית אריאל ברט</div>
-            <div class="cal-show-time">11:00</div>
+          <div class="show-block stage-red">
+            <div class="show-block-inner">
+              <div class="show-name">שלישיית אריאל ברט</div>
+              <div class="show-time">11:00</div>
+            </div>
           </div>
         </div>
         <div class="cal-cell cal-empty">—</div>
@@ -1481,10 +1637,12 @@
         <!-- 12:30 -->
         <div class="cal-time-cell">12:30</div>
         <div class="cal-cell">
-          <div class="cal-show-card" style="background:rgba(224,86,11,0.08);border-right-color:var(--orange)">
-            <div class="cal-show-name">Eli Degibri Quartet</div>
-            <div class="cal-show-time">12:30</div>
-            <span class="cal-show-tag">Headliner</span>
+          <div class="show-block">
+            <div class="show-block-inner">
+              <div class="show-name">Eli Degibri Quartet</div>
+              <div class="show-time">12:30</div>
+              <span class="show-tag">Headliner</span>
+            </div>
           </div>
         </div>
         <div class="cal-cell cal-empty">—</div>
@@ -1494,9 +1652,11 @@
         <div class="cal-time-cell">14:00</div>
         <div class="cal-cell cal-empty">—</div>
         <div class="cal-cell">
-          <div class="cal-show-card" style="background:rgba(214,34,70,0.08);border-right-color:var(--red)">
-            <div class="cal-show-name">רביעיית אוריאל הרמן מארחת את רמי קליינשטיין</div>
-            <div class="cal-show-time">14:00</div>
+          <div class="show-block stage-red">
+            <div class="show-block-inner">
+              <div class="show-name">רביעיית אוריאל הרמן מארחת את רמי קליינשטיין</div>
+              <div class="show-time">14:00</div>
+            </div>
           </div>
         </div>
         <div class="cal-cell cal-empty">—</div>
@@ -1506,9 +1666,11 @@
         <div class="cal-cell cal-empty">—</div>
         <div class="cal-cell cal-empty">—</div>
         <div class="cal-cell">
-          <div class="cal-show-card" style="background:rgba(10,143,142,0.08);border-right-color:var(--teal)">
-            <div class="cal-show-name">עידית מינצר — קונצרט חלק א׳</div>
-            <div class="cal-show-time">15:15</div>
+          <div class="show-block stage-teal">
+            <div class="show-block-inner">
+              <div class="show-name">עידית מינצר — קונצרט חלק א׳</div>
+              <div class="show-time">15:15</div>
+            </div>
           </div>
         </div>
         <div class="cal-cell cal-empty">—</div>
@@ -1516,9 +1678,11 @@
         <div class="cal-time-cell">16:30</div>
         <div class="cal-cell cal-empty">—</div>
         <div class="cal-cell">
-          <div class="cal-show-card" style="background:rgba(214,34,70,0.08);border-right-color:var(--red)">
-            <div class="cal-show-name">שלישיית יותם זילברשטיין</div>
-            <div class="cal-show-time">16:30</div>
+          <div class="show-block stage-red">
+            <div class="show-block-inner">
+              <div class="show-name">שלישיית יותם זילברשטיין</div>
+              <div class="show-time">16:30</div>
+            </div>
           </div>
         </div>
         <div class="cal-cell cal-empty">—</div>
@@ -1528,19 +1692,23 @@
         <div class="cal-cell cal-empty">—</div>
         <div class="cal-cell cal-empty">—</div>
         <div class="cal-cell">
-          <div class="cal-show-card" style="background:rgba(10,143,142,0.08);border-right-color:var(--teal)">
-            <div class="cal-show-name">שישיית חגי אמיר</div>
-            <div class="cal-show-time">18:00</div>
+          <div class="show-block stage-teal">
+            <div class="show-block-inner">
+              <div class="show-name">שישיית חגי אמיר</div>
+              <div class="show-time">18:00</div>
+            </div>
           </div>
         </div>
         <div class="cal-cell cal-empty">—</div>
         <!-- 20:00 -->
         <div class="cal-time-cell">20:00</div>
         <div class="cal-cell">
-          <div class="cal-show-card" style="background:rgba(224,86,11,0.08);border-right-color:var(--orange)">
-            <div class="cal-show-name">חוה אלברשטיין</div>
-            <div class="cal-show-time">20:00</div>
-            <span class="cal-show-tag">Headliner</span>
+          <div class="show-block">
+            <div class="show-block-inner">
+              <div class="show-name">חוה אלברשטיין</div>
+              <div class="show-time">20:00</div>
+              <span class="show-tag">Headliner</span>
+            </div>
           </div>
         </div>
         <div class="cal-cell cal-empty">—</div>
@@ -1550,9 +1718,11 @@
         <div class="cal-time-cell">21:45</div>
         <div class="cal-cell cal-empty">—</div>
         <div class="cal-cell">
-          <div class="cal-show-card" style="background:rgba(214,34,70,0.08);border-right-color:var(--red)">
-            <div class="cal-show-name">SHALOSH — אורח: רוני איתן</div>
-            <div class="cal-show-time">21:45</div>
+          <div class="show-block stage-red">
+            <div class="show-block-inner">
+              <div class="show-name">SHALOSH — אורח: רוני איתן</div>
+              <div class="show-time">21:45</div>
+            </div>
           </div>
         </div>
         <div class="cal-cell cal-empty">—</div>
@@ -1562,9 +1732,11 @@
         <div class="cal-cell cal-empty">—</div>
         <div class="cal-cell cal-empty">—</div>
         <div class="cal-cell">
-          <div class="cal-show-card" style="background:rgba(10,143,142,0.08);border-right-color:var(--teal)">
-            <div class="cal-show-name">Las Piratas Piratas</div>
-            <div class="cal-show-time">22:30</div>
+          <div class="show-block stage-teal">
+            <div class="show-block-inner">
+              <div class="show-name">Las Piratas Piratas</div>
+              <div class="show-time">22:30</div>
+            </div>
           </div>
         </div>
         <div class="cal-cell cal-empty">—</div>
@@ -1592,18 +1764,22 @@
         <div class="cal-cell cal-empty">—</div>
         <div class="cal-cell cal-empty">—</div>
         <div class="cal-cell">
-          <div class="cal-show-card" style="background:rgba(224,168,0,0.1);border-right-color:var(--yellow)">
-            <div class="cal-show-name">Yuval, Anat & Avishai: The 3 Cohens</div>
-            <div class="cal-show-time">10:00</div>
+          <div class="show-block stage-yellow">
+            <div class="show-block-inner">
+              <div class="show-name">Yuval, Anat & Avishai: The 3 Cohens</div>
+              <div class="show-time">10:00</div>
+            </div>
           </div>
         </div>
         <!-- 11:00 -->
         <div class="cal-time-cell">11:00</div>
         <div class="cal-cell cal-empty">—</div>
         <div class="cal-cell">
-          <div class="cal-show-card" style="background:rgba(214,34,70,0.08);border-right-color:var(--red)">
-            <div class="cal-show-name">הדר נויברג New Quartet</div>
-            <div class="cal-show-time">11:00</div>
+          <div class="show-block stage-red">
+            <div class="show-block-inner">
+              <div class="show-name">הדר נויברג New Quartet</div>
+              <div class="show-time">11:00</div>
+            </div>
           </div>
         </div>
         <div class="cal-cell cal-empty">—</div>
@@ -1614,9 +1790,11 @@
         <div class="cal-cell cal-empty">—</div>
         <div class="cal-cell cal-empty">—</div>
         <div class="cal-cell">
-          <div class="cal-show-card" style="background:rgba(224,168,0,0.1);border-right-color:var(--yellow)">
-            <div class="cal-show-name">שישיית חגי אמיר</div>
-            <div class="cal-show-time">12:00</div>
+          <div class="show-block stage-yellow">
+            <div class="show-block-inner">
+              <div class="show-name">שישיית חגי אמיר</div>
+              <div class="show-time">12:00</div>
+            </div>
           </div>
         </div>
         <!-- 12:30 -->
@@ -1624,10 +1802,12 @@
         <div class="cal-cell cal-empty">—</div>
         <div class="cal-cell cal-empty">—</div>
         <div class="cal-cell">
-          <div class="cal-show-card" style="background:rgba(10,143,142,0.08);border-right-color:var(--teal)">
-            <div class="cal-show-name">Anat Cohen — Artist in Residence</div>
-            <div class="cal-show-time">12:30</div>
-            <span class="cal-show-tag">Artist Resident</span>
+          <div class="show-block stage-teal">
+            <div class="show-block-inner">
+              <div class="show-name">Anat Cohen — Artist in Residence</div>
+              <div class="show-time">12:30</div>
+              <span class="show-tag">Artist Resident</span>
+            </div>
           </div>
         </div>
         <div class="cal-cell cal-empty">—</div>
@@ -1635,9 +1815,11 @@
         <div class="cal-time-cell">13:45</div>
         <div class="cal-cell cal-empty">—</div>
         <div class="cal-cell">
-          <div class="cal-show-card" style="background:rgba(214,34,70,0.08);border-right-color:var(--red)">
-            <div class="cal-show-name">עידית מינצר ויחזקאל רז</div>
-            <div class="cal-show-time">13:45</div>
+          <div class="show-block stage-red">
+            <div class="show-block-inner">
+              <div class="show-name">עידית מינצר ויחזקאל רז</div>
+              <div class="show-time">13:45</div>
+            </div>
           </div>
         </div>
         <div class="cal-cell cal-empty">—</div>
@@ -1645,10 +1827,12 @@
         <!-- 14:45 -->
         <div class="cal-time-cell">14:45</div>
         <div class="cal-cell">
-          <div class="cal-show-card" style="background:rgba(224,86,11,0.08);border-right-color:var(--orange)">
-            <div class="cal-show-name">תזמורת הג׳אז הישראלית</div>
-            <div class="cal-show-time">14:45</div>
-            <span class="cal-show-tag">Headliner · מופע סיום</span>
+          <div class="show-block">
+            <div class="show-block-inner">
+              <div class="show-name">תזמורת הג׳אז הישראלית</div>
+              <div class="show-time">14:45</div>
+              <span class="show-tag">Headliner · מופע סיום</span>
+            </div>
           </div>
         </div>
         <div class="cal-cell cal-empty">—</div>
@@ -1692,6 +1876,26 @@
   <footer></footer>
   <script src="./footer.js"></script>
 
+  <!-- ── SHOW DRAWER ── -->
+  <div class="show-drawer-overlay" id="showDrawerOverlay"></div>
+  <aside class="show-drawer" id="showDrawer" role="dialog" aria-modal="true" aria-label="פרטי הופעה">
+    <div class="show-drawer-img-wrap">
+      <div class="show-drawer-img"></div>
+      <button class="show-drawer-close" id="showDrawerClose" aria-label="סגור">&#x2715;</button>
+    </div>
+    <div class="show-drawer-body">
+      <div class="show-drawer-meta" id="showDrawerMeta"></div>
+      <div class="show-drawer-day" id="showDrawerDay"></div>
+      <h2 class="show-drawer-name" id="showDrawerNameEl"></h2>
+      <p class="show-drawer-sub" id="showDrawerSub"></p>
+      <div id="showDrawerTagWrap"></div>
+      <div class="show-drawer-divider"></div>
+      <a href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" class="show-drawer-cta">
+        רכישת כרטיסים ←
+      </a>
+    </div>
+  </aside>
+
   <script>
     /* ── View Toggle ── */
     var currentView = 'list';
@@ -1708,15 +1912,15 @@
         btnCal.classList.add('active');
         btnList.setAttribute('aria-pressed', 'false');
         btnCal.setAttribute('aria-pressed', 'true');
-        // הצג את כל סקשיינות היומן
+        // הצג רק יום 1 כברירת מחדל
         document.querySelectorAll('.calendar-section').forEach(function(s) {
-          s.classList.add('cv-visible');
+          s.classList.remove('cv-visible');
         });
-        // הסתר day-nav ו-stage-filter (לא רלוונטיים ביומן)
-        var dayNav = document.querySelector('.day-nav');
-        var stageFilter = document.querySelector('.stage-dropdown-wrap');
-        if (dayNav) dayNav.style.display = 'none';
-        if (stageFilter) stageFilter.style.display = 'none';
+        document.getElementById('cal-day-1').classList.add('cv-visible');
+        // סמן כפתור יום 1 כפעיל
+        document.querySelectorAll('.day-nav-btn').forEach(function(b) { b.classList.remove('active'); });
+        var firstBtn = document.querySelector('.day-nav-btn');
+        if (firstBtn) firstBtn.classList.add('active');
       } else {
         document.body.classList.remove('view-calendar');
         document.body.classList.add('view-list');
@@ -1728,18 +1932,21 @@
         document.querySelectorAll('.calendar-section').forEach(function(s) {
           s.classList.remove('cv-visible');
         });
-        // הצג day-nav ו-stage-filter
-        var dayNav = document.querySelector('.day-nav');
-        var stageFilter = document.querySelector('.stage-dropdown-wrap');
-        if (dayNav) dayNav.style.display = '';
-        if (stageFilter) stageFilter.style.display = '';
       }
     }
 
     function scrollToDay(id, btn) {
-      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-      document.querySelectorAll('.day-nav-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.day-nav-btn').forEach(function(b) { b.classList.remove('active'); });
       btn.classList.add('active');
+      if (currentView === 'calendar') {
+        // בתצוגת יומן — החלף את הסקשן המוצג
+        document.querySelectorAll('.calendar-section').forEach(function(s) {
+          s.classList.remove('cv-visible');
+        });
+        document.getElementById('cal-' + id).classList.add('cv-visible');
+      } else {
+        document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+      }
     }
 
     // Stage dropdown toggle
@@ -1798,13 +2005,15 @@
       if (dayBtns[idx]) dayBtns[idx].classList.add('active');
     }, { passive: true });
 
-    // Nav scroll shrink
+    // Nav scroll shrink + update --nav-h for controls-strip sticky positioning
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', function() {
       if (window.scrollY > 40) {
         navbar.classList.add('scrolled');
+        document.documentElement.style.setProperty('--nav-h', '64px');
       } else {
         navbar.classList.remove('scrolled');
+        document.documentElement.style.setProperty('--nav-h', '100px');
       }
     }, { passive: true });
 
@@ -1825,6 +2034,97 @@
         el.textContent = el.getAttribute('data-' + currentLang) || el.textContent;
       });
     }
+
+    /* ── Show Drawer ── */
+    function _sdOpen(data) {
+      document.getElementById('showDrawerNameEl').textContent = data.name;
+      document.getElementById('showDrawerSub').textContent = data.sub;
+      document.getElementById('showDrawerDay').textContent = data.dayTitle;
+      document.getElementById('showDrawerMeta').innerHTML =
+        '<span style="color:' + data.stageColor + ';font-weight:700">' + data.time + '</span>' +
+        '<span style="color:var(--border-strong)">·</span>' +
+        '<span class="show-drawer-meta-dot" style="background:' + data.stageColor + '"></span>' +
+        '<span style="color:' + data.stageColor + '">' + data.stageName + '</span>';
+      var tagWrap = document.getElementById('showDrawerTagWrap');
+      tagWrap.innerHTML = data.tag
+        ? '<span class="show-drawer-tag' + (data.isHeadliner ? ' headliner' : '') + '">' + data.tag + '</span>'
+        : '';
+      document.getElementById('showDrawerOverlay').classList.add('open');
+      document.getElementById('showDrawer').classList.add('open');
+      document.body.classList.add('show-drawer-open');
+    }
+
+    function _sdClose() {
+      document.getElementById('showDrawerOverlay').classList.remove('open');
+      document.getElementById('showDrawer').classList.remove('open');
+      document.body.classList.remove('show-drawer-open');
+    }
+
+    document.getElementById('showDrawerClose').addEventListener('click', _sdClose);
+    document.getElementById('showDrawerOverlay').addEventListener('click', _sdClose);
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && document.getElementById('showDrawer').classList.contains('open')) _sdClose();
+    });
+
+    // Event delegation — list view
+    document.addEventListener('click', function(e) {
+      var card = e.target.closest('.show-card');
+      if (card) {
+        var tagEl = card.querySelector('.show-card-tag');
+        var stageGroup = card.closest('.stage-group');
+        var dayBlock = card.closest('.day-block');
+        _sdOpen({
+          name:        (card.querySelector('.show-card-name') || {}).textContent || '',
+          sub:         (card.querySelector('.show-card-sub') || {}).textContent || '',
+          time:        (card.querySelector('.show-card-time') || {}).textContent || '',
+          tag:         tagEl ? tagEl.textContent.trim() : '',
+          isHeadliner: tagEl ? tagEl.classList.contains('headliner') : false,
+          stageName:   stageGroup ? (stageGroup.querySelector('.stage-group-name') || {}).textContent || '' : '',
+          stageColor:  stageGroup ? (stageGroup.querySelector('.stage-dot') || {style:{}}).style.background || 'var(--orange)' : 'var(--orange)',
+          dayTitle:    dayBlock ? (dayBlock.querySelector('.day-block-title') || {}).textContent || '' : ''
+        });
+        return;
+      }
+
+      // Calendar view
+      var showBlock = e.target.closest('.show-block');
+      if (showBlock) {
+        var calColor = 'var(--orange)';
+        if (showBlock.classList.contains('stage-red'))    calColor = 'var(--red)';
+        else if (showBlock.classList.contains('stage-teal'))   calColor = 'var(--teal)';
+        else if (showBlock.classList.contains('stage-yellow')) calColor = 'var(--yellow)';
+
+        var cell     = showBlock.closest('.cal-cell');
+        var grid     = cell && cell.closest('.cal-grid');
+        var calStage = '';
+        if (grid && cell) {
+          var cols    = Array.from(grid.children);
+          var colIdx  = cols.indexOf(cell) % 5;
+          var headers = Array.from(grid.querySelectorAll('.cal-header-cell'));
+          var hdr     = headers[colIdx];
+          if (hdr) calStage = hdr.textContent.trim();
+        }
+
+        var calSection = showBlock.closest('.calendar-section');
+        var labelDiv   = calSection && calSection.querySelector('.cal-day-label > div:not(.cal-day-badge)');
+        var calDay     = labelDiv && labelDiv.firstChild ? labelDiv.firstChild.textContent.trim() : '';
+
+        var tagEl  = showBlock.querySelector('.show-tag');
+        var calTag = tagEl ? tagEl.textContent.trim() : '';
+
+        _sdOpen({
+          name:        (showBlock.querySelector('.show-name') || {}).textContent || '',
+          sub:         '',
+          time:        (showBlock.querySelector('.show-time') || {}).textContent || '',
+          tag:         calTag,
+          isHeadliner: calTag.indexOf('Headliner') !== -1,
+          stageName:   calStage,
+          stageColor:  calColor,
+          dayTitle:    calDay
+        });
+      }
+    });
   </script>
+  <script src="./page-transitions.js"></script>
 </body>
 </html>
