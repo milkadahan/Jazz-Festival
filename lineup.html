@@ -370,6 +370,7 @@
     .stage-dropdown-toggle.open { border-color: var(--orange); color: var(--orange); }
     .stage-dropdown-toggle .chevron {
       transition: transform 0.2s;
+      order: 1; /* החץ בקצה השמאלי של הכפתור (אחרי הטקסט ב-flex, ב-RTL נדחף שמאלה) */
     }
     .stage-dropdown-toggle.open .chevron { transform: rotate(180deg); }
     .stage-dropdown-panel {
@@ -390,7 +391,8 @@
       padding: 9px 12px; border-radius: 10px;
       cursor: pointer;
       font-size: 14px; font-weight: 600; color: #483F3B;
-      font-family: 'Noto Sans Hebrew', sans-serif;
+      /* שמות הבמות הם אנגלית — תואם לפונט האנגלי הקנוני של האתר (Hepta Slab) */
+      font-family: 'Hepta Slab', 'Noto Sans Hebrew', serif;
       transition: background 0.15s; white-space: nowrap;
       direction: rtl;
     }
@@ -538,22 +540,40 @@
     .show-drawer-overlay.open { opacity: 1; pointer-events: all; }
     .show-drawer {
       position: fixed; top: 0; right: 0;
-      width: min(460px, 95vw); height: 100dvh;
+      width: min(520px, 96vw); height: 100dvh;
       background: var(--card-bg); z-index: 301;
       transform: translateX(calc(100% + 4px));
       transition: transform 0.4s cubic-bezier(0.32,0.72,0,1);
-      overflow-y: auto; display: flex; flex-direction: column;
+      overflow-y: hidden; display: flex; flex-direction: column;
       box-shadow: -4px 0 60px rgba(58,42,30,0.2);
     }
     .show-drawer.open { transform: translateX(0); }
+
+    /* ── Scrollable content area (above sticky CTA) ── */
+    .show-drawer-scroll {
+      flex: 1; overflow-y: auto; display: flex; flex-direction: column;
+    }
     .show-drawer-img-wrap { position: relative; flex-shrink: 0; }
     .show-drawer-img {
       width: 100%; aspect-ratio: 16/9;
       background: linear-gradient(145deg, #2d2219, #3a2a1e);
+      overflow: hidden;
+      position: relative;
+    }
+    /* תמונת אמן: fill + focal point על ראש */
+    .show-drawer-img img {
+      width: 100%; height: 100%;
+      object-fit: fill;
+      object-position: top;
+      display: block;
+      position: absolute; inset: 0;
+    }
+    .show-drawer-img-ph {
+      position: absolute; inset: 0;
       display: flex; align-items: center; justify-content: center;
       font-size: 4rem; color: rgba(250,244,233,0.12);
     }
-    .show-drawer-img::after { content: '♪'; }
+    .show-drawer-img-ph::after { content: '♪'; }
     .show-drawer-close {
       position: absolute; top: 1rem; left: 1rem;
       width: 40px; height: 40px; border-radius: 50%;
@@ -561,38 +581,78 @@
       color: #fff; font-size: 1rem;
       display: flex; align-items: center; justify-content: center; cursor: pointer;
       transition: background 0.2s, border-color 0.2s;
+      z-index: 2;
     }
     .show-drawer-close:hover { background: rgba(26,20,16,0.82); border-color: rgba(250,244,233,0.6); }
     .show-drawer-body {
-      padding: 1.6rem 1.8rem 2.5rem;
+      padding: 1.6rem 1.8rem 1.6rem;
       display: flex; flex-direction: column; gap: 0.75rem; flex: 1;
     }
     .show-drawer-meta { display: flex; align-items: center; gap: 6px; font-size: 0.88rem; font-weight: 600; }
     .show-drawer-meta-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
-    .show-drawer-day { font-size: 0.8rem; color: var(--muted); margin-top: -0.25rem; }
+
+    /* ── פרטי הופעה (תאריך, יום, שעה) — כהים יותר ── */
+    .show-drawer-day { font-size: 0.8rem; color: #5a4636; margin-top: -0.25rem; }
     .show-drawer-name {
       font-size: 1.7rem; font-weight: 900; color: var(--text);
       line-height: 1.2; margin-top: 0.25rem;
     }
-    .show-drawer-sub { font-size: 0.95rem; color: var(--muted); line-height: 1.65; }
+    .show-drawer-sub { font-size: 0.95rem; color: #5a4636; line-height: 1.5; }
+
+    /* ── תגיות ז'אנר — fit-content בלבד ── */
     .show-drawer-tag {
-      display: inline-flex; align-items: center; align-self: flex-start;
+      display: inline-flex; align-items: center;
+      width: fit-content;
       background: #f3f1ea; border: 1px solid #d5c9b0; border-radius: 8px; padding: 5px 14px;
       font-size: 0.875rem; font-weight: 600; color: #8f7152; font-family: 'Noto Sans Hebrew', sans-serif;
     }
     .show-drawer-tag.headliner { background: rgba(214,34,70,0.1); border-color: rgba(214,34,70,0.25); color: var(--red); }
+
+    /* ── תגית wrapper ── */
+    #showDrawerTagWrap { display: flex; flex-direction: column; align-items: flex-start; gap: 0.4rem; }
+
     .show-drawer-divider { height: 1px; background: var(--border); margin: 0.25rem 0; }
+
+    /* ── כפתור CTA — sticky בתחתית ── */
+    .show-drawer-cta-wrap {
+      flex-shrink: 0;
+      padding: 1rem 1.8rem 1.4rem;
+      background: var(--card-bg);
+      border-top: 1px solid var(--border);
+    }
     .show-drawer-cta {
-      display: inline-flex; align-items: center; justify-content: center;
+      display: flex; align-items: center; justify-content: center;
+      width: 100%;
       background: var(--btn-gradient); color: #fff; border-radius: 50px; padding: 0.9rem 2.4rem;
       font-size: 1rem; font-weight: 700; text-decoration: none;
-      box-shadow: 0 4px 20px rgba(224,86,11,0.35); margin-top: 0.25rem; align-self: flex-start;
+      box-shadow: 0 4px 20px rgba(224,86,11,0.35);
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .show-drawer-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(224,86,11,0.5); }
+
+    /* ── תיאור הופעה — line-height מופחת, צבע כהה יותר ── */
     .show-drawer-desc {
-      font-size: 0.88rem; color: var(--muted); line-height: 1.85; margin: 0;
+      font-size: 0.88rem; color: #4a3626; line-height: 1.6; margin: 0;
     }
+
+    /* ── קרא עוד ── */
+    .show-drawer-desc-wrap { position: relative; }
+    .show-drawer-desc-wrap.collapsed .show-drawer-desc {
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .show-drawer-read-more {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      margin-top: 0.4rem;
+      background: none; border: none; padding: 0;
+      font-family: var(--font); font-size: 0.82rem; font-weight: 700;
+      color: var(--orange); cursor: pointer;
+      transition: color 0.2s;
+    }
+    .show-drawer-read-more:hover { color: var(--red); }
+
     .show-drawer-musicians-label {
       font-size: 0.7rem; color: var(--muted); text-transform: uppercase;
       letter-spacing: 0.04em; font-weight: 700; margin-bottom: 0.5rem;
@@ -605,6 +665,26 @@
       border-radius: 6px; padding: 0.22rem 0.65rem;
       font-size: 0.76rem; color: var(--text); white-space: nowrap;
     }
+
+    /* ── מצב אמן עם מרובה הופעות ── */
+    .sd-shows-label {
+      font-size: 0.7rem; color: var(--muted); text-transform: uppercase;
+      letter-spacing: 0.04em; font-weight: 700; margin-bottom: 0.5rem;
+    }
+    .sd-shows-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .sd-show-row {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.7rem 0.9rem; border-radius: 10px;
+      border: 1px solid var(--border);
+      cursor: pointer; transition: background 0.15s, border-color 0.15s;
+    }
+    .sd-show-row:hover { background: var(--bg2); border-color: var(--border-strong); }
+    .sd-show-accent { width: 3px; align-self: stretch; border-radius: 2px; flex-shrink: 0; }
+    .sd-show-info { flex: 1; }
+    .sd-show-stage { font-size: 0.8rem; font-weight: 700; }
+    .sd-show-date { font-size: 0.78rem; color: #5a4636; }
+    .sd-show-time { font-size: 0.78rem; font-weight: 600; color: #5a4636; }
+    .sd-show-arrow { font-size: 0.85rem; color: var(--muted); }
     .cal-show-card { cursor: pointer; }
 
     /* ─── FOOTER ───────────────────────────────────────────────── */
@@ -677,7 +757,9 @@
     .view-toggle-btn.active {
       background: linear-gradient(163.98deg, #E0560B 0%, #D62246 100%);
       color: #fff;
-      font-family: 'Hepta Slab', serif;
+      /* font-stack דו-לשוני כמו שאר האתר: Hepta Slab לאנגלית, Noto Sans Hebrew לעברית.
+         Hepta Slab חסר גליפים עבריים — בלי ה-fallback העברי "לוח זמנים" נשבר ל-serif מערכת. */
+      font-family: 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
       font-weight: 700;
       letter-spacing: 0.17px;
       box-shadow: 0 0 10px rgba(255,107,26,0.35);
@@ -1794,26 +1876,51 @@
   <!-- ── SHOW DRAWER ── -->
   <div class="show-drawer-overlay" id="showDrawerOverlay"></div>
   <aside class="show-drawer" id="showDrawer" role="dialog" aria-modal="true" aria-label="פרטי הופעה">
-    <div class="show-drawer-img-wrap">
-      <div class="show-drawer-img"></div>
-      <button class="show-drawer-close" id="showDrawerClose" aria-label="סגור">&#x2715;</button>
-    </div>
-    <div class="show-drawer-body">
-      <div class="show-drawer-meta" id="showDrawerMeta"></div>
-      <div class="show-drawer-day" id="showDrawerDay"></div>
-      <h2 class="show-drawer-name" id="showDrawerNameEl"></h2>
-      <p class="show-drawer-sub" id="showDrawerSub"></p>
-      <div id="showDrawerTagWrap"></div>
-      <p class="show-drawer-desc" id="showDrawerDesc" style="display:none"></p>
-      <div id="showDrawerMusiciansWrap" style="display:none">
-        <div class="show-drawer-musicians-label">נגנים</div>
-        <div class="show-drawer-musicians" id="showDrawerMusicians"></div>
+
+    <!-- גלילה — מעל כפתור ה-CTA הסטיקי -->
+    <div class="show-drawer-scroll">
+      <div class="show-drawer-img-wrap">
+        <div class="show-drawer-img" id="showDrawerImgWrap">
+          <div class="show-drawer-img-ph" id="showDrawerImgPh"></div>
+          <img id="showDrawerImgEl" src="" alt="" style="display:none" />
+        </div>
+        <button class="show-drawer-close" id="showDrawerClose" aria-label="סגור">&#x2715;</button>
       </div>
-      <div class="show-drawer-divider"></div>
+      <div class="show-drawer-body">
+        <div class="show-drawer-meta" id="showDrawerMeta"></div>
+        <div class="show-drawer-day" id="showDrawerDay"></div>
+        <h2 class="show-drawer-name" id="showDrawerNameEl"></h2>
+        <p class="show-drawer-sub" id="showDrawerSub"></p>
+        <div id="showDrawerTagWrap"></div>
+        <div class="show-drawer-divider"></div>
+
+        <!-- תיאור עם קרא עוד -->
+        <div class="show-drawer-desc-wrap" id="showDrawerDescWrap" style="display:none">
+          <p class="show-drawer-desc" id="showDrawerDesc"></p>
+          <button class="show-drawer-read-more" id="showDrawerReadMore" style="display:none">קרא עוד ↓</button>
+        </div>
+
+        <!-- נגנים -->
+        <div id="showDrawerMusiciansWrap" style="display:none">
+          <div class="show-drawer-musicians-label">נגנים</div>
+          <div class="show-drawer-musicians" id="showDrawerMusicians"></div>
+        </div>
+
+        <!-- הופעות נוספות של האמן -->
+        <div id="showDrawerArtistShowsWrap" style="display:none">
+          <div class="sd-shows-label">הופעות נוספות בפסטיבל</div>
+          <div class="sd-shows-list" id="showDrawerArtistShows"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA סטיקי בתחתית -->
+    <div class="show-drawer-cta-wrap">
       <a href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" class="show-drawer-cta">
         רכישת כרטיסים ←
       </a>
     </div>
+
   </aside>
 
   <script>
@@ -1956,30 +2063,178 @@
     }
 
     /* ── Show Drawer ── */
+
+    // ── נתוני אמנים — תמונות ותיאורים ──
+    var _sdArtistData = {
+      'The 3 Cohens: Yuval, Anat & Avishai': {
+        image: 'https://f4.bcbits.com/img/0022089960_10.jpg',
+        desc: 'שלושת הכהנים – ענת (קלרינט), אבישי (חצוצרה) ויובל (סקסופון) – הם שושלת מעוררת גאווה של ג׳אז בינלאומי שצמחה בישראל. במקביל לקריירות סולו מסחררות חובקות עולם, האחים חוזרים הביתה למפגש שלישייה נדיר עם ביג-בנד ישראלי שנבחר במיוחד לערב זה. על העיבודים והניצוח — עודד לב-ארי.',
+        isHeadliner: true
+      },
+      'Yuval, Anat & Avishai: The 3 Cohens': {
+        image: 'https://f4.bcbits.com/img/0022089960_10.jpg',
+        desc: 'שלושת הכהנים – ענת (קלרינט), אבישי (חצוצרה) ויובל (סקסופון) – מופיעים יחד עם ביג-בנד ישראלי בניצוח עודד לב-ארי. מפגש חד-פעמי של אלתור, צבע, סווינג ואינטראקציה משפחתית במיטבה.',
+        isHeadliner: true
+      },
+      'Eli Degibri Quartet': {
+        image: 'https://images.squarespace-cdn.com/content/v1/5ed02f8b922ddc1c09361885/1646537617034-XNL71N94WPPP4Y75449P/Eli+Degibri+credit+Dan+Balilty-6251-half-size.jpg',
+        desc: 'רביעיית הג׳אז של אלי דה-ג׳יברי – מופע מיוחד לפסטיבל עם רביעיית כלי מיתר ואורח מיוחד: שם טוב לוי.',
+        isHeadliner: true
+      },
+      'חוה אלברשטיין': {
+        image: 'https://upload.wikimedia.org/wikipedia/commons/e/ef/Chava_Alberstein_tight_composition.jpg',
+        desc: 'ערב מיוחד עם גדולת הזמרת הישראלית – חוה אלברשטיין. עיבודי ג׳אז ייחודיים לשיריה הנצחיים.',
+        isHeadliner: true
+      },
+      'SHALOSH': {
+        image: 'https://shalosh.net/wp-content/uploads/2026/01/001A1247-Edit-scaled.jpg',
+        desc: 'שלישיית SHALOSH חוגגת השקת אלבום ראשון בפסטיבל, עם אורח מיוחד: רוני איתן.',
+        isHeadliner: false
+      },
+      'SHALOSH — אורח: רוני איתן': {
+        image: 'https://shalosh.net/wp-content/uploads/2026/01/001A1247-Edit-scaled.jpg',
+        desc: 'הופעת לילה סוחפת של שלישיית SHALOSH עם אורח מיוחד: רוני איתן.',
+        isHeadliner: false
+      },
+      'Las Piratas Piratas': {
+        image: 'https://static.wixstatic.com/media/80be20_67e5266f3aa741e1b80325c3c3757e4ff000.jpg',
+        desc: 'ערב ג׳אז לטיני חגיגי עם Las Piratas Piratas — כניסה חופשית לפתיחת הפסטיבל.',
+        isHeadliner: false
+      },
+      'Anat Cohen — Master Class': {
+        image: 'https://upload.wikimedia.org/wikipedia/commons/4/4d/Anat_Cohen_2014.jpg',
+        desc: 'Master Class עם ענת כהן — שיעור חי פתוח לכולם עם Artist in Residence.',
+        isHeadliner: false
+      },
+      'Anat Cohen — Artist in Residence': {
+        image: 'https://upload.wikimedia.org/wikipedia/commons/4/4d/Anat_Cohen_2014.jpg',
+        desc: 'ענת כהן כ-Artist Resident — מופע אינטימי עם Marcello Goncalves.',
+        isHeadliner: true
+      },
+      'שלישיית אריאל ברט': {
+        image: 'https://static.wixstatic.com/media/238280_84a3720a074d4cb388f90eb893fbba9b~mv2.jpg',
+        desc: 'שלישיית אריאל ברט חוגגת השקת אלבום חדש.',
+        isHeadliner: false
+      },
+      'שישיית קאי גלוסקא': {
+        image: 'https://images.squarespace-cdn.com/content/v1/638f88b9af204e3c9b998725/80f6c39b-ba3b-4c98-b64e-47e5eed76aa2/Golan-Dana-1-2.JPG',
+        desc: 'שישיית הג׳אז של קאי גלוסקא — מוסיקה ישראלית עכשווית.',
+        isHeadliner: false
+      },
+      'הדר נויברג New Quartet': {
+        image: 'https://hadarnoiberg.com/wp-content/uploads/2025/10/Hadar-Noiberg-1024x683.jpg',
+        desc: 'חליל, פסנתר, בס ותופים — ג׳אז / פיוז׳ן עם הדר נויברג.',
+        isHeadliner: false
+      },
+      'תזמורת הג׳אז הישראלית': {
+        image: 'https://upload.wikimedia.org/wikipedia/commons/7/72/Israel_Jazz_Orchestra_03.jpg',
+        desc: 'הפקת מקור — מופע סיום מרהיב עם תזמורת הג׳אז הישראלית ואורחות: נטע ברזילי, גל דה פז, נונו ולירז צ׳רכי.',
+        isHeadliner: true
+      }
+    };
+
+    // ── הופעות מרובות לפי שם אמן ──
+    // אמנים שמופיעים יותר מפעם אחת בפסטיבל
+    var _sdArtistShows = {
+      'שלישיית יותם זילברשטיין': [
+        { stageName: 'Red Tent', stageColor: 'var(--red)', dayTitle: 'יום ד׳ · 11 בנובמבר', time: '19:00' },
+        { stageName: 'Red Tent', stageColor: 'var(--red)', dayTitle: 'יום ו׳ · 13 בנובמבר', time: '16:30' }
+      ],
+      'שישיית קאי גלוסקא': [
+        { stageName: 'Blue Dome', stageColor: 'var(--teal)', dayTitle: 'יום ד׳ · 11 בנובמבר', time: '18:30' },
+        { stageName: 'Blue Dome', stageColor: 'var(--teal)', dayTitle: 'יום ה׳ · 12 בנובמבר', time: '22:30' }
+      ],
+      'שלישיית אריאל ברט': [
+        { stageName: 'Blue Dome', stageColor: 'var(--teal)', dayTitle: 'יום ד׳ · 11 בנובמבר', time: '20:30' },
+        { stageName: 'Red Tent', stageColor: 'var(--red)', dayTitle: 'יום ו׳ · 13 בנובמבר', time: '11:00' }
+      ],
+      'הדר נויברג New Quartet': [
+        { stageName: 'Red Tent', stageColor: 'var(--red)', dayTitle: 'יום ד׳ · 11 בנובמבר', time: '21:00' },
+        { stageName: 'Red Tent', stageColor: 'var(--red)', dayTitle: 'שבת · 14 בנובמבר', time: '11:00' }
+      ],
+      'שישיית חגי אמיר': [
+        { stageName: 'Blue Dome', stageColor: 'var(--teal)', dayTitle: 'יום ו׳ · 13 בנובמבר', time: '18:00' },
+        { stageName: 'Green Pavilion', stageColor: 'var(--yellow)', dayTitle: 'שבת · 14 בנובמבר', time: '12:00' }
+      ],
+      'Las Piratas Piratas': [
+        { stageName: 'Main Stage', stageColor: 'var(--orange)', dayTitle: 'יום ד׳ · 11 בנובמבר', time: '22:00' },
+        { stageName: 'Blue Dome', stageColor: 'var(--teal)', dayTitle: 'יום ו׳ · 13 בנובמבר', time: '22:30' }
+      ],
+      'SHALOSH': [
+        { stageName: 'Main Stage', stageColor: 'var(--orange)', dayTitle: 'יום ד׳ · 11 בנובמבר', time: '20:00' },
+        { stageName: 'Red Tent', stageColor: 'var(--red)', dayTitle: 'יום ו׳ · 13 בנובמבר', time: '21:45' }
+      ],
+      'The 3 Cohens: Yuval, Anat & Avishai': [
+        { stageName: 'Main Stage', stageColor: 'var(--orange)', dayTitle: 'יום ה׳ · 12 בנובמבר', time: '20:00' },
+        { stageName: 'Green Pavilion', stageColor: 'var(--yellow)', dayTitle: 'שבת · 14 בנובמבר', time: '10:00', altName: 'Yuval, Anat & Avishai: The 3 Cohens' }
+      ],
+      'Yuval, Anat & Avishai: The 3 Cohens': [
+        { stageName: 'Main Stage', stageColor: 'var(--orange)', dayTitle: 'יום ה׳ · 12 בנובמבר', time: '20:00', altName: 'The 3 Cohens: Yuval, Anat & Avishai' },
+        { stageName: 'Green Pavilion', stageColor: 'var(--yellow)', dayTitle: 'שבת · 14 בנובמבר', time: '10:00' }
+      ]
+    };
+
+    // ── _sdOpen הכללי ──
     function _sdOpen(data) {
+      // ──── תמונה ────
+      var artistInfo = _sdArtistData[data.name] || {};
+      var imgEl = document.getElementById('showDrawerImgEl');
+      var imgPh = document.getElementById('showDrawerImgPh');
+      if (artistInfo.image) {
+        imgEl.src = artistInfo.image;
+        imgEl.alt = data.name;
+        imgEl.style.display = 'block';
+        imgPh.style.display = 'none';
+      } else {
+        imgEl.style.display = 'none';
+        imgPh.style.display = 'flex';
+      }
+
+      // ──── שם ────
       document.getElementById('showDrawerNameEl').textContent = data.name;
-      document.getElementById('showDrawerSub').textContent = data.sub;
-      document.getElementById('showDrawerDay').textContent = data.dayTitle;
+      document.getElementById('showDrawerSub').textContent = data.sub || '';
+      document.getElementById('showDrawerDay').textContent = data.dayTitle || '';
+
+      // ──── meta (שעה + במה) ────
       document.getElementById('showDrawerMeta').innerHTML =
         '<span style="color:' + data.stageColor + ';font-weight:700">' + data.time + '</span>' +
         '<span style="color:var(--border-strong)">·</span>' +
         '<span class="show-drawer-meta-dot" style="background:' + data.stageColor + '"></span>' +
         '<span style="color:' + data.stageColor + '">' + data.stageName + '</span>';
+
+      // ──── תגית ────
       var tagWrap = document.getElementById('showDrawerTagWrap');
       tagWrap.innerHTML = data.tag
         ? '<span class="show-drawer-tag' + (data.isHeadliner ? ' headliner' : '') + '">' + data.tag + '</span>'
         : '';
 
-      // description
-      var descEl = document.getElementById('showDrawerDesc');
-      if (data.desc) {
-        descEl.textContent = data.desc;
-        descEl.style.display = '';
+      // ──── תיאור + קרא עוד ────
+      var descWrap = document.getElementById('showDrawerDescWrap');
+      var descEl   = document.getElementById('showDrawerDesc');
+      var readMore = document.getElementById('showDrawerReadMore');
+      var descText = data.desc || artistInfo.desc || '';
+      if (descText) {
+        descEl.textContent = descText;
+        descWrap.style.display = '';
+        // בדוק אם צריך "קרא עוד" (מעל 5 שורות)
+        descWrap.classList.add('collapsed');
+        readMore.style.display = 'none';
+        // אחרי render — בדוק אם הטקסט נקטע
+        requestAnimationFrame(function() {
+          var isClamped = descEl.scrollHeight > descEl.clientHeight + 2;
+          if (isClamped) {
+            readMore.style.display = '';
+            readMore.textContent = 'קרא עוד ↓';
+          } else {
+            descWrap.classList.remove('collapsed');
+            readMore.style.display = 'none';
+          }
+        });
       } else {
-        descEl.style.display = 'none';
+        descWrap.style.display = 'none';
       }
 
-      // musicians list
+      // ──── נגנים ────
       var musiciansWrap = document.getElementById('showDrawerMusiciansWrap');
       var musiciansEl   = document.getElementById('showDrawerMusicians');
       if (data.musicians) {
@@ -1992,9 +2247,63 @@
         musiciansWrap.style.display = 'none';
       }
 
+      // ──── הופעות נוספות (ניווט) ────
+      var artistShowsWrap = document.getElementById('showDrawerArtistShowsWrap');
+      var artistShowsList = document.getElementById('showDrawerArtistShows');
+      var extraShows = _sdArtistShows[data.name];
+      if (extraShows && extraShows.length > 1) {
+        artistShowsList.innerHTML = '';
+        extraShows.forEach(function(s) {
+          var row = document.createElement('div');
+          row.className = 'sd-show-row';
+          // הדגש את ההופעה הנוכחית
+          var isCurrent = (s.dayTitle === data.dayTitle && s.stageName === data.stageName && s.time === data.time);
+          if (isCurrent) row.style.background = 'var(--bg2)';
+          row.innerHTML =
+            '<div class="sd-show-accent" style="background:' + s.stageColor + '"></div>' +
+            '<div class="sd-show-info">' +
+              '<div class="sd-show-stage" style="color:' + s.stageColor + '">' + s.stageName + '</div>' +
+              '<div class="sd-show-date">' + s.dayTitle + '</div>' +
+              '<div class="sd-show-time">' + s.time + '</div>' +
+            '</div>' +
+            '<div class="sd-show-arrow">←</div>';
+          if (!isCurrent) {
+            row.addEventListener('click', function() {
+              // סגור drawer, נווט לקלפ הספציפי
+              _sdClose();
+              // פתח drawer עם נתוני ההופעה הזו
+              var targetName = s.altName || data.name;
+              setTimeout(function() {
+                _sdOpen({
+                  name:        targetName,
+                  sub:         data.sub,
+                  time:        s.time,
+                  tag:         '',
+                  isHeadliner: artistInfo.isHeadliner || false,
+                  stageName:   s.stageName,
+                  stageColor:  s.stageColor,
+                  dayTitle:    s.dayTitle,
+                  desc:        '',
+                  musicians:   ''
+                });
+              }, 50);
+            });
+          }
+          artistShowsList.appendChild(row);
+        });
+        artistShowsWrap.style.display = '';
+      } else {
+        artistShowsWrap.style.display = 'none';
+      }
+
+      // ──── פתח drawer ────
       document.getElementById('showDrawerOverlay').classList.add('open');
       document.getElementById('showDrawer').classList.add('open');
       document.body.classList.add('show-drawer-open');
+
+      // ── reset scroll לראש ──
+      var scrollEl = document.querySelector('.show-drawer-scroll');
+      if (scrollEl) scrollEl.scrollTop = 0;
     }
 
     function _sdClose() {
@@ -2002,6 +2311,19 @@
       document.getElementById('showDrawer').classList.remove('open');
       document.body.classList.remove('show-drawer-open');
     }
+
+    // ── קרא עוד / קרא פחות ──
+    document.getElementById('showDrawerReadMore').addEventListener('click', function() {
+      var descWrap = document.getElementById('showDrawerDescWrap');
+      var isCollapsed = descWrap.classList.contains('collapsed');
+      if (isCollapsed) {
+        descWrap.classList.remove('collapsed');
+        this.textContent = 'קרא פחות ↑';
+      } else {
+        descWrap.classList.add('collapsed');
+        this.textContent = 'קרא עוד ↓';
+      }
+    });
 
     document.getElementById('showDrawerClose').addEventListener('click', _sdClose);
     document.getElementById('showDrawerOverlay').addEventListener('click', _sdClose);
@@ -2011,6 +2333,9 @@
 
     // Event delegation — list view
     document.addEventListener('click', function(e) {
+      // אל תתפוס קליקים בתוך ה-drawer עצמו
+      if (e.target.closest('.show-drawer')) return;
+
       var card = e.target.closest('.show-card');
       if (card) {
         var tagEl = card.querySelector('.show-card-tag');
@@ -2065,7 +2390,9 @@
           isHeadliner: calTag.indexOf('Headliner') !== -1,
           stageName:   calStage,
           stageColor:  calColor,
-          dayTitle:    calDay
+          dayTitle:    calDay,
+          desc:        showBlock.dataset.desc || '',
+          musicians:   showBlock.dataset.musicians || ''
         });
       }
     });
