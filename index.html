@@ -783,6 +783,83 @@
       font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
       text-transform: uppercase; z-index: 2;
     }
+    /* Ticket-style variant: ללא רקע על ה-wrapper עצמו */
+    .headliner-badge--ticket {
+      background: none;
+      padding: 0;
+      border-radius: 0;
+    }
+
+    /* ─── TICKET-STYLE TAG — Figma node 142:815 "Featuring Name" ──────
+     *
+     * רכיב תגית בסגנון ticket עם שוליים אסימטריים.
+     * הקצוות ("אוזניים") ממומשים עם SVG inline בתוך pseudo-elements.
+     * SVG paths מגיעים ישירות מ-Figma — Rectangle 1 (שמאל) ו-Rectangle 2 (ימין).
+     *
+     * גובה הקצוות (56 units) נמתח ל-height:100% עם preserveAspectRatio="none".
+     *
+     * מבנה HTML:
+     *   <div class="featuring-tag">
+     *     <span class="featuring-tag__notch featuring-tag__notch--start" aria-hidden="true"></span>
+     *     <span class="featuring-tag__body">Artist in Residence - Anat Cohen</span>
+     *     <span class="featuring-tag__notch featuring-tag__notch--end" aria-hidden="true"></span>
+     *   </div>
+     *
+     * הכוונה: --featuring-tag-bg לשינוי צבע. ברירת מחדל: #e6d8d6.
+     * ─────────────────────────────────────────────────────────────────── */
+
+    /* עטיפת הרכיב */
+    .featuring-tag {
+      display: inline-flex;
+      align-items: stretch;
+      direction: ltr; /* הקצוות תמיד: שמאל=start, ימין=end ללא קשר ל-RTL */
+      --featuring-tag-bg: #e6d8d6;
+      --featuring-tag-color: #2d2726;
+    }
+
+    /* גוף הטקסט */
+    .featuring-tag__body {
+      display: inline-block;
+      background: var(--featuring-tag-bg);
+      color: var(--featuring-tag-color);
+      font-family: 'Hepta Slab', 'Noto Sans Hebrew', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      line-height: 1.334;
+      padding: 0.6rem 1rem;
+      white-space: nowrap;
+    }
+
+    /* קצוות — pseudo-element עם SVG כ-mask */
+    .featuring-tag__notch {
+      display: block;
+      flex-shrink: 0;
+      align-self: stretch;
+      background: var(--featuring-tag-bg);
+      -webkit-mask-repeat: no-repeat;
+              mask-repeat: no-repeat;
+      -webkit-mask-size: 100% 100%;
+              mask-size: 100% 100%;
+    }
+
+    /* קצה שמאלי — path מ-Figma Rectangle 1, viewBox="0 0 11 56" */
+    .featuring-tag__notch--start {
+      width: 11px;
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg preserveAspectRatio='none' viewBox='0 0 11 56' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.57144 0H11V56H1.57144C1.57144 56 3.14287 53.2982 3.14287 49C3.14287 44.7018 1.57144 42 1.57144 42C1.57144 42 -0.000127875 40.7719 7.80415e-09 37.3333C0.00012789 33.8947 1.57144 25.7895 1.57144 22.1053C1.57144 20.4326 2.25121 17.0235 2.44866 13.2632C2.50045 12.2768 1.55744 11.2767 1.57144 10.3158C1.62162 6.87109 2.44866 3.92982 2.44866 3.92982L1.57144 0Z' fill='%23000'/%3E%3C/svg%3E");
+              mask-image: url("data:image/svg+xml,%3Csvg preserveAspectRatio='none' viewBox='0 0 11 56' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.57144 0H11V56H1.57144C1.57144 56 3.14287 53.2982 3.14287 49C3.14287 44.7018 1.57144 42 1.57144 42C1.57144 42 -0.000127875 40.7719 7.80415e-09 37.3333C0.00012789 33.8947 1.57144 25.7895 1.57144 22.1053C1.57144 20.4326 2.25121 17.0235 2.44866 13.2632C2.50045 12.2768 1.55744 11.2767 1.57144 10.3158C1.62162 6.87109 2.44866 3.92982 2.44866 3.92982L1.57144 0Z' fill='%23000'/%3E%3C/svg%3E");
+    }
+
+    /* קצה ימני — path מ-Figma Rectangle 2, viewBox="0 0 10 56", מסובב 180° */
+    .featuring-tag__notch--end {
+      width: 10px;
+      transform: rotate(180deg);
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg preserveAspectRatio='none' viewBox='0 0 10 56' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.42858 0H10V56H1.42858C1.42858 56 2.85715 50.3509 2.85715 46.0526C2.85715 41.7544 1.42858 39.0526 1.42858 39.0526C1.42858 39.0526 -0.00011625 37.8246 7.09468e-09 34.386C0.000116264 30.9474 1.42858 22.8421 1.42858 19.1579C1.42858 17.4852 2.04655 17.0235 2.22605 13.2632C2.27313 12.2768 1.41586 11.2767 1.42858 10.3158C1.4742 6.87109 2.22605 3.92982 2.22605 3.92982L1.42858 0Z' fill='%23000'/%3E%3C/svg%3E");
+              mask-image: url("data:image/svg+xml,%3Csvg preserveAspectRatio='none' viewBox='0 0 10 56' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.42858 0H10V56H1.42858C1.42858 56 2.85715 50.3509 2.85715 46.0526C2.85715 41.7544 1.42858 39.0526 1.42858 39.0526C1.42858 39.0526 -0.00011625 37.8246 7.09468e-09 34.386C0.000116264 30.9474 1.42858 22.8421 1.42858 19.1579C1.42858 17.4852 2.04655 17.0235 2.22605 13.2632C2.27313 12.2768 1.41586 11.2767 1.42858 10.3158C1.4742 6.87109 2.22605 3.92982 2.22605 3.92982L1.42858 0Z' fill='%23000'/%3E%3C/svg%3E");
+    }
+
+    /* וריאנטים לפי הקשר */
+    .featuring-tag--sm .featuring-tag__body { font-size: 0.85rem; padding: 0.35rem 0.75rem; }
+    .featuring-tag--on-dark { --featuring-tag-bg: rgba(230,216,214,0.9); }
 
     /* ─── SHOW BLOCK THUMBNAIL ────────────────────────────────── */
     .show-block-inner {
@@ -1228,6 +1305,13 @@
       display: flex; align-items: center; justify-content: center;
       font-size: 2.5rem; position: relative; overflow: hidden;
     }
+    .news-img img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    .news-card:hover .news-img img { transform: scale(1.04); }
+    .news-img img { transition: transform 0.4s ease; }
     .news-img::after {
       content: ''; position: absolute; inset: 0;
       background: linear-gradient(to top, rgba(13,14,26,0.8), transparent 50%);
@@ -1779,6 +1863,14 @@
       <div class="alt-lineup-header reveal">
         <div class="section-tag" style="color:var(--orange)">Lineup · אמנים</div>
         <h2 class="alt-lineup-title">מציגים: <span class="alt-lineup-title-accent">אמני 2026</span></h2>
+        <!-- Ticket-tag demo — Figma node 142:815 "Featuring Name" (full size) -->
+        <div class="alt-lineup-featured-tag" aria-label="אמן בית הפסטיבל">
+          <div class="featuring-tag">
+            <span class="featuring-tag__notch featuring-tag__notch--start" aria-hidden="true"></span>
+            <span class="featuring-tag__body">Artist in Residence - Anat Cohen</span>
+            <span class="featuring-tag__notch featuring-tag__notch--end" aria-hidden="true"></span>
+          </div>
+        </div>
       </div>
 
       <div class="alt-lineup-grid reveal">
@@ -1942,6 +2034,12 @@
       font-size: 1rem;
       margin-top: 0.8rem;
       line-height: 1.7;
+    }
+    /* wrapper ל-featured ticket tag מתחת לכותרת */
+    .alt-lineup-featured-tag {
+      display: flex;
+      justify-content: center;
+      margin-top: 1.5rem;
     }
 
     /* ── THE GRID OF PILLS ── */
@@ -2320,7 +2418,14 @@
             </div>
           </div>
           <div class="artist-card featured">
-          <div class="headliner-badge">Artist Resident</div>
+            <!-- Ticket-style tag — Figma node 142:815 -->
+            <div class="headliner-badge headliner-badge--ticket" aria-label="Artist in Residence">
+              <div class="featuring-tag featuring-tag--sm">
+                <span class="featuring-tag__notch featuring-tag__notch--start" aria-hidden="true"></span>
+                <span class="featuring-tag__body">Artist in Residence</span>
+                <span class="featuring-tag__notch featuring-tag__notch--end" aria-hidden="true"></span>
+              </div>
+            </div>
             <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/anat-cohen.jpg')"><div class="artist-img-overlay"></div></div>
             <div class="artist-info">
               <div class="artist-name">Anat Cohen</div>
@@ -2977,7 +3082,9 @@
 
     <div class="news-grid reveal">
       <a class="news-card" href="./article.html">
-        <div class="news-img" aria-hidden="true">🎷</div>
+        <div class="news-img">
+          <img src="./Graphig assets/gallery/gallery-04.jpg" alt="הלינאפ המלא של פסטיבל 2026" width="1200" height="480" loading="lazy">
+        </div>
         <div class="news-body">
           <div class="news-date">מאי 2026</div>
           <div class="news-title">הלינאפ המלא של פסטיבל 2026 הוכרז רשמית</div>
@@ -2987,7 +3094,9 @@
       </a>
 
       <a class="news-card" href="./article-port.html">
-        <div class="news-img" aria-hidden="true">🏖️</div>
+        <div class="news-img">
+          <img src="./Graphig assets/gallery/gallery-07.jpg" alt="נמל אילת מתכונן לפסטיבל" width="1200" height="480" loading="lazy">
+        </div>
         <div class="news-body">
           <div class="news-date">אפריל 2026</div>
           <div class="news-title">נמל אילת מתכונן לפסטיבל — כל מה שצריך לדעת</div>
@@ -2997,7 +3106,9 @@
       </a>
 
       <a class="news-card" href="./article-hava.html">
-        <div class="news-img" aria-hidden="true">🎤</div>
+        <div class="news-img">
+          <img src="./Graphig assets/artist-photos/chava-alberstein.jpg" alt="חוה אלברשטיין — קונצרט הגדול" width="1200" height="480" loading="lazy">
+        </div>
         <div class="news-body">
           <div class="news-date">יוני 2026</div>
           <div class="news-title">חוה אלברשטיין — קונצרט הגדול של פסטיבל 2026</div>
