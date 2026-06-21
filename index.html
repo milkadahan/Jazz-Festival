@@ -1863,14 +1863,6 @@
       <div class="alt-lineup-header reveal">
         <div class="section-tag" style="color:var(--orange)">Lineup · אמנים</div>
         <h2 class="alt-lineup-title">מציגים: <span class="alt-lineup-title-accent">אמני 2026</span></h2>
-        <!-- Ticket-tag demo — Figma node 142:815 "Featuring Name" (full size) -->
-        <div class="alt-lineup-featured-tag" aria-label="אמן בית הפסטיבל">
-          <div class="featuring-tag">
-            <span class="featuring-tag__notch featuring-tag__notch--start" aria-hidden="true"></span>
-            <span class="featuring-tag__body">Artist in Residence - Anat Cohen</span>
-            <span class="featuring-tag__notch featuring-tag__notch--end" aria-hidden="true"></span>
-          </div>
-        </div>
       </div>
 
       <div class="alt-lineup-grid reveal">
@@ -1889,7 +1881,7 @@
 
         <button class="alt-artist-btn" onclick="openArtistDrawer('three-cohens')">
           <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
-          <span class="featuring-pill-text">Yuval, Anat &amp; Avishai: The 3 Cohens Big Band</span>
+          <span class="featuring-pill-text">The 3 Cohens: Yuval, Anat &amp; Avishai + Big Band</span>
           <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
         </button>
 
@@ -2252,11 +2244,11 @@
         ]
       },
       'three-cohens': {
-        name: 'The 3 Cohens Big Band',
-        genre: 'ג׳אז / ביג-בנד',
-        desc: 'שלושת האחים כהן — רוני, ענת ואלדר — מתאחדים בהרכב ביג-בנד לאירוע מיוחד לכבוד 40 שנות פסטיבל. מופע שכזה מתרחש רק פעם בחיים.',
+        name: 'The 3 Cohens: Yuval, Anat & Avishai',
+        genre: 'ג׳אז · ביג-בנד',
+        desc: 'שלושת הכהנים – ענת (קלרינט), אבישי (חצוצרה) ויובל (סקסופון) – שושלת מעוררת גאווה של ג׳אז בינלאומי שצמחה בישראל. מופע מיוחד עם ביג-בנד ישראלי בניצוח עודד לב-ארי, בהשראת האלבום עטור השבחים Interaction.',
         shows: [
-          { stage:'Port arena', color:'var(--orange)', date:'12.11 · יום ה׳', time:'20:00', label:'מיוחד לפסטיבל' }
+          { stage:'Port arena', color:'var(--orange)', date:'12.11 · יום ה׳', time:'20:00', label:'Artist Residence' }
         ]
       },
       'eli-degibri': {
@@ -2418,14 +2410,7 @@
             </div>
           </div>
           <div class="artist-card featured">
-            <!-- Ticket-style tag — Figma node 142:815 -->
-            <div class="headliner-badge headliner-badge--ticket" aria-label="Artist in Residence">
-              <div class="featuring-tag featuring-tag--sm">
-                <span class="featuring-tag__notch featuring-tag__notch--start" aria-hidden="true"></span>
-                <span class="featuring-tag__body">Artist in Residence</span>
-                <span class="featuring-tag__notch featuring-tag__notch--end" aria-hidden="true"></span>
-              </div>
-            </div>
+
             <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/anat-cohen.jpg')"><div class="artist-img-overlay"></div></div>
             <div class="artist-info">
               <div class="artist-name">Anat Cohen</div>
@@ -4097,7 +4082,7 @@
     // ── Show panel artist data ────────────────────────────────────
     const showsData = {
       'אבות ובנים':               { image:'', origin:'ישראל', genre:'ג׳אז',              isHeadliner:false, description:'מפגש בין-דורי ייחודי בין אבות ובניהם המוסיקאים.' },
-      'The 3 Cohens':             { image:'https://f4.bcbits.com/img/0022089960_10.jpg', origin:'ישראל / ארה״ב', genre:'ג׳אז',       isHeadliner:true,  description:'שלושת האחים כהן – רוני, אנת ואלדר – מופיעים יחד בהרכב ייחודי.' },
+      'The 3 Cohens':             { image:'https://f4.bcbits.com/img/0022089960_10.jpg', origin:'ישראל / ארה״ב', genre:'ג׳אז · ביג-בנד', isHeadliner:true,  description:'שלושת הכהנים – ענת (קלרינט), אבישי (חצוצרה) ויובל (סקסופון) – שושלת מעוררת גאווה של ג׳אז בינלאומי שצמחה בישראל. מופע מיוחד עם ביג-בנד ישראלי בניצוח עודד לב-ארי, בהשראת האלבום עטור השבחים Interaction.' },
       'Lay Z Gordon':             { image:'https://www.lazygordon.com/assets/layz-color-1.png', origin:'ישראל', genre:'ג׳אז / היפ-הופ',    isHeadliner:false, description:'נגן שופר וקול ייחודי המשלב ג׳אז עם השפעות עכשוויות.' },
       'ג׳ימבו ג׳אז':              { image:'', origin:'ישראל', genre:'ג׳אז',              isHeadliner:false, description:'הרכב ג׳אז ישראלי אנרגטי ומרתק.' },
       'שישיית קאי גלוסקא':        { image:'https://images.squarespace-cdn.com/content/v1/638f88b9af204e3c9b998725/80f6c39b-ba3b-4c98-b64e-47e5eed76aa2/Golan-Dana-1-2.JPG', origin:'ישראל', genre:'ג׳אז עכשווי',       isHeadliner:false, description:'שישיית הג׳אז של קאי גלוסקא – מוסיקה ישראלית עכשווית.' },
