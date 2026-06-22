@@ -907,6 +907,15 @@
       content: ''; position: absolute; inset: 0;
       background: radial-gradient(circle at 30% 70%, rgba(224,86,11,0.2), transparent 70%);
     }
+    /* Placeholder glyph — מוצג רק כשאין תמונה אמיתית בשורה */
+    .show-thumb::before {
+      content: '\266A'; position: absolute; inset: 0; z-index: 1;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; color: rgba(255,255,255,0.5);
+      pointer-events: none;
+    }
+    .show-thumb.has-img::before { content: none; }
+    .show-thumb.has-img::after  { content: none; }
     .show-block.stage-red .show-thumb::after {
       background: radial-gradient(circle at 30% 70%, rgba(214,34,70,0.2), transparent 70%);
     }
@@ -2331,10 +2340,25 @@
         // תצוגת רשימה — scroll לסקשן
         document.querySelectorAll('.day-nav-btn').forEach(function(b) { b.classList.remove('active'); });
         btn.classList.add('active');
-        // מניעת scroll listener מהחלפת הסימון בזמן הגלילה החלקה
+        // מניעת scroll listener מהחלפת הסימון — נשאר פעיל עד 200ms אחרי עצירת הגלילה
         scrollingToDay = true;
         clearTimeout(scrollingToDayTimer);
-        scrollingToDayTimer = setTimeout(function() { scrollingToDay = false; }, 800);
+        // fallback: שחרור אחרי 2s אם אין scroll events
+        scrollingToDayTimer = setTimeout(function() { scrollingToDay = false; }, 2000);
+        var _targetId = id;
+        function _onScrollStop() {
+          clearTimeout(scrollingToDayTimer);
+          scrollingToDayTimer = setTimeout(function() {
+            scrollingToDay = false;
+            window.removeEventListener('scroll', _onScrollStop);
+            // וידוא שהכפתור הנכון מסומן לאחר גמר הגלילה
+            document.querySelectorAll('.day-nav-btn').forEach(function(b) { b.classList.remove('active'); });
+            var _idx = ['day-1','day-2','day-3','day-4'].indexOf(_targetId);
+            var _allBtns = document.querySelectorAll('.day-nav-btn');
+            if (_allBtns[_idx]) _allBtns[_idx].classList.add('active');
+          }, 200);
+        }
+        window.addEventListener('scroll', _onScrollStop, { passive: true });
         document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
       }
     }
@@ -2549,6 +2573,71 @@
         { stageName: 'Green Pavilion', stageColor: 'var(--yellow)', dayTitle: 'שבת · 14 בנובמבר', time: '10:00' }
       ]
     };
+
+    // ── סינכרון תמונות דו-כיווני: שורת הופעה ⇄ כרטיס צד (drawer) ──────
+    // מקור אמת = התמונה שקיימת בפועל בשורה (background-image על .show-thumb)
+    // או ב-_sdArtistData[name].image. בעת load:
+    //  1) שורה יש תמונה (background-image) → דוחפים אותה ל-_sdArtistData (row → data)
+    //     כך שהכרטיס יציג בדיוק את אותה תמונה כמו השורה (התמונות המקומיות הן הקנוניות).
+    //  2) שורה ריקה + _sdArtistData יש תמונה → ממלאים את ה-thumb בשורה (data → row).
+    //  3) אין תמונה בשני המקומות → נשאר placeholder (♪) — תקין.
+    (function syncShowImages() {
+      function norm(s) {
+        return (s || '')
+          .replace(/&amp;/g, '&')
+          .replace(/[—–-]\s*(Master Class|Artist in Residence|אורח|מארחת|קונצרט|מפגש|טקס).*$/, '')
+          .replace(/:.*$/, '')
+          .replace(/New Quartet$/, '')
+          .replace(/\s+/g, ' ')
+          .trim();
+      }
+      // אינדקס תמונות לפי שם מלא + שם מנורמל
+      var imgByName = {};
+      Object.keys(_sdArtistData).forEach(function (k) {
+        var im = _sdArtistData[k] && _sdArtistData[k].image;
+        if (im) { imgByName[k] = im; imgByName[norm(k)] = im; }
+      });
+
+      function rowBg(thumb) {
+        var bg = thumb.style.backgroundImage || '';
+        var m = bg.match(/url\(["']?(.*?)["']?\)/);
+        return m ? m[1] : '';
+      }
+      // נרמול שם של מפתח data שאליו תיכנס תמונת השורה
+      function dataKeyFor(name) {
+        if (_sdArtistData[name]) return name;
+        var n = norm(name);
+        var hit = Object.keys(_sdArtistData).find(function (k) { return norm(k) === n; });
+        return hit || null;
+      }
+
+      document.querySelectorAll('.show-block').forEach(function (block) {
+        var nameEl = block.querySelector('.show-name');
+        var thumb  = block.querySelector('.show-thumb');
+        if (!nameEl || !thumb) return;
+        var name = nameEl.textContent.trim();
+        var existing = rowBg(thumb);
+        var dataImg  = imgByName[name] || imgByName[norm(name)];
+
+        if (existing) {
+          // row → data: התמונה של השורה הופכת לקנונית גם בכרטיס
+          thumb.classList.add('has-img');
+          var key = dataKeyFor(name);
+          if (key) {
+            _sdArtistData[key].image = existing;
+          } else {
+            // אין רשומת data — נוסיף אחת מינימלית כדי שהכרטיס יציג את התמונה
+            _sdArtistData[name] = _sdArtistData[name] || {};
+            _sdArtistData[name].image = existing;
+          }
+        } else if (dataImg) {
+          // data → row: ממלאים את ה-thumb מתוך נתוני הכרטיס
+          thumb.style.backgroundImage = "url('" + dataImg + "')";
+          thumb.classList.add('has-img');
+        }
+        // אין תמונה בשני המקומות → נשאר placeholder (תקין)
+      });
+    })();
 
     // ── _sdOpen הכללי ──
     function _sdOpen(data) {
