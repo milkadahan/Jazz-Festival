@@ -473,13 +473,17 @@
       width: 92px; height: 92px;
       border-radius: 8px;
       background: linear-gradient(145deg, #2d2219, #3a2a1e);
+      background-size: cover;
+      background-position: center top;
       display: flex; align-items: center; justify-content: center;
     }
     .show-card-img::after {
       content: '♪';
       font-size: 1.8rem;
       color: rgba(250,244,233,0.14);
+      pointer-events: none;
     }
+    .show-card-img.has-img::after { content: none; }
     .show-card-num {
       flex-shrink: 0;
       font-size: 34px; font-weight: 700;
@@ -2407,6 +2411,7 @@
         if (!imgDiv || !nameEl) return;
         var img = getShowImage(nameEl.textContent);
         imgDiv.style.backgroundImage = 'url("' + img + '")';
+        imgDiv.classList.add('has-img');
       });
     }
     document.addEventListener('DOMContentLoaded', applyShowImages);
