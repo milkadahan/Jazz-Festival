@@ -713,9 +713,11 @@
       flex-shrink: 0;
     }
     .horiz-progress-bar {
-      height: 100%; width: 0%;
+      height: 100%; width: 100%;
       background: linear-gradient(90deg, var(--orange), var(--yellow));
-      transition: width 0.05s linear;
+      transform: scaleX(0);
+      transform-origin: 0 0;
+      will-change: transform;
     }
     /* hint arrow */
     .horiz-hint {
@@ -3995,19 +3997,35 @@
     const horizTrack  = document.getElementById('horizTrack');
     const horizBar    = document.getElementById('horizBar');
 
+    // cached values — recalculated on setup/resize only, never in scroll handler
+    let _travelDist = 0;
+    let _sectionTop = 0;
+    let _rafPending = false;
+
     function setupHoriz() {
-      const travelDist = horizTrack.scrollWidth - window.innerWidth + 96;
-      lineupOuter.style.height = (window.innerHeight + Math.max(0, travelDist)) + 'px';
+      _travelDist = horizTrack.scrollWidth - window.innerWidth + 96;
+      lineupOuter.style.height = (window.innerHeight + Math.max(0, _travelDist)) + 'px';
+      // getBoundingClientRect here is fine — runs only on init/resize
+      _sectionTop = lineupOuter.getBoundingClientRect().top + window.scrollY;
+      updateHoriz();
     }
+
+    function updateHoriz() {
+      _rafPending = false;
+      if (_travelDist <= 0) return;
+      // window.scrollY is compositor-side — no forced layout
+      const progress = Math.max(0, Math.min(1, (window.scrollY - _sectionTop) / _travelDist));
+      // both properties are compositor-only (transform) — no layout, no paint
+      horizTrack.style.transform = `translateX(${progress * _travelDist}px)`;
+      horizBar.style.transform   = `scaleX(${progress})`;
+    }
+
     function onScroll() {
-      const rect       = lineupOuter.getBoundingClientRect();
-      const travelDist = horizTrack.scrollWidth - window.innerWidth + 96;
-      const scrollable = lineupOuter.offsetHeight - window.innerHeight;
-      const progress   = Math.max(0, Math.min(1, -rect.top / scrollable));
-      // RTL: translate POSITIVE X to reveal cards that overflow on the left
-      horizTrack.style.transform = `translateX(${progress * travelDist}px)`;
-      horizBar.style.width = (progress * 100) + '%';
+      if (_rafPending) return;   // skip if a frame is already queued
+      _rafPending = true;
+      requestAnimationFrame(updateHoriz);
     }
+
     setupHoriz();
     window.addEventListener('resize', setupHoriz, { passive: true });
     window.addEventListener('scroll', onScroll, { passive: true });
