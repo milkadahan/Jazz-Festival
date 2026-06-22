@@ -2303,6 +2303,9 @@
       }
     }
 
+    var scrollingToDay = false;
+    var scrollingToDayTimer = null;
+
     function scrollToDay(id, btn) {
       if (currentView === 'calendar') {
         // לחיצה חוזרת על אותו יום — חזרה ל-weekly view
@@ -2328,6 +2331,10 @@
         // תצוגת רשימה — scroll לסקשן
         document.querySelectorAll('.day-nav-btn').forEach(function(b) { b.classList.remove('active'); });
         btn.classList.add('active');
+        // מניעת scroll listener מהחלפת הסימון בזמן הגלילה החלקה
+        scrollingToDay = true;
+        clearTimeout(scrollingToDayTimer);
+        scrollingToDayTimer = setTimeout(function() { scrollingToDay = false; }, 800);
         document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
       }
     }
@@ -2387,6 +2394,7 @@
     const dayBtns   = document.querySelectorAll('.day-nav-btn');
     window.addEventListener('scroll', function() {
       if (currentView === 'calendar') return;
+      if (scrollingToDay) return;
       var current = '';
       dayBlocks.forEach(function(block) {
         var rect = block.getBoundingClientRect();
