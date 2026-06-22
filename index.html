@@ -3450,11 +3450,24 @@
   <style>
     /* ── TICKET PLANS SECTION (עיצוב Figma node 269-1075) ── */
     .ticket-plans-section {
+      min-height: 100vh;
       padding: 80px 24px;
-      background: var(--bg);
+      background: var(--bg) url('./Graphig assets/banner2.png') center center / cover no-repeat;
       text-align: center;
       direction: rtl;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
     }
+    .ticket-plans-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(250, 244, 233, 0.88);
+      pointer-events: none;
+    }
+    .ticket-plans-section > * { position: relative; }
 
     /* כותרת סקשיין */
     .ticket-plans-header {
@@ -3496,7 +3509,7 @@
       gap: 28px;
       max-width: 1140px;
       margin-inline: auto;
-      align-items: start;
+      align-items: center;
     }
 
     /* כרטיס בסיס */
