@@ -560,10 +560,10 @@
       overflow: hidden;
       position: relative;
     }
-    /* תמונת אמן: fill + focal point על ראש */
+    /* תמונת אמן: cover שומר פרופורציה (ללא מריחה) + focal point על ראש */
     .show-drawer-img img {
       width: 100%; height: 100%;
-      object-fit: fill;
+      object-fit: cover;
       object-position: top;
       display: block;
       position: absolute; inset: 0;
@@ -635,23 +635,7 @@
       font-size: 0.88rem; color: #4a3626; line-height: 1.6; margin: 0;
     }
 
-    /* ── קרא עוד ── */
     .show-drawer-desc-wrap { position: relative; }
-    .show-drawer-desc-wrap.collapsed .show-drawer-desc {
-      display: -webkit-box;
-      -webkit-line-clamp: 5;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .show-drawer-read-more {
-      display: inline-flex; align-items: center; gap: 0.3rem;
-      margin-top: 0.4rem;
-      background: none; border: none; padding: 0;
-      font-family: var(--font); font-size: 0.82rem; font-weight: 700;
-      color: var(--orange); cursor: pointer;
-      transition: color 0.2s;
-    }
-    .show-drawer-read-more:hover { color: var(--red); }
 
     .show-drawer-musicians-label {
       font-size: 0.7rem; color: var(--muted); text-transform: uppercase;
@@ -840,9 +824,10 @@
       display: flex; gap: 0.6rem; align-items: center;
     }
     .show-thumb {
-      flex-shrink: 0; align-self: center;
-      margin: 8px 0; margin-inline-start: 8px;
-      width: 52px; height: 52px; border-radius: 8px;
+      /* התמונה נמתחת לגובה התווית, 8px מכל שול (עליון/ימני/תחתון), פרופורציה 1:1 */
+      flex: 0 0 auto; align-self: stretch;
+      margin: 8px; margin-inline-start: 0;
+      aspect-ratio: 1 / 1; border-radius: 8px;
       background: linear-gradient(135deg, #1a1030, #0a1525);
       background-size: cover; background-position: center top;
       border: 1px solid var(--border);
@@ -1894,10 +1879,9 @@
         <div id="showDrawerTagWrap"></div>
         <div class="show-drawer-divider"></div>
 
-        <!-- תיאור עם קרא עוד -->
+        <!-- תיאור -->
         <div class="show-drawer-desc-wrap" id="showDrawerDescWrap" style="display:none">
           <p class="show-drawer-desc" id="showDrawerDesc"></p>
-          <button class="show-drawer-read-more" id="showDrawerReadMore" style="display:none">קרא עוד ↓</button>
         </div>
 
         <!-- נגנים -->
@@ -2015,10 +1999,11 @@
       });
     }
 
-    // Highlight active day on scroll
+    // Highlight active day on scroll (list view only)
     const dayBlocks = document.querySelectorAll('.day-block');
     const dayBtns   = document.querySelectorAll('.day-nav-btn');
     window.addEventListener('scroll', function() {
+      if (currentView === 'calendar') return;
       var current = '';
       dayBlocks.forEach(function(block) {
         var rect = block.getBoundingClientRect();
@@ -2208,28 +2193,13 @@
         ? '<span class="show-drawer-tag' + (data.isHeadliner ? ' headliner' : '') + '">' + data.tag + '</span>'
         : '';
 
-      // ──── תיאור + קרא עוד ────
+      // ──── תיאור ────
       var descWrap = document.getElementById('showDrawerDescWrap');
       var descEl   = document.getElementById('showDrawerDesc');
-      var readMore = document.getElementById('showDrawerReadMore');
       var descText = data.desc || artistInfo.desc || '';
       if (descText) {
         descEl.textContent = descText;
         descWrap.style.display = '';
-        // בדוק אם צריך "קרא עוד" (מעל 5 שורות)
-        descWrap.classList.add('collapsed');
-        readMore.style.display = 'none';
-        // אחרי render — בדוק אם הטקסט נקטע
-        requestAnimationFrame(function() {
-          var isClamped = descEl.scrollHeight > descEl.clientHeight + 2;
-          if (isClamped) {
-            readMore.style.display = '';
-            readMore.textContent = 'קרא עוד ↓';
-          } else {
-            descWrap.classList.remove('collapsed');
-            readMore.style.display = 'none';
-          }
-        });
       } else {
         descWrap.style.display = 'none';
       }
@@ -2312,18 +2282,6 @@
       document.body.classList.remove('show-drawer-open');
     }
 
-    // ── קרא עוד / קרא פחות ──
-    document.getElementById('showDrawerReadMore').addEventListener('click', function() {
-      var descWrap = document.getElementById('showDrawerDescWrap');
-      var isCollapsed = descWrap.classList.contains('collapsed');
-      if (isCollapsed) {
-        descWrap.classList.remove('collapsed');
-        this.textContent = 'קרא פחות ↑';
-      } else {
-        descWrap.classList.add('collapsed');
-        this.textContent = 'קרא עוד ↓';
-      }
-    });
 
     document.getElementById('showDrawerClose').addEventListener('click', _sdClose);
     document.getElementById('showDrawerOverlay').addEventListener('click', _sdClose);
