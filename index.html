@@ -3466,22 +3466,35 @@
     .ticket-plans-section {
       min-height: 100vh;
       padding: 80px 24px;
-      background: var(--bg) url('./Graphig assets/banner2.png') center center / cover no-repeat;
+      background: var(--bg);
       text-align: center;
       direction: rtl;
       display: flex;
       flex-direction: column;
       justify-content: center;
       position: relative;
+      overflow: hidden;
     }
+    /* שכבת תמונת הרקע — opacity 60%, מתחילה מ-14.54% מהחלק העליון */
+    .ticket-plans-section::after {
+      content: '';
+      position: absolute;
+      top: 14.54%; left: 0;
+      width: 100%; height: 95.74%;
+      background: url('./Graphig assets/banner2-new.png') no-repeat center bottom / 100% auto;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    /* gradient overlay — ריכוך עליון: צבע מלא (25%) → שקוף כמעט (100%) */
     .ticket-plans-section::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(250, 244, 233, 0.74);
+      background: linear-gradient(to bottom, #ede8df 24.495%, rgba(237,232,223,0.24) 100%);
       pointer-events: none;
+      z-index: 1;
     }
-    .ticket-plans-section > * { position: relative; }
+    .ticket-plans-section > * { position: relative; z-index: 2; }
 
     /* כותרת סקשיין */
     .ticket-plans-header {
