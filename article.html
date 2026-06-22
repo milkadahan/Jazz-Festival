@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>הלינאפ המלא של 2026 הוכרז · Red Sea Jazz Festival</title>
+  <meta name="description" content="פסטיבל ג'אז ים סוף חוגג 40 שנה וחושף את הליינאפ המלא של מהדורת 2026 — 40 אמנים מ-12 מדינות, 4 ימים בנמל אילת." />
+  <meta name="keywords" content="Red Sea Jazz Festival, חדשות, ליינאפ, כתבה, אילת, 2026" />
+  <meta property="og:title" content="הלינאפ המלא של 2026 הוכרז · Red Sea Jazz Festival" />
+  <meta property="og:description" content="40 אמנים מ-12 מדינות · 4 ימים · נמל אילת · מהדורת 2026" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="./Graphig assets/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="he_IL" />
+  <meta property="og:site_name" content="Red Sea Jazz Festival" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="הלינאפ המלא של 2026 הוכרז · Red Sea Jazz Festival" />
+  <meta name="twitter:image" content="./Graphig assets/og-image.jpg" />
+  <meta name="theme-color" content="#E0560B" />
+  <meta name="msapplication-TileColor" content="#E0560B" />
+  <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+  <link rel="manifest" href="./site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@100;300;400;500;700;900&family=Noto+Sans+Hebrew:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── RESET & BASE ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* ── Light Mode palette (cream background, warm dark-brown text) ── */
+      --bg:        #FAF4E9;
+      --bg2:       #F3E9D6;
+      --orange:    #E0560B;
+      --yellow:    #E0A800;
+      --red:       #D62246;
+      --pink:      #E0568F;
+      --teal:      #0A8F8E;
+      --warm-glow: #FF8C42;
+      --text:      #3A2A1E;
+      --muted:     #8A7256;
+      --card-bg:   #FFFDF8;
+      --border:    rgba(58,42,30,0.12);
+      --border-strong: rgba(58,42,30,0.22);
+      --btn-gradient:  linear-gradient(135deg, var(--orange), var(--red));
+      --shadow:    rgba(58,42,30,0.10);
+      --shadow-strong: rgba(58,42,30,0.16);
+      --on-accent: #FFFDF8;
+      --font:      'Hepta Slab', 'Noto Sans Hebrew', serif;
+      --ticker-h:  36px;
+      --nav-h:     100px;
+    }
+    :root:has(nav.scrolled) { --nav-h: 64px; }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── TICKER BAR ───────────────────────────────────────────── */
+    .ticker-bar {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--ticker-h); z-index: 101;
+      background: #2d2726;
+      display: flex; align-items: center;
+      direction: ltr; overflow: hidden;
+      border-bottom: 1px solid rgba(224,86,11,0.3);
+    }
+    .ticker-label {
+      flex-shrink: 0; height: 100%;
+      display: flex; align-items: center;
+      padding: 0 1rem; font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.04em; color: var(--orange);
+      background: rgba(224,86,11,0.08);
+      border-right: 1px solid rgba(224,86,11,0.35);
+      white-space: nowrap;
+    }
+    .ticker-track-wrap { flex: 1; overflow: hidden; position: relative; }
+    .ticker-track {
+      display: flex; gap: 0; direction: ltr;
+      animation: ticker-scroll 28s linear infinite;
+      will-change: transform; width: max-content;
+    }
+    .ticker-item {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.78rem; color: #e6d8d6;
+      padding: 0 2.5rem; white-space: nowrap;
+    }
+    .ticker-item::before { content: '♪'; color: var(--orange); font-size: 0.65rem; }
+    @keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-25%); } }
+    @media (max-width: 700px) {
+      :root { --ticker-h: 32px; }
+      .ticker-label { padding: 0 0.7rem 0 0.9rem; font-size: 0.65rem; }
+      .ticker-item { font-size: 0.73rem; padding: 0 1.8rem; }
+    }
+
+    /* ─── NAV ─────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: var(--ticker-h); width: 100%; z-index: 100;
+      display: flex; align-items: center; height: 100px;
+      background: rgba(250,244,233,0.94);
+      -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.35s, height 0.35s; overflow: hidden;
+    }
+    nav.scrolled {
+      height: 64px; background: rgba(250,244,233,0.97);
+      box-shadow: 0 2px 16px var(--shadow);
+    }
+    .nav-logo-tab {
+      flex-shrink: 0; padding: 0.6rem 1.4rem;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; text-decoration: none;
+      transition: opacity 0.2s, padding 0.35s;
+    }
+    .nav-logo-tab:hover { opacity: 0.75; }
+    nav.scrolled .nav-logo-tab { padding: 0.25rem 1.4rem; }
+    .nav-logo-img {
+      height: 80px; width: auto; display: block;
+      filter: brightness(0) saturate(100%) invert(15%) sepia(28%) saturate(900%) hue-rotate(350deg);
+      transition: height 0.35s;
+    }
+    nav.scrolled .nav-logo-img { height: 44px; }
+    .nav-inner {
+      flex: 1; display: flex; align-items: center;
+      justify-content: space-between; padding: 0 2rem;
+    }
+    .nav-links {
+      display: flex; gap: 1.8rem; list-style: none;
+      font-size: 0.88rem; font-weight: 500;
+    }
+    .nav-links a {
+      position: relative; padding-bottom: 3px;
+      transition: color 0.25s; color: rgba(58,42,30,0.78);
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
+      width: 0; height: 2px;
+      background: linear-gradient(90deg, var(--orange), var(--yellow));
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--yellow); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: var(--orange); font-weight: 700; }
+    .nav-links a.active::after { width: 100%; }
+    .nav-actions { display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0; }
+    .nav-btn-primary {
+      background: var(--btn-gradient); color: var(--on-accent);
+      border: none; border-radius: 50px;
+      padding: 0.5rem 1.3rem; font-size: 0.85rem; font-weight: 700;
+      cursor: pointer; box-shadow: 0 4px 14px rgba(224,86,11,0.32);
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none; display: inline-block;
+    }
+    .nav-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(224,86,11,0.45); }
+    .nav-btn-secondary {
+      background: transparent; color: var(--text);
+      border: 1.5px solid var(--border-strong); border-radius: 50px;
+      padding: 0.48rem 1.2rem; font-size: 0.85rem; font-weight: 600;
+      cursor: pointer; transition: border-color 0.2s, color 0.2s, transform 0.2s;
+      text-decoration: none; display: inline-block;
+    }
+    .nav-btn-secondary:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-2px); }
+    .nav-lang-sep { width: 1px; height: 20px; flex-shrink: 0; background: var(--border-strong); margin-inline: 0.3rem; }
+    .nav-btn-lang {
+      background: transparent; color: rgba(58,42,30,0.62);
+      border: 1.5px solid var(--border); border-radius: 50px;
+      padding: 0.45rem 0.9rem; font-size: 0.85rem; font-weight: 600;
+      cursor: pointer; display: flex; align-items: center; gap: 0.35rem;
+      transition: border-color 0.2s, color 0.2s; font-family: var(--font);
+    }
+    .nav-btn-lang:hover { border-color: var(--orange); color: var(--orange); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; border: none; background: transparent; }
+    .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-inner { padding: 0 1rem; }
+      .nav-btn-secondary { display: none; }
+      .nav-btn-lang { display: none; }
+      .nav-lang-sep { display: none; }
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: fixed; inset: 0; top: calc(var(--ticker-h) + 64px);
+        background: rgba(250,244,233,0.98);
+        -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+        padding: 2rem; gap: 1.5rem; font-size: 1.2rem; z-index: 99;
+      }
+    }
+
+    /* ─── ARTICLE BODY ─────────────────────────────────────────── */
+    /* רקע שמנת מלא — Light Mode (Figma node 239:979). דף כתבה זה אינו עוגן כהה. */
+    .article-body {
+      background: var(--bg);
+      padding-top: calc(var(--ticker-h) + var(--nav-h) + 56px);
+      padding-bottom: 100px;
+      display: flex; flex-direction: column; align-items: center;
+      min-height: 100vh;
+    }
+    .article-column {
+      width: 820px; max-width: calc(100% - 48px);
+      display: flex; flex-direction: column; align-items: stretch;
+    }
+
+    /* חזרה לחדשות */
+    .article-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      align-self: flex-start;
+      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-size: 0.875rem; font-weight: 500;
+      color: var(--teal);
+      transition: opacity 0.2s, gap 0.2s;
+      margin-bottom: 24px;
+    }
+    .article-back:hover { opacity: 0.75; gap: 10px; }
+
+    /* כותרת-על / קטגוריה */
+    .article-eyebrow {
+      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-size: 0.8125rem; font-weight: 700;
+      letter-spacing: 0.2em; color: var(--orange);
+      text-transform: none; margin-bottom: 16px;
+    }
+
+    /* כותרת ראשית */
+    .article-title {
+      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-size: clamp(2rem, 5vw, 2.875rem);
+      font-weight: 900; line-height: 1.18;
+      color: var(--text); text-align: right;
+      margin-bottom: 18px;
+    }
+
+    /* מטא — תאריך פרסום + מחבר */
+    .article-meta {
+      display: flex; align-items: center; gap: 12px;
+      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-size: 0.875rem; font-weight: 400;
+      margin-bottom: 32px;
+    }
+    .article-meta-date { color: var(--teal); font-weight: 500; }
+    .article-meta-sep { color: var(--muted); }
+    .article-meta-author { color: var(--muted); }
+
+    /* תמונה ראשית */
+    .article-hero {
+      width: 100%; height: 440px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 20px; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 10px 30px var(--shadow);
+    }
+    .article-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .article-hero-placeholder {
+      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-size: 1rem; font-weight: 500;
+      color: rgba(138,114,86,0.7);
+    }
+    .article-caption {
+      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-size: 0.8125rem; color: var(--muted);
+      text-align: right; line-height: 1.5;
+      margin-top: 16px; margin-bottom: 40px;
+    }
+
+    /* גוף הכתבה */
+    .article-lead {
+      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-size: 1.3125rem; font-weight: 500;
+      line-height: 1.62; color: var(--text);
+      text-align: right; margin-bottom: 22px;
+    }
+    .article-content p {
+      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-size: 1.125rem; font-weight: 400;
+      line-height: 1.78; color: var(--muted);
+      text-align: right; margin-bottom: 22px;
+    }
+    .article-content h2 {
+      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-size: 1.625rem; font-weight: 700;
+      line-height: 1.3; color: var(--text);
+      text-align: right; margin-top: 16px; margin-bottom: 14px;
+    }
+
+    /* מפריד */
+    .article-divider {
+      height: 1px; width: 100%;
+      background: var(--border);
+      border: none; margin: 22px 0 24px;
+    }
+
+    /* תגיות */
+    .article-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+    .article-tag {
+      display: inline-flex; align-items: center;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 8px 16px;
+      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-size: 0.8125rem; font-weight: 500;
+      color: var(--text);
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .article-tag:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-2px); }
+
+    @media (max-width: 700px) {
+      .article-body { padding-bottom: 64px; }
+      .article-title { line-height: 1.22; }
+      .article-hero { height: 240px; }
+      .article-lead { font-size: 1.125rem; }
+      .article-content p { font-size: 1rem; }
+      .article-content h2 { font-size: 1.375rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── TICKER BAR ── -->
+  <div class="ticker-bar" role="marquee" aria-label="עדכוני פסטיבל">
+    <div class="ticker-track-wrap">
+      <div class="ticker-track" id="tickerTrack">
+        <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
+        <span class="ticker-item">ההופעה הראשונה הוכרזה — פרטים נוספים בקרוב</span>
+        <span class="ticker-item">חבילות נופש חדשות עם מלונות אילת — 3 לילות + שאטל לנמל</span>
+        <span class="ticker-item">11–14 בנובמבר 2026 · נמל אילת · 40 שנות פסטיבל ג׳אז ים סוף</span>
+        <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
+        <span class="ticker-item">ההופעה הראשונה הוכרזה — פרטים נוספים בקרוב</span>
+        <span class="ticker-item">חבילות נופש חדשות עם מלונות אילת — 3 לילות + שאטל לנמל</span>
+        <span class="ticker-item">11–14 בנובמבר 2026 · נמל אילת · 40 שנות פסטיבל ג׳אז ים סוף</span>
+        <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
+        <span class="ticker-item">ההופעה הראשונה הוכרזה — פרטים נוספים בקרוב</span>
+        <span class="ticker-item">חבילות נופש חדשות עם מלונות אילת — 3 לילות + שאטל לנמל</span>
+        <span class="ticker-item">11–14 בנובמבר 2026 · נמל אילת · 40 שנות פסטיבל ג׳אז ים סוף</span>
+      </div>
+    </div>
+    <span class="ticker-label">עדכונים</span>
+  </div>
+
+  <!-- ── NAV ── -->
+  <nav id="navbar">
+    <a class="nav-logo-tab" href="./index.html">
+      <img src="State=Vertical.svg" alt="Red Sea Jazz Festival" class="nav-logo-img" width="80" height="80" />
+    </a>
+    <div class="nav-inner">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
+        <li><a href="./lineup.html" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
+        <li><a href="./past-artists.html" data-he="שנים קודמות" data-en="Past Artists">שנים קודמות</a></li>
+        <li><a href="https://www.hotels.com" target="_blank" rel="noopener" data-he="מלונות" data-en="Hotels">מלונות</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a class="nav-btn-secondary" data-he="חבילות נופש" data-en="Stay Packages"
+          href="./index.html#hotels" rel="noopener">חבילות נופש</a>
+        <a class="nav-btn-primary" data-he="כרטיסים" data-en="Tickets"
+          href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener">כרטיסים ←</a>
+        <div class="nav-lang-sep"></div>
+        <button class="nav-btn-lang" id="langBtn" onclick="switchLang()">🇺🇸 EN</button>
+        <button class="hamburger" id="hamburger" aria-label="תפריט ניווט" aria-expanded="false" onclick="toggleMenu()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── ARTICLE BODY ── -->
+  <article class="article-body">
+    <div class="article-column">
+
+      <a class="article-back" href="./index.html#news">→ חזרה לחדשות</a>
+
+      <div class="article-eyebrow">חדשות הפסטיבל</div>
+
+      <h1 class="article-title">הלינאפ המלא של 2026 הוכרז</h1>
+
+      <div class="article-meta">
+        <time class="article-meta-date" datetime="2026-05-15">15 מאי 2026</time>
+        <span class="article-meta-sep">•</span>
+        <span class="article-meta-author">מערכת הפסטיבל</span>
+      </div>
+
+      <figure class="article-hero" aria-label="תמונה ראשית של הכתבה">
+        <img src="./Graphig assets/niva-amali-maoz.png" alt="ניבה עמלי מעוז — המנהלת האמנותית של פסטיבל ג'אז ים סוף" width="1200" height="480" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block;">
+      </figure>
+      <p class="article-caption">ניבה עמלי מעוז, המנהלת האמנותית של הפסטיבל, חושפת את הליין-אפ של מהדורת 2026 · צילום: ארכיון הפסטיבל</p>
+
+      <div class="article-content">
+        <p class="article-lead">פסטיבל ג׳אז ים סוף חוגג השנה 40 שנה, וחושף את הליין-אפ המלא של מהדורת 2026: 40 אמנים מ-12 מדינות יתכנסו בנמל אילת לארבעה ימים של מוזיקה, אלתור ומפגשים בלתי-נשכחים.</p>
+
+        <p>ההכרזה, שהתקבלה בהתרגשות רבה בקרב אוהבי הז׳אנר, כוללת שמות בכירים מעולם הג׳אז הבינלאומי לצד כוכבים מקומיים. בין המופיעים השנה: רביעיות ג׳אז קלאסיות, הרכבי פיוז׳ן, ופרויקטים ייחודיים שנוצרו במיוחד עבור הפסטיבל.</p>
+
+        <h2>במה ראשית מחודשת</h2>
+        <p>לציון 40 שנות הפסטיבל, הופקה השנה במה ראשית חדשה לחלוטין על רקע מימי המפרץ. ההפקה כוללת מערכת תאורה מתקדמת ואקוסטיקה משופרת, שתעניק לקהל ולאמנים חוויה בלתי-נשכחת תחת שמי אילת.</p>
+
+        <h2>מחווה למורשת</h2>
+        <p>מהדורת 2026 תוקדש למורשת הפסטיבל ולדמויות שעיצבו אותו לאורך השנים. במהלך ארבעת הימים יתקיימו מופעי מחווה מיוחדים, סדנאות אמן (Masterclasses) פתוחות לקהל, ומפגשים אינטימיים עם אמנים בבמות הצד.</p>
+
+        <p>כרטיסים למהדורת 2026 כבר זמינים לרכישה מוקדמת באתר הרשמי, וההמלצה — להזדרז: ביקוש השנה צפוי להיות גבוה במיוחד.</p>
+      </div>
+
+      <hr class="article-divider" />
+
+      <div class="article-tags">
+        <a class="article-tag" href="./index.html#news">ליין-אפ</a>
+        <a class="article-tag" href="./index.html#news">2026</a>
+        <a class="article-tag" href="./index.html#news">40 שנה</a>
+        <a class="article-tag" href="./index.html#news">אילת</a>
+      </div>
+
+    </div>
+  </article>
+
+  <!-- ── FOOTER (injected by footer.js) ── -->
+  <footer></footer>
+  <script src="./footer.js"></script>
+
+  <script>
+    // Nav scroll shrink
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 40) {
+        navbar.classList.add('scrolled');
+        document.documentElement.style.setProperty('--nav-h', '64px');
+      } else {
+        navbar.classList.remove('scrolled');
+        document.documentElement.style.setProperty('--nav-h', '100px');
+      }
+    }, { passive: true });
+
+    // Mobile menu toggle
+    function toggleMenu() {
+      const navLinks = document.getElementById('navLinks');
+      const hamburger = document.getElementById('hamburger');
+      const isOpen = navLinks.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', isOpen);
+    }
+
+    // Language switch (UI toggle, preserves Hebrew as default)
+    let currentLang = 'he';
+    function switchLang() {
+      currentLang = currentLang === 'he' ? 'en' : 'he';
+      document.getElementById('langBtn').textContent = currentLang === 'he' ? '🇺🇸 EN' : '🇮🇱 HE';
+      document.querySelectorAll('[data-he]').forEach(el => {
+        el.textContent = el.getAttribute('data-' + currentLang) || el.textContent;
+      });
+    }
+  </script>
+  <script src="./page-transitions.js"></script>
+</body>
+</html>
