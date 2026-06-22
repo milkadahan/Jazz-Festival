@@ -1977,10 +1977,13 @@
   <!-- ── ARTIST DRAWER (aside) ── -->
   <div class="alt-drawer-overlay" id="altDrawerOverlay" onclick="closeArtistDrawer()"></div>
   <aside class="alt-drawer" id="altDrawer" role="dialog" aria-modal="true" aria-label="פרטי אמן">
-    <button class="alt-drawer-close" onclick="closeArtistDrawer()" aria-label="סגור">&#x2715;</button>
-    <div class="alt-drawer-content">
+    <!-- Header band — מקביל ל-show-panel-img-wrap במודאל ההופעה -->
+    <div class="alt-drawer-header">
+      <button class="alt-drawer-close" onclick="closeArtistDrawer()" aria-label="סגור">&#x2715;</button>
       <div class="alt-drawer-name" id="altDrawerName"></div>
       <div class="alt-drawer-genre" id="altDrawerGenre"></div>
+    </div>
+    <div class="alt-drawer-content">
       <p class="alt-drawer-desc" id="altDrawerDesc"></p>
       <div class="alt-drawer-shows" id="altDrawerShows"></div>
       <a href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener"
@@ -2153,14 +2156,14 @@
     }
     .alt-drawer-overlay.open { opacity: 1; pointer-events: all; }
 
-    /* ── DRAWER PANEL ── */
+    /* ── DRAWER PANEL — מיושר ל-show-panel (מודאל ההופעה) ── */
     .alt-drawer {
       position: fixed; top: 0; inset-inline-start: 0; bottom: 0;
-      width: 420px; max-width: 100vw;
+      width: 400px; max-width: 100vw;
       z-index: 401;
       background: var(--bg2);
       border-inline-end: 1px solid var(--border);
-      box-shadow: -8px 0 56px rgba(58,42,30,0.18);
+      box-shadow: -8px 0 56px var(--shadow-strong);
       transform: translateX(100%);
       transition: transform 0.45s cubic-bezier(0.34,1.26,0.64,1);
       display: flex; flex-direction: column;
@@ -2168,37 +2171,53 @@
     }
     .alt-drawer.open { transform: translateX(0); }
 
+    /* Header band — מקביל ל-show-panel-img-wrap: רצועה צבעונית עם כותרת+תגית+כפתור סגירה */
+    .alt-drawer-header {
+      position: relative; flex-shrink: 0;
+      padding: 2.4rem 1.5rem 1.4rem;
+      background: linear-gradient(150deg, #2d2219, #3a2a1e);
+      display: flex; flex-direction: column; gap: 0.7rem;
+    }
+    .alt-drawer-header::after {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 80% 15%, rgba(224,86,11,0.32), transparent 60%);
+      pointer-events: none;
+    }
+    .alt-drawer-header > * { position: relative; z-index: 1; }
+
+    /* כפתור סגירה — זהה בסגנון ל-show-panel-close (כהה על הרצועה) */
     .alt-drawer-close {
       position: absolute; top: 1rem; inset-inline-end: 1rem;
-      width: 40px; height: 40px;
-      background: rgba(58,42,30,0.07);
-      border: 1px solid var(--border);
-      border-radius: 50%; color: var(--muted);
-      font-size: 0.9rem; display: flex;
+      width: 44px; height: 44px;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 50%; color: #fff;
+      font-size: 0.85rem; display: flex;
       align-items: center; justify-content: center;
-      cursor: pointer; transition: background 0.2s, color 0.2s;
-      z-index: 2;
+      cursor: pointer; transition: background 0.2s, border-color 0.2s;
+      z-index: 2; line-height: 1;
     }
-    .alt-drawer-close:hover { background: rgba(214,34,70,0.12); color: var(--red); }
+    .alt-drawer-close:hover { background: rgba(255,45,85,0.5); border-color: var(--red); }
 
     .alt-drawer-content {
       flex: 1; overflow-y: auto;
-      padding: 2.5rem 1.8rem 2rem;
-      display: flex; flex-direction: column; gap: 1rem;
+      padding: 1.3rem 1.5rem 1.6rem;
+      display: flex; flex-direction: column; gap: 1.1rem;
     }
     .alt-drawer-content::-webkit-scrollbar { width: 4px; }
     .alt-drawer-content::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 2px; }
 
     .alt-drawer-name {
       font-size: 1.7rem; font-weight: 900;
-      line-height: 1.2; direction: rtl;
+      line-height: 1.15; direction: rtl;
+      color: #fff;
       padding-inline-end: 3rem;
     }
     .alt-drawer-genre {
-      display: inline-block;
-      background: rgba(224,86,11,0.12); color: var(--orange);
-      border-radius: 50px; padding: 0.22rem 0.85rem;
-      font-size: 0.8rem; font-weight: 600;
+      display: inline-block; width: fit-content;
+      background: rgba(255,255,255,0.16); color: #fff;
+      border-radius: 50px; padding: 0.2rem 0.8rem;
+      font-size: 0.75rem; font-weight: 600;
     }
     .alt-drawer-desc {
       font-size: 0.95rem; color: rgba(58,42,30,0.8);
@@ -2990,64 +3009,94 @@
   <div class="divider"></div>
 
   <!-- ── TICKET PLANS ── -->
-  <section id="ticket-plans" style="background: var(--bg); text-align:center;">
-    <div class="section-header reveal">
-      <div class="section-tag">Tickets · כרטיסים</div>
-      <h2 class="section-title">בחרו את <span class="accent">המסלול</span> שלכם</h2>
-      <p class="section-desc">שלושה מסלולי כניסה לפסטיבל ג׳אז ים סוף 2026</p>
+  <section id="ticket-plans" dir="rtl" class="ticket-plans-section">
+    <div class="ticket-plans-header reveal">
+      <p class="ticket-plans-eyebrow">TICKETS · כרטיסים</p>
+      <h2 class="ticket-plans-title">בחרו את <span class="ticket-plans-title-accent">המסלול</span> שלכם</h2>
+      <p class="ticket-plans-subtitle">שלושה מסלולי כניסה לפסטיבל ג׳אז ים סוף 2026</p>
     </div>
 
     <div class="ticket-plans-grid reveal">
 
-      <!-- Plan 2: כניסה יומית -->
+      <!-- Card 1: הופעה בודדת -->
       <div class="ticket-plan-card">
-        <div class="ticket-plan-icon" aria-hidden="true">📅</div>
-        <div class="ticket-plan-name">כניסה יומית</div>
-        <div class="ticket-plan-desc">
-          בחרו יום אחד (11, 12, 13 או 14 בנובמבר) וקבלו כניסה לכל ההופעות באותו יום על כל הבמות.
+        <div class="ticket-plan-top">
+          <div class="ticket-plan-name">הופעה בודדת</div>
+          <p class="ticket-plan-desc">בחרו הופעה אחת ספציפית — אמן,<br>תאריך ובמה.</p>
         </div>
-        <ul class="ticket-plan-perks">
-          <li>✓ יום לבחירה</li>
-          <li>✓ כניסה לכל הבמות באותו יום</li>
-          <li>✓ ניתן לשדרג לפס</li>
-        </ul>
+        <div class="ticket-plan-features">
+          <div class="ticket-plan-feature">
+            <span class="ticket-plan-feature-text">הופעה אחת לבחירה</span>
+            <span class="ticket-plan-feature-check">✓</span>
+          </div>
+          <div class="ticket-plan-feature">
+            <span class="ticket-plan-feature-text">הסעות מאורגנות בשאטלים חינם</span>
+            <span class="ticket-plan-feature-check">✓</span>
+          </div>
+        </div>
         <a href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" class="ticket-plan-cta ticket-plan-cta-secondary">
           לרכישה ←
         </a>
       </div>
 
-      <!-- Plan 1: פס (הכי פופולרי) — מוצג באמצע -->
+      <!-- Card 2: פס מלא (הכי פופולרי) — באמצע -->
       <div class="ticket-plan-card ticket-plan-featured">
-        <div class="ticket-plan-badge">הכי פופולרי</div>
-        <div class="ticket-plan-icon" aria-hidden="true">🎫</div>
-        <div class="ticket-plan-name">פס</div>
-        <div class="ticket-plan-desc">
-          כניסה לכל ימי הפסטיבל (11–14 בנובמבר) + כל ההופעות על 4 הבמות.
-          הגישה הטובה ביותר לחוויה המלאה.
+        <div class="ticket-plan-badge-new">הכי פופולרי</div>
+        <div class="ticket-plan-top">
+          <div class="ticket-plan-name ticket-plan-name-featured">פס מלא</div>
+          <p class="ticket-plan-desc">כניסה חופשית לכל ימי הפסטיבל ולכל ההופעות!<br><strong>הגישה הטובה ביותר לחוויה המלאה.</strong></p>
         </div>
-        <ul class="ticket-plan-perks">
-          <li>✓ 4 ימי פסטיבל מלאים</li>
-          <li>✓ כניסה לכל 4 הבמות</li>
-          <li>✓ עדיפות בכניסה</li>
-          <li>✓ תוכנייה מיוחדת</li>
-        </ul>
+        <div class="ticket-plan-features">
+          <div class="ticket-plan-feature">
+            <span class="ticket-plan-feature-text">4 ימי פסטיבל מלאים</span>
+            <span class="ticket-plan-feature-check">✓</span>
+          </div>
+          <div class="ticket-plan-feature">
+            <span class="ticket-plan-feature-text">כניסה לכל 4 הבמות</span>
+            <span class="ticket-plan-feature-check">✓</span>
+          </div>
+          <div class="ticket-plan-feature">
+            <span class="ticket-plan-feature-text">עדיפות בכניסה</span>
+            <span class="ticket-plan-feature-check">✓</span>
+          </div>
+          <div class="ticket-plan-feature">
+            <span class="ticket-plan-feature-text">תוכניה מיוחדת</span>
+            <span class="ticket-plan-feature-check">✓</span>
+          </div>
+          <div class="ticket-plan-feature">
+            <span class="ticket-plan-feature-text">הסעות מאורגנות בשאטלים חינם</span>
+            <span class="ticket-plan-feature-check">✓</span>
+          </div>
+        </div>
         <a href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" class="ticket-plan-cta ticket-plan-cta-primary">
           לרכישה ←
         </a>
       </div>
 
-      <!-- Plan 3: הופעה בודדת -->
+      <!-- Card 3: כניסה יומית -->
       <div class="ticket-plan-card">
-        <div class="ticket-plan-icon" aria-hidden="true">🎵</div>
-        <div class="ticket-plan-name">הופעה בודדת</div>
-        <div class="ticket-plan-desc">
-          בחרו הופעה אחת ספציפית — אמן, תאריך ובמה. הדרך הגמישה לחוות את הפסטיבל.
+        <div class="ticket-plan-top">
+          <div class="ticket-plan-name">כניסה יומית</div>
+          <p class="ticket-plan-desc">בחרו יום אחד וקבלו כניסה חופשית לכל ההופעות על כל הבמות.</p>
         </div>
-        <ul class="ticket-plan-perks">
-          <li>✓ הופעה אחת לבחירה</li>
-          <li>✓ גמישות מלאה</li>
-          <li>✓ זמין לכל ההופעות</li>
-        </ul>
+        <div class="ticket-plan-features">
+          <div class="ticket-plan-feature">
+            <span class="ticket-plan-feature-text">יום לבחירה</span>
+            <span class="ticket-plan-feature-check">✓</span>
+          </div>
+          <div class="ticket-plan-feature">
+            <span class="ticket-plan-feature-text">כניסה לכל הבמות באותו יום</span>
+            <span class="ticket-plan-feature-check">✓</span>
+          </div>
+          <div class="ticket-plan-feature">
+            <span class="ticket-plan-feature-text">כניסה לכל ההופעות באותו יום</span>
+            <span class="ticket-plan-feature-check">✓</span>
+          </div>
+          <div class="ticket-plan-feature">
+            <span class="ticket-plan-feature-text">הסעות מאורגנות בשאטלים חינם</span>
+            <span class="ticket-plan-feature-check">✓</span>
+          </div>
+        </div>
         <a href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" class="ticket-plan-cta ticket-plan-cta-secondary">
           לרכישה ←
         </a>
@@ -3399,100 +3448,181 @@
 
 
   <style>
-    /* ── TICKET PLANS GRID ── */
-    .ticket-plans-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-      max-width: 1000px;
-      margin-inline: auto;
+    /* ── TICKET PLANS SECTION (עיצוב Figma node 269-1075) ── */
+    .ticket-plans-section {
+      padding: 80px 24px;
+      background: var(--bg);
+      text-align: center;
+      direction: rtl;
     }
 
+    /* כותרת סקשיין */
+    .ticket-plans-header {
+      margin-bottom: 56px;
+    }
+    .ticket-plans-eyebrow {
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--orange);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .ticket-plans-title {
+      font-family: var(--font);
+      font-size: clamp(2.8rem, 7vw, 6rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .ticket-plans-title-accent {
+      color: var(--orange);
+    }
+    .ticket-plans-subtitle {
+      font-family: var(--font);
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* גריד כרטיסים */
+    .ticket-plans-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      max-width: 1140px;
+      margin-inline: auto;
+      align-items: start;
+    }
+
+    /* כרטיס בסיס */
     .ticket-plan-card {
-      background: var(--card-bg);
-      border: 1.5px solid var(--border);
-      border-radius: 20px;
-      padding: 2.2rem 1.8rem 1.8rem;
-      display: flex; flex-direction: column;
-      align-items: flex-start;
-      gap: 0.9rem;
-      text-align: right;
+      background: #fff;
+      border: 1px solid var(--border-strong);
+      border-radius: 16px;
+      padding: 50px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+      text-align: center;
       position: relative;
-      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
     }
     .ticket-plan-card:hover {
       transform: translateY(-6px);
       box-shadow: 0 18px 48px var(--shadow-strong);
     }
 
+    /* כרטיס מובלט */
     .ticket-plan-card.ticket-plan-featured {
-      border-color: var(--orange);
-      background: linear-gradient(145deg, #fff9f2, var(--card-bg));
+      border: 2px solid var(--orange);
       box-shadow: 0 8px 32px rgba(224,86,11,0.15);
     }
     .ticket-plan-card.ticket-plan-featured:hover {
       box-shadow: 0 20px 56px rgba(224,86,11,0.28);
     }
 
-    .ticket-plan-badge {
+    /* תגית "הכי פופולרי" */
+    .ticket-plan-badge-new {
       position: absolute;
-      top: -14px; inset-inline-start: 50%;
-      transform: translateX(50%);
+      top: -16px;
+      left: 50%;
+      transform: translateX(-50%);
       background: var(--btn-gradient);
       color: #fff;
-      border-radius: 50px;
-      padding: 0.28rem 1.1rem;
-      font-size: 0.78rem; font-weight: 700;
-      letter-spacing: 0.04em;
+      border-radius: 26px;
+      padding: 6px 20px;
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 700;
       white-space: nowrap;
       box-shadow: 0 4px 14px rgba(224,86,11,0.38);
     }
 
-    .ticket-plan-icon {
-      font-size: 2.2rem;
-      line-height: 1;
+    /* חלק עליון של כרטיס */
+    .ticket-plan-top {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
 
+    /* שם המסלול */
     .ticket-plan-name {
-      font-size: 1.55rem;
-      font-weight: 900;
-      color: var(--text);
+      font-family: var(--font);
+      font-size: 34px;
+      font-weight: 700;
       line-height: 1.1;
-    }
-    .ticket-plan-featured .ticket-plan-name {
-      color: var(--orange);
-    }
-
-    .ticket-plan-desc {
-      font-size: 0.9rem;
-      color: var(--muted);
-      line-height: 1.7;
-      flex: 1;
-    }
-
-    .ticket-plan-perks {
-      list-style: none;
-      display: flex; flex-direction: column; gap: 0.42rem;
-      width: 100%;
-    }
-    .ticket-plan-perks li {
-      font-size: 0.88rem;
+      letter-spacing: 0.25px;
       color: var(--text);
-      display: flex; gap: 0.5rem; align-items: flex-start;
     }
 
+    /* תיאור */
+    .ticket-plan-desc {
+      font-family: var(--font);
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--muted);
+      line-height: 1.5;
+      letter-spacing: 0.15px;
+    }
+    .ticket-plan-desc strong {
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* רשימת יתרונות */
+    .ticket-plan-features {
+      background: var(--bg2);
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* שורת יתרון */
+    .ticket-plan-feature {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      direction: rtl;
+    }
+    .ticket-plan-feature-text {
+      font-family: var(--font);
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .ticket-plan-feature-check {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--orange);
+      flex-shrink: 0;
+    }
+
+    /* כפתור CTA */
     .ticket-plan-cta {
-      display: inline-flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 100%;
-      border-radius: 50px;
-      padding: 0.85rem 1.5rem;
-      font-size: 0.97rem; font-weight: 700;
+      border-radius: 26px;
+      padding: 15px 24px;
+      font-family: var(--font);
+      font-size: 16px;
+      font-weight: 700;
       text-decoration: none;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
-      margin-top: 0.3rem;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
     }
     .ticket-plan-cta:hover { transform: translateY(-2px); }
+
     .ticket-plan-cta-primary {
       background: var(--btn-gradient);
       color: #fff;
@@ -3503,18 +3633,40 @@
       box-shadow: 0 8px 32px rgba(224,86,11,0.55);
       color: #fff;
     }
+
     .ticket-plan-cta-secondary {
       background: transparent;
       color: var(--orange);
-      border: 2px solid var(--orange);
+      border: 1px solid var(--orange);
     }
     .ticket-plan-cta-secondary:hover {
-      background: rgba(224,86,11,0.08);
+      background: rgba(224,86,11,0.06);
     }
 
-    @media (max-width: 700px) {
+    /* Responsive */
+    @media (max-width: 1023px) {
+      .ticket-plans-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .ticket-plan-card.ticket-plan-featured {
+        grid-column: 1 / -1;
+        max-width: 480px;
+        margin-inline: auto;
+        width: 100%;
+      }
+    }
+    @media (max-width: 767px) {
+      .ticket-plans-section { padding: 60px 16px; }
       .ticket-plans-grid { grid-template-columns: 1fr; }
-      .ticket-plan-badge { inset-inline-start: 1.5rem; transform: none; }
+      .ticket-plan-card.ticket-plan-featured {
+        grid-column: auto;
+        max-width: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .ticket-plan-card { transition: none; }
+      .ticket-plan-cta { transition: none; }
     }
   </style>
 
