@@ -803,11 +803,16 @@
       border-top: 1px solid var(--border);
       border-inline-start: 1px solid var(--border);
     }
-    /* show-block בתוך weekly: קצת יותר קומפקטי */
+    /* show-block בתוך weekly: לא נמתח לגובה ה-cell */
     .cal-weekly-cell .show-block {
-      flex: 1; width: 100%;
+      flex: 0 0 auto;
       font-size: 0.82rem;
     }
+    /* thumb top-align כשיש tag או שם ארוך */
+    .show-block:has(.show-tag) { align-items: flex-start; }
+    .show-block:has(.show-tag) .show-thumb { margin-top: 8px; }
+    .show-block--multiline { align-items: flex-start; }
+    .show-block--multiline .show-thumb { margin-top: 8px; }
     .cal-weekly-cell .show-block .show-name { font-size: 0.8rem; }
     .cal-weekly-cell .show-block .show-time { font-size: 0.7rem; }
     /* מפריד בין ימים ב-weekly header */
@@ -869,8 +874,9 @@
       border-radius: 10px; padding: 0;
       cursor: pointer; transition: all 0.25s;
       position: relative; overflow: hidden;
-      display: flex; align-items: stretch; gap: 8px;
+      display: flex; align-items: center; gap: 8px;
       min-height: 68px;
+      align-self: flex-start; width: 100%;
     }
     .show-block::before {
       content: ''; position: absolute;
@@ -890,6 +896,7 @@
     .show-thumb {
       flex: 0 0 52px;
       width: 52px; height: 52px;
+      margin-inline-start: 8px; /* 8px from right edge (RTL) */
       border-radius: 8px;
       background: linear-gradient(135deg, #1a1030, #0a1525);
       background-size: cover; background-position: center top;
@@ -2324,6 +2331,17 @@
         document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
       }
     }
+
+    // זיהוי show-block עם שם ארוך (מעל שורה אחת) → class לתיקון ויזואלי
+    function markMultilineBlocks() {
+      document.querySelectorAll('.show-name').forEach(function(el) {
+        var block = el.closest('.show-block');
+        if (!block) return;
+        block.classList.toggle('show-block--multiline', el.scrollHeight > el.offsetHeight + 2);
+      });
+    }
+    document.addEventListener('DOMContentLoaded', markMultilineBlocks);
+    window.addEventListener('resize', markMultilineBlocks);
 
     // Stage dropdown toggle
     function toggleStageDropdown() {
