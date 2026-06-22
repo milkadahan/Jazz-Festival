@@ -3464,7 +3464,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(250, 244, 233, 0.88);
+      background: rgba(250, 244, 233, 0.74);
       pointer-events: none;
     }
     .ticket-plans-section > * { position: relative; }
@@ -3484,7 +3484,7 @@
     }
     .ticket-plans-title {
       font-family: var(--font);
-      font-size: clamp(2.8rem, 7vw, 6rem);
+      font-size: clamp(2rem, 5vw, 3.5rem);
       font-weight: 900;
       line-height: 1.1;
       letter-spacing: -0.02em;
@@ -3510,6 +3510,9 @@
       max-width: 1140px;
       margin-inline: auto;
       align-items: center;
+    }
+    .ticket-plan-card:not(.ticket-plan-featured) {
+      align-self: stretch;
     }
 
     /* כרטיס בסיס */
@@ -3595,13 +3598,15 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
+      text-align: right;
     }
 
     /* שורת יתרון */
     .ticket-plan-feature {
       display: flex;
       align-items: center;
-      justify-content: flex-end;
+      justify-content: flex-start;
+      flex-direction: row-reverse;
       gap: 8px;
       direction: rtl;
     }
