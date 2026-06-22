@@ -3523,7 +3523,8 @@
       padding: 50px 24px 24px;
       display: flex;
       flex-direction: column;
-      gap: 50px;
+      justify-content: space-between;
+      min-height: 460px;
       text-align: center;
       position: relative;
       transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
@@ -3537,6 +3538,7 @@
     .ticket-plan-card.ticket-plan-featured {
       border: 2px solid var(--orange);
       box-shadow: 0 8px 32px rgba(224,86,11,0.15);
+      min-height: 511px;
     }
     .ticket-plan-card.ticket-plan-featured:hover {
       box-shadow: 0 20px 56px rgba(224,86,11,0.28);
@@ -3616,6 +3618,7 @@
       font-weight: 400;
       color: var(--text);
       line-height: 1.5;
+      text-align: right;
     }
     .ticket-plan-feature-check {
       font-size: 14px;
@@ -3638,6 +3641,7 @@
       text-decoration: none;
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      margin-top: auto;
     }
     .ticket-plan-cta:hover { transform: translateY(-2px); }
 
