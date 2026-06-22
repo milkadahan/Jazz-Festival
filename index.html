@@ -878,6 +878,15 @@
       content: ''; position: absolute; inset: 0;
       background: radial-gradient(circle at 30% 70%, rgba(255,107,26,0.2), transparent 70%);
     }
+    /* Placeholder glyph — מוצג רק כשאין תמונה אמיתית בשורה */
+    .show-thumb::before {
+      content: '\266A'; position: absolute; inset: 0; z-index: 1;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; color: rgba(255,255,255,0.45);
+      pointer-events: none;
+    }
+    .show-thumb.has-img::before { content: none; }
+    .show-thumb.has-img::after { content: none; }
     .show-block.teal .show-thumb::after {
       background: radial-gradient(circle at 30% 70%, rgba(0,200,200,0.2), transparent 70%);
     }
@@ -3589,7 +3598,7 @@
     .ticket-plan-inner {
       display: flex;
       flex-direction: column;
-      gap: 50px;
+      gap: 28px;
       flex: 1;
       min-height: 0;
     }
@@ -4319,6 +4328,55 @@
       'עידית מינצר ויחזקאל רז':   { image:'', origin:'ישראל', genre:'וואקל ג׳אז',        isHeadliner:false, description:'חלק שני של מופע עידית מינצר – כעת בצוותא עם יחזקאל רז.' },
       'תזמורת הג׳אז הישראלית':    { image:'https://upload.wikimedia.org/wikipedia/commons/7/72/Israel_Jazz_Orchestra_03.jpg', origin:'ישראל', genre:'ביג-בנד',           isHeadliner:true,  description:'הפקת מקור – מופע סיום מרהיב עם תזמורת הג׳אז הישראלית.' },
     };
+    // ── סינכרון תמונות דו-כיווני: שורת הופעה ⇄ כרטיס צד ──────────────
+    // מקור אמת יחיד = showsData[name].image. כש-load:
+    //  1) showsData יש תמונה + שורה ריקה  → ממלאים את ה-thumb בשורה (data → row)
+    //  2) שורה יש תמונה (background-image) + showsData ריק → מעדכנים את showsData (row → data)
+    // כך התמונה זהה תמיד בשני המקומות, ומ-source אחד.
+    (function syncShowImages() {
+      function norm(s) {
+        return (s || '')
+          .replace(/&amp;/g, '&')
+          .replace(/[–—-].*$/, '')      // חיתוך סיומות כמו "— Master Class"
+          .replace(/:.*$/, '')          // חיתוך סיומות כמו "SHALOSH: ..."
+          .replace(/מארחת.*$/, '')      // "X מארחת את Y"
+          .replace(/\s+/g, ' ')
+          .trim();
+      }
+      // אינדקס נורמלי של showsData לפי שם מלא + שם מנורמל
+      var imgByName = {};
+      Object.keys(showsData).forEach(function (k) {
+        var im = showsData[k] && showsData[k].image;
+        if (im) { imgByName[k] = im; imgByName[norm(k)] = im; }
+      });
+
+      function rowBg(thumb) {
+        var bg = thumb.style.backgroundImage || '';
+        var m = bg.match(/url\(["']?(.*?)["']?\)/);
+        return m ? m[1] : '';
+      }
+
+      document.querySelectorAll('.show-block').forEach(function (block) {
+        var nameEl = block.querySelector('.show-name');
+        var thumb  = block.querySelector('.show-thumb');
+        if (!nameEl || !thumb) return;
+        var name = nameEl.textContent.trim();
+        var existing = rowBg(thumb);
+        var dataImg  = imgByName[name] || imgByName[norm(name)];
+
+        if (existing) {
+          // row → data: אם לשורה יש תמונה ול-showsData אין — נעדכן showsData
+          thumb.classList.add('has-img');
+          if (showsData[name] && !showsData[name].image) showsData[name].image = existing;
+        } else if (dataImg) {
+          // data → row: ממלאים את ה-thumb מתוך showsData
+          thumb.style.backgroundImage = "url('" + dataImg + "')";
+          thumb.classList.add('has-img');
+        }
+        // אין תמונה בשני המקומות → נשאר placeholder (תקין)
+      });
+    })();
+
     const _stageNames  = { '1': 'Port arena', '2': 'Red Note Club', '3': 'DE future', '4': 'the present' };
     const _stageColors = { '1': 'var(--orange)', '2': 'var(--teal)', '3': 'var(--pink)', '4': 'var(--yellow)' };
     const _dayDates    = { '1': '11.11.2026 · יום ד׳', '2': '12.11.2026 · יום ה׳', '3': '13.11.2026 · יום ו׳', '4': '14.11.2026 · שבת' };
