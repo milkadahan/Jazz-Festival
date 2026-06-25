@@ -347,6 +347,8 @@
       display: inline-flex; align-items: center;
     }
     .day-nav-btn:hover { border-color: var(--orange); color: var(--orange); }
+    #btnAllDays { display: none; }
+    body.view-calendar #btnAllDays { display: inline-flex; }
     .day-nav-btn.active {
       background: linear-gradient(161.51deg, #E0560B 0%, #D62246 100%);
       border-color: transparent; color: #fff;
@@ -1091,6 +1093,7 @@
 
     <!-- CENTER: Day Navigation -->
     <div class="day-nav" role="navigation" aria-label="ניווט לפי יום">
+      <button class="day-nav-btn" id="btnAllDays" onclick="selectAllDays(this)">כל הימים</button>
       <button class="day-nav-btn active" onclick="scrollToDay('day-1', this)">יום ד׳ · 11.11</button>
       <button class="day-nav-btn" onclick="scrollToDay('day-2', this)">יום ה׳ · 12.11</button>
       <button class="day-nav-btn" onclick="scrollToDay('day-3', this)">יום ו׳ · 13.11</button>
@@ -2298,8 +2301,9 @@
         // הצג weekly view כברירת מחדל
         document.getElementById('cal-weekly').classList.add('cv-visible');
         activeCalDay = null;
-        // הסר active מכל כפתורי ימים — weekly view הוא "כל הימים"
+        // הסר active מכפתורי הימים, סמן "כל הימים" כפעיל
         document.querySelectorAll('.day-nav-btn').forEach(function(b) { b.classList.remove('active'); });
+        document.getElementById('btnAllDays').classList.add('active');
       } else {
         document.body.classList.remove('view-calendar');
         document.body.classList.add('view-list');
@@ -2328,11 +2332,13 @@
             s.classList.remove('cv-visible');
           });
           document.getElementById('cal-weekly').classList.add('cv-visible');
+          document.getElementById('btnAllDays').classList.add('active');
           activeCalDay = null;
           return;
         }
         // לחיצה על יום חדש — הצג יום בודד
         document.querySelectorAll('.day-nav-btn').forEach(function(b) { b.classList.remove('active'); });
+        document.getElementById('btnAllDays').classList.remove('active');
         btn.classList.add('active');
         document.getElementById('cal-weekly').classList.remove('cv-visible');
         document.querySelectorAll('.calendar-section').forEach(function(s) {
@@ -2358,13 +2364,21 @@
             // וידוא שהכפתור הנכון מסומן לאחר גמר הגלילה
             document.querySelectorAll('.day-nav-btn').forEach(function(b) { b.classList.remove('active'); });
             var _idx = ['day-1','day-2','day-3','day-4'].indexOf(_targetId);
-            var _allBtns = document.querySelectorAll('.day-nav-btn');
+            var _allBtns = document.querySelectorAll('.day-nav-btn:not(#btnAllDays)');
             if (_allBtns[_idx]) _allBtns[_idx].classList.add('active');
           }, 200);
         }
         window.addEventListener('scroll', _onScrollStop, { passive: true });
         document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
       }
+    }
+
+    function selectAllDays(btn) {
+      document.querySelectorAll('.day-nav-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      document.querySelectorAll('.calendar-section').forEach(function(s) { s.classList.remove('cv-visible'); });
+      document.getElementById('cal-weekly').classList.add('cv-visible');
+      activeCalDay = null;
     }
 
     // ── מיפוי מרכזי: שם הופעה → תמונה (מקור אמת יחיד לכל התצוגות) ──
@@ -2468,7 +2482,7 @@
 
     // Highlight active day on scroll (list view only)
     const dayBlocks = document.querySelectorAll('.day-block');
-    const dayBtns   = document.querySelectorAll('.day-nav-btn');
+    const dayBtns   = document.querySelectorAll('.day-nav-btn:not(#btnAllDays)');
     window.addEventListener('scroll', function() {
       if (currentView === 'calendar') return;
       if (scrollingToDay) return;
@@ -2815,6 +2829,21 @@
       document.body.classList.remove('show-drawer-open');
     }
 
+    function _makeShowSlug(stageName, time, dayTitle) {
+      var stageMap = { 'Main Stage':'main', 'Red Tent':'red', 'Blue Dome':'teal', 'Green Pavilion':'yellow' };
+      var sc = stageMap[(stageName || '').trim()] || 'main';
+      var tc = (time || '').replace(/[:\s]/g, '');
+      var dt = dayTitle || '', dc = '';
+      var dotM = dt.match(/(\d{1,2})\.(\d{1,2})/);
+      if (dotM) {
+        dc = ('0' + dotM[1]).slice(-2) + ('0' + dotM[2]).slice(-2);
+      } else {
+        var spM = dt.match(/(\d{1,2})\s+ב/);
+        if (spM) dc = ('0' + spM[1]).slice(-2) + '11';
+      }
+      return sc + '-' + dc + '-' + tc;
+    }
+
 
     document.getElementById('showDrawerClose').addEventListener('click', _sdClose);
     document.getElementById('showDrawerOverlay').addEventListener('click', _sdClose);
@@ -2829,21 +2858,12 @@
 
       var card = e.target.closest('.show-card');
       if (card) {
-        var tagEl = card.querySelector('.show-card-tag');
         var stageGroup = card.closest('.stage-group');
         var dayBlock = card.closest('.day-block');
-        _sdOpen({
-          name:        (card.querySelector('.show-card-name') || {}).textContent || '',
-          sub:         (card.querySelector('.show-card-sub') || {}).textContent || '',
-          time:        (card.querySelector('.show-card-time') || {}).textContent || '',
-          tag:         tagEl ? tagEl.textContent.trim() : '',
-          isHeadliner: tagEl ? tagEl.classList.contains('headliner') : false,
-          stageName:   stageGroup ? (stageGroup.querySelector('.stage-group-name') || {}).textContent || '' : '',
-          stageColor:  stageGroup ? (stageGroup.querySelector('.stage-dot') || {style:{}}).style.background || 'var(--orange)' : 'var(--orange)',
-          dayTitle:    dayBlock ? (dayBlock.querySelector('.day-block-title') || {}).textContent || '' : '',
-          desc:        card.dataset.desc || '',
-          musicians:   card.dataset.musicians || ''
-        });
+        var _sn = stageGroup ? (stageGroup.querySelector('.stage-group-name') || {}).textContent || '' : '';
+        var _ti = (card.querySelector('.show-card-time') || {}).textContent || '';
+        var _dt = dayBlock ? (dayBlock.querySelector('.day-block-title') || {}).textContent || '' : '';
+        window.location.href = 'show.html?show=' + _makeShowSlug(_sn, _ti, _dt);
         return;
       }
 
@@ -2899,18 +2919,8 @@
         var tagEl  = showBlock.querySelector('.show-tag');
         var calTag = tagEl ? tagEl.textContent.trim() : '';
 
-        _sdOpen({
-          name:        (showBlock.querySelector('.show-name') || {}).textContent || '',
-          sub:         '',
-          time:        (showBlock.querySelector('.show-time') || {}).textContent || '',
-          tag:         calTag,
-          isHeadliner: calTag.indexOf('Headliner') !== -1,
-          stageName:   calStage,
-          stageColor:  calColor,
-          dayTitle:    calDay,
-          desc:        showBlock.dataset.desc || '',
-          musicians:   showBlock.dataset.musicians || ''
-        });
+        var _ti2 = (showBlock.querySelector('.show-time') || {}).textContent || '';
+        window.location.href = 'show.html?show=' + _makeShowSlug(calStage, _ti2, calDay);
       }
     });
   </script>

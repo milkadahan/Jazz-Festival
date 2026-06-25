@@ -11,6 +11,14 @@
     overlay.style.opacity = '0';
   });
 
+  // bfcache restore: page was frozen mid-exit with overlay opaque
+  window.addEventListener('pageshow', function (e) {
+    if (e.persisted) {
+      overlay.style.transition = 'none';
+      overlay.style.opacity = '0';
+    }
+  });
+
   // Exit: fade overlay back in, then navigate
   document.addEventListener('click', function (e) {
     var link = e.target.closest('a[href]');

@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>הופעה · Red Sea Jazz Festival 2026</title>
+  <meta name="description" content="פרטי הופעה · פסטיבל ג׳אז ים סוף 2026" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="./Graphig assets/og-image.jpg" />
+  <meta property="og:locale" content="he_IL" />
+  <meta property="og:site_name" content="Red Sea Jazz Festival" />
+  <meta name="theme-color" content="#E0560B" />
+  <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+  <link rel="manifest" href="./site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@100;300;400;500;700;900&family=Noto+Sans+Hebrew:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #FAF4E9; --bg2: #F3E9D6;
+      --orange: #E0560B; --yellow: #E0A800; --red: #D62246; --teal: #0A8F8E;
+      --text: #3A2A1E; --muted: #8A7256; --card-bg: #FFFDF8;
+      --border: rgba(58,42,30,0.12); --border-strong: rgba(58,42,30,0.22);
+      --btn-gradient: linear-gradient(135deg, var(--orange), var(--red));
+      --shadow: rgba(58,42,30,0.10);
+      --on-accent: #FFFDF8; --font: 'Hepta Slab', 'Noto Sans Hebrew', serif;
+      --ticker-h: 36px; --nav-h: 100px;
+    }
+    html { scroll-behavior: smooth; direction: rtl; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font); -webkit-font-smoothing: antialiased; line-height: 1.7; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: var(--font); cursor: pointer; }
+
+    /* ── TICKER ── */
+    .ticker-bar { position: fixed; top: 0; left: 0; right: 0; height: var(--ticker-h); z-index: 101; background: #2d2726; display: flex; align-items: center; direction: ltr; overflow: hidden; border-bottom: 1px solid rgba(224,86,11,0.3); }
+    .ticker-label { flex-shrink: 0; padding: 0 1.4rem 0 1rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; color: var(--orange); text-transform: uppercase; border-right: 1px solid rgba(224,86,11,0.35); white-space: nowrap; }
+    .ticker-track-wrap { flex: 1; overflow: hidden; }
+    .ticker-track { display: flex; direction: ltr; animation: ticker-scroll 28s linear infinite; will-change: transform; width: max-content; }
+    .ticker-item { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; color: #e6d8d6; padding: 0 2.5rem; white-space: nowrap; }
+    .ticker-item::before { content: '♪'; color: var(--orange); font-size: 0.65rem; }
+    @keyframes ticker-scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-25%)} }
+
+    /* ── NAV ── */
+    nav { position: fixed; top: var(--ticker-h); width: 100%; z-index: 100; display: flex; align-items: center; height: 100px; background: rgba(250,244,233,0.94); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); transition: background 0.35s, height 0.35s; overflow: hidden; }
+    nav.scrolled { height: 64px; background: rgba(250,244,233,0.97); box-shadow: 0 2px 16px var(--shadow); }
+    :root:has(nav.scrolled) { --nav-h: 64px; }
+    .nav-logo-tab { flex-shrink: 0; padding: 0.6rem 1.4rem; display: flex; align-items: center; cursor: pointer; text-decoration: none; transition: opacity 0.2s, padding 0.35s; }
+    .nav-logo-tab:hover { opacity: 0.75; }
+    nav.scrolled .nav-logo-tab { padding: 0.25rem 1.4rem; }
+    .nav-logo-img { height: 80px; width: auto; display: block; filter: brightness(0) saturate(100%) invert(15%) sepia(28%) saturate(900%) hue-rotate(350deg); transition: height 0.35s; }
+    nav.scrolled .nav-logo-img { height: 44px; }
+    .nav-inner { flex: 1; display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; font-size: 0.88rem; font-weight: 500; }
+    .nav-links a { position: relative; padding-bottom: 3px; transition: color 0.25s; color: rgba(58,42,30,0.78); }
+    .nav-links a::after { content: ''; position: absolute; bottom: 0; inset-inline-end: 0; width: 0; height: 2px; background: linear-gradient(90deg, var(--orange), var(--yellow)); transition: width 0.3s; }
+    .nav-links a:hover { color: var(--yellow); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: var(--orange); font-weight: 700; }
+    .nav-links a.active::after { width: 100%; }
+    .nav-actions { display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0; }
+    .nav-btn-primary { background: var(--btn-gradient); color: var(--on-accent); border: none; border-radius: 50px; padding: 0.5rem 1.3rem; font-size: 0.85rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 14px rgba(224,86,11,0.32); transition: transform 0.2s, box-shadow 0.2s; text-decoration: none; display: inline-block; }
+    .nav-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(224,86,11,0.45); }
+    .nav-btn-secondary { background: transparent; color: var(--text); border: 1.5px solid var(--border-strong); border-radius: 50px; padding: 0.48rem 1.2rem; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: border-color 0.2s, color 0.2s, transform 0.2s; text-decoration: none; display: inline-block; }
+    .nav-btn-secondary:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-2px); }
+    .nav-lang-sep { width: 1px; height: 20px; flex-shrink: 0; background: var(--border-strong); margin-inline: 0.3rem; }
+    .nav-btn-lang { background: transparent; color: rgba(58,42,30,0.62); border: 1.5px solid var(--border); border-radius: 50px; padding: 0.45rem 0.9rem; font-size: 0.85rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.35rem; transition: border-color 0.2s, color 0.2s; font-family: var(--font); }
+    .nav-btn-lang:hover { border-color: var(--orange); color: var(--orange); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; border: none; background: transparent; }
+    .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
+    @media (max-width: 900px) {
+      .nav-links { display: none; } .hamburger { display: flex; } .nav-inner { padding: 0 1rem; }
+      .nav-btn-secondary, .nav-btn-lang, .nav-lang-sep { display: none; }
+    }
+
+    /* ── HERO ── */
+    .show-hero {
+      position: relative;
+      margin-top: calc(var(--ticker-h) + var(--nav-h));
+      height: clamp(240px, 40vw, 480px);
+      background: linear-gradient(145deg, #2d2219, #3a2a1e);
+      overflow: hidden;
+    }
+    .show-hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+    .show-hero-ph { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 7rem; color: rgba(250,244,233,0.06); pointer-events: none; }
+    .show-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(26,20,16,0.2) 0%, transparent 40%, rgba(26,20,16,0.75) 100%); pointer-events: none; }
+    .show-back-btn {
+      position: absolute; top: 1.4rem; right: 1.4rem; z-index: 2;
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(26,20,16,0.52); color: #fff;
+      border: none; border-radius: 50px;
+      padding: 0.48rem 1rem; font-size: 0.85rem; font-weight: 600;
+      cursor: pointer; font-family: var(--font);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      transition: background 0.2s;
+    }
+    .show-back-btn:hover { background: rgba(26,20,16,0.82); }
+    .show-hero-bottom {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 1.5rem 2rem 1.75rem; pointer-events: none; z-index: 1;
+    }
+    .show-artist-name-hero { font-size: clamp(1.5rem, 4.5vw, 2.7rem); font-weight: 900; color: #fff; line-height: 1.2; text-shadow: 0 2px 16px rgba(0,0,0,0.5); }
+    .show-artist-sub-hero { font-size: 0.95rem; color: rgba(255,255,255,0.8); margin-top: 0.35rem; }
+
+    /* ── MAIN CONTENT ── */
+    .show-main { max-width: 760px; margin-inline: auto; padding: 2.5rem 2rem 5rem; }
+
+    .show-global-tag { display: inline-flex; align-items: center; background: rgba(214,34,70,0.1); border: 1px solid rgba(214,34,70,0.25); border-radius: 8px; padding: 4px 14px; font-size: 0.85rem; font-weight: 700; color: var(--red); margin-bottom: 1rem; font-family: 'Noto Sans Hebrew', sans-serif; }
+
+    .show-tagline { font-size: 1.05rem; color: var(--text); border-right: 3px solid var(--orange); padding-right: 1rem; margin: 0.9rem 0 0; line-height: 1.65; }
+
+    .show-divider { height: 1px; background: var(--border); margin: 1.75rem 0; }
+
+    /* Musicians */
+    .show-section-label { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; font-weight: 700; margin-bottom: 0.7rem; }
+    .show-musicians { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .show-musician-pill { background: rgba(58,42,30,0.06); border: 1px solid var(--border); border-radius: 6px; padding: 0.28rem 0.7rem; font-size: 0.8rem; color: var(--text); white-space: nowrap; font-family: 'Noto Sans Hebrew', sans-serif; }
+
+    /* Description */
+    .show-desc p { margin-bottom: 1.25rem; font-size: 1rem; color: #4a3626; line-height: 1.9; }
+    .show-desc p:last-child { margin-bottom: 0; }
+    .show-photo-credit { font-size: 0.78rem; color: var(--muted); margin-top: 1rem; font-style: italic; }
+
+    /* ── SHOW PERFORMANCE CARDS (קוביות) ── */
+    .show-cards-list { display: flex; flex-direction: column; gap: 0.75rem; }
+
+    .show-perf-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem 1.25rem calc(1.5rem + 6px);
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+      flex-wrap: wrap;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+    .show-perf-card:hover { box-shadow: 0 4px 20px var(--shadow); }
+    .show-perf-card.active { background: var(--bg2); }
+
+    .show-perf-accent {
+      position: absolute;
+      right: 0; top: 0; bottom: 0;
+      width: 5px;
+    }
+
+    .show-perf-info { flex: 1; min-width: 180px; }
+    .show-perf-stage { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; margin-bottom: 0.3rem; text-transform: uppercase; }
+    .show-perf-datetime { font-size: 1.05rem; font-weight: 700; color: var(--text); }
+    .show-perf-tag { display: inline-flex; align-items: center; background: rgba(58,42,30,0.07); border-radius: 6px; padding: 3px 10px; font-size: 0.75rem; color: var(--muted); font-weight: 600; margin-top: 0.35rem; font-family: 'Noto Sans Hebrew', sans-serif; }
+    .show-perf-tag.headliner { background: rgba(214,34,70,0.1); color: var(--red); }
+
+    .show-perf-actions { flex-shrink: 0; }
+    .show-perf-ticket-btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--btn-gradient); color: #fff;
+      border: none; border-radius: 50px; padding: 0.6rem 1.4rem;
+      font-size: 0.88rem; font-weight: 700; cursor: pointer;
+      text-decoration: none; font-family: var(--font);
+      box-shadow: 0 3px 12px rgba(224,86,11,0.3);
+      white-space: nowrap;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .show-perf-ticket-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(224,86,11,0.48); }
+
+    @media (max-width: 620px) {
+      .show-perf-card { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+      .show-perf-actions { width: 100%; }
+      .show-perf-ticket-btn { width: 100%; justify-content: center; padding: 0.7rem; }
+      .show-main { padding: 2rem 1rem 4rem; }
+      .show-hero { height: clamp(200px, 56vw, 300px); }
+      .show-hero-bottom { padding: 1rem 1rem 1.25rem; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+  </style>
+  <link rel="stylesheet" href="./page-transitions.css" />
+</head>
+<body>
+
+  <!-- TICKER -->
+  <div class="ticker-bar" role="marquee" aria-label="עדכוני פסטיבל">
+    <div class="ticker-track-wrap">
+      <div class="ticker-track">
+        <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
+        <span class="ticker-item">ההופעה הראשונה הוכרזה — פרטים נוספים בקרוב</span>
+        <span class="ticker-item">חבילות נופש חדשות עם מלונות אילת — 3 לילות + שאטל לנמל</span>
+        <span class="ticker-item">11–14 בנובמבר 2026 · נמל אילת · 40 שנות פסטיבל ג׳אז ים סוף</span>
+        <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
+        <span class="ticker-item">ההופעה הראשונה הוכרזה — פרטים נוספים בקרוב</span>
+        <span class="ticker-item">חבילות נופש חדשות עם מלונות אילת — 3 לילות + שאטל לנמל</span>
+        <span class="ticker-item">11–14 בנובמבר 2026 · נמל אילת · 40 שנות פסטיבל ג׳אז ים סוף</span>
+        <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
+        <span class="ticker-item">ההופעה הראשונה הוכרזה — פרטים נוספים בקרוב</span>
+        <span class="ticker-item">חבילות נופש חדשות עם מלונות אילת — 3 לילות + שאטל לנמל</span>
+        <span class="ticker-item">11–14 בנובמבר 2026 · נמל אילת · 40 שנות פסטיבל ג׳אז ים סוף</span>
+        <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
+        <span class="ticker-item">ההופעה הראשונה הוכרזה — פרטים נוספים בקרוב</span>
+        <span class="ticker-item">חבילות נופש חדשות עם מלונות אילת — 3 לילות + שאטל לנמל</span>
+        <span class="ticker-item">11–14 בנובמבר 2026 · נמל אילת · 40 שנות פסטיבל ג׳אז ים סוף</span>
+      </div>
+    </div>
+    <span class="ticker-label">עדכונים</span>
+  </div>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a class="nav-logo-tab" href="./index.html">
+      <img src="State=Vertical.svg" alt="Red Sea Jazz Festival" class="nav-logo-img" width="80" height="80" />
+    </a>
+    <div class="nav-inner">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="./about.html">אודות</a></li>
+        <li><a href="./lineup.html" class="active">לוח הופעות</a></li>
+        <li><a href="./past-artists.html">שנים קודמות</a></li>
+        <li><a href="https://www.hotels.com" target="_blank" rel="noopener">מלונות</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a class="nav-btn-secondary" href="./index.html#hotels">חבילות נופש</a>
+        <a class="nav-btn-primary" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener">כרטיסים ←</a>
+        <div class="nav-lang-sep"></div>
+        <button class="nav-btn-lang" id="langBtn" onclick="switchLang()">🇺🇸 EN</button>
+        <button class="hamburger" id="hamburger" aria-label="תפריט ניווט" aria-expanded="false" onclick="toggleMenu()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="show-hero" id="showHero">
+    <div class="show-hero-ph" aria-hidden="true">♪</div>
+    <div class="show-hero-overlay"></div>
+    <button class="show-back-btn" onclick="if(history.length>1){history.back()}else{window.location.href='./lineup.html'}">← לליינאפ</button>
+    <div class="show-hero-bottom">
+      <div class="show-artist-name-hero" id="showArtistNameHero">טוען...</div>
+      <div class="show-artist-sub-hero" id="showArtistSubHero"></div>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <main class="show-main">
+
+    <div id="showGlobalTagWrap"></div>
+    <p class="show-tagline" id="showTagline" style="display:none"></p>
+
+    <!-- Musicians — top of body -->
+    <div id="showMusiciansSection" style="display:none">
+      <div class="show-divider"></div>
+      <div class="show-section-label">נגנים</div>
+      <div class="show-musicians" id="showMusicians"></div>
+    </div>
+
+    <!-- Description -->
+    <div class="show-divider"></div>
+    <div class="show-desc" id="showDesc"></div>
+    <p class="show-photo-credit" id="showPhotoCredit" style="display:none"></p>
+
+    <!-- SHOW CARDS — all performances by this artist, active one highlighted -->
+    <div class="show-divider"></div>
+    <div class="show-section-label" id="showPerfsLabel">הופעות בפסטיבל</div>
+    <div class="show-cards-list" id="showCardsList"></div>
+
+  </main>
+
+  <footer></footer>
+  <script src="./footer.js"></script>
+
+  <script>
+    /* ── NAV ── */
+    var navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 40) { navbar.classList.add('scrolled'); document.documentElement.style.setProperty('--nav-h','64px'); }
+      else { navbar.classList.remove('scrolled'); document.documentElement.style.setProperty('--nav-h','100px'); }
+    }, { passive: true });
+    function toggleMenu() {
+      var nl = document.getElementById('navLinks'), hb = document.getElementById('hamburger');
+      var o = nl.classList.toggle('open'); hb.setAttribute('aria-expanded', o);
+    }
+    var _lang = 'he';
+    function switchLang() { _lang = _lang==='he'?'en':'he'; document.getElementById('langBtn').textContent = _lang==='he'?'🇺🇸 EN':'🇮🇱 HE'; }
+
+    /* ────────────────────────────────────────────────────────────
+       ARTIST DATA  (slug → artist; each artist has all their shows)
+    ──────────────────────────────────────────────────────────── */
+    var ARTISTS = {
+
+      'festival-opening': {
+        name: 'פתיחה רשמית — טקס יובל',
+        subtitle: 'טקס פתיחה חגיגי לכבוד 40 שנות הפסטיבל',
+        image: './Graphig assets/artist-photos/festival-opening.jpg',
+        description: ['טקס הפתיחה הרשמי של פסטיבל ג׳אז ים סוף מהדורת היובל — 40 שנה לפסטיבל. חגיגת פתיחה עם אמנים, מוסיקה ומסר מיוחד לציון ארבעה עשורים של מוסיקה חיה על חוף ים סוף.'],
+        shows: [
+          { slug:'main-1111-1800', stage:'Main Stage', stageColor:'#E0560B', dayLabel:'יום ד׳', date:'11 בנובמבר 2026', time:'18:00', tag:'אירוע פתיחה', isHeadliner:false }
+        ]
+      },
+
+      'shalosh': {
+        name: 'SHALOSH',
+        subtitle: 'ג׳אז ישראלי עכשווי',
+        image: './Graphig assets/artist-photos/shalosh.jpg',
+        imgPosition: 'center 25%',
+        description: ['שלישיית SHALOSH – ג׳אז ישראלי עכשווי שמשלב אנרגיה, עומק ורגישות. הם חוגגים בפסטיבל 2026 השקת אלבום ראשון, עם אורח מיוחד: רוני איתן.'],
+        shows: [
+          { slug:'main-1111-2000', stage:'Main Stage', stageColor:'#E0560B', dayLabel:'יום ד׳', date:'11 בנובמבר 2026', time:'20:00', tag:'השקת אלבום', isHeadliner:false },
+          { slug:'red-1311-2145', stage:'Red Tent', stageColor:'#D62246', dayLabel:'יום ו׳', date:'13 בנובמבר 2026', time:'21:45', tag:'השקת אלבום · אורח: רוני איתן', isHeadliner:false }
+        ]
+      },
+
+      'las-piratas': {
+        name: 'Las Piratas Piratas',
+        subtitle: 'ג׳אז לטיני — כניסה חופשית',
+        image: './Graphig assets/artist-photos/las-piratas.jpg',
+        imgPosition: 'center 40%',
+        description: ['Las Piratas Piratas מביאים ערבי ג׳אז לטיני אנרגטיים עם ריתמוסים חמים, כניסה חופשית ומוסיקה שגורמת לגוף לזוז. חגיגה אמיתית לפתיחת ולסיום הפסטיבל.'],
+        shows: [
+          { slug:'main-1111-2200', stage:'Main Stage', stageColor:'#E0560B', dayLabel:'יום ד׳', date:'11 בנובמבר 2026', time:'22:00', tag:'כניסה חופשית', isHeadliner:false },
+          { slug:'teal-1311-2230', stage:'Blue Dome', stageColor:'#0A8F8E', dayLabel:'יום ו׳', date:'13 בנובמבר 2026', time:'22:30', tag:'כניסה חופשית', isHeadliner:false }
+        ]
+      },
+
+      'yotam-zilberstein': {
+        name: 'שלישיית יותם זילברשטיין',
+        subtitle: 'גיטרה ג׳אז — אמנות ורגישות',
+        image: './Graphig assets/artist-photos/yotam-zilberstain.jpg',
+        description: ['שלישיית גיטרה ג׳אז של יותם זילברשטיין — שפה מוזיקלית ייחודית שמשלבת מסורת עם קול עכשווי. אמנות ורגישות עם גיטרה, בס ותופים.'],
+        shows: [
+          { slug:'red-1111-1900', stage:'Red Tent', stageColor:'#D62246', dayLabel:'יום ד׳', date:'11 בנובמבר 2026', time:'19:00', tag:'', isHeadliner:false },
+          { slug:'red-1311-1630', stage:'Red Tent', stageColor:'#D62246', dayLabel:'יום ו׳', date:'13 בנובמבר 2026', time:'16:30', tag:'', isHeadliner:false }
+        ]
+      },
+
+      'hadar-neiverg': {
+        name: 'הדר נויברג New Quartet',
+        subtitle: 'חליל, פסנתר, בס ותופים — ג׳אז / פיוז׳ן',
+        image: './Graphig assets/artist-photos/hadar-neiverg.jpg',
+        description: ['הדר נויברג מביאה קוורטט חדש עם צליל מלוטש ומרגש — חליל, פסנתר, בס ותופים. ג׳אז / פיוז׳ן שמדבר לב ומייצר חיבור עמוק עם הקהל.'],
+        shows: [
+          { slug:'red-1111-2100', stage:'Red Tent', stageColor:'#D62246', dayLabel:'יום ד׳', date:'11 בנובמבר 2026', time:'21:00', tag:'', isHeadliner:false },
+          { slug:'red-1411-1100', stage:'Red Tent', stageColor:'#D62246', dayLabel:'שבת', date:'14 בנובמבר 2026', time:'11:00', tag:'', isHeadliner:false }
+        ]
+      },
+
+      'kai-gluska': {
+        name: 'שישיית קאי גלוסקא',
+        subtitle: 'ג׳אז עכשווי ישראלי',
+        image: './Graphig assets/artist-photos/kai-gluska.jpg',
+        description: ['שישיית הג׳אז של קאי גלוסקא — מוסיקה ישראלית עכשווית. צבע, אנרגיה וקול ייחודי שמתפתח בכל הופעה.'],
+        shows: [
+          { slug:'teal-1111-1830', stage:'Blue Dome', stageColor:'#0A8F8E', dayLabel:'יום ד׳', date:'11 בנובמבר 2026', time:'18:30', tag:'', isHeadliner:false },
+          { slug:'teal-1211-2230', stage:'Blue Dome', stageColor:'#0A8F8E', dayLabel:'יום ה׳', date:'12 בנובמבר 2026', time:'22:30', tag:'כניסה חופשית', isHeadliner:false }
+        ]
+      },
+
+      'ariel-bart': {
+        name: 'שלישיית אריאל ברט',
+        subtitle: 'השקת אלבום חדש',
+        image: './Graphig assets/artist-photos/ariel-bart.jpg',
+        description: ['שלישיית אריאל ברט חוגגת השקת אלבום חדש — ערב ג׳אז אינטימי ומרגש. מוסיקה שיוצרת חיבור עמוק בין הנגנים לקהל.'],
+        shows: [
+          { slug:'teal-1111-2030', stage:'Blue Dome', stageColor:'#0A8F8E', dayLabel:'יום ד׳', date:'11 בנובמבר 2026', time:'20:30', tag:'השקת אלבום', isHeadliner:false },
+          { slug:'red-1311-1100', stage:'Red Tent', stageColor:'#D62246', dayLabel:'יום ו׳', date:'13 בנובמבר 2026', time:'11:00', tag:'השקת האלבום הרשמית', isHeadliner:false }
+        ]
+      },
+
+      'avot-uvanim': {
+        name: 'אבות ובנים — מפגש דורות',
+        subtitle: 'אלוארצ׳יק, גרוס, נחמיה, סאלם, פורטוגלי, צור, שטרקר',
+        tag: 'הפקת מקור',
+        image: './Graphig assets/artist-photos/jazz-atmosphere.jpg',
+        description: ['הפקת מקור מרגשת — מפגש בין אמנים מדורות שונים של הג׳אז הישראלי. ערב מיוחד שמחבר בין ותיקים ועולים חדשים בצורה ייחודית ונוגעת ללב.'],
+        shows: [
+          { slug:'red-1211-1800', stage:'Red Tent', stageColor:'#D62246', dayLabel:'יום ה׳', date:'12 בנובמבר 2026', time:'18:00', tag:'הפקת מקור', isHeadliner:false }
+        ]
+      },
+
+      'three-cohens': {
+        name: 'The 3 Cohens: Yuval, Anat & Avishai',
+        subtitle: '+ Big Band led by Oded Lev-Ari',
+        tagline: '׳המשפחה הראשונה׳ של הג׳אז הישראלי חוגגת ביג טיים!',
+        tag: 'Headliner · Artist Residence',
+        image: './Graphig assets/artist-photos/3-cohens.jpg',
+        photoCredit: 'צילום: Yossi Zwecker',
+        musicians: ['ענת כהן – קלרינט','אבישי כהן – חצוצרה','יובל כהן – סקסופון סופרן','חגי אמיר – סקסופון אלט','אורי מנשה – סקסופון אלט','עמית פרידמן – סקסופון טנור','יהונתן כהן – סקסופון טנור','טל ורון – סקסופון בריטון','יובל פלג – חצוצרה','יונתן קולובסקי – חצוצרה','רוי זוזובסקי – חצוצרה','מתן כהן – חצוצרה','עודד מאיר – טרומבון','דור אסף – טרומבון','סלוצקי – טרומבון','טריפמן – טרומבון','קטיה טובול – פסנתר','אלון ניר – בס אקוסטי','אביב כהן – תופים','עודד לב-ארי – עיבודים וניצוח'],
+        description: [
+          'שלושת הכהנים – ענת (קלרינט), אבישי (חצוצרה) ויובל (סקסופון) – הם הרבה מעבר להרכב מוזיקלי; הם תופעת טבע משפחתית, שושלת מעוררת גאווה של ג׳אז בינלאומי שצמחה כאן בישראל. במקביל לקריירות סולו מסחררות חובקות עולם, האחים מקפידים תמיד לחזור הביתה, אל הבסיס. החיבור ביניהם, שנבנה במשך שנים של נגינה יחד בחדר הילדים, יצר שפה טלפתית, שבו האלתור המשותף הופך לטבע שני ומרגש. זהו הפרק הראשון בסדרת המופעים אותם מובילה ״אמנית הפסטיבל״ שלנו השנה, ענת.',
+          'כל אחד מהשלושה מביא לבמה מטען אדיר של עשייה והישגים. ענת כהן, נבחרה שוב ושוב לנגנית הקלרינט הטובה בעולם ועיטרה את שער מגזין DownBeat היוקרתי, מביאה את הווירטואוזיות שזיכתה אותה במועמדויות רבות לגראמי. אבישי כהן ביסס את מעמדו כאחד האמנים המובילים בלייבל האיכות הגרמני ECM. יובל כהן מצטרף עם אלבומו Winter Poems.',
+          'על העיבודים והניצוח אמון עודד לב-ארי – שיצר עבור הפרויקט עולם מוזיקלי המשלב תזמור עשיר ודיאלוג סוחף. מפגש חד-פעמי של אלתור, צבע, סווינג ואינטראקציה משפחתית במיטבה.'
+        ],
+        shows: [
+          { slug:'main-1211-2000', stage:'Main Stage', stageColor:'#E0560B', dayLabel:'יום ה׳', date:'12 בנובמבר 2026', time:'20:00', tag:'Headliner · Artist Residence', isHeadliner:true },
+          { slug:'yellow-1411-1000', stage:'Green Pavilion', stageColor:'#E0A800', dayLabel:'שבת', date:'14 בנובמבר 2026', time:'10:00', tag:'Artist Residence', isHeadliner:true }
+        ]
+      },
+
+      'gimbo-jazz': {
+        name: 'ג׳ימבו ג׳אז',
+        subtitle: 'אורח מיוחד: תמיר בר',
+        image: './Graphig assets/artist-photos/jazz-atmosphere.jpg',
+        description: ['ג׳ימבו ג׳אז מגיע לנמל אילת עם אורח מיוחד — תמיר בר. ג׳אז ישראלי אנרגטי לסיום לילה מושלם.'],
+        shows: [
+          { slug:'main-1211-2230', stage:'Main Stage', stageColor:'#E0560B', dayLabel:'יום ה׳', date:'12 בנובמבר 2026', time:'22:30', tag:'', isHeadliner:false }
+        ]
+      },
+
+      'lay-z-gordon': {
+        name: 'Lay Z Gordon',
+        subtitle: 'שופר, ג׳אז / היפ-הופ ישראלי',
+        image: './Graphig assets/artist-photos/lay-z-gordon.jpg',
+        description: ['Lay Z Gordon מביא את הצליל הייחודי של שופר, ג׳אז והיפ-הופ ישראלי. צליל שאי אפשר להגדיר — רק לחוות.'],
+        shows: [
+          { slug:'red-1211-2100', stage:'Red Tent', stageColor:'#D62246', dayLabel:'יום ה׳', date:'12 בנובמבר 2026', time:'21:00', tag:'', isHeadliner:false }
+        ]
+      },
+
+      'anat-cohen': {
+        name: 'Anat Cohen — Artist in Residence',
+        subtitle: 'קלרינטיסטית, מנהיגת ג׳אז בינלאומית',
+        tagline: 'אמנית הפסטיבל לשנת 2026',
+        tag: 'Artist in Residence',
+        image: './Graphig assets/artist-photos/anat-cohen.jpg',
+        imgPosition: 'center 20%',
+        musicians: ['ענת כהן – קלרינט','Marcello Goncalves – גיטרה (הופעה שנייה)'],
+        description: [
+          'ענת כהן היא אחת מגדולות הקלרינטיסטיות בעולם. מנהיגת ג׳אז שנבחרה שוב ושוב לנגנית הקלרינט הטובה בעולם על ידי מגזין DownBeat, עם מועמדויות רבות לגראמי ואלבומים שמדברים בשפה עולמית.',
+          'בתפקיד Artist in Residence של פסטיבל 2026, ענת משתתפת בשלושה אירועים מגוונים — Master Class פתוחה לקהל הרחב, ומופע אינטימי עם הגיטריסט הברזילאי Marcello Goncalves. בנוסף, ענת מבצעת גם עם אחיה The 3 Cohens בשתי הופעות.'
+        ],
+        shows: [
+          { slug:'teal-1311-0930', stage:'Blue Dome', stageColor:'#0A8F8E', dayLabel:'יום ו׳', date:'13 בנובמבר 2026', time:'09:30', tag:'Master Class', isHeadliner:false },
+          { slug:'teal-1411-1230', stage:'Blue Dome', stageColor:'#0A8F8E', dayLabel:'שבת', date:'14 בנובמבר 2026', time:'12:30', tag:'Anat Cohen & Marcello Goncalves', isHeadliner:true }
+        ]
+      },
+
+      'eli-degibri': {
+        name: 'Eli Degibri Quartet',
+        subtitle: 'עם רביעיית כלי מיתר + אורח מיוחד: שם טוב לוי',
+        tag: 'Headliner · מיוחד לפסטיבל',
+        image: './Graphig assets/artist-photos/eli-degibri.jpg',
+        description: ['רביעיית הג׳אז של אלי דה-ג׳יברי – מופע מיוחד לפסטיבל עם רביעיית כלי מיתר ואורח מיוחד: שם טוב לוי. הצלילים האינטלקטואליים של דה-ג׳יברי פוגשים את הלהט הרגשי של שם טוב לוי.'],
+        shows: [
+          { slug:'main-1311-1230', stage:'Main Stage', stageColor:'#E0560B', dayLabel:'יום ו׳', date:'13 בנובמבר 2026', time:'12:30', tag:'Headliner · מיוחד לפסטיבל', isHeadliner:true }
+        ]
+      },
+
+      'chava-alberstein': {
+        name: 'חוה אלברשטיין',
+        subtitle: 'ערב מיוחד עם עיבודי ג׳אז',
+        tag: 'Headliner · מיוחד לפסטיבל',
+        image: './Graphig assets/artist-photos/chava-alberstein.jpg',
+        description: ['ערב מיוחד עם גדולת הזמרת הישראלית – חוה אלברשטיין. עיבודי ג׳אז ייחודיים לשיריה הנצחיים מביאים ממד חדש לפנינים מהרפרטואר העשיר שלה.'],
+        shows: [
+          { slug:'main-1311-2000', stage:'Main Stage', stageColor:'#E0560B', dayLabel:'יום ו׳', date:'13 בנובמבר 2026', time:'20:00', tag:'Headliner · מיוחד לפסטיבל', isHeadliner:true }
+        ]
+      },
+
+      'uriel-herman': {
+        name: 'רביעיית אוריאל הרמן',
+        subtitle: 'מארחת את רמי קליינשטיין',
+        image: './Graphig assets/artist-photos/uriel-herman.jpg',
+        description: ['רביעיית אוריאל הרמן מזמינה את רמי קליינשטיין למפגש בין ג׳אז לפופ — שיתוף פעולה מפתיע ומרגש שיוצר שפה מוזיקלית חדשה ומרתקת.'],
+        shows: [
+          { slug:'red-1311-1400', stage:'Red Tent', stageColor:'#D62246', dayLabel:'יום ו׳', date:'13 בנובמבר 2026', time:'14:00', tag:'', isHeadliner:false }
+        ]
+      },
+
+      'hagai-amir': {
+        name: 'שישיית חגי אמיר',
+        subtitle: 'דיאלוגים עם ברטוק — מוסיקה מקורית',
+        image: './Graphig assets/artist-photos/hagai-amir.jpg',
+        description: ['שישיית חגי אמיר מציגה דיאלוגים עם ברטוק — מוסיקה מקורית שמשלבת ג׳אז ואפרו-ריתמוס בדרך יצירתית ומרתקת. יצירה ייחודית שמחברת בין מסורות עולם.'],
+        shows: [
+          { slug:'teal-1311-1800', stage:'Blue Dome', stageColor:'#0A8F8E', dayLabel:'יום ו׳', date:'13 בנובמבר 2026', time:'18:00', tag:'', isHeadliner:false },
+          { slug:'yellow-1411-1200', stage:'Green Pavilion', stageColor:'#E0A800', dayLabel:'שבת', date:'14 בנובמבר 2026', time:'12:00', tag:'', isHeadliner:false }
+        ]
+      },
+
+      'idit-mintzer': {
+        name: 'עידית מינצר',
+        subtitle: 'ווקאל ג׳אז — שני קונצרטים בפסטיבל',
+        image: './Graphig assets/artist-photos/idit-mintzer.jpg',
+        description: ['עידית מינצר מגיעה לפסטיבל בשני קונצרטים — ווקאל ג׳אז עם אישיות ומחויבות אמנותית ייחודית. הקונצרט השני בשיתוף יחזקאל רז בגיטרה, ערב אינטימי ומיוחד.'],
+        shows: [
+          { slug:'teal-1311-1515', stage:'Blue Dome', stageColor:'#0A8F8E', dayLabel:'יום ו׳', date:'13 בנובמבר 2026', time:'15:15', tag:'קונצרט א׳', isHeadliner:false },
+          { slug:'red-1411-1345', stage:'Red Tent', stageColor:'#D62246', dayLabel:'שבת', date:'14 בנובמבר 2026', time:'13:45', tag:'קונצרט ב׳ — עם יחזקאל רז', isHeadliner:false }
+        ]
+      },
+
+      'jazz-orchestra': {
+        name: 'תזמורת הג׳אז הישראלית',
+        subtitle: 'מופע סיום — נטע ברזילי, גל דה פז, נונו ולירז צ׳רכי',
+        tag: 'Headliner · מופע סיום · הפקת מקור',
+        image: './Graphig assets/artist-photos/jazz-orchestra.jpg',
+        description: ['הפקת מקור — מופע סיום מרהיב עם תזמורת הג׳אז הישראלית ואורחות מיוחדות: נטע ברזילי, גל דה פז, נונו ולירז צ׳רכי. מהדורת יובל לפסטיבל ג׳אז ים סוף — סיום הולם לחגיגה בת ארבעה ימים.'],
+        shows: [
+          { slug:'main-1411-1445', stage:'Main Stage', stageColor:'#E0560B', dayLabel:'שבת', date:'14 בנובמבר 2026', time:'14:45', tag:'Headliner · מופע סיום · הפקת מקור', isHeadliner:true }
+        ]
+      }
+
+    }; /* end ARTISTS */
+
+    /* Build slug → artist lookup from data */
+    var SLUG_TO_ARTIST = {};
+    Object.keys(ARTISTS).forEach(function(k) {
+      ARTISTS[k].shows.forEach(function(s) { SLUG_TO_ARTIST[s.slug] = k; });
+    });
+
+    /* ── POPULATE PAGE ── */
+    (function() {
+      var slug = (new URLSearchParams(window.location.search)).get('show');
+      var artistKey = slug && SLUG_TO_ARTIST[slug];
+      if (!artistKey) { window.location.replace('./lineup.html'); return; }
+      var artist = ARTISTS[artistKey];
+
+      document.title = artist.name + ' · Red Sea Jazz Festival 2026';
+
+      /* Hero image */
+      if (artist.image) {
+        var hero = document.getElementById('showHero');
+        var img = new Image();
+        img.className = 'show-hero-img';
+        img.alt = artist.name;
+        img.onload = function() { hero.insertBefore(img, hero.firstChild); };
+        img.src = artist.image;
+      }
+
+      /* Hero text */
+      document.getElementById('showArtistNameHero').textContent = artist.name;
+      document.getElementById('showArtistSubHero').textContent = artist.subtitle || '';
+
+      /* Global tag */
+      if (artist.tag) {
+        var t = document.createElement('span');
+        t.className = 'show-global-tag';
+        t.textContent = artist.tag;
+        document.getElementById('showGlobalTagWrap').appendChild(t);
+      }
+
+      /* Tagline */
+      if (artist.tagline) {
+        var tl = document.getElementById('showTagline');
+        tl.textContent = artist.tagline; tl.style.display = 'block';
+      }
+
+      /* Musicians */
+      if (artist.musicians && artist.musicians.length) {
+        document.getElementById('showMusiciansSection').style.display = '';
+        document.getElementById('showMusicians').innerHTML = artist.musicians.map(function(m){
+          return '<span class="show-musician-pill">' + m + '</span>';
+        }).join('');
+      }
+
+      /* Description */
+      if (artist.description && artist.description.length) {
+        document.getElementById('showDesc').innerHTML = artist.description.map(function(p){
+          return '<p>' + p + '</p>';
+        }).join('');
+      }
+
+      /* Photo credit */
+      if (artist.photoCredit) {
+        var pc = document.getElementById('showPhotoCredit');
+        pc.textContent = artist.photoCredit; pc.style.display = 'block';
+      }
+
+      /* Section label */
+      document.getElementById('showPerfsLabel').textContent =
+        artist.shows.length > 1 ? 'הופעות בפסטיבל' : 'הופעה בפסטיבל';
+
+      /* Show cards */
+      var list = document.getElementById('showCardsList');
+      artist.shows.forEach(function(show) {
+        var isActive = (show.slug === slug);
+        var card = document.createElement('div');
+        card.className = 'show-perf-card' + (isActive ? ' active' : '');
+
+        var tagHtml = show.tag
+          ? '<span class="show-perf-tag' + (show.isHeadliner ? ' headliner' : '') + '">' + show.tag + '</span>'
+          : '';
+
+        card.innerHTML =
+          '<div class="show-perf-accent" style="background:' + show.stageColor + '"></div>' +
+          '<div class="show-perf-info">' +
+            '<div class="show-perf-stage" style="color:' + show.stageColor + '">' + show.stage + '</div>' +
+            '<div class="show-perf-datetime">' + show.dayLabel + ' &nbsp;·&nbsp; ' + show.date + ' &nbsp;·&nbsp; ' + show.time + '</div>' +
+            tagHtml +
+          '</div>' +
+          '<div class="show-perf-actions">' +
+            '<a class="show-perf-ticket-btn" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener">כרטיסים ←</a>' +
+          '</div>';
+
+        list.appendChild(card);
+      });
+    })();
+
+    function _hexRgba(hex, a) {
+      var r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+      return 'rgba('+r+','+g+','+b+','+a+')';
+    }
+  </script>
+  <script src="./page-transitions.js"></script>
+</body>
+</html>
