@@ -389,7 +389,8 @@
       'gimbo-jazz': {
         name: 'ג׳ימבו ג׳אז',
         subtitle: 'אורח מיוחד: תמיר בר',
-        image: './Graphig assets/artist-photos/jazz-atmosphere.jpg',
+        image: './Graphig assets/artist-photos/gimbo-jazz.jpg',
+        imgPosition: '50% top',
         description: ['ג׳ימבו ג׳אז מגיע לנמל אילת עם אורח מיוחד — תמיר בר. ג׳אז ישראלי אנרגטי לסיום לילה מושלם.'],
         shows: [
           { slug:'main-1211-2230', stage:'Main Stage', stageColor:'#E0560B', dayLabel:'יום ה׳', date:'12 בנובמבר 2026', time:'22:30', tag:'', isHeadliner:false }
@@ -504,7 +505,8 @@
     /* ── POPULATE PAGE ── */
     (function() {
       var params = new URLSearchParams(window.location.search);
-      var artistKey = params.get('artist') || SLUG_TO_ARTIST[params.get('show')];
+      var slug = params.get('show') || '';
+      var artistKey = params.get('artist') || SLUG_TO_ARTIST[slug];
       if (!artistKey || !ARTISTS[artistKey]) { window.location.replace('./lineup.html'); return; }
       var artist = ARTISTS[artistKey];
 
