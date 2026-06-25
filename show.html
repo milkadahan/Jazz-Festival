@@ -503,9 +503,9 @@
 
     /* ── POPULATE PAGE ── */
     (function() {
-      var slug = (new URLSearchParams(window.location.search)).get('show');
-      var artistKey = slug && SLUG_TO_ARTIST[slug];
-      if (!artistKey) { window.location.replace('./lineup.html'); return; }
+      var params = new URLSearchParams(window.location.search);
+      var artistKey = params.get('artist') || SLUG_TO_ARTIST[params.get('show')];
+      if (!artistKey || !ARTISTS[artistKey]) { window.location.replace('./lineup.html'); return; }
       var artist = ARTISTS[artistKey];
 
       document.title = artist.name + ' · Red Sea Jazz Festival 2026';
