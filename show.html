@@ -86,17 +86,6 @@
     .show-hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
     .show-hero-ph { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 7rem; color: rgba(250,244,233,0.06); pointer-events: none; }
     .show-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(26,20,16,0.2) 0%, transparent 40%, rgba(26,20,16,0.75) 100%); pointer-events: none; }
-    .show-back-btn {
-      position: absolute; top: 1.4rem; right: 1.4rem; z-index: 2;
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      background: rgba(26,20,16,0.52); color: #fff;
-      border: none; border-radius: 50px;
-      padding: 0.48rem 1rem; font-size: 0.85rem; font-weight: 600;
-      cursor: pointer; font-family: var(--font);
-      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-      transition: background 0.2s;
-    }
-    .show-back-btn:hover { background: rgba(26,20,16,0.82); }
     .show-hero-bottom {
       position: absolute; bottom: 0; left: 0; right: 0;
       padding: 1.5rem 2rem 1.75rem; pointer-events: none; z-index: 1;
@@ -234,8 +223,7 @@
   <div class="show-hero" id="showHero">
     <div class="show-hero-ph" aria-hidden="true">♪</div>
     <div class="show-hero-overlay"></div>
-    <button class="show-back-btn" onclick="if(history.length>1){history.back()}else{window.location.href='./lineup.html'}">← לליינאפ</button>
-    <div class="show-hero-bottom">
+<div class="show-hero-bottom">
       <div class="show-artist-name-hero" id="showArtistNameHero">טוען...</div>
       <div class="show-artist-sub-hero" id="showArtistSubHero"></div>
     </div>
@@ -292,6 +280,7 @@
         name: 'פתיחה רשמית — טקס יובל',
         subtitle: 'טקס פתיחה חגיגי לכבוד 40 שנות הפסטיבל',
         image: './Graphig assets/artist-photos/festival-opening.jpg',
+        imgPosition: 'center 60%',
         description: ['טקס הפתיחה הרשמי של פסטיבל ג׳אז ים סוף מהדורת היובל — 40 שנה לפסטיבל. חגיגת פתיחה עם אמנים, מוסיקה ומסר מיוחד לציון ארבעה עשורים של מוסיקה חיה על חוף ים סוף.'],
         shows: [
           { slug:'main-1111-1800', stage:'Main Stage', stageColor:'#E0560B', dayLabel:'יום ד׳', date:'11 בנובמבר 2026', time:'18:00', tag:'אירוע פתיחה', isHeadliner:false }
@@ -383,6 +372,7 @@
         tagline: '׳המשפחה הראשונה׳ של הג׳אז הישראלי חוגגת ביג טיים!',
         tag: 'Headliner · Artist Residence',
         image: './Graphig assets/artist-photos/3-cohens.jpg',
+        imgPosition: 'center 40%',
         photoCredit: 'צילום: Yossi Zwecker',
         musicians: ['ענת כהן – קלרינט','אבישי כהן – חצוצרה','יובל כהן – סקסופון סופרן','חגי אמיר – סקסופון אלט','אורי מנשה – סקסופון אלט','עמית פרידמן – סקסופון טנור','יהונתן כהן – סקסופון טנור','טל ורון – סקסופון בריטון','יובל פלג – חצוצרה','יונתן קולובסקי – חצוצרה','רוי זוזובסקי – חצוצרה','מתן כהן – חצוצרה','עודד מאיר – טרומבון','דור אסף – טרומבון','סלוצקי – טרומבון','טריפמן – טרומבון','קטיה טובול – פסנתר','אלון ניר – בס אקוסטי','אביב כהן – תופים','עודד לב-ארי – עיבודים וניצוח'],
         description: [
@@ -410,6 +400,7 @@
         name: 'Lay Z Gordon',
         subtitle: 'שופר, ג׳אז / היפ-הופ ישראלי',
         image: './Graphig assets/artist-photos/lay-z-gordon.jpg',
+        imgPosition: 'center 55%',
         description: ['Lay Z Gordon מביא את הצליל הייחודי של שופר, ג׳אז והיפ-הופ ישראלי. צליל שאי אפשר להגדיר — רק לחוות.'],
         shows: [
           { slug:'red-1211-2100', stage:'Red Tent', stageColor:'#D62246', dayLabel:'יום ה׳', date:'12 בנובמבר 2026', time:'21:00', tag:'', isHeadliner:false }
@@ -439,6 +430,7 @@
         subtitle: 'עם רביעיית כלי מיתר + אורח מיוחד: שם טוב לוי',
         tag: 'Headliner · מיוחד לפסטיבל',
         image: './Graphig assets/artist-photos/eli-degibri.jpg',
+        imgPosition: 'center 20%',
         description: ['רביעיית הג׳אז של אלי דה-ג׳יברי – מופע מיוחד לפסטיבל עם רביעיית כלי מיתר ואורח מיוחד: שם טוב לוי. הצלילים האינטלקטואליים של דה-ג׳יברי פוגשים את הלהט הרגשי של שם טוב לוי.'],
         shows: [
           { slug:'main-1311-1230', stage:'Main Stage', stageColor:'#E0560B', dayLabel:'יום ו׳', date:'13 בנובמבר 2026', time:'12:30', tag:'Headliner · מיוחד לפסטיבל', isHeadliner:true }
@@ -450,6 +442,7 @@
         subtitle: 'ערב מיוחד עם עיבודי ג׳אז',
         tag: 'Headliner · מיוחד לפסטיבל',
         image: './Graphig assets/artist-photos/chava-alberstein.jpg',
+        imgPosition: 'center 20%',
         description: ['ערב מיוחד עם גדולת הזמרת הישראלית – חוה אלברשטיין. עיבודי ג׳אז ייחודיים לשיריה הנצחיים מביאים ממד חדש לפנינים מהרפרטואר העשיר שלה.'],
         shows: [
           { slug:'main-1311-2000', stage:'Main Stage', stageColor:'#E0560B', dayLabel:'יום ו׳', date:'13 בנובמבר 2026', time:'20:00', tag:'Headliner · מיוחד לפסטיבל', isHeadliner:true }
@@ -481,6 +474,7 @@
         name: 'עידית מינצר',
         subtitle: 'ווקאל ג׳אז — שני קונצרטים בפסטיבל',
         image: './Graphig assets/artist-photos/idit-mintzer.jpg',
+        imgPosition: 'center 30%',
         description: ['עידית מינצר מגיעה לפסטיבל בשני קונצרטים — ווקאל ג׳אז עם אישיות ומחויבות אמנותית ייחודית. הקונצרט השני בשיתוף יחזקאל רז בגיטרה, ערב אינטימי ומיוחד.'],
         shows: [
           { slug:'teal-1311-1515', stage:'Blue Dome', stageColor:'#0A8F8E', dayLabel:'יום ו׳', date:'13 בנובמבר 2026', time:'15:15', tag:'קונצרט א׳', isHeadliner:false },
@@ -522,6 +516,7 @@
         var img = new Image();
         img.className = 'show-hero-img';
         img.alt = artist.name;
+        if (artist.imgPosition) img.style.objectPosition = artist.imgPosition;
         img.onload = function() { hero.insertBefore(img, hero.firstChild); };
         img.src = artist.image;
       }

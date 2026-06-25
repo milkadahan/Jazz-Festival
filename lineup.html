@@ -2410,6 +2410,16 @@
       }
       return './Graphig assets/artist-photos/jazz-atmosphere.jpg';
     }
+    var SHOW_FOCAL_POINTS = {
+      './Graphig assets/artist-photos/shalosh.jpg':          'center 25%',
+      './Graphig assets/artist-photos/anat-cohen.jpg':       'center 20%',
+      './Graphig assets/artist-photos/chava-alberstein.jpg': 'center 20%',
+      './Graphig assets/artist-photos/eli-degibri.jpg':      'center 15%',
+      './Graphig assets/artist-photos/lay-z-gordon.jpg':     'center 55%',
+      './Graphig assets/artist-photos/idit-mintzer.jpg':     'center 30%',
+      './Graphig assets/artist-photos/las-piratas.jpg':      'center 30%',
+      './Graphig assets/artist-photos/festival-opening.jpg': 'center 60%',
+    };
     function applyShowImages() {
       document.querySelectorAll('.show-block').forEach(function(block) {
         var thumb = block.querySelector('.show-thumb');
@@ -2417,6 +2427,8 @@
         if (!thumb || !nameEl) return;
         var img = getShowImage(nameEl.textContent);
         thumb.style.backgroundImage = 'url("' + img + '")';
+        var pos = SHOW_FOCAL_POINTS[img];
+        if (pos) thumb.style.backgroundPosition = pos;
         thumb.classList.add('has-img');
       });
       document.querySelectorAll('.show-card').forEach(function(card) {
@@ -2425,6 +2437,8 @@
         if (!imgDiv || !nameEl) return;
         var img = getShowImage(nameEl.textContent);
         imgDiv.style.backgroundImage = 'url("' + img + '")';
+        var pos = SHOW_FOCAL_POINTS[img];
+        if (pos) imgDiv.style.backgroundPosition = pos;
         imgDiv.classList.add('has-img');
       });
     }

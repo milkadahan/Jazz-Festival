@@ -2424,7 +2424,7 @@
 
           <div class="artist-card featured">
           <div class="headliner-badge">מיוחד לפסטיבל</div>
-            <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/3-cohens.jpg')"><div class="artist-img-overlay"></div></div>
+            <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/3-cohens.jpg'); background-position: center 40%"><div class="artist-img-overlay"></div></div>
             <div class="artist-info">
               <div class="artist-name">The 3 Cohens</div>
               <div class="artist-origin">Port arena · יום ה׳</div>
@@ -2432,7 +2432,7 @@
           </div>
           <div class="artist-card featured">
           <div class="headliner-badge">מיוחד לפסטיבל</div>
-            <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/chava-alberstein.jpg')"><div class="artist-img-overlay"></div></div>
+            <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/chava-alberstein.jpg'); background-position: center 20%"><div class="artist-img-overlay"></div></div>
             <div class="artist-info">
               <div class="artist-name">חוה אלברשטיין</div>
               <div class="artist-origin">Port arena · יום ו׳</div>
@@ -2440,14 +2440,14 @@
           </div>
           <div class="artist-card featured">
 
-            <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/anat-cohen.jpg')"><div class="artist-img-overlay"></div></div>
+            <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/anat-cohen.jpg'); background-position: center 20%"><div class="artist-img-overlay"></div></div>
             <div class="artist-info">
               <div class="artist-name">Anat Cohen</div>
               <div class="artist-origin">Red Note Club · שבת</div>
             </div>
           </div>
           <div class="artist-card">
-            <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/eli-degibri.jpg')"><div class="artist-img-overlay"></div></div>
+            <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/eli-degibri.jpg'); background-position: center 15%"><div class="artist-img-overlay"></div></div>
             <div class="artist-info">
               <div class="artist-name">Eli Degibri Quartet</div>
               <div class="artist-origin">Port arena · יום ו׳</div>
@@ -2461,7 +2461,7 @@
             </div>
           </div>
           <div class="artist-card">
-            <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/shalosh.jpg')"><div class="artist-img-overlay"></div></div>
+            <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/shalosh.jpg'); background-position: center 25%"><div class="artist-img-overlay"></div></div>
             <div class="artist-info">
               <div class="artist-name">SHALOSH</div>
               <div class="artist-origin">Red Note Club · יום ו׳</div>
@@ -2475,7 +2475,7 @@
             </div>
           </div>
           <div class="artist-card">
-            <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/las-piratas.jpg')"><div class="artist-img-overlay"></div></div>
+            <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/las-piratas.jpg'); background-position: center 30%"><div class="artist-img-overlay"></div></div>
             <div class="artist-info">
               <div class="artist-name">Las Piratas Piratas</div>
               <div class="artist-origin">DE future · יום ו׳</div>
@@ -4647,6 +4647,16 @@ document.getElementById('panelGenre').textContent  = data.genre  || '';
       }
       return './Graphig assets/artist-photos/jazz-atmosphere.jpg';
     }
+    var SHOW_FOCAL_POINTS = {
+      './Graphig assets/artist-photos/shalosh.jpg':          'center 25%',
+      './Graphig assets/artist-photos/anat-cohen.jpg':       'center 20%',
+      './Graphig assets/artist-photos/chava-alberstein.jpg': 'center 20%',
+      './Graphig assets/artist-photos/eli-degibri.jpg':      'center 15%',
+      './Graphig assets/artist-photos/lay-z-gordon.jpg':     'center 55%',
+      './Graphig assets/artist-photos/idit-mintzer.jpg':     'center 30%',
+      './Graphig assets/artist-photos/las-piratas.jpg':      'center 30%',
+      './Graphig assets/artist-photos/festival-opening.jpg': 'center 60%',
+    };
     document.addEventListener('DOMContentLoaded', function() {
       document.querySelectorAll('.show-block').forEach(function(block) {
         var thumb = block.querySelector('.show-thumb');
@@ -4654,6 +4664,8 @@ document.getElementById('panelGenre').textContent  = data.genre  || '';
         if (!thumb || !nameEl) return;
         var img = getShowImage(nameEl.textContent);
         thumb.style.backgroundImage = 'url("' + img + '")';
+        var pos = SHOW_FOCAL_POINTS[img];
+        if (pos) thumb.style.backgroundPosition = pos;
         thumb.classList.add('has-img');
       });
     });
