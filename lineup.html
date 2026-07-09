@@ -297,19 +297,19 @@
     .page-hero {
       position: relative;
       overflow: hidden;
-      height: calc(400px + var(--ticker-h) + var(--nav-h));
+      height: calc(280px + var(--ticker-h) + var(--nav-h));
       display: flex;
       align-items: center;
       justify-content: center;
       padding-top: calc(var(--ticker-h) + var(--nav-h));
       background: #f5efe6;
     }
-    /* BG image: Figma exact — 236.97%×400=947.88px tall, top=nav−111.51%×400px */
+    /* BG image: מוקטן מ-400px ל-280px (כדי שיוצג יותר מהתוכנייה מתחת) — היחס לתמונת המקור נשמר, ה-crop מורכז מחדש */
     .page-hero-bg-img {
       position: absolute;
       left: 0; width: 100%;
       height: 947.88px;
-      top: calc(var(--ticker-h) + var(--nav-h) - 446px);
+      top: calc(var(--ticker-h) + var(--nav-h) - 386px);
       pointer-events: none;
       display: block;
     }
@@ -536,6 +536,9 @@
       flex: 1;
       display: flex; flex-direction: column; gap: 4px;
     }
+    .show-card-title-row {
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    }
     .show-card-name {
       font-size: 20px; font-weight: 600;
       color: #3a2a1e; line-height: 1.3;
@@ -548,17 +551,30 @@
       display: inline-flex; align-items: center; flex-shrink: 0;
       background: #f3f1ea;
       border: 1px solid #d5c9b0;
-      border-radius: 8px;
-      padding: 5px 12px;
-      font-size: 14px; font-weight: 600;
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-size: 11px; font-weight: 600;
       color: #8f7152;
       font-family: 'Noto Sans Hebrew', sans-serif;
       white-space: nowrap;
+      line-height: 1.6;
     }
     .show-card-tag.headliner {
       background: rgba(214,34,70,0.1);
       border-color: rgba(214,34,70,0.25);
       color: var(--red);
+    }
+    .show-card-more {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      font-size: 13px; font-weight: 600;
+      color: var(--orange);
+      width: fit-content;
+      margin-top: 2px;
+    }
+    .show-card-more:hover { text-decoration: underline; }
+    .show-card-meta {
+      flex-shrink: 0;
+      display: flex; align-items: center; gap: 16px;
     }
     .show-card-divider {
       width: 1px; height: 36px;
@@ -570,6 +586,21 @@
       font-family: 'Hepta Slab', serif;
       color: #483f3b;
       min-width: 3.5ch; text-align: center;
+    }
+    .show-card-tickets-link {
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--btn-gradient); color: #fff;
+      border-radius: 50px;
+      padding: 0.55rem 1.2rem;
+      font-size: 14px; font-weight: 700;
+      text-decoration: none; white-space: nowrap;
+      box-shadow: 0 3px 14px rgba(224,86,11,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .show-card-tickets-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(224,86,11,0.45);
     }
 
     /* ─── SHOW DRAWER ──────────────────────────────────────────── */
@@ -1001,20 +1032,29 @@
 
     /* ─── RESPONSIVE ───────────────────────────────────────────── */
     @media (max-width: 700px) {
-      .page-hero { height: calc(260px + var(--ticker-h) + var(--nav-h)); }
-      .page-hero-bg-img { height: 618px; top: calc(var(--ticker-h) + var(--nav-h) - 290px); }
+      .page-hero { height: calc(180px + var(--ticker-h) + var(--nav-h)); }
+      .page-hero-bg-img { height: 618px; top: calc(var(--ticker-h) + var(--nav-h) - 250px); }
       .page-hero-content { padding-inline: 1.5rem; }
       .page-hero-title { font-size: clamp(2rem, 10vw, 3rem); gap: 16px; }
       .page-hero-glow-teal { width: 220px; height: 220px; right: -180px; bottom: -60px; }
       main { padding: 2rem 1rem 4rem; }
       .footer-grid { grid-template-columns: 1fr; gap: 1.8rem; }
-      .show-card { padding: 8px 8px 8px 14px; gap: 10px; min-height: 80px; }
+      .show-card { padding: 10px 12px 10px 14px; gap: 10px; min-height: 80px; flex-wrap: wrap; }
       .show-card-img { width: 60px; height: 60px; }
       .show-card-num { font-size: 22px; }
       .show-card-name { font-size: 15px; }
       .show-card-sub { font-size: 13px; }
+      .show-card-more { font-size: 12px; }
       .show-card-time { font-size: 14px; min-width: 3ch; }
-      .show-card-tag { font-size: 12px; padding: 4px 8px; }
+      .show-card-tag { font-size: 10px; padding: 2px 6px; }
+      .show-card-meta {
+        flex-basis: 100%;
+        justify-content: flex-end;
+        margin-top: 6px;
+        padding-top: 8px;
+        border-top: 1px solid rgba(58,42,30,0.08);
+      }
+      .show-card-tickets-link { padding: 0.45rem 1rem; font-size: 12.5px; }
       .day-block-title { font-size: 1.3rem; }
       /* controls-strip — stack vertically */
       .controls-strip {
@@ -1206,34 +1246,52 @@
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
-              <div class="show-card-name">פתיחה רשמית — טקס יובל</div>
+              <div class="show-card-title-row">
+                <div class="show-card-name">פתיחה רשמית — טקס יובל</div>
+                <span class="show-card-tag">אירוע פתיחה</span>
+              </div>
               <div class="show-card-sub">טקס פתיחה חגיגי לכבוד 40 שנות הפסטיבל</div>
+              <span class="show-card-more">מידע נוסף ←</span>
             </div>
-            <span class="show-card-tag">אירוע פתיחה</span>
-            <div class="show-card-divider"></div>
-            <div class="show-card-time">18:00</div>
+            <div class="show-card-meta">
+              <div class="show-card-time">18:00</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
           </div>
           <div class="show-card">
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
-              <div class="show-card-name">SHALOSH</div>
+              <div class="show-card-title-row">
+                <div class="show-card-name">SHALOSH</div>
+                <span class="show-card-tag">השקת אלבום</span>
+              </div>
               <div class="show-card-sub">אלבום ראשון בפסטיבל + אורח: רוני איתן</div>
+              <span class="show-card-more">מידע נוסף ←</span>
             </div>
-            <span class="show-card-tag">השקת אלבום</span>
-            <div class="show-card-divider"></div>
-            <div class="show-card-time">20:00</div>
+            <div class="show-card-meta">
+              <div class="show-card-time">20:00</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
           </div>
           <div class="show-card">
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
-              <div class="show-card-name">Las Piratas Piratas</div>
+              <div class="show-card-title-row">
+                <div class="show-card-name">Las Piratas Piratas</div>
+                <span class="show-card-tag">כניסה חופשית</span>
+              </div>
               <div class="show-card-sub">ג׳אז לטיני — פתיחת פסטיבל חגיגית</div>
+              <span class="show-card-more">מידע נוסף ←</span>
             </div>
-            <span class="show-card-tag">כניסה חופשית</span>
-            <div class="show-card-divider"></div>
-            <div class="show-card-time">22:00</div>
+            <div class="show-card-meta">
+              <div class="show-card-time">22:00</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
           </div>
         </div>
       </div>
@@ -1250,21 +1308,33 @@
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
-              <div class="show-card-name">שלישיית יותם זילברשטיין</div>
+              <div class="show-card-title-row">
+                <div class="show-card-name">שלישיית יותם זילברשטיין</div>
+              </div>
               <div class="show-card-sub">גיטרה, בס ותופים — ג׳אז עכשווי</div>
+              <span class="show-card-more">מידע נוסף ←</span>
             </div>
-            <div class="show-card-divider"></div>
-            <div class="show-card-time">19:00</div>
+            <div class="show-card-meta">
+              <div class="show-card-time">19:00</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
           </div>
           <div class="show-card">
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
-              <div class="show-card-name">הדר נויברג New Quartet</div>
+              <div class="show-card-title-row">
+                <div class="show-card-name">הדר נויברג New Quartet</div>
+              </div>
               <div class="show-card-sub">חליל, פסנתר, בס ותופים — ג׳אז / פיוז׳ן</div>
+              <span class="show-card-more">מידע נוסף ←</span>
             </div>
-            <div class="show-card-divider"></div>
-            <div class="show-card-time">21:00</div>
+            <div class="show-card-meta">
+              <div class="show-card-time">21:00</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
           </div>
         </div>
       </div>
@@ -1281,22 +1351,34 @@
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
-              <div class="show-card-name">שישיית קאי גלוסקא</div>
+              <div class="show-card-title-row">
+                <div class="show-card-name">שישיית קאי גלוסקא</div>
+              </div>
               <div class="show-card-sub">ג׳אז עכשווי ישראלי</div>
+              <span class="show-card-more">מידע נוסף ←</span>
             </div>
-            <div class="show-card-divider"></div>
-            <div class="show-card-time">18:30</div>
+            <div class="show-card-meta">
+              <div class="show-card-time">18:30</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
           </div>
           <div class="show-card">
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
-              <div class="show-card-name">שלישיית אריאל ברט</div>
+              <div class="show-card-title-row">
+                <div class="show-card-name">שלישיית אריאל ברט</div>
+                <span class="show-card-tag">השקת אלבום</span>
+              </div>
               <div class="show-card-sub">השקת אלבום חדש</div>
+              <span class="show-card-more">מידע נוסף ←</span>
             </div>
-            <span class="show-card-tag">השקת אלבום</span>
-            <div class="show-card-divider"></div>
-            <div class="show-card-time">20:30</div>
+            <div class="show-card-meta">
+              <div class="show-card-time">20:30</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
           </div>
         </div>
       </div>
@@ -1323,22 +1405,34 @@
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
-              <div class="show-card-name">The 3 Cohens: Yuval, Anat &amp; Avishai</div>
+              <div class="show-card-title-row">
+                <div class="show-card-name">The 3 Cohens: Yuval, Anat &amp; Avishai</div>
+                <span class="show-card-tag headliner">Headliner · Artist Residence</span>
+              </div>
               <div class="show-card-sub">+ Big Band led by Oded Lev-Ari</div>
+              <span class="show-card-more">מידע נוסף ←</span>
             </div>
-            <span class="show-card-tag headliner">Headliner · Artist Residence</span>
-            <div class="show-card-divider"></div>
-            <div class="show-card-time">20:00</div>
+            <div class="show-card-meta">
+              <div class="show-card-time">20:00</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
           </div>
           <div class="show-card">
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
-              <div class="show-card-name">ג׳ימבו ג׳אז — אורח: תמיר בר</div>
+              <div class="show-card-title-row">
+                <div class="show-card-name">ג׳ימבו ג׳אז — אורח: תמיר בר</div>
+              </div>
               <div class="show-card-sub">ג׳אז ישראלי אנרגטי</div>
+              <span class="show-card-more">מידע נוסף ←</span>
             </div>
-            <div class="show-card-divider"></div>
-            <div class="show-card-time">22:30</div>
+            <div class="show-card-meta">
+              <div class="show-card-time">22:30</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
           </div>
         </div>
       </div>
@@ -1355,22 +1449,34 @@
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
-              <div class="show-card-name">אבות ובנים — מפגש דורות</div>
+              <div class="show-card-title-row">
+                <div class="show-card-name">אבות ובנים — מפגש דורות</div>
+                <span class="show-card-tag">הפקת מקור</span>
+              </div>
               <div class="show-card-sub">אלוארצ׳יק, גרוס, נחמיה, סאלם, פורטוגלי, צור, שטרקר</div>
+              <span class="show-card-more">מידע נוסף ←</span>
             </div>
-            <span class="show-card-tag">הפקת מקור</span>
-            <div class="show-card-divider"></div>
-            <div class="show-card-time">18:00</div>
+            <div class="show-card-meta">
+              <div class="show-card-time">18:00</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
           </div>
           <div class="show-card">
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
-              <div class="show-card-name">Lay Z Gordon</div>
+              <div class="show-card-title-row">
+                <div class="show-card-name">Lay Z Gordon</div>
+              </div>
               <div class="show-card-sub">שופר, ג׳אז / היפ-הופ ישראלי</div>
+              <span class="show-card-more">מידע נוסף ←</span>
             </div>
-            <div class="show-card-divider"></div>
-            <div class="show-card-time">21:00</div>
+            <div class="show-card-meta">
+              <div class="show-card-time">21:00</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
           </div>
         </div>
       </div>
@@ -1387,12 +1493,18 @@
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
-              <div class="show-card-name">שישיית קאי גלוסקא</div>
+              <div class="show-card-title-row">
+                <div class="show-card-name">שישיית קאי גלוסקא</div>
+                <span class="show-card-tag">כניסה חופשית</span>
+              </div>
               <div class="show-card-sub">כניסה חופשית</div>
+              <span class="show-card-more">מידע נוסף ←</span>
             </div>
-            <span class="show-card-tag">כניסה חופשית</span>
-            <div class="show-card-divider"></div>
-            <div class="show-card-time">22:30</div>
+            <div class="show-card-meta">
+              <div class="show-card-time">22:30</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
           </div>
         </div>
       </div>
@@ -1417,23 +1529,35 @@
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
-              <div class="show-card-name">Eli Degibri Quartet</div>
+              <div class="show-card-title-row">
+                <div class="show-card-name">Eli Degibri Quartet</div>
+                <span class="show-card-tag headliner">Headliner · מיוחד לפסטיבל</span>
+              </div>
               <div class="show-card-sub">עם רביעיית כלי מיתר + אורח מיוחד: שם טוב לוי</div>
+              <span class="show-card-more">מידע נוסף ←</span>
             </div>
-            <span class="show-card-tag headliner">Headliner · מיוחד לפסטיבל</span>
-            <div class="show-card-divider"></div>
-            <div class="show-card-time">12:30</div>
+            <div class="show-card-meta">
+              <div class="show-card-time">12:30</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
           </div>
           <div class="show-card">
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
-              <div class="show-card-name">חוה אלברשטיין</div>
+              <div class="show-card-title-row">
+                <div class="show-card-name">חוה אלברשטיין</div>
+                <span class="show-card-tag headliner">Headliner · מיוחד לפסטיבל</span>
+              </div>
               <div class="show-card-sub">ערב מיוחד עם עיבודי ג׳אז</div>
+              <span class="show-card-more">מידע נוסף ←</span>
             </div>
-            <span class="show-card-tag headliner">Headliner · מיוחד לפסטיבל</span>
-            <div class="show-card-divider"></div>
-            <div class="show-card-time">20:00</div>
+            <div class="show-card-meta">
+              <div class="show-card-time">20:00</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
           </div>
         </div>
       </div>
@@ -1450,43 +1574,67 @@
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
-              <div class="show-card-name">שלישיית אריאל ברט</div>
+              <div class="show-card-title-row">
+                <div class="show-card-name">שלישיית אריאל ברט</div>
+                <span class="show-card-tag">השקת אלבום</span>
+              </div>
               <div class="show-card-sub">השקת האלבום הרשמית</div>
+              <span class="show-card-more">מידע נוסף ←</span>
             </div>
-            <span class="show-card-tag">השקת אלבום</span>
-            <div class="show-card-divider"></div>
-            <div class="show-card-time">11:00</div>
+            <div class="show-card-meta">
+              <div class="show-card-time">11:00</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
           </div>
           <div class="show-card">
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
-              <div class="show-card-name">רביעיית אוריאל הרמן מארחת את רמי קליינשטיין</div>
+              <div class="show-card-title-row">
+                <div class="show-card-name">רביעיית אוריאל הרמן מארחת את רמי קליינשטיין</div>
+              </div>
               <div class="show-card-sub">ג׳אז פגש פופ — מפגש מיוחד</div>
+              <span class="show-card-more">מידע נוסף ←</span>
             </div>
-            <div class="show-card-divider"></div>
-            <div class="show-card-time">14:00</div>
+            <div class="show-card-meta">
+              <div class="show-card-time">14:00</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
           </div>
           <div class="show-card">
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
-              <div class="show-card-name">שלישיית יותם זילברשטיין</div>
+              <div class="show-card-title-row">
+                <div class="show-card-name">שלישיית יותם זילברשטיין</div>
+              </div>
               <div class="show-card-sub">גיטרה ג׳אז — אמנות ורגישות</div>
+              <span class="show-card-more">מידע נוסף ←</span>
             </div>
-            <div class="show-card-divider"></div>
-            <div class="show-card-time">16:30</div>
+            <div class="show-card-meta">
+              <div class="show-card-time">16:30</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
           </div>
           <div class="show-card">
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
-              <div class="show-card-name">SHALOSH — אורח: רוני איתן</div>
+              <div class="show-card-title-row">
+                <div class="show-card-name">SHALOSH — אורח: רוני איתן</div>
+                <span class="show-card-tag">השקת אלבום</span>
+              </div>
               <div class="show-card-sub">הופעת לילה סוחפת</div>
+              <span class="show-card-more">מידע נוסף ←</span>
             </div>
-            <span class="show-card-tag">השקת אלבום</span>
-            <div class="show-card-divider"></div>
-            <div class="show-card-time">21:45</div>
+            <div class="show-card-meta">
+              <div class="show-card-time">21:45</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
           </div>
         </div>
       </div>
@@ -1503,43 +1651,67 @@
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
-              <div class="show-card-name">Anat Cohen — Master Class</div>
+              <div class="show-card-title-row">
+                <div class="show-card-name">Anat Cohen — Master Class</div>
+                <span class="show-card-tag">Master Class</span>
+              </div>
               <div class="show-card-sub">שיעור חי פתוח לכולם עם Artist in Residence</div>
+              <span class="show-card-more">מידע נוסף ←</span>
             </div>
-            <span class="show-card-tag">Master Class</span>
-            <div class="show-card-divider"></div>
-            <div class="show-card-time">09:30</div>
+            <div class="show-card-meta">
+              <div class="show-card-time">09:30</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
           </div>
           <div class="show-card">
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
-              <div class="show-card-name">עידית מינצר — קונצרט חלק א׳</div>
+              <div class="show-card-title-row">
+                <div class="show-card-name">עידית מינצר — קונצרט חלק א׳</div>
+              </div>
               <div class="show-card-sub">ווקאל ג׳אז — הופעה ראשונה מתוך שתיים</div>
+              <span class="show-card-more">מידע נוסף ←</span>
             </div>
-            <div class="show-card-divider"></div>
-            <div class="show-card-time">15:15</div>
+            <div class="show-card-meta">
+              <div class="show-card-time">15:15</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
           </div>
           <div class="show-card">
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
-              <div class="show-card-name">שישיית חגי אמיר — דיאלוגים עם ברטוק</div>
+              <div class="show-card-title-row">
+                <div class="show-card-name">שישיית חגי אמיר — דיאלוגים עם ברטוק</div>
+              </div>
               <div class="show-card-sub">מוסיקה מקורית שמשלבת ג׳אז ואפרו-ריתמוס</div>
+              <span class="show-card-more">מידע נוסף ←</span>
             </div>
-            <div class="show-card-divider"></div>
-            <div class="show-card-time">18:00</div>
+            <div class="show-card-meta">
+              <div class="show-card-time">18:00</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
           </div>
           <div class="show-card">
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
-              <div class="show-card-name">Las Piratas Piratas</div>
+              <div class="show-card-title-row">
+                <div class="show-card-name">Las Piratas Piratas</div>
+                <span class="show-card-tag">כניסה חופשית</span>
+              </div>
               <div class="show-card-sub">כניסה חופשית — לילה לטיני</div>
+              <span class="show-card-more">מידע נוסף ←</span>
             </div>
-            <span class="show-card-tag">כניסה חופשית</span>
-            <div class="show-card-divider"></div>
-            <div class="show-card-time">22:30</div>
+            <div class="show-card-meta">
+              <div class="show-card-time">22:30</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
           </div>
         </div>
       </div>
@@ -1564,12 +1736,18 @@
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
-              <div class="show-card-name">תזמורת הג׳אז הישראלית</div>
+              <div class="show-card-title-row">
+                <div class="show-card-name">תזמורת הג׳אז הישראלית</div>
+                <span class="show-card-tag headliner">Headliner · מופע סיום · הפקת מקור</span>
+              </div>
               <div class="show-card-sub">מופע סיום — אורחות: נטע ברזילי, גל דה פז, נונו ולירז צ׳רכי</div>
+              <span class="show-card-more">מידע נוסף ←</span>
             </div>
-            <span class="show-card-tag headliner">Headliner · מופע סיום · הפקת מקור</span>
-            <div class="show-card-divider"></div>
-            <div class="show-card-time">14:45</div>
+            <div class="show-card-meta">
+              <div class="show-card-time">14:45</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
           </div>
         </div>
       </div>
@@ -1586,21 +1764,33 @@
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
-              <div class="show-card-name">הדר נויברג New Quartet</div>
+              <div class="show-card-title-row">
+                <div class="show-card-name">הדר נויברג New Quartet</div>
+              </div>
               <div class="show-card-sub">חליל, פסנתר, בס ותופים — שבת בוקר מוסיקלי</div>
+              <span class="show-card-more">מידע נוסף ←</span>
             </div>
-            <div class="show-card-divider"></div>
-            <div class="show-card-time">11:00</div>
+            <div class="show-card-meta">
+              <div class="show-card-time">11:00</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
           </div>
           <div class="show-card">
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
-              <div class="show-card-name">עידית מינצר ויחזקאל רז</div>
+              <div class="show-card-title-row">
+                <div class="show-card-name">עידית מינצר ויחזקאל רז</div>
+              </div>
               <div class="show-card-sub">קונצרט חלק ב׳ — ווקאל ג׳אז + גיטרה</div>
+              <span class="show-card-more">מידע נוסף ←</span>
             </div>
-            <div class="show-card-divider"></div>
-            <div class="show-card-time">13:45</div>
+            <div class="show-card-meta">
+              <div class="show-card-time">13:45</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
           </div>
         </div>
       </div>
@@ -1617,12 +1807,18 @@
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
-              <div class="show-card-name">Anat Cohen — Artist in Residence</div>
+              <div class="show-card-title-row">
+                <div class="show-card-name">Anat Cohen — Artist in Residence</div>
+                <span class="show-card-tag headliner">Artist Resident · הופעת יובל</span>
+              </div>
               <div class="show-card-sub">Anat Cohen & Marcello Goncalves — מופע אינטימי</div>
+              <span class="show-card-more">מידע נוסף ←</span>
             </div>
-            <span class="show-card-tag headliner">Artist Resident · הופעת יובל</span>
-            <div class="show-card-divider"></div>
-            <div class="show-card-time">12:30</div>
+            <div class="show-card-meta">
+              <div class="show-card-time">12:30</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
           </div>
         </div>
       </div>
@@ -1641,21 +1837,33 @@
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
-              <div class="show-card-name">Yuval, Anat &amp; Avishai: The 3 Cohens</div>
+              <div class="show-card-title-row">
+                <div class="show-card-name">Yuval, Anat &amp; Avishai: The 3 Cohens</div>
+              </div>
               <div class="show-card-sub">+ Big Band led by Oded Lev-Ari</div>
+              <span class="show-card-more">מידע נוסף ←</span>
             </div>
-            <div class="show-card-divider"></div>
-            <div class="show-card-time">10:00</div>
+            <div class="show-card-meta">
+              <div class="show-card-time">10:00</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
           </div>
           <div class="show-card">
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
-              <div class="show-card-name">שישיית חגי אמיר</div>
+              <div class="show-card-title-row">
+                <div class="show-card-name">שישיית חגי אמיר</div>
+              </div>
               <div class="show-card-sub">דיאלוגים עם ברטוק — גרסת אחר-הצהריים</div>
+              <span class="show-card-more">מידע נוסף ←</span>
             </div>
-            <div class="show-card-divider"></div>
-            <div class="show-card-time">12:00</div>
+            <div class="show-card-meta">
+              <div class="show-card-time">12:00</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
           </div>
         </div>
       </div>
