@@ -190,7 +190,7 @@
     .nav-links a:hover::after { width: 100%; }
     .nav-links a.active { color: var(--orange); font-weight: 700; }
     .nav-links a.active::after { width: 100%; }
-    /* ── Nav dropdown: "ליין אפ" — קישור מרכזי המכיל את כל קישורי התוכן (עיצוב "אחד בתוך השני") ── */
+    /* ── Nav dropdown: "מידע חשוב" — הקישור היחיד בטול-בר עם תת-תפריט (3 בנים) ── */
     .nav-drop { position: relative; }
     .nav-drop-toggle {
       display: flex; align-items: center; gap: 0.35rem;
@@ -218,36 +218,15 @@
       padding: 0.55rem; min-width: 215px;
     }
     .nav-drop-panel.open { display: flex; }
-    .nav-drop-panel > a,
-    .nav-drop-sub-toggle {
+    .nav-drop-panel > a {
       display: flex; align-items: center; justify-content: space-between; gap: 0.6rem;
       padding: 0.6rem 0.8rem; border-radius: 8px;
       font-size: 0.87rem; font-weight: 500; color: var(--text);
       white-space: nowrap; text-align: start;
       background: none; border: none; width: 100%; cursor: pointer; font-family: inherit;
     }
-    .nav-drop-panel > a:hover,
-    .nav-drop-sub-toggle:hover,
-    .nav-drop-sub-toggle.open { background: rgba(224,86,11,0.08); color: var(--orange); }
-    .nav-drop-panel > a.active,
-    .nav-drop-sub-panel a.active { color: var(--orange); font-weight: 700; }
-
-    /* מידע חשוב — תפריט משנה מקונן בתוך הפאנל הראשי (accordion, "אחד בתוך השני") */
-    .nav-drop-sub-chevron { transition: transform 0.25s; }
-    .nav-drop-sub-toggle.open .nav-drop-sub-chevron { transform: rotate(180deg); }
-    .nav-drop-sub-panel {
-      display: none; flex-direction: column;
-      margin: 0.15rem 0 0.3rem;
-      padding-inline-start: 0.7rem; margin-inline-start: 0.6rem;
-      border-inline-start: 2px solid var(--border);
-    }
-    .nav-drop-sub-panel.open { display: flex; }
-    .nav-drop-sub-panel a {
-      padding: 0.5rem 0.7rem; border-radius: 8px;
-      font-size: 0.84rem; font-weight: 500; color: var(--text);
-      white-space: nowrap; text-align: start;
-    }
-    .nav-drop-sub-panel a:hover { background: rgba(224,86,11,0.08); color: var(--orange); }
+    .nav-drop-panel > a:hover { background: rgba(224,86,11,0.08); color: var(--orange); }
+    .nav-drop-panel > a.active { color: var(--orange); font-weight: 700; }
 
 
     /* Nav action buttons */
@@ -1099,31 +1078,24 @@
     </a>
     <div class="nav-inner">
       <ul class="nav-links" id="navLinks">
-        <li class="nav-drop" id="navLineupDrop">
-          <button type="button" class="nav-drop-toggle" id="navDropBtn" aria-haspopup="true" aria-expanded="false" onclick="toggleNavDrop(event)" data-he="ליין אפ" data-en="Lineup">
-            ליין אפ
+        <li><a href="./index.html#lineup" data-he="ליין אפ" data-en="Lineup">ליין אפ</a></li>
+        <li><a href="./lineup.html" class="active" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
+        <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
+        <li class="nav-drop" id="navInfoDrop">
+          <button type="button" class="nav-drop-toggle" id="navDropBtn" aria-haspopup="true" aria-expanded="false" onclick="toggleNavDrop(event)" data-he="מידע חשוב" data-en="Important Info">
+            מידע חשוב
             <svg class="nav-drop-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
           <div class="nav-drop-panel" id="navDropPanel">
-            <a href="./lineup.html" class="active" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a>
-            <a href="./about.html" data-he="אודות" data-en="About">אודות</a>
-            <div class="nav-drop-sub" id="navInfoSub">
-              <button type="button" class="nav-drop-sub-toggle" aria-haspopup="true" aria-expanded="false" onclick="toggleNavSub(event)" data-he="מידע חשוב" data-en="Important Info">
-                מידע חשוב
-                <svg class="nav-drop-sub-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
-              <div class="nav-drop-sub-panel" id="navInfoSubPanel">
-                <!-- הסעות: לינק חיצוני placeholder — יש לעדכן כשיתקבל קישור סופי -->
-                <a href="#" data-he="הסעות" data-en="Shuttles">הסעות</a>
-                <a href="./faq.html" data-he="שאלות נפוצות" data-en="FAQ">שאלות נפוצות</a>
-                <a href="#site-footer" data-he="יצירת קשר" data-en="Contact">יצירת קשר</a>
-              </div>
-            </div>
-            <a href="./index.html#news" data-he="חדשות" data-en="News">חדשות</a>
-            <a href="./merch.html" data-he="מרצ'יינדיז" data-en="Merch">מרצ'יינדיז</a>
-            <a href="./past-artists.html" data-he="שנים קודמות" data-en="Past Artists">שנים קודמות</a>
+            <!-- הסעות: לינק חיצוני placeholder — יש לעדכן כשיתקבל קישור סופי -->
+            <a href="#" data-he="הסעות" data-en="Shuttles">הסעות</a>
+            <a href="./faq.html" data-he="שאלות נפוצות" data-en="FAQ">שאלות נפוצות</a>
+            <a href="#site-footer" data-he="יצירת קשר" data-en="Contact">יצירת קשר</a>
           </div>
         </li>
+        <li><a href="./index.html#news" data-he="חדשות" data-en="News">חדשות</a></li>
+        <li><a href="./merch.html" data-he="מרצ'יינדיז" data-en="Merch">מרצ'יינדיז</a></li>
+        <li><a href="./past-artists.html" data-he="שנים קודמות" data-en="Past Artists">שנים קודמות</a></li>
       </ul>
       <div class="nav-actions">
         <a class="nav-btn-secondary" data-he="חבילות נופש" data-en="Stay Packages"
@@ -2630,7 +2602,7 @@
       }
     }
 
-    // ── תפריט "ליין אפ" (dropdown מקונן) ──────────────────────────
+    // ── תפריט "מידע חשוב" (dropdown יחיד ברמה אחת) ─────────────────
     (function initNavDrop() {
       var panel = document.getElementById('navDropPanel');
       if (panel && panel.parentElement !== document.body) {
@@ -2657,7 +2629,7 @@
       var panel = document.getElementById('navDropPanel');
       if (!btn || !panel) return;
       var willOpen = !panel.classList.contains('open');
-      if (willOpen) positionNavDropPanel(); else closeNavSub();
+      if (willOpen) positionNavDropPanel();
       panel.classList.toggle('open', willOpen);
       btn.classList.toggle('open', willOpen);
       btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
@@ -2668,25 +2640,6 @@
       var panel = document.getElementById('navDropPanel');
       if (panel) panel.classList.remove('open');
       if (btn) { btn.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
-      closeNavSub();
-    }
-
-    function toggleNavSub(e) {
-      if (e) e.stopPropagation();
-      var subBtn = e ? e.currentTarget : document.querySelector('.nav-drop-sub-toggle');
-      var subPanel = document.getElementById('navInfoSubPanel');
-      if (!subBtn || !subPanel) return;
-      var willOpen = !subPanel.classList.contains('open');
-      subPanel.classList.toggle('open', willOpen);
-      subBtn.classList.toggle('open', willOpen);
-      subBtn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
-    }
-
-    function closeNavSub() {
-      var subPanel = document.getElementById('navInfoSubPanel');
-      var subBtn = document.querySelector('.nav-drop-sub-toggle');
-      if (subPanel) subPanel.classList.remove('open');
-      if (subBtn) { subBtn.classList.remove('open'); subBtn.setAttribute('aria-expanded', 'false'); }
     }
 
     document.addEventListener('click', function (e) {

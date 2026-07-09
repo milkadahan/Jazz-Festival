@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>הלינאפ המלא של 2026 הוכרז · Red Sea Jazz Festival</title>
-  <meta name="description" content="פסטיבל ג'אז ים סוף חוגג 40 שנה וחושף את הליינאפ המלא של מהדורת 2026 — 40 אמנים מ-12 מדינות, 4 ימים בנמל אילת." />
-  <meta name="keywords" content="Red Sea Jazz Festival, חדשות, ליינאפ, כתבה, אילת, 2026" />
-  <meta property="og:title" content="הלינאפ המלא של 2026 הוכרז · Red Sea Jazz Festival" />
-  <meta property="og:description" content="40 אמנים מ-12 מדינות · 4 ימים · נמל אילת · מהדורת 2026" />
-  <meta property="og:type" content="article" />
+  <title>חנות הפסטיבל · Red Sea Jazz Festival</title>
+  <meta name="description" content="חנות המזכרות הרשמית של פסטיבל ג'אז ים סוף — תקליטי אספנות, לבוש ואביזרים במהדורה מוגבלת. קחו איתכם פיסה מהפסטיבל." />
+  <meta name="keywords" content="Red Sea Jazz Festival, חנות, מרצ'נדייז, מזכרות, תקליט, חולצה, אילת, 2026" />
+  <meta property="og:title" content="חנות הפסטיבל · Red Sea Jazz Festival" />
+  <meta property="og:description" content="תקליטי אספנות · לבוש · אביזרים · מהדורה מוגבלת" />
+  <meta property="og:type" content="website" />
   <meta property="og:image" content="./Graphig assets/og-image.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:locale" content="he_IL" />
   <meta property="og:site_name" content="Red Sea Jazz Festival" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="הלינאפ המלא של 2026 הוכרז · Red Sea Jazz Festival" />
+  <meta name="twitter:title" content="חנות הפסטיבל · Red Sea Jazz Festival" />
   <meta name="twitter:image" content="./Graphig assets/og-image.jpg" />
   <meta name="theme-color" content="#E0560B" />
   <meta name="msapplication-TileColor" content="#E0560B" />
@@ -63,6 +63,7 @@
       color: var(--text);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
     a { color: inherit; text-decoration: none; }
 
@@ -152,6 +153,7 @@
     .nav-links a:hover::after { width: 100%; }
     .nav-links a.active { color: var(--orange); font-weight: 700; }
     .nav-links a.active::after { width: 100%; }
+
     /* ── Nav dropdown: "מידע חשוב" — הקישור היחיד בטול-בר עם תת-תפריט (3 בנים) ── */
     .nav-drop { position: relative; }
     .nav-drop-toggle {
@@ -189,7 +191,6 @@
     }
     .nav-drop-panel > a:hover { background: rgba(224,86,11,0.08); color: var(--orange); }
     .nav-drop-panel > a.active { color: var(--orange); font-weight: 700; }
-
     .nav-actions { display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0; }
     .nav-btn-primary {
       background: var(--btn-gradient); color: var(--on-accent);
@@ -235,131 +236,212 @@
       }
     }
 
-    /* ─── ARTICLE BODY ─────────────────────────────────────────── */
-    /* רקע שמנת מלא — Light Mode (Figma node 239:979). דף כתבה זה אינו עוגן כהה. */
-    .article-body {
+    /* ─── SHOP / חנות הפסטיבל — רקע שמנת מלא (Light Mode) ─── */
+    .shop-body {
       background: var(--bg);
-      padding-top: calc(var(--ticker-h) + var(--nav-h) + 56px);
+      padding-top: 8px;
       padding-bottom: 100px;
       display: flex; flex-direction: column; align-items: center;
       min-height: 100vh;
     }
-    .article-column {
-      width: 820px; max-width: calc(100% - 48px);
+    .shop-wrap {
+      width: 1180px; max-width: calc(100% - 48px);
       display: flex; flex-direction: column; align-items: stretch;
     }
 
-    /* חזרה לחדשות */
-    .article-back {
+    /* חזרה לעמוד הבית */
+    .shop-back {
       display: inline-flex; align-items: center; gap: 6px;
       align-self: flex-start;
       font-family: 'Noto Sans Hebrew', sans-serif;
       font-size: 0.875rem; font-weight: 500;
       color: var(--teal);
       transition: opacity 0.2s, gap 0.2s;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
-    .article-back:hover { opacity: 0.75; gap: 10px; }
+    .shop-back:hover { opacity: 0.75; gap: 10px; }
 
-    /* כותרת-על / קטגוריה */
-    .article-eyebrow {
+    /* ─── PAGE HERO — כותרת גדולה זהה לשאר דפי האתר (כמו עמוד השאלות הנפוצות) ─── */
+    .page-hero {
+      position: relative; overflow: hidden;
+      padding-top: calc(var(--ticker-h) + var(--nav-h) + 64px);
+      padding-bottom: 40px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--bg);
+    }
+    .page-hero-glow {
+      position: absolute; pointer-events: none;
+      border-radius: 50%; z-index: 0;
+    }
+    .page-hero-glow-orange {
+      top: 20px; inset-inline-start: 20px; width: 260px; height: 260px;
+      background: radial-gradient(circle, rgba(255,107,26,0.28) 0%, transparent 65%);
+    }
+    .page-hero-glow-teal {
+      top: 140px; inset-inline-end: -220px; width: 900px; height: 900px;
+      background: radial-gradient(circle, rgba(0,200,200,0.18) 0%, transparent 65%);
+    }
+    .page-hero-content {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column;
+      gap: 14px; align-items: center; text-align: center;
+      padding-inline: 24px;
+    }
+    .page-hero-tag {
+      display: flex; align-items: center; gap: 8px; justify-content: center;
       font-family: 'Noto Sans Hebrew', sans-serif;
       font-size: 0.8125rem; font-weight: 700;
-      letter-spacing: 0.2em; color: var(--orange);
-      text-transform: none; margin-bottom: 16px;
+      letter-spacing: 0.18em; color: var(--orange);
+    }
+    .page-hero-tag span:nth-child(2) { color: var(--muted); letter-spacing: 0; }
+    .page-hero-title {
+      display: flex; align-items: baseline; gap: 20px; justify-content: center;
+      font-size: clamp(2.6rem, 7vw, 5rem);
+      font-weight: 900; color: var(--text);
+      line-height: 1.1; letter-spacing: -1px;
+    }
+    .page-hero-title-he { font-family: 'Noto Sans Hebrew', sans-serif; }
+    .page-hero-title-accent {
+      background: linear-gradient(135deg, var(--orange), var(--red));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .page-hero-sub {
+      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-size: clamp(1rem, 2.4vw, 1.1875rem); font-weight: 400;
+      color: var(--muted); line-height: 1.6; max-width: 560px;
     }
 
-    /* כותרת ראשית */
-    .article-title {
-      font-family: 'Noto Sans Hebrew', sans-serif;
-      font-size: clamp(2rem, 5vw, 2.875rem);
-      font-weight: 900; line-height: 1.18;
-      color: var(--text); text-align: right;
-      margin-bottom: 18px;
+    /* גריד מוצרים — 3 עמודות (3×3): שורה עליונה = באנר התקליט, מתחת כרטיסי המוצרים */
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.6rem;
     }
 
-    /* מטא — תאריך פרסום + מחבר */
-    .article-meta {
-      display: flex; align-items: center; gap: 12px;
-      font-family: 'Noto Sans Hebrew', sans-serif;
-      font-size: 0.875rem; font-weight: 400;
-      margin-bottom: 32px;
+    /* ── באנר התקליט — פריט הדגל, תופס את כל השורה העליונה ── */
+    .vinyl-banner {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      align-items: stretch;
+      background: linear-gradient(164deg, #FFDCC0, #FFF7E7);
+      border: 2px solid var(--orange);
+      border-radius: 20px;
+      box-shadow: 0 12px 36px rgba(224,86,11,0.16);
+      color: inherit; text-decoration: none;
+      position: relative;
+      transition: transform 0.3s, box-shadow 0.3s;
     }
-    .article-meta-date { color: var(--teal); font-weight: 500; }
-    .article-meta-sep { color: var(--muted); }
-    .article-meta-author { color: var(--muted); }
+    .vinyl-banner:hover { transform: translateY(-4px); box-shadow: 0 18px 46px rgba(224,86,11,0.26); }
+    .vinyl-banner-content {
+      padding: 2.4rem 2.6rem;
+      display: flex; flex-direction: column; justify-content: center;
+      gap: 0.9rem; min-width: 0;
+    }
+    .vinyl-banner-badge {
+      align-self: flex-start;
+      background: var(--btn-gradient); color: #fff;
+      font-size: 0.75rem; font-weight: 800; letter-spacing: 0.02em;
+      padding: 0.4rem 0.9rem; border-radius: 50px;
+      box-shadow: 0 4px 14px rgba(224,86,11,0.4);
+      display: inline-flex; align-items: center; gap: 0.35rem;
+    }
+    .vinyl-banner-title {
+      font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 900;
+      line-height: 1.2; color: var(--text);
+    }
+    .vinyl-banner-title .accent { color: var(--orange); }
+    .vinyl-banner-desc {
+      font-size: 0.98rem; color: var(--muted); line-height: 1.6;
+      max-width: 46ch; overflow-wrap: anywhere;
+    }
+    .vinyl-banner-foot {
+      display: flex; align-items: center; gap: 1.4rem;
+      margin-top: 0.4rem; flex-wrap: wrap;
+    }
+    .vinyl-banner-price { font-size: 1.7rem; font-weight: 900; color: var(--orange); }
+    .vinyl-banner-buy {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--btn-gradient); color: #fff;
+      border-radius: 50px; padding: 0.7rem 1.6rem;
+      font-size: 0.95rem; font-weight: 700;
+      box-shadow: 0 4px 16px rgba(224,86,11,0.32);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .vinyl-banner:hover .vinyl-banner-buy { box-shadow: 0 6px 22px rgba(224,86,11,0.45); }
+    .vinyl-banner-media {
+      position: relative; min-height: 340px; min-width: 0;
+    }
+    .vinyl-banner-media img {
+      position: absolute;
+      top: -14.7%; left: -4.4%;
+      width: 96.1%; height: 96.1%;
+      object-fit: cover; display: block;
+      box-shadow: 34px 17px 60px 0 rgba(109,59,22,0.24);
+      transition: transform 0.5s ease;
+    }
+    .vinyl-banner:hover .vinyl-banner-media img { transform: scale(1.04); }
 
-    /* תמונה ראשית */
-    .article-hero {
-      width: 100%; height: 440px;
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 20px; overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 10px 30px var(--shadow);
-    }
-    .article-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .article-hero-placeholder {
-      font-family: 'Noto Sans Hebrew', sans-serif;
-      font-size: 1rem; font-weight: 500;
-      color: rgba(138,114,86,0.7);
-    }
-    .article-caption {
-      font-family: 'Noto Sans Hebrew', sans-serif;
-      font-size: 0.8125rem; color: var(--muted);
-      text-align: right; line-height: 1.5;
-      margin-top: 16px; margin-bottom: 40px;
-    }
-
-    /* גוף הכתבה */
-    .article-lead {
-      font-family: 'Noto Sans Hebrew', sans-serif;
-      font-size: 1.3125rem; font-weight: 500;
-      line-height: 1.62; color: var(--text);
-      text-align: right; margin-bottom: 22px;
-    }
-    .article-content p {
-      font-family: 'Noto Sans Hebrew', sans-serif;
-      font-size: 1.125rem; font-weight: 400;
-      line-height: 1.78; color: var(--muted);
-      text-align: right; margin-bottom: 22px;
-    }
-    .article-content h2 {
-      font-family: 'Noto Sans Hebrew', sans-serif;
-      font-size: 1.625rem; font-weight: 700;
-      line-height: 1.3; color: var(--text);
-      text-align: right; margin-top: 16px; margin-bottom: 14px;
-    }
-
-    /* מפריד */
-    .article-divider {
-      height: 1px; width: 100%;
-      background: var(--border);
-      border: none; margin: 22px 0 24px;
-    }
-
-    /* תגיות */
-    .article-tags { display: flex; flex-wrap: wrap; gap: 10px; }
-    .article-tag {
-      display: inline-flex; align-items: center;
+    /* ── כרטיסי מוצר — תואמים 100% לעיצוב בדף הבית (שם · מחיר · קישור רכישה) ── */
+    .shop-card {
+      display: flex; flex-direction: column;
+      color: inherit; text-decoration: none;
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 100px;
-      padding: 8px 16px;
-      font-family: 'Noto Sans Hebrew', sans-serif;
-      font-size: 0.8125rem; font-weight: 500;
-      color: var(--text);
-      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+      border-radius: 16px; overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      position: relative; min-width: 0;
     }
-    .article-tag:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-2px); }
+    .shop-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--border-strong);
+      box-shadow: 0 12px 30px var(--shadow);
+    }
+    .shop-card-img {
+      aspect-ratio: 1 / 1;
+      background: linear-gradient(135deg, var(--bg2), var(--bg));
+      position: relative; overflow: hidden;
+    }
+    .shop-card-img img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform 0.4s ease;
+    }
+    .shop-card:hover .shop-card-img img { transform: scale(1.05); }
+    .shop-card-body {
+      padding: 1.1rem 1.2rem 1.3rem;
+      display: flex; flex-direction: column; gap: 0.45rem;
+      flex: 1;
+    }
+    .shop-card-name { font-size: 1.05rem; font-weight: 800; line-height: 1.35; color: var(--text); }
+    .shop-card-price { font-size: 1.2rem; font-weight: 900; color: var(--orange); }
+    .shop-card-buy {
+      margin-top: auto;
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      color: var(--orange);
+      font-size: 0.85rem; font-weight: 700;
+    }
 
-    @media (max-width: 700px) {
-      .article-body { padding-bottom: 64px; }
-      .article-title { line-height: 1.22; }
-      .article-hero { height: 240px; }
-      .article-lead { font-size: 1.125rem; }
-      .article-content p { font-size: 1rem; }
-      .article-content h2 { font-size: 1.375rem; }
+    /* הערת משלוח בתחתית */
+    .shop-note {
+      text-align: center; margin-top: 3rem;
+      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-size: 0.9rem; color: var(--muted); line-height: 1.6;
+    }
+
+    @media (max-width: 980px) {
+      .shop-grid { grid-template-columns: repeat(2, 1fr); }
+      .vinyl-banner { grid-template-columns: 1fr; }
+      .vinyl-banner-media { min-height: 260px; order: -1; }
+      .vinyl-banner-content { padding: 2rem 2rem; }
+    }
+    @media (max-width: 520px) {
+      .shop-grid { grid-template-columns: 1fr; gap: 1.1rem; }
+      .shop-body { padding-bottom: 64px; }
+      .vinyl-banner-content { padding: 1.6rem 1.4rem; }
+      .vinyl-banner-media { min-height: 220px; }
     }
   </style>
 </head>
@@ -409,7 +491,7 @@
           </div>
         </li>
         <li><a href="./index.html#news" data-he="חדשות" data-en="News">חדשות</a></li>
-        <li><a href="./merch.html" data-he="מרצ'יינדיז" data-en="Merch">מרצ'יינדיז</a></li>
+        <li><a href="./merch.html" class="active" data-he="מרצ'יינדיז" data-en="Merch">מרצ'יינדיז</a></li>
         <li><a href="./past-artists.html" data-he="שנים קודמות" data-en="Past Artists">שנים קודמות</a></li>
       </ul>
       <div class="nav-actions">
@@ -426,55 +508,127 @@
     </div>
   </nav>
 
-  <!-- ── ARTICLE BODY ── -->
-  <article class="article-body">
-    <div class="article-column">
+  <!-- ── PAGE HERO · כותרת גדולה (זהה לשאר דפי האתר) ── -->
+  <header class="page-hero">
+    <div class="page-hero-glow page-hero-glow-orange" aria-hidden="true"></div>
+    <div class="page-hero-glow page-hero-glow-teal" aria-hidden="true"></div>
+    <div class="page-hero-content">
+      <div class="page-hero-tag">
+        <span>חנות הפסטיבל</span>
+        <span>·</span>
+        <span>Shop</span>
+      </div>
+      <h1 class="page-hero-title">
+        <span class="page-hero-title-he">חנות <span class="page-hero-title-accent">הפסטיבל</span></span>
+      </h1>
+      <p class="page-hero-sub">קחו איתכם פיסה מפסטיבל ג׳אז ים סוף — פריטי אספנות, לבוש ואביזרים במהדורה מוגבלת של מהדורת 2026.</p>
+    </div>
+  </header>
 
-      <a class="article-back" href="./index.html#news">→ חזרה לחדשות</a>
+  <!-- ── SHOP BODY · חנות הפסטיבל ── -->
+  <main class="shop-body">
+    <div class="shop-wrap">
 
-      <div class="article-eyebrow">חדשות הפסטיבל</div>
+      <a class="shop-back" href="./index.html#merch">→ חזרה לעמוד הבית</a>
 
-      <h1 class="article-title">הלינאפ המלא של 2026 הוכרז</h1>
+      <div class="shop-grid">
 
-      <div class="article-meta">
-        <time class="article-meta-date" datetime="2026-05-15">15 מאי 2026</time>
-        <span class="article-meta-sep">•</span>
-        <span class="article-meta-author">מערכת הפסטיבל</span>
+        <!-- ── באנר התקליט — פריט הדגל, שורה עליונה מלאה ── -->
+        <a class="vinyl-banner" href="https://shop.redseajazz.co.il" target="_blank" rel="noopener" aria-label="תקליט 40 שנה — מהדורת אספנים · רכישה">
+          <div class="vinyl-banner-content">
+            <div class="vinyl-banner-title">תקליט הפסטיבל<br><span class="accent">מהדורת 40 שנה</span></div>
+            <p class="vinyl-banner-desc">תקליט ויניל 12″ במהדורת אספנים לרגל 40 שנה לפסטיבל ג׳אז ים סוף. עטיפת קולאז' של פוסטרי הפסטיבל ההיסטוריים, ומבחר מיטב הביצועים החיים והנדירים מארבעה עשורים על הבמות.</p>
+            <div class="vinyl-banner-foot">
+              <span class="vinyl-banner-price">₪149</span>
+              <span class="vinyl-banner-buy">לרכישה ←</span>
+            </div>
+          </div>
+          <div class="vinyl-banner-media">
+            <img src="./Graphig assets/merch/merch-vinyl-banner.jpg" alt="תקליט 40 שנה לפסטיבל ג׳אז ים סוף — מהדורת אספנים עם עטיפת קולאז' פוסטרים" width="1800" height="1208" loading="eager">
+          </div>
+        </a>
+
+        <!-- כובע -->
+        <a class="shop-card" href="https://shop.redseajazz.co.il" target="_blank" rel="noopener" aria-label="כובע הפסטיבל — רכישה">
+          <div class="shop-card-img">
+            <img src="./Graphig assets/merch/merch-cap.jpg" alt="כובע מצחייה של פסטיבל ג׳אז ים סוף" width="600" height="600" loading="lazy">
+          </div>
+          <div class="shop-card-body">
+            <div class="shop-card-name">כובע מצחייה רקום</div>
+            <div class="shop-card-price">₪79</div>
+            <span class="shop-card-buy">לרכישה ←</span>
+          </div>
+        </a>
+
+        <!-- בקבוק מים -->
+        <a class="shop-card" href="https://shop.redseajazz.co.il" target="_blank" rel="noopener" aria-label="בקבוק מים של הפסטיבל — רכישה">
+          <div class="shop-card-img">
+            <img src="./Graphig assets/merch/merch-bottle.jpg" alt="בקבוק מים תרמי של פסטיבל ג׳אז ים סוף" width="600" height="600" loading="lazy">
+          </div>
+          <div class="shop-card-body">
+            <div class="shop-card-name">בקבוק מים תרמי</div>
+            <div class="shop-card-price">₪59</div>
+            <span class="shop-card-buy">לרכישה ←</span>
+          </div>
+        </a>
+
+        <!-- חולצה -->
+        <a class="shop-card" href="https://shop.redseajazz.co.il" target="_blank" rel="noopener" aria-label="חולצת הפסטיבל — רכישה">
+          <div class="shop-card-img">
+            <img src="./Graphig assets/merch/merch-shirt.jpg" alt="חולצת פסטיבל ג׳אז ים סוף עם הדפס סקסופון" width="600" height="600" loading="lazy">
+          </div>
+          <div class="shop-card-body">
+            <div class="shop-card-name">חולצת פסטיבל מודפסת</div>
+            <div class="shop-card-price">₪89</div>
+            <span class="shop-card-buy">לרכישה ←</span>
+          </div>
+        </a>
+
+        <!-- שקית בד -->
+        <a class="shop-card" href="https://shop.redseajazz.co.il" target="_blank" rel="noopener" aria-label="שקית בד של הפסטיבל — רכישה">
+          <div class="shop-card-img">
+            <img src="./Graphig assets/merch/merch-tote.jpg" alt="שקית בד של פסטיבל ג׳אז ים סוף" width="600" height="600" loading="lazy">
+          </div>
+          <div class="shop-card-body">
+            <div class="shop-card-name">שקית בד לפסטיבל</div>
+            <div class="shop-card-price">₪49</div>
+            <span class="shop-card-buy">לרכישה ←</span>
+          </div>
+        </a>
+
+        <!-- פוסטר -->
+        <a class="shop-card" href="https://shop.redseajazz.co.il" target="_blank" rel="noopener" aria-label="פוסטר הפסטיבל — רכישה">
+          <div class="shop-card-img">
+            <img src="./Graphig assets/merch/merch-poster.jpg" alt="פוסטר אמנותי של פסטיבל ג׳אז ים סוף" width="600" height="600" loading="lazy">
+          </div>
+          <div class="shop-card-body">
+            <div class="shop-card-name">פוסטר רשמי — מהדורת 2026</div>
+            <div class="shop-card-price">₪69</div>
+            <span class="shop-card-buy">לרכישה ←</span>
+          </div>
+        </a>
+
+        <!-- קפוצ'ון -->
+        <a class="shop-card" href="https://shop.redseajazz.co.il" target="_blank" rel="noopener" aria-label="קפוצ'ון הפסטיבל — רכישה">
+          <div class="shop-card-img">
+            <img src="./Graphig assets/merch/merch-hoodie.jpg" alt="קפוצ'ון של פסטיבל ג׳אז ים סוף" width="600" height="600" loading="lazy">
+          </div>
+          <div class="shop-card-body">
+            <div class="shop-card-name">קפוצ'ון הפסטיבל</div>
+            <div class="shop-card-price">₪169</div>
+            <span class="shop-card-buy">לרכישה ←</span>
+          </div>
+        </a>
+
       </div>
 
-      <figure class="article-hero" aria-label="תמונה ראשית של הכתבה">
-        <img src="./Graphig assets/niva-amali-maoz.png" alt="ניבה עמלי מעוז — המנהלת האמנותית של פסטיבל ג'אז ים סוף" width="1200" height="480" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block;">
-      </figure>
-      <p class="article-caption">ניבה עמלי מעוז, המנהלת האמנותית של הפסטיבל, חושפת את הליין-אפ של מהדורת 2026 · צילום: ארכיון הפסטיבל</p>
-
-      <div class="article-content">
-        <p class="article-lead">פסטיבל ג׳אז ים סוף חוגג השנה 40 שנה, וחושף את הליין-אפ המלא של מהדורת 2026: 40 אמנים מ-12 מדינות יתכנסו בנמל אילת לארבעה ימים של מוזיקה, אלתור ומפגשים בלתי-נשכחים.</p>
-
-        <p>ההכרזה, שהתקבלה בהתרגשות רבה בקרב אוהבי הז׳אנר, כוללת שמות בכירים מעולם הג׳אז הבינלאומי לצד כוכבים מקומיים. בין המופיעים השנה: רביעיות ג׳אז קלאסיות, הרכבי פיוז׳ן, ופרויקטים ייחודיים שנוצרו במיוחד עבור הפסטיבל.</p>
-
-        <h2>במה ראשית מחודשת</h2>
-        <p>לציון 40 שנות הפסטיבל, הופקה השנה במה ראשית חדשה לחלוטין על רקע מימי המפרץ. ההפקה כוללת מערכת תאורה מתקדמת ואקוסטיקה משופרת, שתעניק לקהל ולאמנים חוויה בלתי-נשכחת תחת שמי אילת.</p>
-
-        <h2>מחווה למורשת</h2>
-        <p>מהדורת 2026 תוקדש למורשת הפסטיבל ולדמויות שעיצבו אותו לאורך השנים. במהלך ארבעת הימים יתקיימו מופעי מחווה מיוחדים, סדנאות אמן (Masterclasses) פתוחות לקהל, ומפגשים אינטימיים עם אמנים בבמות הצד.</p>
-
-        <p>כרטיסים למהדורת 2026 כבר זמינים לרכישה מוקדמת באתר הרשמי, וההמלצה — להזדרז: ביקוש השנה צפוי להיות גבוה במיוחד.</p>
-      </div>
-
-      <hr class="article-divider" />
-
-      <div class="article-tags">
-        <a class="article-tag" href="./index.html#news">ליין-אפ</a>
-        <a class="article-tag" href="./index.html#news">2026</a>
-        <a class="article-tag" href="./index.html#news">40 שנה</a>
-        <a class="article-tag" href="./index.html#news">אילת</a>
-      </div>
+      <p class="shop-note">משלוח חינם בהזמנה מעל ₪200 · כל הפריטים במהדורה מוגבלת ובכמות מלאי מוגבלת.<br>לרכישה מאובטחת דרך חנות הפסטיבל הרשמית.</p>
 
     </div>
-  </article>
+  </main>
 
   <!-- ── FOOTER (injected by footer.js) ── -->
-  <footer id="site-footer"></footer>
+  <footer></footer>
   <script src="./footer.js"></script>
 
   <script>
@@ -555,6 +709,7 @@
       if (btn) { btn.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
     }
 
+    // סגירה בלחיצה מחוץ לתפריט (כולל בדיקת הפאנל שמנותק ל-body)
     document.addEventListener('click', function (e) {
       var btn = document.getElementById('navDropBtn');
       var panel = document.getElementById('navDropPanel');
@@ -568,7 +723,6 @@
       var panel = document.getElementById('navDropPanel');
       if (panel && panel.classList.contains('open')) positionNavDropPanel();
     });
-
 
     // Language switch (UI toggle, preserves Hebrew as default)
     let currentLang = 'he';
