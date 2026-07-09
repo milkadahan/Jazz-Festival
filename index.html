@@ -687,45 +687,80 @@
       position: relative;
     }
 
-    /* ─── LINEUP – HORIZONTAL SCROLL ─────────────────────────── */
+    /* ─── LINEUP – HORIZONTAL SCROLL (native, non scroll-jacking) ── */
+    /* Section sits in normal document flow — no sticky pin, no forced
+       extra height. Vertical page scroll is NEVER captured: the track-wrap
+       only has overflow-x, so a vertical wheel/trackpad gesture over it
+       bubbles straight to the page like anywhere else. Horizontal movement
+       is native scrolling (touch/trackpad/drag) + arrow buttons. */
     #lineup-outer {
       background: var(--bg2);
-      /* height set by JS to match horizontal track width */
     }
     #lineup-sticky {
-      position: sticky; top: 0;
-      height: 100vh; overflow: hidden;
-      display: flex; flex-direction: column; justify-content: center;
+      display: flex; flex-direction: column;
+      padding-bottom: 3rem;
     }
-    #lineup-sticky .section-header { flex-shrink: 0; padding: 3rem 3rem 60px; margin-bottom: 0; }
+    #lineup-sticky .section-header { padding: 3rem 3rem 40px; margin-bottom: 0; }
+    .horiz-scroll-area {
+      position: relative;
+    }
     .horiz-track-wrap {
-      overflow: visible; flex: 1; display: flex; align-items: flex-start;
-      clip-path: inset(-40px 0);
+      overflow-x: auto; overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+      scrollbar-width: none; -ms-overflow-style: none;
+      cursor: grab;
+      /* negative margin + matching padding gives the hover lift/shadow
+         room to breathe without permanently changing the section's layout size */
+      padding: 40px 0;
+      margin: -40px 0;
     }
+    .horiz-track-wrap::-webkit-scrollbar { display: none; }
+    .horiz-track-wrap.is-dragging { cursor: grabbing; scroll-behavior: auto; user-select: none; }
     .horiz-track {
       display: flex; gap: 1.5rem; padding: 0 3rem;
-      will-change: transform;
-      /* width set by JS */
+      width: max-content;
+    }
+    /* Arrow buttons — absolutely positioned over the track edges */
+    .horiz-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--card-bg);
+      border: 1.5px solid var(--border);
+      color: var(--muted);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1.15rem; line-height: 1;
+      font-family: var(--font); z-index: 3;
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s, opacity 0.2s;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    }
+    .horiz-arrow--prev { right: 0.5rem; }
+    .horiz-arrow--next { left: 0.5rem; }
+    .horiz-arrow:hover:not(:disabled) {
+      background: var(--orange); border-color: var(--orange); color: #fff;
+      transform: translateY(-50%) scale(1.08);
+    }
+    .horiz-arrow:disabled { opacity: 0; pointer-events: none; }
+    @media (max-width: 900px) {
+      .horiz-arrow { display: none; } /* touch/trackpad drag covers mobile */
     }
     /* Progress bar */
     .horiz-progress {
-      height: 2px; background: var(--border); margin: 0 3rem;
+      height: 2px; background: var(--border); margin: 0.5rem 3rem 0;
       flex-shrink: 0;
     }
     .horiz-progress-bar {
       height: 100%; width: 100%;
       background: linear-gradient(90deg, var(--orange), var(--yellow));
       transform: scaleX(0);
-      transform-origin: 0 0;
+      transform-origin: 100% 0; /* grows from the RTL start (right) */
       will-change: transform;
     }
-    /* hint arrow */
+    /* hint text */
     .horiz-hint {
       text-align: center; padding: 0.5rem; font-size: 0.75rem;
       color: var(--muted); letter-spacing: 0.12em; flex-shrink: 0;
-      animation: hintPulse 2s ease-in-out infinite;
     }
-    @keyframes hintPulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
 
     .artist-card {
       background: var(--card-bg);
@@ -2410,15 +2445,18 @@
 
   <div class="divider"></div>
 
-  <!-- ── LINEUP (horizontal scroll on vertical drag) ── -->
+  <!-- ── LINEUP (native horizontal scroll — never captures page scroll) ── -->
   <div id="lineup-outer">
     <div id="lineup-sticky">
       <div class="section-header" id="lineup">
         <div class="section-tag">Artists · אמנים</div>
         <h2 class="section-title">הלייןאפ של <span class="accent">2026</span></h2>
-        <p class="section-desc">גלול למטה לגלילה אופקית · 40 הופעות · 4 ימים</p>
+        <p class="section-desc">גררו או גללו לצדדים לעוד אמנים · 40 הופעות · 4 ימים</p>
       </div>
-      <div class="horiz-track-wrap">
+      <div class="horiz-scroll-area">
+        <button type="button" class="horiz-arrow horiz-arrow--prev" id="horizPrev" onclick="scrollLineup(-1)" aria-label="אמנים קודמים">→</button>
+        <button type="button" class="horiz-arrow horiz-arrow--next" id="horizNext" onclick="scrollLineup(1)" aria-label="עוד אמנים">←</button>
+        <div class="horiz-track-wrap" id="horizTrackWrap">
         <div class="horiz-track" id="horizTrack">
 
           <a class="artist-card featured" href="./show.html?artist=three-cohens">
@@ -2485,11 +2523,12 @@
           </div>
 
         </div><!-- /horiz-track -->
-      </div>
+        </div><!-- /horiz-track-wrap -->
+      </div><!-- /horiz-scroll-area -->
       <div class="horiz-progress">
         <div class="horiz-progress-bar" id="horizBar"></div>
       </div>
-      <div class="horiz-hint">← גלול למטה להמשך →</div>
+      <div class="horiz-hint">גררו, גללו לצדדים או השתמשו בחצים</div>
     </div>
   </div>
 
@@ -3976,43 +4015,84 @@
       if (e.key === 'Escape') closeLineupModal();
     });
 
-    // ── Horizontal scroll – RTL direction (right→left reveal) ────
-    const lineupOuter = document.getElementById('lineup-outer');
-    const horizTrack  = document.getElementById('horizTrack');
-    const horizBar    = document.getElementById('horizBar');
+    // ── Lineup horizontal scroll — NATIVE scroll, never traps the page ──
+    // The track-wrap only has overflow-x, so vertical wheel/trackpad
+    // scrolling over it is never intercepted: with no vertical overflow to
+    // consume, the browser bubbles the scroll straight to the page exactly
+    // as it would anywhere else. Horizontal movement is 100% native
+    // (touch swipe, trackpad shift+wheel / horizontal wheel) plus a
+    // mouse drag-to-scroll fallback and the two arrow buttons below —
+    // nothing here ever calls preventDefault() on a wheel/scroll event.
+    (function () {
+      const wrap = document.getElementById('horizTrackWrap');
+      const bar  = document.getElementById('horizBar');
+      const prevBtn = document.getElementById('horizPrev');
+      const nextBtn = document.getElementById('horizNext');
+      if (!wrap) return;
 
-    // cached values — recalculated on setup/resize only, never in scroll handler
-    let _travelDist = 0;
-    let _sectionTop = 0;
-    let _rafPending = false;
+      function maxScroll() {
+        return Math.max(0, wrap.scrollWidth - wrap.clientWidth);
+      }
 
-    function setupHoriz() {
-      _travelDist = horizTrack.scrollWidth - window.innerWidth + 96;
-      lineupOuter.style.height = (window.innerHeight + Math.max(0, _travelDist)) + 'px';
-      // getBoundingClientRect here is fine — runs only on init/resize
-      _sectionTop = lineupOuter.getBoundingClientRect().top + window.scrollY;
-      updateHoriz();
-    }
+      // Math.abs() keeps this correct regardless of which scrollLeft sign
+      // convention the browser uses for RTL containers (0→+max or 0→-max) —
+      // both conventions start at 0 and move away from it toward max.
+      function progress() {
+        const max = maxScroll();
+        if (max <= 0) return 0;
+        return Math.min(1, Math.max(0, Math.abs(wrap.scrollLeft) / max));
+      }
 
-    function updateHoriz() {
-      _rafPending = false;
-      if (_travelDist <= 0) return;
-      // window.scrollY is compositor-side — no forced layout
-      const progress = Math.max(0, Math.min(1, (window.scrollY - _sectionTop) / _travelDist));
-      // both properties are compositor-only (transform) — no layout, no paint
-      horizTrack.style.transform = `translateX(${progress * _travelDist}px)`;
-      horizBar.style.transform   = `scaleX(${progress})`;
-    }
+      function updateUI() {
+        const p = progress();
+        if (bar) bar.style.transform = `scaleX(${p})`;
+        if (prevBtn) prevBtn.disabled = p <= 0.01;
+        if (nextBtn) nextBtn.disabled = p >= 0.99;
+      }
 
-    function onScroll() {
-      if (_rafPending) return;   // skip if a frame is already queued
-      _rafPending = true;
-      requestAnimationFrame(updateHoriz);
-    }
+      // Direction convention: this track keeps the page's natural RTL flow
+      // (first card on the right), so "next" (reveal further cards) always
+      // moves scrollLeft further from 0, and "prev" always moves it back
+      // toward 0 — regardless of the browser's +/- sign convention.
+      window.scrollLineup = function (dir) {
+        const max = maxScroll();
+        if (max <= 0) return;
+        const sign = wrap.scrollLeft < 0 ? -1 : 1;
+        const step = Math.min(420, wrap.clientWidth * 0.85);
+        wrap.scrollBy({ left: sign * dir * step, behavior: 'smooth' });
+      };
 
-    setupHoriz();
-    window.addEventListener('resize', setupHoriz, { passive: true });
-    window.addEventListener('scroll', onScroll, { passive: true });
+      wrap.addEventListener('scroll', updateUI, { passive: true });
+      window.addEventListener('resize', updateUI, { passive: true });
+      updateUI();
+
+      // ── Mouse drag-to-scroll (mice without a horizontal wheel axis) ──
+      let isDown = false, dragged = false, startX = 0, startScroll = 0;
+
+      wrap.addEventListener('mousedown', function (e) {
+        isDown = true; dragged = false;
+        wrap.classList.add('is-dragging');
+        startX = e.pageX;
+        startScroll = wrap.scrollLeft;
+      });
+      ['mouseup', 'mouseleave'].forEach(function (ev) {
+        wrap.addEventListener(ev, function () {
+          isDown = false;
+          wrap.classList.remove('is-dragging');
+        });
+      });
+      wrap.addEventListener('mousemove', function (e) {
+        if (!isDown) return;
+        const walk = e.pageX - startX;
+        if (Math.abs(walk) > 4) dragged = true;
+        wrap.scrollLeft = startScroll - walk;
+      });
+      // Suppress the artist-card click that would otherwise fire right
+      // after a drag ends (so dragging never accidentally opens a show page)
+      wrap.addEventListener('click', function (e) {
+        if (dragged) { e.preventDefault(); e.stopPropagation(); dragged = false; }
+      }, true);
+    })();
 
     // ── Day filter (no "all days" option) ────────────────────────
     let activeDay = '2'; // default = day 2 (day 1 hidden until lineup confirmed)
