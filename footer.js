@@ -10,7 +10,7 @@
     }
     .footer-grid {
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-columns: 1.8fr 1fr 1fr 1.7fr;
       gap: 3rem;
       margin-bottom: 3rem;
       max-width: 1200px;
@@ -58,6 +58,79 @@
       transition: color 0.2s;
     }
     .footer-links a:hover { color: #fff; }
+
+    /* ── Newsletter signup ── */
+    .footer-news-text {
+      font-size: 0.9rem;
+      color: rgba(230,216,214,0.65);
+      line-height: 1.6;
+      margin-bottom: 1.1rem;
+      max-width: 300px;
+    }
+    .footer-news-form { max-width: 340px; }
+    .footer-news-field {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 50px;
+      padding: 5px 24px 5px 5px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .footer-news-field:focus-within {
+      border-color: #E0560B;
+      background: rgba(255,255,255,0.11);
+    }
+    .footer-news-input {
+      flex: 1;
+      min-width: 0;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #f2ebe8;
+      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-size: 0.9rem;
+      padding: 0.5rem 0;
+      direction: rtl;
+    }
+    .footer-news-input::placeholder { color: rgba(230,216,214,0.5); }
+    .footer-news-input:-webkit-autofill { -webkit-text-fill-color: #f2ebe8; transition: background-color 9999s; }
+    .footer-news-btn {
+      flex-shrink: 0;
+      background: rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.55);
+      border: none;
+      border-radius: 50px;
+      padding: 0.5rem 1.25rem;
+      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: not-allowed;
+      white-space: nowrap;
+      transition: background 0.2s, color 0.2s, filter 0.2s, transform 0.2s;
+    }
+    .footer-news-btn:not(:disabled) {
+      background: linear-gradient(135deg, #E0560B, #D62246);
+      color: #fff;
+      cursor: pointer;
+    }
+    .footer-news-btn:not(:disabled):hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .footer-news-btn:not(:disabled):active { transform: translateY(0); }
+    .footer-news-msg {
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin-top: 0.65rem;
+      padding-inline-start: 0.4rem;
+      min-height: 1.1em;
+      opacity: 0;
+      transform: translateY(-2px);
+      transition: opacity 0.25s, transform 0.25s;
+    }
+    .footer-news-msg.show { opacity: 1; transform: translateY(0); }
+    .footer-news-msg.success { color: #35C88F; }
+    .footer-news-msg.error { color: #FF6F6F; }
+
     .footer-bottom {
       border-top: 1px solid rgba(255,255,255,0.1);
       padding-top: 1.5rem;
@@ -75,10 +148,14 @@
     .footer-bottom a:hover { color: #fff; }
     @media (max-width: 900px) {
       .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-news-col { grid-column: 1 / -1; }
+      .footer-news-form { max-width: 420px; }
       footer { padding: 3rem 1.5rem 2rem; }
     }
     @media (max-width: 600px) {
       .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-news-col { grid-column: auto; }
+      .footer-news-form { max-width: 100%; }
     }
   `;
   document.head.appendChild(style);
@@ -115,10 +192,31 @@
         <div class="footer-col-title">מידע</div>
         <ul class="footer-links">
           <li><a href="./about.html">אודות הפסטיבל</a></li>
-          <li><a href="#">שאלות נפוצות</a></li>
+          <li><a href="./faq.html">שאלות נפוצות</a></li>
           <li><a href="#">נגישות</a></li>
           <li><a href="#">יצירת קשר</a></li>
         </ul>
+      </div>
+
+      <div class="footer-news-col">
+        <div class="footer-col-title">ניוזלטר</div>
+        <div class="footer-news-text">
+          הישארו מעודכנים — לוח הופעות, אמנים חדשים והטבות מוקדמות, ישירות למייל.
+        </div>
+        <form class="footer-news-form" novalidate>
+          <div class="footer-news-field">
+            <input
+              type="email"
+              class="footer-news-input"
+              placeholder="כתובת המייל שלך"
+              aria-label="כתובת מייל להרשמה לניוזלטר"
+              autocomplete="email"
+              inputmode="email"
+            />
+            <button type="submit" class="footer-news-btn" disabled>הרשמה</button>
+          </div>
+          <div class="footer-news-msg" role="status" aria-live="polite"></div>
+        </form>
       </div>
     </div>
 
@@ -132,5 +230,45 @@
   var footer = document.querySelector('footer');
   if (footer) {
     footer.innerHTML = html;
+
+    /* ── Newsletter signup behaviour ── */
+    var form  = footer.querySelector('.footer-news-form');
+    var input = footer.querySelector('.footer-news-input');
+    var btn   = footer.querySelector('.footer-news-btn');
+    var msg   = footer.querySelector('.footer-news-msg');
+
+    if (form && input && btn && msg) {
+      var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      // כפתור מתחיל דיסייבל; ברגע שמתחילים להקליד — הופך זמין
+      input.addEventListener('input', function () {
+        btn.disabled = input.value.trim().length === 0;
+        // ניקוי הודעת ולידציה קודמת ברגע שממשיכים להקליד
+        if (msg.classList.contains('show')) {
+          msg.classList.remove('show', 'success', 'error');
+        }
+      });
+
+      function setMessage(text, type) {
+        msg.textContent = text;
+        msg.classList.remove('success', 'error');
+        msg.classList.add(type, 'show');
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var value = input.value.trim();
+        if (value.length === 0) return; // כפתור אמור להיות דיסייבל ממילא
+
+        if (EMAIL_RE.test(value)) {
+          setMessage('נרשמת בהצלחה! נתראה על חוף ים סוף 🎷', 'success');
+          input.value = '';
+          btn.disabled = true;
+        } else {
+          setMessage('כתובת מייל לא תקינה — בדקו ונסו שוב.', 'error');
+          input.focus();
+        }
+      });
+    }
   }
 })();
