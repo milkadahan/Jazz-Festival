@@ -445,7 +445,7 @@
       width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
     }
     .stage-group.sf-hidden { display: none; }
-    .stage-group.sf-hidden { display: none; }
+    .day-block.sf-hidden { display: none; }
 
     /* ─── MAIN CONTENT ─────────────────────────────────────────── */
     main { max-width: 1200px; margin-inline: auto; padding: 3rem 2rem 5rem; }
@@ -2750,6 +2750,20 @@
           group.classList.remove('sf-hidden');
         } else {
           group.classList.add('sf-hidden');
+        }
+      });
+      // אם לא נותרו במות גלויות ביום מסוים (כתוצאה מהסינון) — להסתיר את כל בלוק היום
+      // (כותרת + מספר הופעות), ולא להשאיר כותרת יום ריקה.
+      document.querySelectorAll('.day-block').forEach(day => {
+        const groups = Array.from(day.querySelectorAll('.stage-group'));
+        const visibleGroups = groups.filter(g => !g.classList.contains('sf-hidden'));
+        const anyVisible = visibleGroups.length > 0;
+        day.classList.toggle('sf-hidden', !anyVisible);
+        // עדכון מונה ההופעות בכותרת היום כך שישקף רק את מה שמוצג בפועל אחרי הסינון
+        if (anyVisible) {
+          const showCount = visibleGroups.reduce((sum, g) => sum + g.querySelectorAll('.show-card').length, 0);
+          const countEl = day.querySelector('.day-block-count');
+          if (countEl) countEl.textContent = showCount + ' הופעות';
         }
       });
     }
