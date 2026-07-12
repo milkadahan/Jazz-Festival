@@ -301,7 +301,6 @@
 
     <!-- SHOW CARDS — all performances by this artist, active one highlighted -->
     <div class="show-divider"></div>
-    <div class="show-section-label" id="showPerfsLabel">הופעות בפסטיבל</div>
     <div class="show-cards-list" id="showCardsList"></div>
 
   </main>
@@ -687,10 +686,6 @@
         var pc = document.getElementById('showPhotoCredit');
         pc.textContent = artist.photoCredit; pc.style.display = 'block';
       }
-
-      /* Section label */
-      document.getElementById('showPerfsLabel').textContent =
-        artist.shows.length > 1 ? 'הופעות בפסטיבל' : 'הופעה בפסטיבל';
 
       /* Show cards */
       var list = document.getElementById('showCardsList');
