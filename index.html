@@ -540,15 +540,40 @@
 
     /* Countdown */
     .countdown {
+      position: relative;
       display: flex;
-      gap: 56px;
-      align-items: center;
+      align-items: flex-end;
       justify-content: center;
       background: #FFFFFF; /* תיקון מילקה — רקע פנימי של ה-countdown card ללבן מלא */
+      border-top: 2px solid var(--orange);
       border-radius: 22px;
-      padding: 24px;
+      padding: 24px 24px 16px;
       height: 120px;
       box-sizing: border-box;
+    }
+    /* Badge — תג הכיתוב שרוכב על השוליים העליונים של הכרטיס */
+    .countdown-caption {
+      position: absolute;
+      top: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(166deg, var(--orange) 0%, #E84021 73%);
+      color: #fff;
+      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 1.43;
+      letter-spacing: 0.17px;
+      padding: 2px 14px 4px;
+      border-radius: 0 0 8px 8px;
+      white-space: nowrap;
+      margin: 0;
+    }
+    .countdown-row {
+      display: flex;
+      gap: 40px;
+      align-items: flex-end;
+      justify-content: center;
     }
     .countdown-item {
       display: flex;
@@ -564,7 +589,10 @@
       line-height: 1.1;
       width: 100%;
       text-align: center;
-      color: var(--orange);
+      background: linear-gradient(135deg, var(--orange) 0%, #E84021 73%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
       position: relative;
       overflow: hidden;
       display: inline-block;
@@ -578,24 +606,13 @@
     .countdown-num.cd-animate {
       animation: cd-flip-in 0.22s cubic-bezier(0.22,1,0.36,1) both;
     }
-    /* Caption — משפט placeholder מעל שעון העצר */
-    .countdown-caption {
-      font-family: 'Noto Sans Hebrew', sans-serif;
-      font-weight: 600;
-      font-size: 15px;
-      color: #6B5A45;
-      text-align: center;
-      direction: rtl;
-      margin: 0 0 10px;
-      padding-inline-end: 16px;
-    }
     .countdown-label {
       font-family: 'Noto Sans Hebrew', sans-serif;
-      font-weight: 700;
-      font-size: 24px;
+      font-weight: 600;
+      font-size: 20px;
       color: #000;
-      letter-spacing: 0;
-      line-height: 1.334;
+      letter-spacing: 0.15px;
+      line-height: 1.28;
       width: 100%;
       text-align: center;
     }
@@ -730,14 +747,11 @@
        only has overflow-x, so a vertical wheel/trackpad gesture over it
        bubbles straight to the page like anywhere else. Horizontal movement
        is native scrolling (touch/trackpad/drag) + arrow buttons. */
-    #lineup-outer {
-      background: var(--bg2);
-    }
     #lineup-sticky {
       display: flex; flex-direction: column;
-      padding-bottom: 3rem;
+      padding-bottom: 120px;
     }
-    #lineup-sticky .section-header { padding: 3rem 3rem 40px; margin-bottom: 0; }
+    #lineup-sticky .section-header { padding: 120px 3rem 40px; margin-bottom: 0; }
     .horiz-scroll-area {
       position: relative;
     }
@@ -1305,6 +1319,90 @@
     .news-excerpt { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
     .news-more { font-size: 0.82rem; color: var(--orange); margin-top: 0.8rem; display: flex; align-items: center; gap: 0.3rem; }
 
+    /* ─── MERCH – חנות הפסטיבל (סקשן מצומצם בעמוד הבית) ─── */
+    #merch { background: var(--bg); text-align: center; }
+    .merch-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      max-width: 1100px; margin-inline: auto;
+      text-align: start; /* dir=rtl handles alignment */
+    }
+    .merch-card {
+      display: flex; flex-direction: column;
+      color: inherit; text-decoration: none;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      position: relative;
+    }
+    .merch-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--border-strong);
+      box-shadow: 0 12px 30px var(--shadow);
+    }
+    .merch-img {
+      aspect-ratio: 1 / 1;
+      background: linear-gradient(135deg, var(--bg2), var(--bg));
+      position: relative; overflow: hidden;
+    }
+    .merch-img img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform 0.4s ease;
+    }
+    .merch-card:hover .merch-img img { transform: scale(1.05); }
+    .merch-body {
+      padding: 1.1rem 1.2rem 1.3rem;
+      display: flex; flex-direction: column; gap: 0.45rem;
+      flex: 1;
+    }
+    .merch-name { font-size: 1.05rem; font-weight: 800; line-height: 1.35; color: var(--text); }
+    .merch-price { font-size: 1.2rem; font-weight: 900; color: var(--orange); }
+    .merch-buy {
+      margin-top: auto;
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      color: var(--orange);
+      font-size: 0.85rem; font-weight: 700;
+    }
+
+    /* פריט דגל — התקליט: מודגש בכרטיס גבולי כתום + תג "פריט דגל" */
+    .merch-card-featured {
+      border: 2px solid var(--orange);
+      box-shadow: 0 10px 30px rgba(224,86,11,0.18);
+    }
+    .merch-card-featured:hover { box-shadow: 0 16px 40px rgba(224,86,11,0.30); }
+    .merch-badge {
+      position: absolute; top: 0.85rem; inset-inline-start: 0.85rem;
+      z-index: 3;
+      background: var(--btn-gradient); color: #fff;
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.02em;
+      padding: 0.34rem 0.75rem; border-radius: 50px;
+      box-shadow: 0 4px 14px rgba(224,86,11,0.4);
+      display: inline-flex; align-items: center; gap: 0.3rem;
+    }
+
+    /* כפתור מעבר לעמוד המרצ' הפנימי */
+    .merch-cta-wrap { margin-top: 3rem; text-align: center; }
+    .merch-cta {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: transparent; color: var(--orange);
+      border: 1.5px solid var(--orange);
+      border-radius: 50px; padding: 0.85rem 2.2rem;
+      font-size: 1rem; font-weight: 700; text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .merch-cta:hover { background: rgba(224,86,11,0.07); transform: translateY(-2px); }
+
+    @media (max-width: 980px) {
+      .merch-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 520px) {
+      .merch-grid { grid-template-columns: 1fr; gap: 1.1rem; }
+    }
+
     /* ─── VENUE ─────────────────────────────────────────────────── */
     #venue {
       background: var(--bg);
@@ -1438,11 +1536,12 @@
     @media (max-width: 600px) {
       .hero-main-content { top: 90px; }
       .hero-date-badge-img { width: 130px; height: 25px; }
-      .countdown { gap: 12px; padding: 10px 14px; height: auto; }
+      .countdown { padding: 20px 14px 12px; height: auto; }
+      .countdown-row { gap: 12px; }
       .countdown-item { width: 44px; }
       .countdown-num { font-size: 22px; }
-      .countdown-label { font-size: 11px; }
-      .countdown-caption { font-size: 12px; margin-bottom: 6px; padding-inline-end: 10px; }
+      .countdown-label { font-size: 13px; }
+      .countdown-caption { font-size: 11px; }
       section { padding: 3rem 1rem; }
       .schedule-table th, .time-col { padding: 0.5rem; font-size: 0.7rem; }
       .show-name { font-size: 0.78rem; }
@@ -1725,7 +1824,7 @@
     <!-- Nav inner: links (center) + action buttons (left) -->
     <div class="nav-inner">
       <ul class="nav-links" id="navLinks">
-        <li><a href="#lineup" data-he="ליין אפ" data-en="Lineup">ליין אפ</a></li>
+        <li><a href="#artist-lineup-text" data-he="ליין אפ" data-en="Lineup">ליין אפ</a></li>
         <li><a href="./lineup.html" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
         <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
         <li class="nav-drop" id="navInfoDrop">
@@ -1793,24 +1892,26 @@
     <div class="hero-content">
       <img src="./Graphig assets/corner-subtract.svg" class="hero-corner hero-corner-tl" alt="" width="32" height="32">
       <img src="./Graphig assets/corner-subtract.svg" class="hero-corner hero-corner-br" alt="" width="32" height="32">
-      <!-- טקסט placeholder — יוחלף בתוכן הסופי כשיתקבל -->
-      <p class="countdown-caption">טקסט placeholder — יוחלף בתוכן סופי בהמשך</p>
       <div class="countdown" id="countdown">
-        <div class="countdown-item">
-          <span class="countdown-num" id="cd-days">--</span>
-          <span class="countdown-label">ימים</span>
-        </div>
-        <div class="countdown-item">
-          <span class="countdown-num" id="cd-hours">--</span>
-          <span class="countdown-label">שעות</span>
-        </div>
-        <div class="countdown-item">
-          <span class="countdown-num" id="cd-mins">--</span>
-          <span class="countdown-label">דקות</span>
-        </div>
-        <div class="countdown-item">
-          <span class="countdown-num" id="cd-secs">--</span>
-          <span class="countdown-label">שניות</span>
+        <!-- טקסט placeholder — יוחלף בתוכן הסופי כשיתקבל -->
+        <p class="countdown-caption">טקסט שישתנה ממש בקרוב!</p>
+        <div class="countdown-row">
+          <div class="countdown-item">
+            <span class="countdown-num" id="cd-days">--</span>
+            <span class="countdown-label">ימים</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-num" id="cd-hours">--</span>
+            <span class="countdown-label">שעות</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-num" id="cd-mins">--</span>
+            <span class="countdown-label">דקות</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-num" id="cd-secs">--</span>
+            <span class="countdown-label">שניות</span>
+          </div>
         </div>
       </div>
     </div>
@@ -2661,6 +2762,72 @@
         </a>
       </div>
 
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── MERCH · חנות הפסטיבל (סקשן מצומצם) ── -->
+  <section id="merch" dir="rtl">
+    <div class="section-header reveal">
+      <div class="section-tag">Shop · חנות הפסטיבל</div>
+      <h2 class="section-title">מזכרות <span class="accent">מהפסטיבל</span></h2>
+      <p class="section-desc">קחו איתכם פיסה מפסטיבל ג׳אז ים סוף — פריטי אספנות, לבוש ואביזרים במהדורה מוגבלת.</p>
+    </div>
+
+    <div class="merch-grid reveal">
+      <!-- תקליט — פריט דגל, ראשון מימין -->
+      <a class="merch-card merch-card-featured" href="https://shop.redseajazz.co.il" target="_blank" rel="noopener" aria-label="תקליט הפסטיבל — רכישה">
+        <span class="merch-badge">★ פריט דגל</span>
+        <div class="merch-img">
+          <img src="./Graphig assets/merch/merch-vinyl-square.jpg" alt="תקליט הפסטיבל — מהדורת 40 שנה" width="1207" height="1207" loading="lazy">
+        </div>
+        <div class="merch-body">
+          <div class="merch-name">תקליט הפסטיבל — מהדורת אספנים</div>
+          <div class="merch-price">₪149</div>
+          <span class="merch-buy">לרכישה ←</span>
+        </div>
+      </a>
+
+      <!-- כובע -->
+      <a class="merch-card" href="https://shop.redseajazz.co.il" target="_blank" rel="noopener" aria-label="כובע הפסטיבל — רכישה">
+        <div class="merch-img">
+          <img src="./Graphig assets/merch/merch-cap.jpg" alt="כובע מצחייה של פסטיבל ג׳אז ים סוף" width="600" height="600" loading="lazy">
+        </div>
+        <div class="merch-body">
+          <div class="merch-name">כובע מצחייה רקום</div>
+          <div class="merch-price">₪79</div>
+          <span class="merch-buy">לרכישה ←</span>
+        </div>
+      </a>
+
+      <!-- בקבוק מים -->
+      <a class="merch-card" href="https://shop.redseajazz.co.il" target="_blank" rel="noopener" aria-label="בקבוק מים של הפסטיבל — רכישה">
+        <div class="merch-img">
+          <img src="./Graphig assets/merch/merch-bottle.jpg" alt="בקבוק מים תרמי של פסטיבל ג׳אז ים סוף" width="600" height="600" loading="lazy">
+        </div>
+        <div class="merch-body">
+          <div class="merch-name">בקבוק מים תרמי</div>
+          <div class="merch-price">₪59</div>
+          <span class="merch-buy">לרכישה ←</span>
+        </div>
+      </a>
+
+      <!-- חולצה -->
+      <a class="merch-card" href="https://shop.redseajazz.co.il" target="_blank" rel="noopener" aria-label="חולצת הפסטיבל — רכישה">
+        <div class="merch-img">
+          <img src="./Graphig assets/merch/merch-shirt.jpg" alt="חולצת פסטיבל ג׳אז ים סוף עם הדפס סקסופון" width="600" height="600" loading="lazy">
+        </div>
+        <div class="merch-body">
+          <div class="merch-name">חולצת פסטיבל מודפסת</div>
+          <div class="merch-price">₪89</div>
+          <span class="merch-buy">לרכישה ←</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="merch-cta-wrap reveal">
+      <a class="merch-cta" href="./merch.html">לכל המוצרים בחנות ←</a>
     </div>
   </section>
 
@@ -3682,7 +3849,7 @@
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            entry.target.querySelectorAll('.news-card, .venue-info-card').forEach((c, i) => {
+            entry.target.querySelectorAll('.news-card, .venue-info-card, .merch-card').forEach((c, i) => {
               c.style.transitionDelay = `${i * 0.07}s`;
             });
             revealObserver.unobserve(entry.target);

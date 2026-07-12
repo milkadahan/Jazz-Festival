@@ -335,7 +335,7 @@
     }
     .vinyl-banner:hover { transform: translateY(-4px); box-shadow: 0 18px 46px rgba(224,86,11,0.26); }
     .vinyl-banner-content {
-      padding: 2.4rem 2.6rem;
+      padding: 1.8rem 2.6rem;
       display: flex; flex-direction: column; justify-content: center;
       gap: 0.9rem; min-width: 0;
     }
@@ -371,14 +371,14 @@
     }
     .vinyl-banner:hover .vinyl-banner-buy { box-shadow: 0 6px 22px rgba(224,86,11,0.45); }
     .vinyl-banner-media {
-      position: relative; min-height: 340px; min-width: 0;
+      position: relative; min-height: 300px; min-width: 0;
     }
     .vinyl-banner-media img {
       position: absolute;
       top: -14.7%; left: -4.4%;
-      width: 96.1%; height: 96.1%;
-      object-fit: cover; display: block;
-      box-shadow: 34px 17px 60px 0 rgba(109,59,22,0.24);
+      width: 96.1%; height: auto;
+      display: block;
+      filter: drop-shadow(34px 17px 40px rgba(109,59,22,0.5));
       transition: transform 0.5s ease;
     }
     .vinyl-banner:hover .vinyl-banner-media img { transform: scale(1.04); }
@@ -475,7 +475,7 @@
     </a>
     <div class="nav-inner">
       <ul class="nav-links" id="navLinks">
-        <li><a href="./index.html#lineup" data-he="ליין אפ" data-en="Lineup">ליין אפ</a></li>
+        <li><a href="./index.html#artist-lineup-text" data-he="ליין אפ" data-en="Lineup">ליין אפ</a></li>
         <li><a href="./lineup.html" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
         <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
         <li class="nav-drop" id="navInfoDrop">
@@ -544,7 +544,7 @@
             </div>
           </div>
           <div class="vinyl-banner-media">
-            <img src="./Graphig assets/merch/merch-vinyl-banner.jpg" alt="תקליט 40 שנה לפסטיבל ג׳אז ים סוף — מהדורת אספנים עם עטיפת קולאז' פוסטרים" width="1800" height="1208" loading="eager">
+            <img src="./Graphig assets/merch/merch-vinyl-banner-cutout.png" alt="תקליט 40 שנה לפסטיבל ג׳אז ים סוף — מהדורת אספנים עם עטיפת קולאז' פוסטרים" width="592" height="347" loading="eager">
           </div>
         </a>
 
