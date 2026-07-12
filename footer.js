@@ -194,7 +194,7 @@
           <li><a href="./about.html">אודות הפסטיבל</a></li>
           <li><a href="./faq.html">שאלות נפוצות</a></li>
           <li><a href="#">נגישות</a></li>
-          <li><a href="#">יצירת קשר</a></li>
+          <li><a href="./contact.html">יצירת קשר</a></li>
         </ul>
       </div>
 

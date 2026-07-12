@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>יצירת קשר · Red Sea Jazz Festival 2026</title>
+  <meta name="description" content="יצירת קשר עם פסטיבל ג'אז ים סוף — שאלות, שיתופי פעולה והצטרפות לקהילה. נמל אילת, 11–14 בנובמבר 2026." />
+  <meta name="keywords" content="Red Sea Jazz Festival, יצירת קשר, צור קשר, פסטיבל ג'אז, אילת, קהילה" />
+  <meta property="og:title" content="יצירת קשר · Red Sea Jazz Festival 2026" />
+  <meta property="og:description" content="נשמח לשמוע מכם — שאלות, שיתופי פעולה והצטרפות לקהילת הפסטיבל. נמל אילת, 11–14 בנובמבר 2026." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="./Graphig assets/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Red Sea Jazz Festival 2026 — יצירת קשר" />
+  <meta property="og:locale" content="he_IL" />
+  <meta property="og:site_name" content="Red Sea Jazz Festival" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="יצירת קשר · Red Sea Jazz Festival 2026" />
+  <meta name="twitter:description" content="נשמח לשמוע מכם — נמל אילת, 11–14 בנובמבר 2026" />
+  <meta name="twitter:image" content="./Graphig assets/og-image.jpg" />
+  <meta name="twitter:image:alt" content="Red Sea Jazz Festival 2026 — יצירת קשר" />
+  <meta name="theme-color" content="#E0560B" />
+  <meta name="msapplication-TileColor" content="#E0560B" />
+  <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+  <link rel="manifest" href="./site.webmanifest" />
+  <!-- Preconnect to external origins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@100;300;400;500;700;900&family=Noto+Sans+Hebrew:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── RESET & BASE ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ticker-h:  36px;
+      --nav-h:     100px;
+      --bg:        #FAF4E9;
+      --bg2:       #F3E9D6;
+      --orange:    #E0560B;
+      --yellow:    #E0A800;
+      --red:       #D62246;
+      --teal:      #0A8F8E;
+      --text:      #3A2A1E;
+      --muted:     #8A7256;
+      --card-bg:   #FFFDF8;
+      --border:    rgba(58,42,30,0.12);
+      --border-strong: rgba(58,42,30,0.22);
+      --shadow:    rgba(58,42,30,0.10);
+      --shadow-strong: rgba(58,42,30,0.16);
+      --on-accent: #FFFDF8;
+      --font:      'Hepta Slab', 'Noto Sans Hebrew', serif;
+    }
+
+    html { scroll-behavior: smooth; direction: rtl; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.7;
+      word-spacing: 0.05em;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    :focus-visible {
+      outline: 2px solid var(--orange);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    img { display: block; max-width: 100%; }
+    button { font-family: var(--font); cursor: pointer; }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 3px; }
+
+    /* ─── TICKER ─────────────────────────────────────────────── */
+    .ticker-bar {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--ticker-h); z-index: 101;
+      background: #2d2726;
+      display: flex; align-items: center;
+      direction: ltr;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(224,86,11,0.3);
+    }
+    .ticker-label {
+      flex-shrink: 0;
+      padding: 0 1.4rem 0 1rem;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+      color: var(--orange); text-transform: uppercase;
+      border-right: 1px solid rgba(224,86,11,0.35);
+      white-space: nowrap;
+    }
+    .ticker-track-wrap { flex: 1; overflow: hidden; position: relative; }
+    .ticker-track {
+      display: flex; gap: 0;
+      direction: ltr;
+      animation: ticker-scroll 28s linear infinite;
+      will-change: transform;
+      width: max-content;
+    }
+    .ticker-item {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.78rem; color: #e6d8d6;
+      padding: 0 2.5rem;
+      white-space: nowrap;
+    }
+    .ticker-item::before { content: '♪'; color: var(--orange); font-size: 0.65rem; }
+    @keyframes ticker-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-25%); }
+    }
+    @media (max-width: 700px) {
+      :root { --ticker-h: 32px; }
+      .ticker-label { padding: 0 0.7rem 0 0.9rem; font-size: 0.65rem; }
+      .ticker-item { font-size: 0.73rem; padding: 0 1.8rem; }
+    }
+
+    /* ─── NAV ─────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: var(--ticker-h); width: 100%; z-index: 100;
+      display: flex; align-items: center;
+      height: 100px;
+      background: rgba(250,244,233,0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.35s, height 0.35s;
+      overflow: hidden;
+    }
+    nav.scrolled {
+      height: 64px;
+      background: rgba(250,244,233,0.97);
+      box-shadow: 0 2px 16px var(--shadow);
+    }
+
+    .nav-logo-tab {
+      flex-shrink: 0;
+      padding: 0.6rem 1.4rem;
+      display: flex;
+      align-items: center; justify-content: center;
+      cursor: pointer; text-decoration: none;
+      transition: opacity 0.2s, padding 0.35s;
+    }
+    .nav-logo-tab:hover { opacity: 0.75; }
+    nav.scrolled .nav-logo-tab { padding: 0.25rem 1.4rem; }
+    .nav-logo-img {
+      height: 80px; width: auto; display: block;
+      filter: brightness(0) saturate(100%) invert(15%) sepia(28%) saturate(900%) hue-rotate(350deg);
+      transition: height 0.35s;
+    }
+    nav.scrolled .nav-logo-img { height: 44px; }
+
+    .nav-inner {
+      flex: 1; display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+    }
+
+    .nav-links {
+      display: flex; gap: 1.8rem; list-style: none;
+      font-size: 0.88rem; font-weight: 500;
+    }
+    .nav-links a {
+      position: relative; padding-bottom: 3px;
+      transition: color 0.25s; color: rgba(58,42,30,0.78);
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
+      width: 0; height: 2px;
+      background: linear-gradient(90deg, var(--orange), var(--yellow));
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--yellow); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: var(--orange); }
+    .nav-links a.active::after { width: 100%; }
+
+    /* ── Nav dropdown: "מידע חשוב" — הקישור היחיד בטול-בר עם תת-תפריט (3 בנים) ── */
+    .nav-drop { position: relative; }
+    .nav-drop-toggle {
+      display: flex; align-items: center; gap: 0.35rem;
+      background: none; border: none; padding: 0 0 3px; margin: 0;
+      font: inherit; font-size: inherit; font-weight: 500;
+      color: rgba(58,42,30,0.78); cursor: pointer; position: relative;
+    }
+    .nav-drop-toggle::after {
+      content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
+      width: 0; height: 2px;
+      background: linear-gradient(90deg, var(--orange), var(--yellow));
+      transition: width 0.3s;
+    }
+    .nav-drop-toggle:hover, .nav-drop-toggle.open { color: var(--yellow); }
+    .nav-drop-toggle:hover::after, .nav-drop-toggle.open::after { width: 100%; }
+    .nav-drop-toggle.active { color: var(--orange); }
+    .nav-drop-toggle.active::after { width: 100%; }
+    .nav-drop-chevron { transition: transform 0.25s; flex-shrink: 0; }
+    .nav-drop-toggle.open .nav-drop-chevron { transform: rotate(180deg); }
+
+    /* הפאנל מנותק ל-body ב-JS (portal) כדי לא להיחתך ע"י overflow:hidden של ה-nav */
+    .nav-drop-panel {
+      display: none; flex-direction: column;
+      position: fixed; z-index: 150;
+      background: #FAF4E9; border: 1px solid var(--border);
+      border-radius: 14px; box-shadow: 0 14px 34px var(--shadow);
+      padding: 0.55rem; min-width: 215px;
+    }
+    .nav-drop-panel.open { display: flex; }
+    .nav-drop-panel > a {
+      display: flex; align-items: center; justify-content: space-between; gap: 0.6rem;
+      padding: 0.6rem 0.8rem; border-radius: 8px;
+      font-size: 0.87rem; font-weight: 500; color: var(--text);
+      white-space: nowrap; text-align: start;
+      background: none; border: none; width: 100%; cursor: pointer; font-family: inherit;
+    }
+    .nav-drop-panel > a:hover { background: rgba(224,86,11,0.08); color: var(--orange); }
+    .nav-drop-panel > a.active { color: var(--orange); font-weight: 700; }
+
+    .nav-actions {
+      display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0;
+    }
+    .nav-btn-primary {
+      background: linear-gradient(135deg, var(--orange), #c43d0e);
+      color: var(--on-accent); border: none; border-radius: 50px;
+      padding: 0.5rem 1.3rem; font-size: 0.85rem; font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(224,86,11,0.32);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .nav-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(224,86,11,0.45);
+    }
+    .nav-btn-secondary {
+      background: transparent;
+      color: var(--text); border: 1.5px solid var(--border-strong);
+      border-radius: 50px; padding: 0.48rem 1.2rem;
+      font-size: 0.85rem; font-weight: 600; cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .nav-btn-secondary:hover {
+      border-color: var(--orange); color: var(--orange);
+      transform: translateY(-2px);
+    }
+    .nav-lang-sep {
+      width: 1px; height: 20px; flex-shrink: 0;
+      background: var(--border-strong);
+      margin-inline: 0.3rem;
+    }
+    .nav-btn-lang {
+      background: transparent;
+      color: rgba(58,42,30,0.62);
+      border: 1.5px solid var(--border);
+      border-radius: 50px; padding: 0.45rem 0.9rem;
+      font-size: 0.85rem; font-weight: 600; cursor: pointer;
+      display: flex; align-items: center; gap: 0.35rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .nav-btn-lang:hover { border-color: var(--border-strong); color: var(--text); }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 0; }
+    .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
+
+    @media (max-width: 900px) {
+      .nav-inner { padding: 0 1rem; }
+      .nav-links { display: none; }
+      .nav-btn-secondary { display: none; }
+      .hamburger { display: flex; }
+      .nav-logo-tab { padding: 0.5rem 1rem; }
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: fixed; inset: 0; top: calc(var(--ticker-h) + 64px);
+        background: rgba(250,244,233,0.98); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+        padding: 2rem; gap: 1.5rem; font-size: 1.2rem;
+        z-index: 99;
+      }
+    }
+
+    /* ─── PAGE HERO ───────────────────────────────────────────── */
+    .page-hero {
+      position: relative;
+      overflow: hidden;
+      height: calc(340px + var(--ticker-h) + var(--nav-h));
+      display: flex; align-items: center; justify-content: center;
+      padding-top: calc(var(--ticker-h) + var(--nav-h));
+      background: #1a1410;
+      text-align: center;
+    }
+    .page-hero-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 30% 60%, rgba(224,86,11,0.25) 0%, transparent 60%),
+                  radial-gradient(ellipse at 75% 40%, rgba(10,143,142,0.18) 0%, transparent 55%),
+                  radial-gradient(ellipse at 55% 80%, rgba(214,34,70,0.15) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .page-hero-grid {
+      position: absolute; inset: 0; opacity: 0.06;
+      background-image: linear-gradient(rgba(250,244,233,0.4) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(250,244,233,0.4) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+    .page-hero-content {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column;
+      gap: 14px; align-items: center;
+      padding-inline: 2rem;
+    }
+    .page-hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      font-weight: 900; line-height: 1.1;
+      color: #ffffff;
+    }
+    .page-hero h1 .accent {
+      color: var(--orange);
+    }
+    .page-hero .hero-sub {
+      font-size: 1.1rem; color: rgba(250,244,233,0.6);
+      max-width: 600px;
+    }
+
+    /* ─── CONTACT LAYOUT ──────────────────────────────────────── */
+    .contact-wrap {
+      max-width: 1120px; margin-inline: auto;
+      padding: 5rem 2rem 6rem;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.35fr;
+      gap: 2.6rem;
+      align-items: start;
+    }
+
+    /* ── Form card ── */
+    .contact-form-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 41px;
+    }
+    .contact-form-card h2 {
+      font-size: clamp(1.6rem, 3vw, 2.125rem);
+      font-weight: 700; line-height: 1.1; letter-spacing: 0.25px;
+      text-align: center;
+      margin-bottom: 0.7rem;
+    }
+    .contact-form-card h2 .accent { color: var(--text); }
+    .contact-card-lead {
+      font-size: 1rem; color: var(--muted);
+      line-height: 1.5; letter-spacing: 0.15px; margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .contact-form { display: flex; flex-direction: column; gap: 1.3rem; }
+    .field { display: flex; flex-direction: column; gap: 0.5rem; }
+    .field-label {
+      font-size: 1rem; font-weight: 600; line-height: 1.22; letter-spacing: 0.15px;
+      color: var(--text);
+      display: flex; align-items: baseline; gap: 0.4rem;
+    }
+    .field-label .req { color: var(--orange); font-weight: 400; font-size: 0.875rem; }
+    .field-label .opt { color: var(--muted); font-weight: 400; font-size: 0.875rem; letter-spacing: 0.17px; }
+
+    .contact-form input:not([type="checkbox"]),
+    .contact-form textarea {
+      width: 100%;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 15.1px 18.3px;
+      font-family: var(--font);
+      font-size: 1rem;
+      color: var(--text);
+      line-height: 1.5;
+      direction: rtl;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    }
+    .contact-form input:not([type="checkbox"]) { height: 55.78px; }
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder { color: rgba(138,114,86,0.6); }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: var(--orange);
+      background: var(--card-bg);
+      box-shadow: 0 0 0 3px rgba(224,86,11,0.12);
+    }
+    .contact-form textarea { min-height: 140px; resize: vertical; }
+    .contact-form input:-webkit-autofill { -webkit-text-fill-color: var(--text); transition: background-color 9999s; }
+
+    /* error state per field */
+    .field.error input,
+    .field.error textarea { border-color: var(--red); box-shadow: 0 0 0 3px rgba(214,34,70,0.10); }
+    .field-error {
+      font-size: 0.8rem; color: var(--red); font-weight: 600;
+      min-height: 22px; opacity: 0; transform: translateY(-2px);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .field.error .field-error { opacity: 1; transform: translateY(0); }
+
+    /* ── Community checkbox ── */
+    .community-check {
+      display: flex; align-items: flex-start; gap: 0.7rem;
+      cursor: pointer;
+    }
+    .community-check input {
+      appearance: none; -webkit-appearance: none;
+      flex-shrink: 0; width: 24px; height: 24px;
+      border: 1.5px solid var(--border-strong);
+      border-radius: 6px; background: var(--card-bg);
+      cursor: pointer; position: relative;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .community-check input:checked {
+      background: linear-gradient(135deg, var(--orange), #c43d0e);
+      border-color: var(--orange);
+    }
+    .community-check input:checked::after {
+      content: ''; position: absolute;
+      left: 8px; top: 4px; width: 7px; height: 12px;
+      border: solid #fff; border-width: 0 2.5px 2.5px 0;
+      transform: rotate(45deg);
+    }
+    .community-check-text { font-size: 1rem; font-weight: 600; color: var(--text); line-height: 1.22; letter-spacing: 0.15px; }
+    .community-check-text strong { font-weight: 600; }
+    .community-check-text span { display: block; color: var(--muted); font-size: 0.875rem; font-weight: 400; letter-spacing: 0.17px; line-height: 1.43; margin-top: 4px; }
+
+    /* ── Submit ── */
+    .contact-submit {
+      width: 100%; text-align: center;
+      background: linear-gradient(175deg, var(--orange), #c43d0e);
+      color: var(--on-accent);
+      border: none; border-radius: 50px;
+      padding: 15.2px 41.6px;
+      font-size: 1.25rem; font-weight: 600;
+      box-shadow: 0 6px 9px rgba(224,86,11,0.32);
+      transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+    }
+    .contact-submit:hover { transform: translateY(-2px); box-shadow: 0 9px 16px rgba(224,86,11,0.45); filter: brightness(1.05); }
+    .contact-submit:active { transform: translateY(0); }
+
+    /* ── Success / status message ── */
+    .form-status {
+      display: none;
+      align-items: center; gap: 0.7rem;
+      background: rgba(53,200,143,0.10);
+      border: 1px solid rgba(53,200,143,0.35);
+      border-radius: 14px;
+      padding: 1rem 1.2rem;
+      color: #1f7a56; font-weight: 600; font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .form-status.show { display: flex; }
+    .form-status .status-icon {
+      flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%;
+      background: #35C88F; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; font-weight: 900;
+    }
+
+    /* ─── CONTACT INFO ASIDE ──────────────────────────────────── */
+    .contact-info {
+      position: sticky; top: calc(var(--ticker-h) + var(--nav-h) + 1.5rem);
+      display: flex; flex-direction: column; gap: 1.4rem;
+    }
+    .contact-intro h3 {
+      font-size: clamp(1.6rem, 3vw, 2.125rem);
+      font-weight: 700; line-height: 1.1; letter-spacing: 0.25px;
+      margin-bottom: 0.9rem;
+    }
+    .contact-intro p {
+      font-size: 1rem; color: var(--muted); line-height: 1.85;
+    }
+
+    /* ─── RESPONSIVE ──────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .contact-info { position: static; }
+    }
+    @media (max-width: 720px) {
+      .page-hero { padding-inline: 1.5rem; height: calc(280px + var(--ticker-h) + var(--nav-h)); }
+      .contact-wrap { padding: 3.5rem 1.3rem 4.5rem; }
+      .contact-form-card { padding: 1.8rem 1.4rem 2rem; }
+    }
+  </style>
+  <link rel="stylesheet" href="./page-transitions.css" />
+</head>
+<body>
+
+  <!-- ── TICKER ── -->
+  <div class="ticker-bar" role="marquee" aria-label="עדכוני פסטיבל">
+    <div class="ticker-track-wrap">
+      <div class="ticker-track">
+        <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
+        <span class="ticker-item">ההופעה הראשונה הוכרזה — פרטים נוספים בקרוב</span>
+        <span class="ticker-item">חבילות נופש חדשות עם מלונות אילת — 3 לילות + שאטל לנמל</span>
+        <span class="ticker-item">11–14 בנובמבר 2026 · נמל אילת · 40 שנות פסטיבל ג׳אז ים סוף</span>
+        <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
+        <span class="ticker-item">ההופעה הראשונה הוכרזה — פרטים נוספים בקרוב</span>
+        <span class="ticker-item">חבילות נופש חדשות עם מלונות אילת — 3 לילות + שאטל לנמל</span>
+        <span class="ticker-item">11–14 בנובמבר 2026 · נמל אילת · 40 שנות פסטיבל ג׳אז ים סוף</span>
+      </div>
+    </div>
+    <div class="ticker-label">עדכונים</div>
+  </div>
+
+  <!-- ── NAV ── -->
+  <nav id="navbar">
+    <a class="nav-logo-tab" href="./index.html">
+      <img src="State=Vertical.svg" alt="Red Sea Jazz Festival" class="nav-logo-img" width="80" height="80" />
+    </a>
+    <div class="nav-inner">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="./index.html#artist-lineup-text" data-he="ליין אפ" data-en="Lineup">ליין אפ</a></li>
+        <li><a href="./lineup.html" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
+        <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
+        <li class="nav-drop" id="navInfoDrop">
+          <button type="button" class="nav-drop-toggle active" id="navDropBtn" aria-haspopup="true" aria-expanded="false" onclick="toggleNavDrop(event)" data-he="מידע חשוב" data-en="Important Info">
+            מידע חשוב
+            <svg class="nav-drop-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="nav-drop-panel" id="navDropPanel">
+            <!-- הסעות: לינק חיצוני placeholder — יש לעדכן כשיתקבל קישור סופי -->
+            <a href="#" data-he="הסעות" data-en="Shuttles">הסעות</a>
+            <a href="./faq.html" data-he="שאלות נפוצות" data-en="FAQ">שאלות נפוצות</a>
+            <a href="./contact.html" class="active" data-he="יצירת קשר" data-en="Contact">יצירת קשר</a>
+          </div>
+        </li>
+        <li><a href="./index.html#news" data-he="חדשות" data-en="News">חדשות</a></li>
+        <li><a href="./merch.html" data-he="מרצ'יינדיז" data-en="Merch">מרצ'יינדיז</a></li>
+        <li><a href="./past-artists.html" data-he="שנים קודמות" data-en="Past Artists">שנים קודמות</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a class="nav-btn-secondary"
+          href="https://www.hotels.com/" target="_blank" rel="noopener">
+          חבילות נופש
+        </a>
+        <a class="nav-btn-primary"
+          href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener">
+          כרטיסים
+        </a>
+        <div class="nav-lang-sep"></div>
+        <button class="nav-btn-lang" id="langBtn" onclick="switchLang()">🇺🇸 EN</button>
+        <button class="hamburger" id="hamburger" aria-label="תפריט ניווט" aria-expanded="false" onclick="toggleMenu()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── PAGE HERO ── -->
+  <header class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-grid"></div>
+    <div class="page-hero-content">
+      <h1>בואו <span class="accent">נדבר</span></h1>
+      <p class="hero-sub">שאלה, שיתוף פעולה או סתם אהבה לג'אז — אנחנו כאן וזמינים בשבילכם</p>
+    </div>
+  </header>
+
+  <!-- ── MAIN CONTENT ── -->
+  <main>
+    <div class="contact-wrap">
+      <div class="contact-grid">
+
+        <!-- ── INFO ASIDE ── -->
+        <aside class="contact-info">
+          <div class="contact-intro">
+            <h3>הפסטיבל מתחיל <span style="color:var(--orange)">בשיחה</span></h3>
+            <p>
+              בין אם יש לכם שאלה על כרטיסים, הצעה לשיתוף פעולה, בקשת נגישות או שאתם רק רוצים
+              להיות חלק מהקהילה — נשמח להיות בקשר. צוות הפסטיבל עונה בימים א׳–ה׳.
+            </p>
+          </div>
+        </aside>
+
+        <!-- ── FORM CARD ── -->
+        <section class="contact-form-card">
+          <h2>נשמח לשמוע <span class="accent">מכם</span></h2>
+          <p class="contact-card-lead">
+            מלאו את הפרטים ונחזור אליכם בהקדם
+          </p>
+
+          <form class="contact-form" id="contactForm" novalidate>
+            <!-- שם מלא -->
+            <div class="field" id="field-name">
+              <label class="field-label" for="cf-name">שם מלא <span class="req" aria-hidden="true">*</span></label>
+              <input type="text" id="cf-name" name="name" placeholder="השם המלא שלכם" autocomplete="name" required aria-required="true" />
+              <div class="field-error" id="err-name">נא למלא שם מלא</div>
+            </div>
+
+            <!-- טלפון -->
+            <div class="field" id="field-phone">
+              <label class="field-label" for="cf-phone">טלפון <span class="req" aria-hidden="true">*</span></label>
+              <input type="tel" id="cf-phone" name="phone" placeholder="050-0000000" autocomplete="tel" inputmode="tel" required aria-required="true" />
+              <div class="field-error" id="err-phone">נא למלא מספר טלפון תקין</div>
+            </div>
+
+            <!-- אימייל (רשות) -->
+            <div class="field" id="field-email">
+              <label class="field-label" for="cf-email">כתובת אימייל <span class="opt">(רשות)</span></label>
+              <input type="email" id="cf-email" name="email" placeholder="you@example.com" autocomplete="email" inputmode="email" />
+              <div class="field-error" id="err-email">כתובת אימייל לא תקינה</div>
+            </div>
+
+            <!-- הודעה (רשות) -->
+            <div class="field" id="field-message">
+              <label class="field-label" for="cf-message">תוכן ההודעה <span class="opt">(רשות)</span></label>
+              <textarea id="cf-message" name="message" placeholder="במה נוכל לעזור?"></textarea>
+              <div class="field-error" id="err-message"></div>
+            </div>
+
+            <!-- הרשמה לקהילה (רשות) -->
+            <label class="community-check" for="cf-community">
+              <input type="checkbox" id="cf-community" name="community" checked />
+              <span class="community-check-text">
+                <strong>אני רוצה להצטרף לקהילת הפסטיבל</strong>
+                <span>עדכונים על אמנים חדשים, לוח הופעות והטבות מוקדמות — ישירות אליכם.</span>
+              </span>
+            </label>
+
+            <button type="submit" class="contact-submit">שליחת הודעה</button>
+
+            <!-- הודעת ולידציה לאחר שליחה -->
+            <div class="form-status" id="formStatus" role="status" aria-live="polite">
+              <span class="status-icon" aria-hidden="true">✓</span>
+              <span id="formStatusText">ההודעה נשלחה בהצלחה! נחזור אליכם בהקדם 🎷</span>
+            </div>
+          </form>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer id="site-footer"></footer>
+  <script src="./footer.js"></script>
+
+  <script>
+    // Scroll shrink nav
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // Mobile menu toggle
+    function toggleMenu() {
+      const hb = document.getElementById('hamburger');
+      const navLinks = document.getElementById('navLinks');
+      const isOpen = navLinks?.classList.contains('open');
+      if (hb) hb.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+      if (!navLinks) return;
+      if (!isOpen) {
+        if (navLinks.parentElement !== document.body) {
+          navLinks.__origParent = navLinks.parentElement;
+          navLinks.__origNext = navLinks.nextSibling;
+          document.body.appendChild(navLinks);
+        }
+        navLinks.classList.add('open');
+      } else {
+        navLinks.classList.remove('open');
+        closeNavDrop();
+        if (navLinks.__origParent) {
+          navLinks.__origParent.insertBefore(navLinks, navLinks.__origNext);
+        }
+      }
+    }
+
+    // Language switch
+    function switchLang() {
+      const isEn = document.documentElement.classList.toggle('lang-en');
+      document.querySelectorAll('[data-he][data-en]').forEach(el => {
+        el.textContent = isEn ? el.dataset.en : el.dataset.he;
+      });
+      document.getElementById('langBtn').textContent = isEn ? '🇮🇱 HE' : '🇺🇸 EN';
+    }
+
+    // ── תפריט "מידע חשוב" (dropdown יחיד ברמה אחת) ─────────────────
+    (function initNavDrop() {
+      var panel = document.getElementById('navDropPanel');
+      if (panel && panel.parentElement !== document.body) {
+        document.body.appendChild(panel);
+      }
+    })();
+
+    function positionNavDropPanel() {
+      var btn = document.getElementById('navDropBtn');
+      var panel = document.getElementById('navDropPanel');
+      if (!btn || !panel) return;
+      var r = btn.getBoundingClientRect();
+      var panelWidth = panel.offsetWidth || 220;
+      var right = window.innerWidth - r.right;
+      right = Math.max(8, Math.min(right, window.innerWidth - panelWidth - 8));
+      panel.style.top = (r.bottom + 10) + 'px';
+      panel.style.right = right + 'px';
+      panel.style.left = 'auto';
+    }
+
+    function toggleNavDrop(e) {
+      if (e) e.stopPropagation();
+      var btn = document.getElementById('navDropBtn');
+      var panel = document.getElementById('navDropPanel');
+      if (!btn || !panel) return;
+      var willOpen = !panel.classList.contains('open');
+      if (willOpen) positionNavDropPanel();
+      panel.classList.toggle('open', willOpen);
+      btn.classList.toggle('open', willOpen);
+      btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    }
+
+    function closeNavDrop() {
+      var btn = document.getElementById('navDropBtn');
+      var panel = document.getElementById('navDropPanel');
+      if (panel) panel.classList.remove('open');
+      if (btn) { btn.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+    }
+
+    document.addEventListener('click', function (e) {
+      var btn = document.getElementById('navDropBtn');
+      var panel = document.getElementById('navDropPanel');
+      if (!panel || !panel.classList.contains('open')) return;
+      if (btn && btn.contains(e.target)) return;
+      if (panel.contains(e.target)) return;
+      closeNavDrop();
+    });
+
+    window.addEventListener('resize', function () {
+      var panel = document.getElementById('navDropPanel');
+      if (panel && panel.classList.contains('open')) positionNavDropPanel();
+    });
+
+    // ── טופס יצירת קשר: ולידציה + הודעת הצלחה ──────────────────────
+    (function initContactForm() {
+      var form   = document.getElementById('contactForm');
+      var status = document.getElementById('formStatus');
+      var stText = document.getElementById('formStatusText');
+      if (!form) return;
+
+      var PHONE_RE = /^[0-9+\-\s()]{9,15}$/;
+      var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      function setFieldError(fieldId, hasError) {
+        var f = document.getElementById(fieldId);
+        if (f) f.classList.toggle('error', hasError);
+      }
+
+      // ניקוי שגיאה תוך כדי הקלדה
+      ['cf-name', 'cf-phone', 'cf-email'].forEach(function (id) {
+        var input = document.getElementById(id);
+        if (input) input.addEventListener('input', function () {
+          input.closest('.field').classList.remove('error');
+        });
+      });
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        status.classList.remove('show');
+
+        var name  = document.getElementById('cf-name').value.trim();
+        var phone = document.getElementById('cf-phone').value.trim();
+        var email = document.getElementById('cf-email').value.trim();
+        var community = document.getElementById('cf-community').checked;
+
+        var ok = true;
+        // שם מלא — חובה
+        var nameBad = name.length < 2;
+        setFieldError('field-name', nameBad); if (nameBad) ok = false;
+        // טלפון — חובה + תקינות בסיסית
+        var phoneBad = !PHONE_RE.test(phone);
+        setFieldError('field-phone', phoneBad); if (phoneBad) ok = false;
+        // אימייל — רשות, אך אם מולא חייב להיות תקין
+        var emailBad = email.length > 0 && !EMAIL_RE.test(email);
+        setFieldError('field-email', emailBad); if (emailBad) ok = false;
+
+        if (!ok) {
+          var firstErr = form.querySelector('.field.error input');
+          if (firstErr) firstErr.focus();
+          return;
+        }
+
+        // הצלחה
+        stText.textContent = community
+          ? 'ההודעה נשלחה והצטרפתם לקהילה! נחזור אליכם בהקדם 🎷'
+          : 'ההודעה נשלחה בהצלחה! נחזור אליכם בהקדם 🎷';
+        status.classList.add('show');
+        form.reset();
+        status.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    })();
+  </script>
+
+  <script src="./page-transitions.js"></script>
+</body>
+</html>
