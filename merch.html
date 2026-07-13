@@ -390,11 +390,21 @@
     .vinyl-banner-media {
       position: relative; min-height: 300px; min-width: 0;
     }
+    .vinyl-banner-media::before {
+      content: '';
+      position: absolute;
+      left: 32px; bottom: 22px;
+      width: 88%; height: 26px;
+      background: radial-gradient(ellipse at center, rgba(40,26,16,0.45) 0%, rgba(40,26,16,0) 72%);
+      filter: blur(6px);
+      z-index: 0;
+    }
     .vinyl-banner-media img {
       position: absolute;
-      left: 0px; bottom: 16px;
-      width: 112%; height: auto;
+      left: 32px; bottom: 32px;
+      width: 88%; height: auto;
       display: block;
+      z-index: 1;
       filter: drop-shadow(34px 17px 40px rgba(109,59,22,0.5));
       transition: transform 0.5s ease;
     }
@@ -554,7 +564,7 @@
             </div>
           </div>
           <div class="vinyl-banner-media">
-            <img src="./Graphig assets/merch/merch-vinyl-banner-cutout.png" alt="תקליט 40 שנה לפסטיבל ג׳אז ים סוף — מהדורת אספנים עם עטיפת קולאז' פוסטרים" width="592" height="347" loading="eager">
+            <img src="./Graphig assets/merch/merch-vinyl-banner-v2.png" alt="תקליט 40 שנה לפסטיבל ג׳אז ים סוף — מהדורת אספנים עם עטיפת קולאז' פוסטרים" width="1100" height="762" loading="eager">
           </div>
         </a>
 

@@ -250,10 +250,13 @@
     .nav-links a::after {
       content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
       width: 0; height: 2px;
-      background: linear-gradient(90deg, var(--orange), var(--yellow));
+      background: linear-gradient(90deg, var(--orange), #E84021);
       transition: width 0.3s;
     }
-    .nav-links a:hover { color: var(--yellow); }
+    .nav-links a:hover {
+      background: linear-gradient(90deg, var(--orange), #E84021);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
     .nav-links a:hover::after { width: 100%; }
 
     /* ── Nav dropdown: "מידע חשוב" — הקישור היחיד בטול-בר עם תת-תפריט (3 בנים) ── */
@@ -267,13 +270,17 @@
     .nav-drop-toggle::after {
       content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
       width: 0; height: 2px;
-      background: linear-gradient(90deg, var(--orange), var(--yellow));
+      background: linear-gradient(90deg, var(--orange), #E84021);
       transition: width 0.3s;
     }
-    .nav-drop-toggle:hover, .nav-drop-toggle.open { color: var(--yellow); }
+    .nav-drop-toggle:hover, .nav-drop-toggle.open {
+      background: linear-gradient(90deg, var(--orange), #E84021);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
     .nav-drop-toggle:hover::after, .nav-drop-toggle.open::after { width: 100%; }
     .nav-drop-chevron { transition: transform 0.25s; flex-shrink: 0; }
     .nav-drop-toggle.open .nav-drop-chevron { transform: rotate(180deg); }
+    .nav-drop-toggle:hover .nav-drop-chevron, .nav-drop-toggle.open .nav-drop-chevron { color: var(--orange); }
 
     /* הפאנל מנותק ל-body ב-JS (portal) כדי לא להיחתך ע"י overflow:hidden של ה-nav */
     .nav-drop-panel {
@@ -459,8 +466,8 @@
     .hero-date-badge {
       pointer-events: auto;
       display: block;
-      width: auto;
       height: 52px;
+      width: auto;
     }
 
     .hero-title-text {
@@ -534,12 +541,6 @@
       direction: rtl;
     }
 
-    .hero-date-badge-img {
-      width: 270px;
-      height: 53px;
-      flex-shrink: 0;
-      display: block;
-    }
 
     .hero-content {
       position: absolute;
@@ -775,7 +776,8 @@
       font-weight: 900; line-height: 1.1;
     }
     .section-title .accent {
-      color: var(--orange);
+      background: linear-gradient(135deg, var(--orange) 0%, #E84021 73%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .section-desc {
       color: var(--muted); font-size: 1rem; margin-top: 0.8rem; max-width: 500px;
@@ -1324,7 +1326,8 @@
     }
     .hotel-banner-title .title-line1 { color: var(--banner-fg); }
     .hotel-banner-title .hl {
-      color: var(--orange);
+      background: linear-gradient(135deg, var(--orange) 0%, #E84021 73%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .hotel-banner-sub { color: var(--banner-fg); font-size: 18px; line-height: 1.6; text-align: right; }
 
@@ -1688,7 +1691,7 @@
     @media (max-width: 600px) {
       .hero-main-content { top: 90px; right: 20px; }
       .hero-lineup-btn { display: none; }
-      .hero-date-badge-img { width: 130px; height: 25px; }
+      .hero-date-badge { height: 32px; }
       .countdown { padding: 20px 14px 12px; height: auto; }
       .countdown-row { gap: 12px; }
       .countdown-item { width: 44px; }
@@ -2038,7 +2041,7 @@
 
     <!-- Hero title + date badge + full-lineup CTA — right-aligned, 80px from the banner's right edge -->
     <div class="hero-main-content">
-      <img class="hero-date-badge" src="./Graphig assets/hero-date-badge.svg" alt="19-21.8.26" width="225" height="60">
+      <img class="hero-date-badge" src="./Graphig assets/hero-date-badge.svg" alt="11–14.11.26" width="216" height="52">
       <h1 class="hero-title-text">
         <span class="hero-title-line1">סופשבוע של</span>
         <span class="hero-title-line2">ג׳אז באילת</span>
@@ -2271,7 +2274,8 @@
       color: var(--text);
     }
     .alt-lineup-title-accent {
-      color: var(--orange);
+      background: linear-gradient(135deg, var(--orange) 0%, #E84021 73%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .alt-lineup-desc {
       color: var(--muted);
@@ -2655,7 +2659,7 @@
     <div id="lineup-sticky">
       <div class="section-header" id="lineup">
         <h2 class="section-title">הלייןאפ של <span class="accent">2026</span></h2>
-        <p class="section-desc">40 הופעות, 4 ימים.</p>
+        <p class="section-desc">40 הופעות. 4 ימים. חוויה יוצאת דופן.</p>
       </div>
       <div class="horiz-scroll-area">
         <button type="button" class="horiz-arrow horiz-arrow--prev" id="horizPrev" onclick="scrollLineup(-1)" aria-label="אמנים קודמים">→</button>
@@ -2944,7 +2948,7 @@
       <!-- תקליט — פריט דגל, ראשון מימין -->
       <a class="merch-card merch-card-featured" href="./merch.html" aria-label="תקליט הפסטיבל — רכישה">
         <div class="merch-img">
-          <img src="./Graphig assets/merch/merch-vinyl-square.jpg" alt="תקליט הפסטיבל — מהדורת 40 שנה" width="1207" height="1207" loading="lazy">
+          <img src="./Graphig assets/merch/merch-vinyl-home.png" alt="תקליט הפסטיבל — מהדורת 40 שנה" width="1000" height="1000" loading="lazy">
         </div>
         <div class="merch-body">
           <div class="merch-name">תקליט הפסטיבל — מהדורת אספנים</div>
@@ -3385,7 +3389,8 @@
       margin-bottom: 12px;
     }
     .ticket-plans-title-accent {
-      color: var(--orange);
+      background: linear-gradient(135deg, var(--orange) 0%, #E84021 73%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .ticket-plans-subtitle {
       font-family: var(--font);
