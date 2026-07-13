@@ -34,6 +34,40 @@
   <link rel="preload" href="./Graphig assets/banner-lineup.png" as="image" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@100;300;400;500;700;900&family=Noto+Sans+Hebrew:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
   <style>
+    /* ─── Google Sans (self-hosted, per-script via unicode-range: Hebrew + Latin/numbers) ─── */
+    @font-face {
+      font-family: 'Google Sans';
+      src: url('./Graphig assets/fonts/GoogleSansHebrew-Variable.woff2') format('woff2-variations');
+      font-weight: 400 700;
+      font-style: normal;
+      unicode-range: U+0590-05FF, U+FB1D-FB4F;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Google Sans';
+      src: url('./Graphig assets/fonts/GoogleSansHebrew-Italic-Variable.woff2') format('woff2-variations');
+      font-weight: 400 700;
+      font-style: italic;
+      unicode-range: U+0590-05FF, U+FB1D-FB4F;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Google Sans';
+      src: url('./Graphig assets/fonts/GoogleSansLatin-Variable.woff2') format('woff2-variations');
+      font-weight: 400 700;
+      font-style: normal;
+      unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2011, U+2013-2015, U+2018-201A, U+201C-201E, U+2022, U+2026, U+2030, U+2032-2033, U+2039-203A, U+2044, U+20AA, U+20AC, U+2190, U+2192, U+21C4, U+2212, U+2248, U+25CF, U+2713;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Google Sans';
+      src: url('./Graphig assets/fonts/GoogleSansLatin-Italic-Variable.woff2') format('woff2-variations');
+      font-weight: 400 700;
+      font-style: italic;
+      unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2011, U+2013-2015, U+2018-201A, U+201C-201E, U+2022, U+2026, U+2030, U+2032-2033, U+2039-203A, U+2044, U+20AA, U+20AC, U+2190, U+2192, U+21C4, U+2212, U+2248, U+25CF, U+2713;
+      font-display: swap;
+    }
+
     /* ─── RESET & BASE ─────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -55,7 +89,7 @@
       --shadow:    rgba(58,42,30,0.10);
       --shadow-strong: rgba(58,42,30,0.16);
       --on-accent: #FFFDF8;
-      --font:      'Hepta Slab', 'Noto Sans Hebrew', serif;
+      --font:      'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', serif;
       --ticker-h:  36px;
       --nav-h:     100px;
     }
@@ -334,8 +368,8 @@
       line-height: 1.1;
       letter-spacing: -1.5px;
     }
-    .page-hero-title-he { font-family: 'Noto Sans Hebrew', sans-serif; }
-    .page-hero-title-en { font-family: 'Hepta Slab', serif; }
+    .page-hero-title-he { font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif; }
+    .page-hero-title-en { font-family: 'Google Sans', 'Hepta Slab', serif; }
     /* ─── HERO STATS STRIP ─────────────────────────────────────── */
     .hero-stats-bar {
       background: var(--bg2);
@@ -373,7 +407,7 @@
       height: 42px;
       padding: 0 22px;
       font-size: 14px; font-weight: 600;
-      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
       cursor: pointer;
       transition: all 0.2s; white-space: nowrap;
       display: inline-flex; align-items: center;
@@ -395,7 +429,7 @@
       color: #483F3B; border-radius: 50px;
       height: 42px; padding: 0 22px;
       font-size: 14px; font-weight: 600;
-      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
       cursor: pointer;
       display: inline-flex; align-items: center; gap: 4px;
       transition: all 0.2s; white-space: nowrap;
@@ -426,7 +460,7 @@
       cursor: pointer;
       font-size: 14px; font-weight: 600; color: #483F3B;
       /* שמות הבמות הם אנגלית — תואם לפונט האנגלי הקנוני של האתר (Hepta Slab) */
-      font-family: 'Hepta Slab', 'Noto Sans Hebrew', serif;
+      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', serif;
       transition: background 0.15s; white-space: nowrap;
       direction: rtl;
     }
@@ -463,7 +497,7 @@
       border: 1px solid rgba(224,86,11,0.25);
       border-radius: 50px; padding: 0.3rem 0.9rem;
       font-size: 0.875rem; font-weight: 600;
-      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
       white-space: nowrap;
     }
 
@@ -478,7 +512,7 @@
     }
     .stage-group-name {
       font-size: 1rem; font-weight: 600;
-      font-family: 'Hepta Slab', serif;
+      font-family: 'Google Sans', 'Hepta Slab', serif;
     }
     .stage-group-line {
       flex: 1; height: 1px; background: rgba(58,42,30,0.12);
@@ -521,7 +555,7 @@
     .show-card-num {
       flex-shrink: 0;
       font-size: 34px; font-weight: 700;
-      font-family: 'Hepta Slab', serif;
+      font-family: 'Google Sans', 'Hepta Slab', serif;
       color: #a09593;
       min-width: 2.2ch; text-align: center;
     }
@@ -549,7 +583,7 @@
       padding: 2px 8px;
       font-size: 11px; font-weight: 600;
       color: #8f7152;
-      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
       white-space: nowrap;
       line-height: 1.6;
     }
@@ -577,7 +611,7 @@
     .show-card-time {
       flex-shrink: 0;
       font-size: 20px; font-weight: 600;
-      font-family: 'Hepta Slab', serif;
+      font-family: 'Google Sans', 'Hepta Slab', serif;
       color: #483f3b;
       min-width: 3.5ch; text-align: center;
     }
@@ -673,7 +707,7 @@
       display: inline-flex; align-items: center;
       width: fit-content;
       background: #f3f1ea; border: 1px solid #d5c9b0; border-radius: 8px; padding: 5px 14px;
-      font-size: 0.875rem; font-weight: 600; color: #8f7152; font-family: 'Noto Sans Hebrew', sans-serif;
+      font-size: 0.875rem; font-weight: 600; color: #8f7152; font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
     }
     .show-drawer-tag.headliner { background: rgba(214,34,70,0.1); border-color: rgba(214,34,70,0.25); color: var(--red); }
 
@@ -800,7 +834,7 @@
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
-      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
       display: inline-flex; align-items: center; justify-content: center;
       transition: color 0.18s;
       white-space: nowrap;
@@ -812,7 +846,7 @@
       color: #fff;
       /* font-stack דו-לשוני כמו שאר האתר: Hepta Slab לאנגלית, Noto Sans Hebrew לעברית.
          Hepta Slab חסר גליפים עבריים — בלי ה-fallback העברי "לוח זמנים" נשבר ל-serif מערכת. */
-      font-family: 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
+      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
       font-weight: 700;
       letter-spacing: 0.17px;
       box-shadow: 0 0 10px rgba(255,107,26,0.35);
@@ -1115,6 +1149,9 @@
         <li><a href="./index.html#artist-lineup-text" data-he="ליין אפ" data-en="Lineup">ליין אפ</a></li>
         <li><a href="./lineup.html" class="active" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
         <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
+        <li><a href="./index.html#news" data-he="חדשות" data-en="News">חדשות</a></li>
+        <li><a href="./merch.html" data-he="מרצ'יינדיז" data-en="Merch">מרצ'יינדיז</a></li>
+        <li><a href="./past-artists.html" data-he="שנים קודמות" data-en="Past Artists">שנים קודמות</a></li>
         <li class="nav-drop" id="navInfoDrop">
           <button type="button" class="nav-drop-toggle" id="navDropBtn" aria-haspopup="true" aria-expanded="false" onclick="toggleNavDrop(event)" data-he="מידע חשוב" data-en="Important Info">
             מידע חשוב
@@ -1127,9 +1164,6 @@
             <a href="./contact.html" data-he="יצירת קשר" data-en="Contact">יצירת קשר</a>
           </div>
         </li>
-        <li><a href="./index.html#news" data-he="חדשות" data-en="News">חדשות</a></li>
-        <li><a href="./merch.html" data-he="מרצ'יינדיז" data-en="Merch">מרצ'יינדיז</a></li>
-        <li><a href="./past-artists.html" data-he="שנים קודמות" data-en="Past Artists">שנים קודמות</a></li>
       </ul>
       <div class="nav-actions">
         <a class="nav-btn-secondary" data-he="חבילות נופש" data-en="Stay Packages"
@@ -2756,6 +2790,15 @@
         }
       });
     }
+
+    // Pre-filter by stage when arriving via a link like lineup.html?stage=Main%20Stage
+    (function applyStageFromURL() {
+      const stage = new URLSearchParams(window.location.search).get('stage');
+      if (!stage) return;
+      const checkboxes = document.querySelectorAll('#stageDropdownPanel input[type="checkbox"]');
+      checkboxes.forEach(cb => { cb.checked = (cb.value === stage); });
+      applyStageFilter();
+    })();
 
     // Highlight active day on scroll (list view only)
     const dayBlocks = document.querySelectorAll('.day-block');

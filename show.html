@@ -18,6 +18,40 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@100;300;400;500;700;900&family=Noto+Sans+Hebrew:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
   <style>
+    /* ─── Google Sans (self-hosted, per-script via unicode-range: Hebrew + Latin/numbers) ─── */
+    @font-face {
+      font-family: 'Google Sans';
+      src: url('./Graphig assets/fonts/GoogleSansHebrew-Variable.woff2') format('woff2-variations');
+      font-weight: 400 700;
+      font-style: normal;
+      unicode-range: U+0590-05FF, U+FB1D-FB4F;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Google Sans';
+      src: url('./Graphig assets/fonts/GoogleSansHebrew-Italic-Variable.woff2') format('woff2-variations');
+      font-weight: 400 700;
+      font-style: italic;
+      unicode-range: U+0590-05FF, U+FB1D-FB4F;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Google Sans';
+      src: url('./Graphig assets/fonts/GoogleSansLatin-Variable.woff2') format('woff2-variations');
+      font-weight: 400 700;
+      font-style: normal;
+      unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2011, U+2013-2015, U+2018-201A, U+201C-201E, U+2022, U+2026, U+2030, U+2032-2033, U+2039-203A, U+2044, U+20AA, U+20AC, U+2190, U+2192, U+21C4, U+2212, U+2248, U+25CF, U+2713;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Google Sans';
+      src: url('./Graphig assets/fonts/GoogleSansLatin-Italic-Variable.woff2') format('woff2-variations');
+      font-weight: 400 700;
+      font-style: italic;
+      unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2011, U+2013-2015, U+2018-201A, U+201C-201E, U+2022, U+2026, U+2030, U+2032-2033, U+2039-203A, U+2044, U+20AA, U+20AC, U+2190, U+2192, U+21C4, U+2212, U+2248, U+25CF, U+2713;
+      font-display: swap;
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --bg: #FAF4E9; --bg2: #F3E9D6;
@@ -26,7 +60,7 @@
       --border: rgba(58,42,30,0.12); --border-strong: rgba(58,42,30,0.22);
       --btn-gradient: linear-gradient(135deg, var(--orange), var(--red));
       --shadow: rgba(58,42,30,0.10);
-      --on-accent: #FFFDF8; --font: 'Hepta Slab', 'Noto Sans Hebrew', serif;
+      --on-accent: #FFFDF8; --font: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', serif;
       --ticker-h: 36px; --nav-h: 100px;
     }
     html { scroll-behavior: smooth; direction: rtl; }
@@ -117,7 +151,7 @@
     .show-hero {
       position: relative;
       margin-top: calc(var(--ticker-h) + var(--nav-h));
-      height: clamp(240px, 40vw, 480px);
+      height: clamp(200px, 32vw, 280px);
       background: linear-gradient(145deg, #2d2219, #3a2a1e);
       overflow: hidden;
     }
@@ -125,8 +159,10 @@
     .show-hero-ph { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 7rem; color: rgba(250,244,233,0.06); pointer-events: none; }
     .show-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(26,20,16,0.2) 0%, transparent 40%, rgba(26,20,16,0.75) 100%); pointer-events: none; }
     .show-hero-bottom {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 1.5rem 2rem 1.75rem; pointer-events: none; z-index: 1;
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 1.5rem 2rem; pointer-events: none; z-index: 1;
     }
     .show-artist-name-hero { font-size: clamp(1.5rem, 4.5vw, 2.7rem); font-weight: 900; color: #fff; line-height: 1.2; text-shadow: 0 2px 16px rgba(0,0,0,0.5); }
     .show-artist-sub-hero { font-size: 0.95rem; color: rgba(255,255,255,0.8); margin-top: 0.35rem; }
@@ -134,16 +170,16 @@
     /* ── MAIN CONTENT ── */
     .show-main { max-width: 760px; margin-inline: auto; padding: 2.5rem 2rem 5rem; }
 
-    .show-global-tag { display: inline-flex; align-items: center; background: rgba(214,34,70,0.1); border: 1px solid rgba(214,34,70,0.25); border-radius: 8px; padding: 4px 14px; font-size: 0.85rem; font-weight: 700; color: var(--red); margin-bottom: 1rem; font-family: 'Noto Sans Hebrew', sans-serif; }
+    .show-global-tag { display: inline-flex; align-items: center; background: rgba(214,34,70,0.1); border: 1px solid rgba(214,34,70,0.25); border-radius: 8px; padding: 4px 14px; font-size: 0.85rem; font-weight: 700; color: var(--red); margin-bottom: 1rem; font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif; }
 
-    .show-tagline { font-size: 1.05rem; color: var(--text); border-right: 3px solid var(--orange); padding-right: 1rem; margin: 0.9rem 0 0; line-height: 1.65; }
+    .show-tagline { font-size: 1.05rem; color: var(--text); margin: 0.9rem 0 0; line-height: 1.65; }
 
     .show-divider { height: 1px; background: var(--border); margin: 1.75rem 0; }
 
     /* Musicians */
     .show-section-label { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; font-weight: 700; margin-bottom: 0.7rem; }
     .show-musicians { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-    .show-musician-pill { background: rgba(58,42,30,0.06); border: 1px solid var(--border); border-radius: 6px; padding: 0.28rem 0.7rem; font-size: 0.8rem; color: var(--text); white-space: nowrap; font-family: 'Noto Sans Hebrew', sans-serif; }
+    .show-musician-pill { background: rgba(58,42,30,0.06); border: 1px solid var(--border); border-radius: 6px; padding: 0.28rem 0.7rem; font-size: 0.8rem; color: var(--text); white-space: nowrap; font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif; }
 
     /* Description */
     .show-desc p { margin-bottom: 1.25rem; font-size: 1rem; color: #4a3626; line-height: 1.9; }
@@ -167,7 +203,6 @@
       transition: box-shadow 0.2s;
     }
     .show-perf-card:hover { box-shadow: 0 4px 20px var(--shadow); }
-    .show-perf-card.active { background: var(--bg2); }
 
     .show-perf-accent {
       position: absolute;
@@ -178,7 +213,7 @@
     .show-perf-info { flex: 1; min-width: 180px; }
     .show-perf-stage { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; margin-bottom: 0.3rem; text-transform: uppercase; }
     .show-perf-datetime { font-size: 1.05rem; font-weight: 400; color: var(--text); }
-    .show-perf-tag { display: inline-flex; align-items: center; background: rgba(58,42,30,0.07); border-radius: 6px; padding: 3px 10px; font-size: 0.75rem; color: var(--muted); font-weight: 600; margin-top: 0.35rem; font-family: 'Noto Sans Hebrew', sans-serif; }
+    .show-perf-tag { display: inline-flex; align-items: center; background: rgba(58,42,30,0.07); border-radius: 6px; padding: 3px 10px; font-size: 0.75rem; color: var(--muted); font-weight: 600; margin-top: 0.35rem; font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif; }
     .show-perf-tag.headliner { background: rgba(214,34,70,0.1); color: var(--red); }
 
     .show-perf-actions { flex-shrink: 0; }
@@ -199,8 +234,8 @@
       .show-perf-actions { width: 100%; }
       .show-perf-ticket-btn { width: 100%; justify-content: center; padding: 0.7rem; }
       .show-main { padding: 2rem 1rem 4rem; }
-      .show-hero { height: clamp(200px, 56vw, 300px); }
-      .show-hero-bottom { padding: 1rem 1rem 1.25rem; }
+      .show-hero { height: clamp(160px, 45vw, 220px); }
+      .show-hero-bottom { padding: 1rem 1rem; }
     }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
   </style>
@@ -243,6 +278,9 @@
         <li><a href="./index.html#lineup">ליין אפ</a></li>
         <li><a href="./lineup.html" class="active">לוח הופעות</a></li>
         <li><a href="./about.html">אודות</a></li>
+        <li><a href="./index.html#news">חדשות</a></li>
+        <li><a href="./merch.html">מרצ'יינדיז</a></li>
+        <li><a href="./past-artists.html">שנים קודמות</a></li>
         <li class="nav-drop" id="navInfoDrop">
           <button type="button" class="nav-drop-toggle" id="navDropBtn" aria-haspopup="true" aria-expanded="false" onclick="toggleNavDrop(event)">
             מידע חשוב
@@ -255,9 +293,6 @@
             <a href="#site-footer">יצירת קשר</a>
           </div>
         </li>
-        <li><a href="./index.html#news">חדשות</a></li>
-        <li><a href="./merch.html">מרצ'יינדיז</a></li>
-        <li><a href="./past-artists.html">שנים קודמות</a></li>
       </ul>
       <div class="nav-actions">
         <a class="nav-btn-secondary" href="./index.html#hotels">חבילות נופש</a>

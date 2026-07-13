@@ -32,6 +32,40 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@100;300;400;500;700;900&family=Noto+Sans+Hebrew:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
   <style>
+    /* ─── Google Sans (self-hosted, per-script via unicode-range: Hebrew + Latin/numbers) ─── */
+    @font-face {
+      font-family: 'Google Sans';
+      src: url('./Graphig assets/fonts/GoogleSansHebrew-Variable.woff2') format('woff2-variations');
+      font-weight: 400 700;
+      font-style: normal;
+      unicode-range: U+0590-05FF, U+FB1D-FB4F;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Google Sans';
+      src: url('./Graphig assets/fonts/GoogleSansHebrew-Italic-Variable.woff2') format('woff2-variations');
+      font-weight: 400 700;
+      font-style: italic;
+      unicode-range: U+0590-05FF, U+FB1D-FB4F;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Google Sans';
+      src: url('./Graphig assets/fonts/GoogleSansLatin-Variable.woff2') format('woff2-variations');
+      font-weight: 400 700;
+      font-style: normal;
+      unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2011, U+2013-2015, U+2018-201A, U+201C-201E, U+2022, U+2026, U+2030, U+2032-2033, U+2039-203A, U+2044, U+20AA, U+20AC, U+2190, U+2192, U+21C4, U+2212, U+2248, U+25CF, U+2713;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Google Sans';
+      src: url('./Graphig assets/fonts/GoogleSansLatin-Italic-Variable.woff2') format('woff2-variations');
+      font-weight: 400 700;
+      font-style: italic;
+      unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2011, U+2013-2015, U+2018-201A, U+201C-201E, U+2022, U+2026, U+2030, U+2032-2033, U+2039-203A, U+2044, U+20AA, U+20AC, U+2190, U+2192, U+21C4, U+2212, U+2248, U+25CF, U+2713;
+      font-display: swap;
+    }
+
     /* ─── RESET & BASE ─────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -52,7 +86,7 @@
       --shadow:    rgba(58,42,30,0.10);
       --shadow-strong: rgba(58,42,30,0.16);
       --on-accent: #FFFDF8;
-      --font:      'Hepta Slab', 'Noto Sans Hebrew', serif;
+      --font:      'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', serif;
     }
 
     html { scroll-behavior: smooth; direction: rtl; }
@@ -263,7 +297,7 @@
       display: flex; align-items: center; gap: 0.35rem;
       transition: border-color 0.2s, color 0.2s;
     }
-    .nav-btn-lang:hover { border-color: var(--border-strong); color: var(--text); }
+    .nav-btn-lang:hover { border-color: var(--orange); color: var(--orange); }
 
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 0; }
     .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
@@ -602,6 +636,9 @@
         <li><a href="./index.html#artist-lineup-text" data-he="ליין אפ" data-en="Lineup">ליין אפ</a></li>
         <li><a href="./lineup.html" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
         <li><a href="./about.html" class="active" data-he="אודות" data-en="About">אודות</a></li>
+        <li><a href="./index.html#news" data-he="חדשות" data-en="News">חדשות</a></li>
+        <li><a href="./merch.html" data-he="מרצ'יינדיז" data-en="Merch">מרצ'יינדיז</a></li>
+        <li><a href="./past-artists.html" data-he="שנים קודמות" data-en="Past Artists">שנים קודמות</a></li>
         <li class="nav-drop" id="navInfoDrop">
           <button type="button" class="nav-drop-toggle" id="navDropBtn" aria-haspopup="true" aria-expanded="false" onclick="toggleNavDrop(event)" data-he="מידע חשוב" data-en="Important Info">
             מידע חשוב
@@ -614,9 +651,6 @@
             <a href="./contact.html" data-he="יצירת קשר" data-en="Contact">יצירת קשר</a>
           </div>
         </li>
-        <li><a href="./index.html#news" data-he="חדשות" data-en="News">חדשות</a></li>
-        <li><a href="./merch.html" data-he="מרצ'יינדיז" data-en="Merch">מרצ'יינדיז</a></li>
-        <li><a href="./past-artists.html" data-he="שנים קודמות" data-en="Past Artists">שנים קודמות</a></li>
       </ul>
       <div class="nav-actions">
         <a class="nav-btn-secondary"

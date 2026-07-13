@@ -24,6 +24,40 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@100;300;400;500;700;900&family=Noto+Sans+Hebrew:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
   <style>
+    /* ─── Google Sans (self-hosted, per-script via unicode-range: Hebrew + Latin/numbers) ─── */
+    @font-face {
+      font-family: 'Google Sans';
+      src: url('./Graphig assets/fonts/GoogleSansHebrew-Variable.woff2') format('woff2-variations');
+      font-weight: 400 700;
+      font-style: normal;
+      unicode-range: U+0590-05FF, U+FB1D-FB4F;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Google Sans';
+      src: url('./Graphig assets/fonts/GoogleSansHebrew-Italic-Variable.woff2') format('woff2-variations');
+      font-weight: 400 700;
+      font-style: italic;
+      unicode-range: U+0590-05FF, U+FB1D-FB4F;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Google Sans';
+      src: url('./Graphig assets/fonts/GoogleSansLatin-Variable.woff2') format('woff2-variations');
+      font-weight: 400 700;
+      font-style: normal;
+      unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2011, U+2013-2015, U+2018-201A, U+201C-201E, U+2022, U+2026, U+2030, U+2032-2033, U+2039-203A, U+2044, U+20AA, U+20AC, U+2190, U+2192, U+21C4, U+2212, U+2248, U+25CF, U+2713;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Google Sans';
+      src: url('./Graphig assets/fonts/GoogleSansLatin-Italic-Variable.woff2') format('woff2-variations');
+      font-weight: 400 700;
+      font-style: italic;
+      unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2011, U+2013-2015, U+2018-201A, U+201C-201E, U+2022, U+2026, U+2030, U+2032-2033, U+2039-203A, U+2044, U+20AA, U+20AC, U+2190, U+2192, U+21C4, U+2212, U+2248, U+25CF, U+2713;
+      font-display: swap;
+    }
+
     /* ─── RESET & BASE ─────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -45,7 +79,7 @@
       --shadow:    rgba(58,42,30,0.10);
       --shadow-strong: rgba(58,42,30,0.16);
       --on-accent: #FFFDF8;
-      --font:      'Hepta Slab', 'Noto Sans Hebrew', serif;
+      --font:      'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', serif;
       --ticker-h:  36px;
       --nav-h:     100px;
     }
@@ -480,7 +514,7 @@
       color: var(--orange); margin-bottom: 0.5rem;
     }
     .past-tl-heading {
-      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
       font-size: clamp(1.2rem, 2.5vw, 1.6rem);
       font-weight: 700; color: var(--text);
     }
@@ -488,7 +522,7 @@
     /* Big year number */
     .past-tl-year-wrap { text-align: center; }
     .past-tl-year-num {
-      font-family: 'Hepta Slab', serif;
+      font-family: 'Google Sans', 'Hepta Slab', serif;
       font-size: clamp(5rem, 14vw, 9rem);
       font-weight: 400;
       line-height: 0.9;
@@ -683,7 +717,7 @@
       display: inline-block;
       background: var(--pill-bg);
       color: var(--pill-text);
-      font-family: 'Hepta Slab', 'Noto Sans Hebrew', serif;
+      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', serif;
       font-size: 16px;
       font-weight: 700;
       line-height: 1.334;
@@ -790,6 +824,9 @@
         <li><a href="./index.html#artist-lineup-text" data-he="ליין אפ" data-en="Lineup">ליין אפ</a></li>
         <li><a href="./lineup.html" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
         <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
+        <li><a href="./index.html#news" data-he="חדשות" data-en="News">חדשות</a></li>
+        <li><a href="./merch.html" data-he="מרצ'יינדיז" data-en="Merch">מרצ'יינדיז</a></li>
+        <li><a href="./past-artists.html" class="active" data-he="שנים קודמות" data-en="Past Artists">שנים קודמות</a></li>
         <li class="nav-drop" id="navInfoDrop">
           <button type="button" class="nav-drop-toggle" id="navDropBtn" aria-haspopup="true" aria-expanded="false" onclick="toggleNavDrop(event)" data-he="מידע חשוב" data-en="Important Info">
             מידע חשוב
@@ -802,9 +839,6 @@
             <a href="./contact.html" data-he="יצירת קשר" data-en="Contact">יצירת קשר</a>
           </div>
         </li>
-        <li><a href="./index.html#news" data-he="חדשות" data-en="News">חדשות</a></li>
-        <li><a href="./merch.html" data-he="מרצ'יינדיז" data-en="Merch">מרצ'יינדיז</a></li>
-        <li><a href="./past-artists.html" class="active" data-he="שנים קודמות" data-en="Past Artists">שנים קודמות</a></li>
       </ul>
       <div class="nav-actions">
         <a class="nav-btn-secondary" data-he="חבילות נופש" data-en="Stay Packages"
@@ -1227,6 +1261,40 @@
         ]
       }
     };
+
+    /* ─── Expand every year to ~20–30 artists (placeholder names — Israeli + international jazz artists) ─── */
+    (function () {
+      var POOL = [
+        'Avishai Cohen', 'Anat Cohen', 'Eli Degibri', 'Omer Avital', 'Shai Maestro',
+        'Yonathan Avishai', 'Gilad Hekselman', 'Daniel Zamir', 'Amit Friedman', 'Ziv Ravitz',
+        'Nitai Hershkovits', 'Rotem Sivan', 'Alon Nechushtan', 'Tal Cohen', 'Assaf Kehati',
+        'יותם זילברשטיין', 'Noa', 'חוה אלברשטיין', 'SHALOSH', 'רוני איתן',
+        'הדר נויברג', 'עידית מינצר', 'אלדר כהן', 'חגי אמיר', 'קאי גלוסקא',
+        'תזמורת הג׳אז הישראלית', 'להקת הנח״ל ג׳אז', 'דניאל זמיר קוורטט', 'עומר אביטל טריו', 'ערן צור',
+        'Herbie Hancock', 'Chick Corea', 'Wynton Marsalis', 'Kamasi Washington', 'Esperanza Spalding',
+        'Snarky Puppy', 'Robert Glasper', 'Brad Mehldau', 'Kurt Elling', 'Dianne Reeves',
+        'Melody Gardot', 'Diana Krall', 'Pat Metheny', 'John Scofield', 'Marcus Miller',
+        'Christian McBride', 'Ambrose Akinmusire', 'Terence Blanchard', 'Joshua Redman', 'Chris Potter',
+        'Vijay Iyer', 'Cécile McLorin Salvant', 'Gregory Porter', 'Jacob Collier', 'Tigran Hamasyan',
+        'Ibrahim Maalouf', 'Chucho Valdés', 'Tania Maria', 'Antonio Sanchez', 'Nguyên Lê',
+        'Youn Sun Nah', 'Hiromi', 'Yosvany Terry', 'Miguel Zenón', 'Charles Lloyd',
+        'Sonny Rollins', 'Branford Marsalis', 'Ravi Coltrane', 'Cory Henry', 'Lee Ritenour',
+        'Al Di Meola', 'Bill Frisell', 'John Zorn', 'Dave Holland', 'Jack DeJohnette',
+        'Brian Blade', 'Ron Carter', 'Gary Burton', 'Stanley Clarke', 'Dizzy Gillespie',
+        'Carla Bley', 'Paquito D\'Rivera', 'Toots Thielemans', 'Michel Camilo', 'Eliane Elias',
+        'Trombone Shorty', 'Take 6', 'Jamie Cullum', 'Norah Jones', 'John Legend Trio'
+      ];
+      Object.keys(YEARS_DATA).forEach(function (yr) {
+        var seed = parseInt(yr, 10);
+        var count = 20 + (seed % 11); // 20–30
+        var artists = [];
+        for (var i = 0; i < count; i++) {
+          var idx = (seed + i * 7) % POOL.length;
+          artists.push({ name: POOL[idx] });
+        }
+        YEARS_DATA[yr].artists = artists;
+      });
+    })();
 
     /* ─── GENRE → CSS class mapping ─── */
     var GENRE_CLASS = {

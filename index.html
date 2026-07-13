@@ -41,10 +41,41 @@
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@400;700;900&family=Noto+Sans+Hebrew:wght@400;700;900&display=swap" as="style" />
   <!-- Fonts (critical — loaded sync for above-the-fold text) -->
   <link href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@100;300;400;500;700;900&family=Noto+Sans+Hebrew:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
-  <!-- Leaflet CSS — deferred via print trick (map is below fold) -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" media="print" onload="this.media='all'" />
-  <noscript><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" /></noscript>
   <style>
+    /* ─── Google Sans (self-hosted, per-script via unicode-range: Hebrew + Latin/numbers) ─── */
+    @font-face {
+      font-family: 'Google Sans';
+      src: url('./Graphig assets/fonts/GoogleSansHebrew-Variable.woff2') format('woff2-variations');
+      font-weight: 400 700;
+      font-style: normal;
+      unicode-range: U+0590-05FF, U+FB1D-FB4F;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Google Sans';
+      src: url('./Graphig assets/fonts/GoogleSansHebrew-Italic-Variable.woff2') format('woff2-variations');
+      font-weight: 400 700;
+      font-style: italic;
+      unicode-range: U+0590-05FF, U+FB1D-FB4F;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Google Sans';
+      src: url('./Graphig assets/fonts/GoogleSansLatin-Variable.woff2') format('woff2-variations');
+      font-weight: 400 700;
+      font-style: normal;
+      unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2011, U+2013-2015, U+2018-201A, U+201C-201E, U+2022, U+2026, U+2030, U+2032-2033, U+2039-203A, U+2044, U+20AA, U+20AC, U+2190, U+2192, U+21C4, U+2212, U+2248, U+25CF, U+2713;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Google Sans';
+      src: url('./Graphig assets/fonts/GoogleSansLatin-Italic-Variable.woff2') format('woff2-variations');
+      font-weight: 400 700;
+      font-style: italic;
+      unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2011, U+2013-2015, U+2018-201A, U+201C-201E, U+2022, U+2026, U+2030, U+2032-2033, U+2039-203A, U+2044, U+20AA, U+20AC, U+2190, U+2192, U+21C4, U+2212, U+2248, U+25CF, U+2713;
+      font-display: swap;
+    }
+
     /* ─── RESET & BASE ─────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -67,7 +98,7 @@
       --shadow:    rgba(58,42,30,0.10);  /* צללים רכים על בהיר */
       --shadow-strong: rgba(58,42,30,0.16);
       --on-accent: #FFFDF8;  /* טקסט על רקע צבעוני מלא */
-      --font:      'Hepta Slab', 'Noto Sans Hebrew', serif;
+      --font:      'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', serif;
     }
 
     html { scroll-behavior: smooth; direction: rtl; scroll-padding-top: calc(var(--ticker-h) + 100px); }
@@ -297,14 +328,14 @@
     }
     .nav-btn-lang {
       background: transparent;
-      color: rgba(58,42,30,0.62);
-      border: 1.5px solid var(--border);
+      color: var(--text);
+      border: 1.5px solid var(--border-strong);
       border-radius: 50px; padding: 0.45rem 0.9rem;
       font-size: 0.85rem; font-weight: 600; cursor: pointer;
       display: flex; align-items: center; gap: 0.35rem;
       transition: border-color 0.2s, color 0.2s;
     }
-    .nav-btn-lang:hover { border-color: var(--border-strong); color: var(--text); }
+    .nav-btn-lang:hover { border-color: var(--orange); color: var(--orange); }
 
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
     .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
@@ -359,11 +390,15 @@
     @media (max-width: 768px) {
       .hero-bg-video { display: none; }
       .hero-bg-fallback { display: block; }
+      .venue-photo-card video { display: none; }
+      .venue-photo-card .venue-photo-fallback { display: block; }
     }
 
     @media (prefers-reduced-motion: reduce) {
       .hero-bg-video { display: none; }
       .hero-bg-fallback { display: block; }
+      .venue-photo-card video { display: none; }
+      .venue-photo-card .venue-photo-fallback { display: block; }
     }
 
     /* Dark overlay for text readability */
@@ -410,28 +445,44 @@
     /* Hero main content — logo + subtitle row, centered */
     .hero-main-content {
       position: absolute;
-      top: 80px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(792px, 90%);
+      top: 50%;
+      right: 120px;
+      transform: translateY(-50%);
       display: flex;
       flex-direction: column;
-      align-items: stretch;
-      gap: 15px;
+      align-items: flex-start;
+      gap: 22px;
       z-index: 10;
       pointer-events: none;
     }
 
-    .hero-logo-svg {
-      width: 100%;
-      height: auto;
+    .hero-date-badge {
+      pointer-events: auto;
       display: block;
+      width: auto;
+      height: 52px;
+    }
+
+    .hero-title-text {
+      pointer-events: auto;
+      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', serif;
+      color: #fff;
+      text-align: right;
+      line-height: 1.1;
+      margin: 0;
+    }
+    .hero-title-line1 {
+      display: block;
+      font-weight: 500;
+      font-size: clamp(32px, 6vw, 72px);
+    }
+    .hero-title-line2 {
+      display: block;
+      font-weight: 700;
+      font-size: clamp(32px, 6vw, 72px);
     }
 
     .hero-lineup-btn {
-      position: absolute;
-      bottom: 48px;
-      right: 48px;
       z-index: 10;
       display: inline-flex;
       align-items: center;
@@ -441,7 +492,7 @@
       text-decoration: none;
       border-radius: 50px;
       padding: 0.85rem 2.4rem;
-      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
       font-weight: 700;
       font-size: clamp(15px, 2vw, 18px);
       transition: transform 0.2s;
@@ -472,7 +523,7 @@
     }
 
     .hero-subtitle-text {
-      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
       font-weight: 700;
       font-size: clamp(22px, 3.5vw, 48px);
       color: #ffffff;
@@ -594,7 +645,7 @@
       transform: translateX(-50%);
       background: linear-gradient(166deg, var(--orange) 0%, #E84021 73%);
       color: #fff;
-      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
       font-weight: 400;
       font-size: 14px;
       line-height: 1.43;
@@ -617,7 +668,7 @@
       width: 64px;
     }
     .countdown-num {
-      font-family: 'Hepta Slab', serif;
+      font-family: 'Google Sans', 'Hepta Slab', serif;
       font-weight: 400;
       font-size: 34px;
       letter-spacing: 0.25px;
@@ -642,7 +693,7 @@
       animation: cd-flip-in 0.22s cubic-bezier(0.22,1,0.36,1) both;
     }
     .countdown-label {
-      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
       font-weight: 600;
       font-size: 20px;
       color: #000;
@@ -755,7 +806,7 @@
     }
     .stat:last-child { border-inline-end: none; }
     .stat-num {
-      font-size: 2.5rem; font-weight: 900;
+      font-size: 2.9rem; font-weight: 900;
       color: var(--orange);
     }
     .stat-label { font-size: 0.85rem; color: var(--muted); margin-top: 0.2rem; }
@@ -792,8 +843,8 @@
       cursor: grab;
       /* negative margin + matching padding gives the hover lift/shadow
          room to breathe without permanently changing the section's layout size */
-      padding: 40px 0;
-      margin: -40px 0;
+      padding: 90px 0;
+      margin: -90px 0;
     }
     .horiz-track-wrap::-webkit-scrollbar { display: none; }
     .horiz-track-wrap.is-dragging { cursor: grabbing; scroll-behavior: auto; user-select: none; }
@@ -935,7 +986,7 @@
       display: inline-block;
       background: var(--featuring-tag-bg);
       color: var(--featuring-tag-color);
-      font-family: 'Hepta Slab', 'Noto Sans Hebrew', serif;
+      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', serif;
       font-size: 1.1rem;
       font-weight: 700;
       line-height: 1.334;
@@ -1205,7 +1256,7 @@
 
     /* ─── HOTEL BANNER ────────────────────────────────────────── */
     #hotels {
-      padding: 4rem 3rem;
+      padding: 4rem 3rem 6.5rem;
       background: var(--bg);
     }
     .hotel-banner {
@@ -1215,7 +1266,7 @@
       --banner-fg: var(--text);
       background: var(--bg2);
       border: 1px solid rgba(224,86,11,0.25);
-      padding-block: 2.5rem;
+      padding-block: 3.3rem;
       padding-inline-start: 40px;
       padding-inline-end: 3.5rem;
       display: flex; align-items: center; justify-content: space-between; gap: 4rem;
@@ -1389,7 +1440,7 @@
       flex: 1;
     }
     .merch-name { font-size: 1.05rem; font-weight: 800; line-height: 1.35; color: var(--text); }
-    .merch-price { font-size: 1.2rem; font-weight: 400; color: var(--orange); }
+    .merch-price { font-size: 1.2rem; font-weight: 700; color: var(--orange); }
     .merch-buy {
       margin-top: auto;
       display: inline-flex; align-items: center; gap: 0.3rem;
@@ -1432,61 +1483,133 @@
       .merch-grid { grid-template-columns: 1fr; gap: 1.1rem; }
     }
 
-    /* ─── VENUE ─────────────────────────────────────────────────── */
+    /* ─── VENUE · LOCATIONS ─────────────────────────────────────── */
     #venue {
       background: var(--bg);
-      text-align: center;
-    }
-    .venue-map {
-      margin-top: 2rem;
-      border-radius: 20px; overflow: hidden;
-      border: 1px solid var(--border);
-      background: #EFE3CE;
-      height: 420px;
       position: relative;
+      overflow: hidden;
+      padding-bottom: 4rem;
     }
-    #venue-map-container { position: absolute; inset: 0; }
-    .leaflet-tile-pane { filter: saturate(1.15) brightness(0.97); }
-    .leaflet-popup-content-wrapper {
-      background: var(--card-bg) !important;
-      color: var(--text) !important;
-      border: 1px solid rgba(255,107,26,0.4) !important;
-      border-radius: 12px !important;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.6) !important;
-      font-family: var(--font) !important;
+    .venue-heading {
+      position: relative; z-index: 1;
+      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
+      font-weight: 900; font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15; text-align: center;
+      margin-bottom: 2.4rem;
     }
-    .leaflet-popup-tip { background: var(--card-bg) !important; }
-    .leaflet-popup-close-button { color: var(--muted) !important; font-size: 1.1rem !important; }
-    .leaflet-popup-content { margin: 0.8rem 1rem !important; font-size: 0.9rem !important; line-height: 1.6; }
-    .leaflet-popup-content strong { color: var(--orange); font-size: 1rem; }
-    .leaflet-control-zoom a {
-      background: var(--card-bg) !important;
-      color: var(--text) !important;
-      border-color: var(--border) !important;
+    .venue-heading .dark { color: var(--text); }
+    .venue-heading .grad {
+      background: linear-gradient(169deg, var(--orange) 0%, #E84021 73%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
     }
-    .leaflet-control-zoom a:hover { background: rgba(255,107,26,0.2) !important; color: var(--orange) !important; }
-    .leaflet-control-attribution {
-      background: rgba(250,244,233,0.82) !important;
-      color: var(--muted) !important;
-      font-size: 0.7rem !important;
+    .venue-layout {
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2rem; align-items: stretch;
     }
-    .leaflet-control-attribution a { color: var(--teal) !important; }
-
-    .venue-info-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.2rem; margin-top: 2rem;
+    .venue-photo-card {
+      position: relative;
+      border-radius: 12px; overflow: hidden;
+      min-height: 420px;
+      transition: box-shadow 0.3s;
     }
-    .venue-info-card {
+    .venue-photo-card:hover {
+      box-shadow: 0 20px 50px rgba(255,107,26,0.2);
+    }
+    .venue-photo-card img,
+    .venue-photo-card video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .venue-photo-card .venue-photo-fallback { display: none; }
+    .venue-photo-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.45) 16%, rgba(0,0,0,0) 42%);
+    }
+    .venue-photo-caption {
+      position: absolute; inset-inline: 0; bottom: 0;
+      padding: 32px 32px 32px;
+      display: flex; align-items: flex-end; justify-content: flex-start; gap: 10px;
+      color: #fff;
+      transition: padding-bottom 0.25s ease;
+    }
+    .venue-photo-card:hover .venue-photo-caption { padding-bottom: 48px; }
+    .venue-photo-text {
+      display: flex; flex-direction: column; gap: 9px;
+      flex: 1 0 0; min-width: 0;
+      align-items: flex-start; text-align: right;
+    }
+    .venue-photo-title {
+      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
+      font-weight: 700; font-size: 34px; line-height: 1.1; letter-spacing: 0.25px;
+    }
+    .venue-photo-sub {
+      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
+      font-weight: 600; font-size: 1.25rem; line-height: 1.28; letter-spacing: 0.15px;
+    }
+    .venue-photo-arrow {
+      flex-shrink: 0; font-size: 1.3rem; line-height: 1; padding-bottom: 3px;
+      opacity: 0; transform: translateX(8px);
+      transition: opacity 0.25s, transform 0.25s;
+    }
+    .venue-photo-card:hover .venue-photo-arrow { opacity: 1; transform: translateX(0); }
+    .venue-stage-grid {
+      display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;
+      gap: 1.2rem;
+    }
+    .venue-stage-card {
+      position: relative; overflow: hidden;
       background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 14px; padding: 1.5rem;
-      text-align: center; transition: all 0.3s;
+      border: 1px solid var(--bg2);
+      border-radius: 12px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.5rem; padding: 1.5rem 2.2rem;
+      text-align: center;
+      text-decoration: none;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
     }
-    .venue-info-card:hover { border-color: rgba(0,200,200,0.3); }
-    .venue-info-icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
-    .venue-info-title { font-size: 0.8rem; color: var(--teal); letter-spacing: 0; text-transform: uppercase; margin-bottom: 0.4rem; }
-    .venue-info-text { font-size: 0.95rem; font-weight: 600; }
+    .venue-stage-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px rgba(255,107,26,0.2);
+      border-color: var(--stage-color);
+    }
+    .venue-stage-card-bar {
+      position: absolute; top: -1px; left: 50%;
+      transform: translateX(-50%);
+      width: 104px; height: 6px;
+      border-radius: 0 0 8px 8px;
+      background: var(--stage-color);
+    }
+    .venue-stage-name {
+      font-family: 'Google Sans', 'Hepta Slab', serif;
+      font-weight: 700; font-size: 1.5rem; line-height: 1.334;
+      color: var(--text);
+      transition: transform 0.25s;
+    }
+    .venue-stage-meta {
+      font-family: 'Google Sans', 'Hepta Slab', serif;
+      font-weight: 600; font-size: 1.25rem; line-height: 1.28; letter-spacing: 0.15px;
+      color: var(--muted);
+      transition: transform 0.25s;
+    }
+    .venue-stage-arrow {
+      position: absolute; bottom: 1.4rem; left: 50%;
+      transform: translate(-50%, -4px);
+      font-size: 1.1rem; color: var(--stage-color);
+      opacity: 0;
+      transition: opacity 0.25s, transform 0.25s;
+    }
+    .venue-stage-card:hover .venue-stage-name,
+    .venue-stage-card:hover .venue-stage-meta { transform: translateY(-10px); }
+    .venue-stage-card:hover .venue-stage-arrow { opacity: 1; transform: translate(-50%, 0); }
+    @media (max-width: 900px) {
+      .venue-layout { grid-template-columns: 1fr; }
+      .venue-photo-card { min-height: 320px; }
+    }
+    @media (max-width: 600px) {
+      .venue-stage-grid { grid-template-columns: 1fr; }
+      .venue-stage-card { padding: 1.3rem; }
+    }
 
     /* ─── FOOTER ──────────────────────────────────────────────── */
     footer {
@@ -1563,7 +1686,7 @@
     }
 
     @media (max-width: 600px) {
-      .hero-main-content { top: 90px; }
+      .hero-main-content { top: 90px; right: 20px; }
       .hero-lineup-btn { display: none; }
       .hero-date-badge-img { width: 130px; height: 25px; }
       .countdown { padding: 20px 14px 12px; height: auto; }
@@ -1857,6 +1980,9 @@
         <li><a href="#artist-lineup-text" data-he="ליין אפ" data-en="Lineup">ליין אפ</a></li>
         <li><a href="./lineup.html" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
         <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
+        <li><a href="./index.html#news" data-he="חדשות" data-en="News">חדשות</a></li>
+        <li><a href="./merch.html" data-he="מרצ'יינדיז" data-en="Merch">מרצ'יינדיז</a></li>
+        <li><a href="./past-artists.html" data-he="שנים קודמות" data-en="Past Artists">שנים קודמות</a></li>
         <li class="nav-drop" id="navInfoDrop">
           <button type="button" class="nav-drop-toggle" id="navDropBtn" aria-haspopup="true" aria-expanded="false" onclick="toggleNavDrop(event)" data-he="מידע חשוב" data-en="Important Info">
             מידע חשוב
@@ -1869,9 +1995,6 @@
             <a href="./contact.html" data-he="יצירת קשר" data-en="Contact">יצירת קשר</a>
           </div>
         </li>
-        <li><a href="./index.html#news" data-he="חדשות" data-en="News">חדשות</a></li>
-        <li><a href="./merch.html" data-he="מרצ'יינדיז" data-en="Merch">מרצ'יינדיז</a></li>
-        <li><a href="./past-artists.html" data-he="שנים קודמות" data-en="Past Artists">שנים קודמות</a></li>
       </ul>
 
       <div class="nav-actions">
@@ -1913,16 +2036,18 @@
            fetchpriority="high">
     </div>
 
-    <!-- Logo (includes Hebrew subtitle + date badge) -->
+    <!-- Hero title + date badge + full-lineup CTA — right-aligned, 80px from the banner's right edge -->
     <div class="hero-main-content">
-      <img src="./Graphig assets/main-text.svg" class="hero-logo-svg" alt="Red Sea Jazz Festival" width="792" height="220" fetchpriority="high">
+      <img class="hero-date-badge" src="./Graphig assets/hero-date-badge.svg" alt="19-21.8.26" width="225" height="60">
+      <h1 class="hero-title-text">
+        <span class="hero-title-line1">סופשבוע של</span>
+        <span class="hero-title-line2">ג׳אז באילת</span>
+      </h1>
+      <a href="#artist-lineup-text" class="hero-lineup-btn">
+        לליין אפ המלא
+        <span class="hero-lineup-btn-arrow" aria-hidden="true">&#8592;</span>
+      </a>
     </div>
-
-    <!-- Full lineup CTA — bottom-right corner of the banner -->
-    <a href="#artist-lineup-text" class="hero-lineup-btn">
-      ללינאפ המלא
-      <span class="hero-lineup-btn-arrow" aria-hidden="true">&#8592;</span>
-    </a>
 
     <!-- Countdown — bottom-left of hero -->
     <div class="hero-content">
@@ -1986,7 +2111,7 @@
     <div class="alt-lineup-section-inner">
 
       <div class="alt-lineup-header reveal">
-        <h2 class="alt-lineup-title">מציגים: <span class="alt-lineup-title-accent">אמני 2026</span></h2>
+        <h2 class="alt-lineup-title"><span class="alt-lineup-title-accent">אמנים</span> ונגנים</h2>
       </div>
 
       <div class="alt-lineup-grid reveal">
@@ -2226,7 +2351,7 @@
       display: inline-block;
       background: var(--pill-bg);
       color: var(--pill-text);
-      font-family: 'Hepta Slab', 'Noto Sans Hebrew', serif;
+      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', serif;
       font-size: 16px;
       font-weight: 700;
       line-height: 1.334;
@@ -2237,7 +2362,7 @@
 
     /* Sub-text (smaller, semi-condensed style for "אורח", "מציגה את:" etc.) */
     .featuring-pill-sub {
-      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
       font-size: 13px;
       font-weight: 600;
       letter-spacing: 0.15px;
@@ -2539,14 +2664,12 @@
         <div class="horiz-track" id="horizTrack">
 
           <a class="artist-card featured" href="./show.html?artist=three-cohens">
-            <div class="headliner-badge">מיוחד לפסטיבל</div>
             <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/3-cohens.jpg'); background-position: center 40%"><div class="artist-img-overlay"></div></div>
             <div class="artist-info">
               <div class="artist-name">The 3 Cohens</div>
             </div>
           </a>
           <a class="artist-card featured" href="./show.html?artist=chava-alberstein">
-            <div class="headliner-badge">מיוחד לפסטיבל</div>
             <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/chava-alberstein.jpg'); background-position: center 20%"><div class="artist-img-overlay"></div></div>
             <div class="artist-info">
               <div class="artist-name">חוה אלברשטיין</div>
@@ -2607,6 +2730,59 @@
     </div>
   </div>
 
+  <!-- ── VENUE ── -->
+  <section id="venue">
+
+    <h2 class="venue-heading reveal"><span class="dark">4 במות.</span> <span class="grad">רחבה מרכזית אחת.</span></h2>
+
+    <div class="venue-layout">
+      <div class="venue-stage-grid">
+        <a class="venue-stage-card reveal" href="./lineup.html?stage=Red%20Tent" style="--stage-color:var(--red)">
+          <div class="venue-stage-card-bar"></div>
+          <div class="venue-stage-name">Red Tent</div>
+          <div class="venue-stage-meta">230 מושבים, 23 הופעות</div>
+          <span class="venue-stage-arrow" aria-hidden="true">←</span>
+        </a>
+        <a class="venue-stage-card reveal" href="./lineup.html?stage=Main%20Stage" style="--stage-color:var(--orange)">
+          <div class="venue-stage-card-bar"></div>
+          <div class="venue-stage-name">Main Stage</div>
+          <div class="venue-stage-meta">800 מושבים, 16 הופעות</div>
+          <span class="venue-stage-arrow" aria-hidden="true">←</span>
+        </a>
+        <a class="venue-stage-card reveal" href="./lineup.html?stage=Green%20Pavilion" style="--stage-color:var(--yellow)">
+          <div class="venue-stage-card-bar"></div>
+          <div class="venue-stage-name">Green Pavilion</div>
+          <div class="venue-stage-meta">400 מושבים, 23 הופעות</div>
+          <span class="venue-stage-arrow" aria-hidden="true">←</span>
+        </a>
+        <a class="venue-stage-card reveal" href="./lineup.html?stage=Blue%20Dome" style="--stage-color:var(--teal)">
+          <div class="venue-stage-card-bar"></div>
+          <div class="venue-stage-name">Blue Dome</div>
+          <div class="venue-stage-meta">50 מושבים, 23 הופעות</div>
+          <span class="venue-stage-arrow" aria-hidden="true">←</span>
+        </a>
+      </div>
+
+      <a class="venue-photo-card reveal" href="./plaza.html">
+        <video autoplay muted loop playsinline
+               preload="metadata"
+               poster="./Graphig assets/gallery/port-aerial-drone-poster.jpg"
+               aria-hidden="true">
+          <source src="./Graphig assets/gallery/port-aerial.mp4" type="video/mp4">
+        </video>
+        <img class="venue-photo-fallback" src="./Graphig assets/gallery/port-aerial-drone-poster.jpg" alt="רחבה מרכזית — נמל אילת" width="1200" height="800" loading="lazy">
+        <div class="venue-photo-overlay"></div>
+        <div class="venue-photo-caption">
+          <div class="venue-photo-text">
+            <div class="venue-photo-title">רחבה מרכזית</div>
+            <div class="venue-photo-sub">דוכני שף, בר משקאות, הרכבי צעירים, ועוד</div>
+          </div>
+          <span class="venue-photo-arrow" aria-hidden="true">←</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
   <div class="divider"></div>
 
   <!-- ── HOTEL BANNER ── -->
@@ -2633,7 +2809,7 @@
           <span class="hl">עם לינה באילת</span>
         </div>
         <div class="hotel-banner-sub">
-          חבילות מיוחדות למבקרי הפסטיבל — 3 לילות, ארוחות בוקר, ושאטל לנמל.<br>
+          חבילות מיוחדות למבקרי הפסטיבל.<br>
           מלונות 4 ו-5 כוכבים על חוף ים סוף.
         </div>
         <div class="hotel-logos">
@@ -2653,54 +2829,11 @@
     </a>
   </section>
 
-  <div class="divider"></div>
-
-  <!-- ── VENUE ── -->
-  <section id="venue">
-    <div class="section-header reveal">
-      <h2 class="section-title">נמל <span class="accent">אילת</span></h2>
-      <p class="section-desc">על חוף ים סוף, מתחת לכוכבים.<br>הבמות ממוקמות לאורך הטיילת של נמל אילת.</p>
-    </div>
-
-    <div class="venue-map reveal" id="venueMapWrapper">
-      <div id="venue-map-container"></div>
-    </div>
-
-    <div class="venue-info-grid reveal">
-      <div class="venue-info-card">
-        <div class="venue-info-icon" aria-hidden="true">🎭</div>
-        <div class="venue-info-title">Port arena</div>
-        <div class="venue-info-text">כיכר הנמל</div>
-      </div>
-      <div class="venue-info-card">
-        <div class="venue-info-icon" aria-hidden="true">🌊</div>
-        <div class="venue-info-title">Red Note Club</div>
-        <div class="venue-info-text">מזח הצפוני</div>
-      </div>
-      <div class="venue-info-card">
-        <div class="venue-info-icon" aria-hidden="true">🌙</div>
-        <div class="venue-info-title">DE future</div>
-        <div class="venue-info-text">המחסן הישן</div>
-      </div>
-      <div class="venue-info-card">
-        <div class="venue-info-icon" aria-hidden="true">🏖️</div>
-        <div class="venue-info-title">the present</div>
-        <div class="venue-info-text">החוף הדרומי</div>
-      </div>
-      <div class="venue-info-card">
-        <div class="venue-info-icon" aria-hidden="true">✈️</div>
-        <div class="venue-info-title">הגעה</div>
-        <div class="venue-info-text">שדה התעופה אילת – 10 דק׳</div>
-      </div>
-    </div>
-  </section>
-
   <!-- ── TICKET PLANS ── -->
   <section id="ticket-plans" dir="rtl" class="ticket-plans-section">
     <div class="ticket-plans-header reveal">
-      <p class="ticket-plans-eyebrow">TICKETS · כרטיסים</p>
       <h2 class="ticket-plans-title">בחרו את <span class="ticket-plans-title-accent">המסלול</span> שלכם</h2>
-      <p class="ticket-plans-subtitle">שלושה מסלולי כניסה לפסטיבל ג׳אז ים סוף 2026</p>
+      <p class="ticket-plans-subtitle">שלושה מסלולי כניסה לפסטיבל</p>
     </div>
 
     <div class="ticket-plans-grid reveal">
@@ -2809,8 +2942,7 @@
 
     <div class="merch-grid reveal">
       <!-- תקליט — פריט דגל, ראשון מימין -->
-      <a class="merch-card merch-card-featured" href="https://shop.redseajazz.co.il" target="_blank" rel="noopener" aria-label="תקליט הפסטיבל — רכישה">
-        <span class="merch-badge">★ פריט דגל</span>
+      <a class="merch-card merch-card-featured" href="./merch.html" aria-label="תקליט הפסטיבל — רכישה">
         <div class="merch-img">
           <img src="./Graphig assets/merch/merch-vinyl-square.jpg" alt="תקליט הפסטיבל — מהדורת 40 שנה" width="1207" height="1207" loading="lazy">
         </div>
@@ -2822,7 +2954,7 @@
       </a>
 
       <!-- כובע -->
-      <a class="merch-card" href="https://shop.redseajazz.co.il" target="_blank" rel="noopener" aria-label="כובע הפסטיבל — רכישה">
+      <a class="merch-card" href="./merch.html" aria-label="כובע הפסטיבל — רכישה">
         <div class="merch-img">
           <img src="./Graphig assets/merch/merch-cap.jpg" alt="כובע מצחייה של פסטיבל ג׳אז ים סוף" width="600" height="600" loading="lazy">
         </div>
@@ -2834,7 +2966,7 @@
       </a>
 
       <!-- בקבוק מים -->
-      <a class="merch-card" href="https://shop.redseajazz.co.il" target="_blank" rel="noopener" aria-label="בקבוק מים של הפסטיבל — רכישה">
+      <a class="merch-card" href="./merch.html" aria-label="בקבוק מים של הפסטיבל — רכישה">
         <div class="merch-img">
           <img src="./Graphig assets/merch/merch-bottle.jpg" alt="בקבוק מים תרמי של פסטיבל ג׳אז ים סוף" width="600" height="600" loading="lazy">
         </div>
@@ -2846,7 +2978,7 @@
       </a>
 
       <!-- חולצה -->
-      <a class="merch-card" href="https://shop.redseajazz.co.il" target="_blank" rel="noopener" aria-label="חולצת הפסטיבל — רכישה">
+      <a class="merch-card" href="./merch.html" aria-label="חולצת הפסטיבל — רכישה">
         <div class="merch-img">
           <img src="./Graphig assets/merch/merch-shirt.jpg" alt="חולצת פסטיבל ג׳אז ים סוף עם הדפס סקסופון" width="600" height="600" loading="lazy">
         </div>
@@ -3243,15 +3375,6 @@
     .ticket-plans-header {
       margin-bottom: 56px;
     }
-    .ticket-plans-eyebrow {
-      font-family: var(--font);
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--orange);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-    }
     .ticket-plans-title {
       font-family: var(--font);
       font-size: clamp(2rem, 5vw, 3.5rem);
@@ -3503,111 +3626,6 @@
   <footer id="site-footer"></footer>
   <script src="./footer.js"></script>
   </main><!-- /page-body -->
-
-  <!-- ── LEAFLET MAP ── -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
-    (function () {
-      const map = L.map('venue-map-container', {
-        zoomControl: true,
-        scrollWheelZoom: false,
-        dragging: true,
-        tap: true,
-        touchZoom: true,
-      });
-
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 19,
-      }).addTo(map);
-
-      function makePin(color, label) {
-        const id = 'pg' + Math.random().toString(36).slice(2);
-        return L.divIcon({
-          className: '',
-          html: `<svg xmlns="http://www.w3.org/2000/svg" width="38" height="52" viewBox="0 0 38 52">
-            <defs>
-              <filter id="ds${id}" x="-40%" y="-30%" width="180%" height="180%">
-                <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="rgba(0,0,0,0.6)"/>
-              </filter>
-            </defs>
-            <path d="M19 0C8.507 0 0 8.507 0 19c0 14.25 19 33 19 33S38 33.25 38 19C38 8.507 29.493 0 19 0z"
-                  fill="${color}" filter="url(#ds${id})"/>
-            <circle cx="19" cy="19" r="9" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/>
-            <text x="19" y="23.5" text-anchor="middle" font-size="10" font-family="serif"
-                  fill="white" font-weight="bold">${label}</text>
-          </svg>`,
-          iconSize: [38, 52],
-          iconAnchor: [19, 52],
-          popupAnchor: [0, -54],
-        });
-      }
-
-      const stages = [
-        {
-          latlng: [29.5515, 34.9460],
-          color:  '#FF6B1A',
-          label:  'P',
-          name:   'Port arena',
-          sub:    'כיכר הנמל',
-          info:   `<div style="margin-top:0.45rem;padding-top:0.45rem;border-top:1px solid rgba(224,86,11,0.25);font-size:0.78rem;line-height:1.85;color:#8A7F72">
-            ✈️ שדה התעופה – 10 דקות נסיעה<br>
-            🚌 שאטל חינם ממרחבת המלונות<br>
-            🚗 חניה ציבורית בשער הנמל
-          </div>`,
-        },
-        {
-          latlng: [29.5535, 34.9438],
-          color:  '#00C9C8',
-          label:  'R',
-          name:   'Red Note Club',
-          sub:    'המזח הצפוני',
-        },
-        {
-          latlng: [29.5498, 34.9481],
-          color:  '#FF6EB4',
-          label:  'D',
-          name:   'DE future',
-          sub:    'המחסן הישן',
-        },
-        {
-          latlng: [29.5478, 34.9450],
-          color:  '#FFD234',
-          label:  'T',
-          name:   'the present',
-          sub:    'החוף הדרומי',
-        },
-      ];
-
-      const bounds = [];
-      let mainMarker = null;
-      stages.forEach((s, i) => {
-        bounds.push(s.latlng);
-        const popupHtml = `<strong>${s.name}</strong><br>
-             <span style="color:#8A7F72">${s.sub}</span>${s.info || ''}`;
-        const marker = L.marker(s.latlng, { icon: makePin(s.color, s.label) })
-          .addTo(map)
-          .bindPopup(popupHtml, { maxWidth: 220 });
-        if (i === 0) mainMarker = marker;
-      });
-
-      map.fitBounds(bounds, { padding: [48, 48] });
-      if (mainMarker) mainMarker.openPopup();
-
-      // Enable scroll wheel zoom only when map is clicked/focused
-      map.on('click', () => map.scrollWheelZoom.enable());
-      map.on('blur',  () => map.scrollWheelZoom.disable());
-
-      // Invalidate size after scroll-reveal animation
-      const wrapper = document.getElementById('venueMapWrapper');
-      if (wrapper) {
-        new IntersectionObserver((entries) => {
-          if (entries[0].isIntersecting) { setTimeout(() => map.invalidateSize(), 350); }
-        }, { threshold: 0.2 }).observe(wrapper);
-      }
-    })();
-  </script>
 
   <!-- ── SCRIPTS ── -->
   <script>
@@ -3880,7 +3898,7 @@
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            entry.target.querySelectorAll('.news-card, .venue-info-card, .merch-card').forEach((c, i) => {
+            entry.target.querySelectorAll('.news-card, .venue-stage-card, .merch-card').forEach((c, i) => {
               c.style.transitionDelay = `${i * 0.07}s`;
             });
             revealObserver.unobserve(entry.target);
@@ -3889,6 +3907,41 @@
       }, { threshold: 0.1 });
       document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
     }
+
+    // ── Stat count-up animation ────────────────────────────────────
+    (function () {
+      const statNums = document.querySelectorAll('.stat-num');
+      const aboutStrip = document.getElementById('about-strip');
+      if (!statNums.length || !aboutStrip || prefersReducedMotion) return;
+
+      function animateCountUp(el) {
+        const raw = el.textContent.trim();
+        const m = raw.match(/^(\D*)(\d+)(\D*)$/);
+        if (!m) return;
+        const [, prefix, digits, suffix] = m;
+        const target = parseInt(digits, 10);
+        const duration = 1000;
+        const startTime = performance.now();
+        function tick(now) {
+          const progress = Math.min((now - startTime) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = prefix + Math.round(target * eased) + suffix;
+          if (progress < 1) requestAnimationFrame(tick);
+          else el.textContent = raw;
+        }
+        requestAnimationFrame(tick);
+      }
+
+      const statObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            statNums.forEach(el => animateCountUp(el));
+            statObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.4 });
+      statObserver.observe(aboutStrip);
+    })();
 
     // ── Hero bg subtle parallax ───────────────────────────────────
     if (!prefersReducedMotion) {
@@ -4327,20 +4380,6 @@ document.getElementById('panelGenre').textContent  = data.genre  || '';
         if (iSlug) window.location.href = 'show.html?show=' + iSlug;
       }
     });
-  </script>
-  <script>
-    (function() {
-      var nav = document.getElementById('navbar');
-      var ticker = document.querySelector('.ticker-bar');
-      function setHeroGap() {
-        var navH = nav ? nav.getBoundingClientRect().height : 100;
-        var tickerH = ticker ? ticker.getBoundingClientRect().height : 36;
-        document.documentElement.style.setProperty('--nav-h', navH + 'px');
-        document.documentElement.style.setProperty('--ticker-h', tickerH + 'px');
-      }
-      setHeroGap();
-      window.addEventListener('resize', setHeroGap);
-    })();
   </script>
   <script>
     // ── מיפוי מרכזי: שם הופעה → תמונה (זהה ל-lineup.html) ──

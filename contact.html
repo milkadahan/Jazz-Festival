@@ -32,6 +32,40 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@100;300;400;500;700;900&family=Noto+Sans+Hebrew:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
   <style>
+    /* ─── Google Sans (self-hosted, per-script via unicode-range: Hebrew + Latin/numbers) ─── */
+    @font-face {
+      font-family: 'Google Sans';
+      src: url('./Graphig assets/fonts/GoogleSansHebrew-Variable.woff2') format('woff2-variations');
+      font-weight: 400 700;
+      font-style: normal;
+      unicode-range: U+0590-05FF, U+FB1D-FB4F;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Google Sans';
+      src: url('./Graphig assets/fonts/GoogleSansHebrew-Italic-Variable.woff2') format('woff2-variations');
+      font-weight: 400 700;
+      font-style: italic;
+      unicode-range: U+0590-05FF, U+FB1D-FB4F;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Google Sans';
+      src: url('./Graphig assets/fonts/GoogleSansLatin-Variable.woff2') format('woff2-variations');
+      font-weight: 400 700;
+      font-style: normal;
+      unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2011, U+2013-2015, U+2018-201A, U+201C-201E, U+2022, U+2026, U+2030, U+2032-2033, U+2039-203A, U+2044, U+20AA, U+20AC, U+2190, U+2192, U+21C4, U+2212, U+2248, U+25CF, U+2713;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Google Sans';
+      src: url('./Graphig assets/fonts/GoogleSansLatin-Italic-Variable.woff2') format('woff2-variations');
+      font-weight: 400 700;
+      font-style: italic;
+      unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2011, U+2013-2015, U+2018-201A, U+201C-201E, U+2022, U+2026, U+2030, U+2032-2033, U+2039-203A, U+2044, U+20AA, U+20AC, U+2190, U+2192, U+21C4, U+2212, U+2248, U+25CF, U+2713;
+      font-display: swap;
+    }
+
     /* ─── RESET & BASE ─────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -52,7 +86,7 @@
       --shadow:    rgba(58,42,30,0.10);
       --shadow-strong: rgba(58,42,30,0.16);
       --on-accent: #FFFDF8;
-      --font:      'Hepta Slab', 'Noto Sans Hebrew', serif;
+      --font:      'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', serif;
     }
 
     html { scroll-behavior: smooth; direction: rtl; }
@@ -264,7 +298,7 @@
       display: flex; align-items: center; gap: 0.35rem;
       transition: border-color 0.2s, color 0.2s;
     }
-    .nav-btn-lang:hover { border-color: var(--border-strong); color: var(--text); }
+    .nav-btn-lang:hover { border-color: var(--orange); color: var(--orange); }
 
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 0; }
     .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
@@ -441,30 +475,19 @@
       border: none; border-radius: 50px;
       padding: 15.2px 41.6px;
       font-size: 1.25rem; font-weight: 600;
-      box-shadow: 0 6px 9px rgba(224,86,11,0.32);
-      transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+      transition: transform 0.2s, filter 0.2s;
     }
-    .contact-submit:hover { transform: translateY(-2px); box-shadow: 0 9px 16px rgba(224,86,11,0.45); filter: brightness(1.05); }
+    .contact-submit:hover { transform: translateY(-2px); filter: brightness(1.05); }
     .contact-submit:active { transform: translateY(0); }
 
     /* ── Success / status message ── */
     .form-status {
       display: none;
       align-items: center; gap: 0.7rem;
-      background: rgba(53,200,143,0.10);
-      border: 1px solid rgba(53,200,143,0.35);
-      border-radius: 14px;
-      padding: 1rem 1.2rem;
       color: #1f7a56; font-weight: 600; font-size: 0.95rem;
       line-height: 1.5;
     }
     .form-status.show { display: flex; }
-    .form-status .status-icon {
-      flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%;
-      background: #35C88F; color: #fff;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1rem; font-weight: 900;
-    }
 
     /* ─── CONTACT INFO ASIDE ──────────────────────────────────── */
     .contact-info {
@@ -522,6 +545,9 @@
         <li><a href="./index.html#artist-lineup-text" data-he="ליין אפ" data-en="Lineup">ליין אפ</a></li>
         <li><a href="./lineup.html" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
         <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
+        <li><a href="./index.html#news" data-he="חדשות" data-en="News">חדשות</a></li>
+        <li><a href="./merch.html" data-he="מרצ'יינדיז" data-en="Merch">מרצ'יינדיז</a></li>
+        <li><a href="./past-artists.html" data-he="שנים קודמות" data-en="Past Artists">שנים קודמות</a></li>
         <li class="nav-drop" id="navInfoDrop">
           <button type="button" class="nav-drop-toggle active" id="navDropBtn" aria-haspopup="true" aria-expanded="false" onclick="toggleNavDrop(event)" data-he="מידע חשוב" data-en="Important Info">
             מידע חשוב
@@ -534,9 +560,6 @@
             <a href="./contact.html" class="active" data-he="יצירת קשר" data-en="Contact">יצירת קשר</a>
           </div>
         </li>
-        <li><a href="./index.html#news" data-he="חדשות" data-en="News">חדשות</a></li>
-        <li><a href="./merch.html" data-he="מרצ'יינדיז" data-en="Merch">מרצ'יינדיז</a></li>
-        <li><a href="./past-artists.html" data-he="שנים קודמות" data-en="Past Artists">שנים קודמות</a></li>
       </ul>
       <div class="nav-actions">
         <a class="nav-btn-secondary"
@@ -631,7 +654,6 @@
 
             <!-- הודעת ולידציה לאחר שליחה -->
             <div class="form-status" id="formStatus" role="status" aria-live="polite">
-              <span class="status-icon" aria-hidden="true">✓</span>
               <span id="formStatusText">ההודעה נשלחה בהצלחה! נחזור אליכם בהקדם 🎷</span>
             </div>
           </form>
