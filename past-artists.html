@@ -339,39 +339,6 @@
       max-width: 480px;
       line-height: 1.6;
     }
-    .page-hero-years-badge {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      background: linear-gradient(135deg, var(--orange), var(--red));
-      color: #fff; border-radius: 50px;
-      padding: 0.45rem 1.4rem;
-      font-size: 0.9rem; font-weight: 700;
-      box-shadow: 0 4px 18px rgba(224,86,11,0.45);
-      margin-top: 4px;
-    }
-
-    /* ─── HERO STATS STRIP ─────────────────────────────────────── */
-    .hero-stats-bar {
-      background: var(--bg2);
-      border-bottom: 1px solid var(--border);
-      padding: 1.4rem 3rem;
-      display: flex; gap: 2.5rem;
-      justify-content: center; flex-wrap: wrap; align-items: center;
-    }
-    .hero-stat {
-      display: flex; flex-direction: column; align-items: center; text-align: center;
-    }
-    .hero-stat-num {
-      font-size: 1.8rem; font-weight: 900; line-height: 1.2;
-      color: var(--orange);
-    }
-    .hero-stat-label {
-      font-size: 0.75rem; color: var(--muted);
-      text-transform: uppercase; letter-spacing: 0.06em;
-    }
-    .hero-stat-sep {
-      width: 1px; height: 40px;
-      background: var(--border-strong);
-    }
 
     /* ─── MAIN CONTENT ─────────────────────────────────────────── */
     main { display: none; }
@@ -766,8 +733,6 @@
       .page-hero { height: calc(300px + var(--ticker-h) + var(--nav-h)); }
       .page-hero-content { padding-inline: 1.2rem; }
       .footer-grid { grid-template-columns: 1fr; gap: 1.8rem; }
-      .hero-stats-bar { padding: 1rem 1.2rem; gap: 1.2rem; }
-      .hero-stat-sep { display: none; }
       .past-timeline-section { padding: 2.5rem 0 3rem; }
       .past-tl-year-num { font-size: clamp(4rem, 18vw, 7rem); }
       .past-tl-arrow { width: 32px; height: 32px; font-size: 0.88rem; }
@@ -867,30 +832,6 @@
     <div class="page-hero-content">
       <h1 class="page-hero-title">40 שנות מוזיקה</h1>
       <p class="page-hero-subtitle">מ-1986 עד 2026 — מאות אמנים מהעולם ומישראל על חוף ים סוף</p>
-      <div class="page-hero-years-badge">1986 – 2026 · 41 מהדורות</div>
-    </div>
-  </div>
-
-  <!-- ── STATS BAR ── -->
-  <div class="hero-stats-bar">
-    <div class="hero-stat">
-      <div class="hero-stat-num">40</div>
-      <div class="hero-stat-label">שנות פסטיבל</div>
-    </div>
-    <div class="hero-stat-sep"></div>
-    <div class="hero-stat">
-      <div class="hero-stat-num">600+</div>
-      <div class="hero-stat-label">אמנים</div>
-    </div>
-    <div class="hero-stat-sep"></div>
-    <div class="hero-stat">
-      <div class="hero-stat-num">55+</div>
-      <div class="hero-stat-label">אמנים ממדינות שונות</div>
-    </div>
-    <div class="hero-stat-sep"></div>
-    <div class="hero-stat">
-      <div class="hero-stat-num">אילת</div>
-      <div class="hero-stat-label">נמל ים סוף</div>
     </div>
   </div>
 
