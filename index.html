@@ -428,6 +428,41 @@
       display: block;
     }
 
+    .hero-lineup-btn {
+      position: absolute;
+      bottom: 48px;
+      right: 48px;
+      z-index: 10;
+      display: inline-flex;
+      align-items: center;
+      pointer-events: auto;
+      background: #FFFFFF;
+      color: var(--text);
+      text-decoration: none;
+      border-radius: 50px;
+      padding: 0.85rem 2.4rem;
+      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-weight: 700;
+      font-size: clamp(15px, 2vw, 18px);
+      transition: transform 0.2s;
+    }
+    .hero-lineup-btn:hover {
+      transform: translateY(-3px);
+    }
+    .hero-lineup-btn-arrow {
+      display: inline-block;
+      width: 0;
+      opacity: 0;
+      overflow: hidden;
+      margin-inline-start: 0;
+      transition: width 0.25s ease, opacity 0.2s ease, margin-inline-start 0.25s ease;
+    }
+    .hero-lineup-btn:hover .hero-lineup-btn-arrow {
+      width: 1em;
+      opacity: 1;
+      margin-inline-start: 0.5rem;
+    }
+
     .hero-subtitle-row {
       display: flex;
       align-items: center;
@@ -1535,6 +1570,7 @@
 
     @media (max-width: 600px) {
       .hero-main-content { top: 90px; }
+      .hero-lineup-btn { display: none; }
       .hero-date-badge-img { width: 130px; height: 25px; }
       .countdown { padding: 20px 14px 12px; height: auto; }
       .countdown-row { gap: 12px; }
@@ -1887,6 +1923,12 @@
     <div class="hero-main-content">
       <img src="./Graphig assets/main-text.svg" class="hero-logo-svg" alt="Red Sea Jazz Festival" width="792" height="220" fetchpriority="high">
     </div>
+
+    <!-- Full lineup CTA — bottom-right corner of the banner -->
+    <a href="#artist-lineup-text" class="hero-lineup-btn">
+      ללינאפ המלא
+      <span class="hero-lineup-btn-arrow" aria-hidden="true">&#8592;</span>
+    </a>
 
     <!-- Countdown — bottom-left of hero -->
     <div class="hero-content">
