@@ -175,13 +175,15 @@
     .nav-links a::after {
       content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
       width: 0; height: 2px;
-      background: linear-gradient(90deg, var(--orange), var(--yellow));
+      background: linear-gradient(90deg, var(--orange), #E84021);
       transition: width 0.3s;
     }
-    .nav-links a:hover { color: var(--yellow); }
-    .nav-links a:hover::after { width: 100%; }
-    .nav-links a.active { color: var(--orange); font-weight: 700; }
-    .nav-links a.active::after { width: 100%; }
+    .nav-links a:hover, .nav-links a.active {
+      background: linear-gradient(90deg, var(--orange), #E84021);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-links a.active { font-weight: 700; }
     /* ── Nav dropdown: "מידע חשוב" — הקישור היחיד בטול-בר עם תת-תפריט (3 בנים) ── */
     .nav-drop { position: relative; }
     .nav-drop-toggle {
@@ -193,11 +195,15 @@
     .nav-drop-toggle::after {
       content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
       width: 0; height: 2px;
-      background: linear-gradient(90deg, var(--orange), var(--yellow));
+      background: linear-gradient(90deg, var(--orange), #E84021);
       transition: width 0.3s;
     }
-    .nav-drop-toggle:hover, .nav-drop-toggle.open { color: var(--yellow); }
+    .nav-drop-toggle:hover, .nav-drop-toggle.open {
+      background: linear-gradient(90deg, var(--orange), #E84021);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
     .nav-drop-toggle:hover::after, .nav-drop-toggle.open::after { width: 100%; }
+    .nav-drop-toggle:hover .nav-drop-chevron, .nav-drop-toggle.open .nav-drop-chevron { color: var(--orange); }
     .nav-drop-chevron { transition: transform 0.25s; flex-shrink: 0; }
     .nav-drop-toggle.open .nav-drop-chevron { transform: rotate(180deg); }
 
@@ -572,7 +578,7 @@
             </button>
             <div class="faq-a" id="faq-a-3" role="region">
               <div class="faq-a-inner">
-                <p>ביטול כרטיס אפשרי בהתאם למדיניות הביטולים ותנאי חוק הגנת הצרכן. בקשות ביטול או שינוי מועד יש להגיש דרך מערכת המכירות שבה בוצעה הרכישה, עד 14 ימי עסקים לפני מועד ההופעה. לפרטים מלאים פנו לשירות הלקוחות.</p>
+                <p>לכל שאלה בנושא כרטיסים, ביטולים, החלפות או שינויים בהזמנה, יש לפנות לשירות הלקוחות של Ticketmaster בטלפון *9964 בשעות הפעילות - ראשון עד חמישי: 09:30-16:00.</p>
               </div>
             </div>
           </div>
@@ -584,7 +590,7 @@
             </button>
             <div class="faq-a" id="faq-a-4" role="region">
               <div class="faq-a-inner">
-                <p>ילדים עד גיל 6 נכנסים ללא תשלום בליווי מבוגר מחזיק כרטיס. לגילאי 6–16 קיים כרטיס נוער בהנחה. שימו לב שחלק ממופעי הערב מיועדים לקהל בוגר בלבד — בדקו את פרטי ההופעה ב<a href="./lineup.html">לוח ההופעות</a>.</p>
+                <p>ניתן להגיע לפסטיבל גם עם ילדים. כל ילד מגיל 3 ומעלה חייב בכרטיס.</p>
               </div>
             </div>
           </div>
@@ -606,7 +612,7 @@
             </button>
             <div class="faq-a" id="faq-a-5" role="region">
               <div class="faq-a-inner">
-                <p>חבילות הנופש מרכזות במקום אחד כרטיס לפסטיבל יחד עם לינה במלונות אילת נבחרים. גללו לאזור <a href="./index.html#hotels">«חבילות נופש»</a> בדף הבית, בחרו את המלון ואת מספר הלילות, והחבילה תשלב אוטומטית את הכרטיס עם ההזמנה. ההזמנה מאובטחת ומאשרת גם את הכרטיס וגם את החדר בבת אחת.</p>
+                <p>חבילות הנופש זמינות באתר הפסטיבל וכוללות שילוב של לינה וכרטיסים למופעים. את מגוון החבילות והמלונות ניתן למצוא <a href="./index.html#hotels">כאן</a>.</p>
               </div>
             </div>
           </div>
@@ -618,7 +624,7 @@
             </button>
             <div class="faq-a" id="faq-a-6" role="region">
               <div class="faq-a-inner">
-                <p>חבילת הנופש הבסיסית כוללת שלושה לילות לינה במלון על בסיס ארוחת בוקר, כרטיס למופעי הפסטיבל, ושירות שאטל הלוך-ושוב בין המלון לנמל אילת. חבילות מורחבות מציעות שדרוג חדר, ארוחות נוספות וכניסה מוקדמת למופעים.</p>
+                <p>כל חבילה משלבת לינה וכרטיסים למופעים בהתאם לאפשרויות המוצגות בעמוד חבילות הנופש.</p>
                 <p>* הרכב החבילות המדויק יעודכן בהמשך — כרגע מוצגים פרטי דמה.</p>
               </div>
             </div>
@@ -653,7 +659,7 @@
             </button>
             <div class="faq-a" id="faq-a-8" role="region">
               <div class="faq-a-inner">
-                <p>הפסטיבל מתקיים בנמל אילת, על רקע מימי מפרץ אילת. המתחם כולל מספר במות במרחק הליכה זו מזו. את המיקום המדויק ומפת ההגעה ניתן לראות באזור <a href="./index.html#venue">«מיקום»</a> בדף הבית.</p>
+                <p>הפסטיבל מתקיים בנמל אילת – מתחם ייחודי על קו המים, מול ים סוף והרי אילת. כל במות הפסטיבל נמצאות במרחק הליכה זו מזו, והרחבה הציבורית מחברת ביניהן.</p>
               </div>
             </div>
           </div>
@@ -716,28 +722,16 @@
             </div>
           </div>
 
-          <div class="faq-item">
-            <button class="faq-q" aria-expanded="false" aria-controls="faq-a-13">
-              <span class="faq-q-text">מה קורה במקרה של מזג אוויר?</span>
-              <span class="faq-icon" aria-hidden="true"></span>
-            </button>
-            <div class="faq-a" id="faq-a-13" role="region">
-              <div class="faq-a-inner">
-                <p>הפסטיבל מתקיים בכל מזג אוויר. אילת נהנית ממזג אוויר נעים גם בנובמבר, אך מומלץ להצטייד בביגוד לערבים קרירים יותר. במקרה חריג של שינוי במתכונת ההופעות, נעדכן את בעלי הכרטיסים ישירות במייל ובאתר.</p>
-              </div>
-            </div>
-          </div>
-
         </div>
       </section>
 
       <!-- ══ CTA תחתון ══ -->
       <div class="faq-cta">
-        <div class="faq-cta-title">לא מצאתם את התשובה?</div>
-        <p class="faq-cta-text">צוות הפסטיבל כאן בשבילכם. מוכנים להצטרף לחגיגה? רכשו כרטיסים או עיינו בחבילות הנופש.</p>
+        <div class="faq-cta-title">עדיין יש שאלות</div>
+        <p class="faq-cta-text">צוות הפסטיבל ישמח לעזור. צרו איתנו קשר ונחזור אליכם בהקדם.</p>
         <div class="faq-cta-actions">
-          <a class="faq-cta-btn-primary" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener">רכישת כרטיסים ←</a>
-          <a class="faq-cta-btn-secondary" href="./index.html#hotels">לחבילות הנופש</a>
+          <a class="faq-cta-btn-primary" href="./contact.html">צור קשר</a>
+          <a class="faq-cta-btn-secondary" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener">רכישת כרטיסים ←</a>
         </div>
       </div>
 

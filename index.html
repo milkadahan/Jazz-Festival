@@ -854,6 +854,8 @@
       display: flex; gap: 1.5rem; padding: 0 3rem;
       width: max-content;
     }
+    /* prevent the browser's native link/image drag-ghost from hijacking mouse drag-to-scroll */
+    .horiz-track a, .horiz-track img { -webkit-user-drag: none; user-drag: none; }
     /* Arrow buttons — absolutely positioned over the track edges */
     .horiz-arrow {
       position: absolute; top: 50%; transform: translateY(-50%);
@@ -2058,7 +2060,7 @@
       <img src="./Graphig assets/corner-subtract.svg" class="hero-corner hero-corner-br" alt="" width="32" height="32">
       <div class="countdown" id="countdown">
         <!-- טקסט placeholder — יוחלף בתוכן הסופי כשיתקבל -->
-        <p class="countdown-caption">טקסט שישתנה ממש בקרוב!</p>
+        <p class="countdown-caption">הספירה לאחור החלה!</p>
         <div class="countdown-row">
           <div class="countdown-item">
             <span class="countdown-num" id="cd-days">--</span>
@@ -2114,7 +2116,7 @@
     <div class="alt-lineup-section-inner">
 
       <div class="alt-lineup-header reveal">
-        <h2 class="alt-lineup-title"><span class="alt-lineup-title-accent">אמנים</span> ונגנים</h2>
+        <h2 class="alt-lineup-title"><span class="alt-lineup-title-accent">אמני</span> הפסטיבל</h2>
       </div>
 
       <div class="alt-lineup-grid reveal">
@@ -2659,7 +2661,7 @@
     <div id="lineup-sticky">
       <div class="section-header" id="lineup">
         <h2 class="section-title">הלייןאפ של <span class="accent">2026</span></h2>
-        <p class="section-desc">40 הופעות. 4 ימים. חוויה יוצאת דופן.</p>
+        <p class="section-desc">40 הופעות. 4 ימים. פסטיבל אחד.</p>
       </div>
       <div class="horiz-scroll-area">
         <button type="button" class="horiz-arrow horiz-arrow--prev" id="horizPrev" onclick="scrollLineup(-1)" aria-label="אמנים קודמים">→</button>
@@ -2734,105 +2736,6 @@
     </div>
   </div>
 
-  <!-- ── VENUE ── -->
-  <section id="venue">
-
-    <h2 class="venue-heading reveal"><span class="dark">4 במות.</span> <span class="grad">רחבה מרכזית אחת.</span></h2>
-
-    <div class="venue-layout">
-      <div class="venue-stage-grid">
-        <a class="venue-stage-card reveal" href="./lineup.html?stage=Red%20Tent" style="--stage-color:var(--red)">
-          <div class="venue-stage-card-bar"></div>
-          <div class="venue-stage-name">Red Tent</div>
-          <div class="venue-stage-meta">230 מושבים, 23 הופעות</div>
-          <span class="venue-stage-arrow" aria-hidden="true">←</span>
-        </a>
-        <a class="venue-stage-card reveal" href="./lineup.html?stage=Main%20Stage" style="--stage-color:var(--orange)">
-          <div class="venue-stage-card-bar"></div>
-          <div class="venue-stage-name">Main Stage</div>
-          <div class="venue-stage-meta">800 מושבים, 16 הופעות</div>
-          <span class="venue-stage-arrow" aria-hidden="true">←</span>
-        </a>
-        <a class="venue-stage-card reveal" href="./lineup.html?stage=Green%20Pavilion" style="--stage-color:var(--yellow)">
-          <div class="venue-stage-card-bar"></div>
-          <div class="venue-stage-name">Green Pavilion</div>
-          <div class="venue-stage-meta">400 מושבים, 23 הופעות</div>
-          <span class="venue-stage-arrow" aria-hidden="true">←</span>
-        </a>
-        <a class="venue-stage-card reveal" href="./lineup.html?stage=Blue%20Dome" style="--stage-color:var(--teal)">
-          <div class="venue-stage-card-bar"></div>
-          <div class="venue-stage-name">Blue Dome</div>
-          <div class="venue-stage-meta">50 מושבים, 23 הופעות</div>
-          <span class="venue-stage-arrow" aria-hidden="true">←</span>
-        </a>
-      </div>
-
-      <a class="venue-photo-card reveal" href="./plaza.html">
-        <video autoplay muted loop playsinline
-               preload="metadata"
-               poster="./Graphig assets/gallery/port-aerial-drone-poster.jpg"
-               aria-hidden="true">
-          <source src="./Graphig assets/gallery/port-aerial.mp4" type="video/mp4">
-        </video>
-        <img class="venue-photo-fallback" src="./Graphig assets/gallery/port-aerial-drone-poster.jpg" alt="רחבה מרכזית — נמל אילת" width="1200" height="800" loading="lazy">
-        <div class="venue-photo-overlay"></div>
-        <div class="venue-photo-caption">
-          <div class="venue-photo-text">
-            <div class="venue-photo-title">רחבה מרכזית</div>
-            <div class="venue-photo-sub">דוכני שף, בר משקאות, הרכבי צעירים, ועוד</div>
-          </div>
-          <span class="venue-photo-arrow" aria-hidden="true">←</span>
-        </div>
-      </a>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- ── HOTEL BANNER ── -->
-  <section id="hotels">
-    <a class="hotel-banner reveal" href="https://www.hotels.com" target="_blank" rel="noopener">
-      <!-- Background photo -->
-      <div class="banner-bg-photo" aria-hidden="true">
-        <img src="./Graphig%20assets/banner2.png" alt="">
-        <div class="banner-photo-overlay"></div>
-      </div>
-      <!-- Decorative glows -->
-      <div class="banner-glow-orange" aria-hidden="true"></div>
-      <div class="banner-glow-teal" aria-hidden="true"></div>
-      <!-- Silhouette strip -->
-      <div class="banner-silhouette">
-        <svg viewBox="0 0 1200 80" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
-          <path fill="rgba(255,255,255,0.6)" d="M0,80 L0,55 L40,55 L40,40 L45,32 L50,40 L50,55 L70,55 L70,45 L80,35 L90,45 L90,55 L120,55 L120,40 L125,30 L127,25 L129,30 L134,40 L134,55 L160,55 L160,45 L170,38 L180,45 L180,55 L220,55 L220,60 L250,60 L250,50 L260,38 L265,30 L270,38 L280,50 L280,60 L320,60 L320,50 L335,35 L340,25 L345,35 L360,50 L360,60 L400,60 L400,55 L420,42 L430,55 L430,60 L470,60 L470,50 L480,40 L490,50 L490,60 L530,60 L530,55 L545,40 L550,30 L555,40 L570,55 L570,60 L610,60 L610,50 L625,38 L635,50 L635,60 L670,60 L670,55 L685,42 L695,55 L695,60 L730,60 L730,55 L745,42 L755,55 L755,60 L800,60 L800,50 L815,35 L820,28 L825,35 L840,50 L840,60 L880,60 L880,55 L895,40 L905,55 L905,60 L940,60 L940,52 L955,38 L960,30 L965,38 L980,52 L980,60 L1020,60 L1020,55 L1035,42 L1045,55 L1045,60 L1080,60 L1080,55 L1095,45 L1105,55 L1105,60 L1140,60 L1140,55 L1155,42 L1165,55 L1165,60 L1200,60 L1200,80 Z"/>
-        </svg>
-      </div>
-
-      <div class="hotel-banner-content">
-        <div class="hotel-banner-title">
-          <span class="title-line1">חגגו את הפסטיבל</span>
-          <span class="hl">עם לינה באילת</span>
-        </div>
-        <div class="hotel-banner-sub">
-          חבילות מיוחדות למבקרי הפסטיבל.<br>
-          מלונות 4 ו-5 כוכבים על חוף ים סוף.
-        </div>
-        <div class="hotel-logos">
-          <span class="hotel-logo-chip">Isrotel</span>
-          <span class="hotel-logo-chip">Dan Hotels</span>
-          <span class="hotel-logo-chip">Herods</span>
-          <span class="hotel-logo-chip">+ עוד</span>
-        </div>
-      </div>
-
-      <div class="hotel-banner-cta">
-        <span class="hotel-banner-btn">
-          לכל החבילות
-          <span class="arrow">←</span>
-        </span>
-      </div>
-    </a>
-  </section>
-
   <!-- ── TICKET PLANS ── -->
   <section id="ticket-plans" dir="rtl" class="ticket-plans-section">
     <div class="ticket-plans-header reveal">
@@ -2871,7 +2774,7 @@
         <div class="ticket-plan-inner">
           <div class="ticket-plan-top">
             <div class="ticket-plan-name">פס מלא</div>
-            <p class="ticket-plan-desc">כניסה חופשית לכל ימי הפסטיבל ולכל ההופעות!<br><strong>הגישה הטובה ביותר לחוויה המלאה.</strong></p>
+            <p class="ticket-plan-desc">כניסה חופשית לכל ימי הפסטיבל ולכל ההופעות!<br><strong>ארבעה ימים. כל הבמות. בלי לבחור.</strong></p>
           </div>
           <div class="ticket-plan-features">
             <div class="ticket-plan-feature">
@@ -2935,13 +2838,112 @@
     </div>
   </section>
 
+  <!-- ── HOTEL BANNER ── -->
+  <section id="hotels">
+    <a class="hotel-banner reveal" href="https://www.hotels.com" target="_blank" rel="noopener">
+      <!-- Background photo -->
+      <div class="banner-bg-photo" aria-hidden="true">
+        <img src="./Graphig%20assets/banner2.png" alt="">
+        <div class="banner-photo-overlay"></div>
+      </div>
+      <!-- Decorative glows -->
+      <div class="banner-glow-orange" aria-hidden="true"></div>
+      <div class="banner-glow-teal" aria-hidden="true"></div>
+      <!-- Silhouette strip -->
+      <div class="banner-silhouette">
+        <svg viewBox="0 0 1200 80" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+          <path fill="rgba(255,255,255,0.6)" d="M0,80 L0,55 L40,55 L40,40 L45,32 L50,40 L50,55 L70,55 L70,45 L80,35 L90,45 L90,55 L120,55 L120,40 L125,30 L127,25 L129,30 L134,40 L134,55 L160,55 L160,45 L170,38 L180,45 L180,55 L220,55 L220,60 L250,60 L250,50 L260,38 L265,30 L270,38 L280,50 L280,60 L320,60 L320,50 L335,35 L340,25 L345,35 L360,50 L360,60 L400,60 L400,55 L420,42 L430,55 L430,60 L470,60 L470,50 L480,40 L490,50 L490,60 L530,60 L530,55 L545,40 L550,30 L555,40 L570,55 L570,60 L610,60 L610,50 L625,38 L635,50 L635,60 L670,60 L670,55 L685,42 L695,55 L695,60 L730,60 L730,55 L745,42 L755,55 L755,60 L800,60 L800,50 L815,35 L820,28 L825,35 L840,50 L840,60 L880,60 L880,55 L895,40 L905,55 L905,60 L940,60 L940,52 L955,38 L960,30 L965,38 L980,52 L980,60 L1020,60 L1020,55 L1035,42 L1045,55 L1045,60 L1080,60 L1080,55 L1095,45 L1105,55 L1105,60 L1140,60 L1140,55 L1155,42 L1165,55 L1165,60 L1200,60 L1200,80 Z"/>
+        </svg>
+      </div>
+
+      <div class="hotel-banner-content">
+        <div class="hotel-banner-title">
+          <span class="title-line1">חבילות לינה</span>
+          <span class="hl">לפסטיבל</span>
+        </div>
+        <div class="hotel-banner-sub">
+          כרטיסים ולינה במלונות נבחרים באילת,<br>בהזמנה אחת ובמחירים ייעודיים למבקרי הפסטיבל.
+        </div>
+        <div class="hotel-logos">
+          <span class="hotel-logo-chip">Isrotel</span>
+          <span class="hotel-logo-chip">Dan Hotels</span>
+          <span class="hotel-logo-chip">Herods</span>
+          <span class="hotel-logo-chip">+ עוד</span>
+        </div>
+      </div>
+
+      <div class="hotel-banner-cta">
+        <span class="hotel-banner-btn">
+          לכל החבילות
+          <span class="arrow">←</span>
+        </span>
+      </div>
+    </a>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── VENUE ── -->
+  <section id="venue">
+
+    <h2 class="venue-heading reveal"><span class="dark">4 במות.</span> <span class="grad">רחבה ציבורית אחת.</span></h2>
+    <p class="section-desc" style="text-align:center; margin-top:-1.6rem; margin-bottom:2.4rem;">נמל אילת מתעורר לחיים</p>
+
+    <div class="venue-layout">
+      <div class="venue-stage-grid">
+        <a class="venue-stage-card reveal" href="./lineup.html?stage=Red%20Tent" style="--stage-color:var(--red)">
+          <div class="venue-stage-card-bar"></div>
+          <div class="venue-stage-name">Red Tent</div>
+          <div class="venue-stage-meta">230 מושבים, 23 הופעות</div>
+          <span class="venue-stage-arrow" aria-hidden="true">←</span>
+        </a>
+        <a class="venue-stage-card reveal" href="./lineup.html?stage=Main%20Stage" style="--stage-color:var(--orange)">
+          <div class="venue-stage-card-bar"></div>
+          <div class="venue-stage-name">Main Stage</div>
+          <div class="venue-stage-meta">800 מושבים, 16 הופעות</div>
+          <span class="venue-stage-arrow" aria-hidden="true">←</span>
+        </a>
+        <a class="venue-stage-card reveal" href="./lineup.html?stage=Green%20Pavilion" style="--stage-color:var(--yellow)">
+          <div class="venue-stage-card-bar"></div>
+          <div class="venue-stage-name">Green Pavilion</div>
+          <div class="venue-stage-meta">400 מושבים, 23 הופעות</div>
+          <span class="venue-stage-arrow" aria-hidden="true">←</span>
+        </a>
+        <a class="venue-stage-card reveal" href="./lineup.html?stage=Blue%20Dome" style="--stage-color:var(--teal)">
+          <div class="venue-stage-card-bar"></div>
+          <div class="venue-stage-name">Blue Dome</div>
+          <div class="venue-stage-meta">50 מושבים, 23 הופעות</div>
+          <span class="venue-stage-arrow" aria-hidden="true">←</span>
+        </a>
+      </div>
+
+      <a class="venue-photo-card reveal" href="./plaza.html">
+        <video autoplay muted loop playsinline
+               preload="metadata"
+               poster="./Graphig assets/gallery/port-aerial-drone-poster.jpg"
+               aria-hidden="true">
+          <source src="./Graphig assets/gallery/port-aerial.mp4" type="video/mp4">
+        </video>
+        <img class="venue-photo-fallback" src="./Graphig assets/gallery/port-aerial-drone-poster.jpg" alt="רחבה ציבורית — נמל אילת" width="1200" height="800" loading="lazy">
+        <div class="venue-photo-overlay"></div>
+        <div class="venue-photo-caption">
+          <div class="venue-photo-text">
+            <div class="venue-photo-title">רחבה ציבורית</div>
+            <div class="venue-photo-sub">דוכני שף, בר משקאות, הרכבי צעירים, ועוד</div>
+          </div>
+          <span class="venue-photo-arrow" aria-hidden="true">←</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
   <div class="divider"></div>
 
   <!-- ── MERCH · חנות הפסטיבל (סקשן מצומצם) ── -->
   <section id="merch" dir="rtl">
     <div class="section-header reveal">
-      <h2 class="section-title">מזכרות <span class="accent">מהפסטיבל</span></h2>
-      <p class="section-desc">קחו איתכם פיסה מפסטיבל ג׳אז ים סוף — פריטי אספנות, לבוש ואביזרים במהדורה מוגבלת.</p>
+      <h2 class="section-title">קולקציית <span class="accent">הפסטיבל</span></h2>
+      <p class="section-desc">הפריטים הרשמיים של מהדורת 2026 מחכים לכם.</p>
     </div>
 
     <div class="merch-grid reveal">
@@ -3004,7 +3006,7 @@
   <!-- ── NEWS ── -->
   <section id="news">
     <div class="section-header reveal">
-      <h2 class="section-title">חדשות <span class="accent">הפסטיבל</span></h2>
+      <h2 class="section-title">מגזין <span class="accent">הפסטיבל</span></h2>
     </div>
 
     <div class="news-grid reveal">
@@ -3870,6 +3872,10 @@
       let isDown = false, dragged = false, startX = 0, startScroll = 0;
 
       wrap.addEventListener('mousedown', function (e) {
+        // Without this, the browser starts its own native link/image drag
+        // on mousemove (cards are <a> tags), which hijacks the gesture and
+        // stops our mousemove handler from getting further events.
+        e.preventDefault();
         isDown = true; dragged = false;
         wrap.classList.add('is-dragging');
         startX = e.pageX;

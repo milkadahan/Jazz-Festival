@@ -210,13 +210,14 @@
     .nav-links a::after {
       content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
       width: 0; height: 2px;
-      background: linear-gradient(90deg, var(--orange), var(--yellow));
+      background: linear-gradient(90deg, var(--orange), #E84021);
       transition: width 0.3s;
     }
-    .nav-links a:hover { color: var(--yellow); }
-    .nav-links a:hover::after { width: 100%; }
-    .nav-links a.active { color: var(--orange); }
-    .nav-links a.active::after { width: 100%; }
+    .nav-links a:hover, .nav-links a.active {
+      background: linear-gradient(90deg, var(--orange), #E84021);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
 
     /* ── Nav dropdown: "מידע חשוב" — הקישור היחיד בטול-בר עם תת-תפריט (3 בנים) ── */
     .nav-drop { position: relative; }
@@ -229,11 +230,15 @@
     .nav-drop-toggle::after {
       content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
       width: 0; height: 2px;
-      background: linear-gradient(90deg, var(--orange), var(--yellow));
+      background: linear-gradient(90deg, var(--orange), #E84021);
       transition: width 0.3s;
     }
-    .nav-drop-toggle:hover, .nav-drop-toggle.open { color: var(--yellow); }
+    .nav-drop-toggle:hover, .nav-drop-toggle.open {
+      background: linear-gradient(90deg, var(--orange), #E84021);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
     .nav-drop-toggle:hover::after, .nav-drop-toggle.open::after { width: 100%; }
+    .nav-drop-toggle:hover .nav-drop-chevron, .nav-drop-toggle.open .nav-drop-chevron { color: var(--orange); }
     .nav-drop-toggle.active { color: var(--orange); }
     .nav-drop-toggle.active::after { width: 100%; }
     .nav-drop-chevron { transition: transform 0.25s; flex-shrink: 0; }
@@ -494,6 +499,7 @@
       position: sticky; top: calc(var(--ticker-h) + var(--nav-h) + 1.5rem);
       display: flex; flex-direction: column; gap: 1.4rem;
     }
+    .contact-intro { padding-top: 24px; }
     .contact-intro h3 {
       font-size: clamp(1.6rem, 3vw, 2.125rem);
       font-weight: 700; line-height: 1.1; letter-spacing: 0.25px;
@@ -597,10 +603,10 @@
         <!-- ── INFO ASIDE ── -->
         <aside class="contact-info">
           <div class="contact-intro">
-            <h3>הפסטיבל מתחיל <span style="color:var(--orange)">בשיחה</span></h3>
+            <h3>אנחנו כאן <span style="color:var(--orange)">בשבילכם</span></h3>
             <p>
-              בין אם יש לכם שאלה על כרטיסים, הצעה לשיתוף פעולה, בקשת נגישות או שאתם רק רוצים
-              להיות חלק מהקהילה — נשמח להיות בקשר. צוות הפסטיבל עונה בימים א׳–ה׳.
+              יש לכם שאלה על הפסטיבל, הכרטיסים, חבילות הנופש, שיתופי פעולה או נגישות?
+              צוות הפסטיבל זמין עבורכם וישמח לעזור בכל פנייה.
             </p>
           </div>
         </aside>

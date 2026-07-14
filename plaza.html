@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>הרחבה המרכזית · Red Sea Jazz Festival</title>
-  <meta name="description" content="הרחבה המרכזית של פסטיבל ג'אז ים סוף — דוכני שף, בר משקאות, מרצ'נדייז, הרכבי נגנים צעירים, דיג'ייז ותערוכת 40 שנה, במרחב ציבורי תוסס בנמל אילת." />
-  <meta name="keywords" content="Red Sea Jazz Festival, רחבה מרכזית, דוכני שף, בר, מרצ'נדייז, אילת, 2026" />
-  <meta property="og:title" content="הרחבה המרכזית · Red Sea Jazz Festival" />
+  <title>הרחבה הציבורית · Red Sea Jazz Festival</title>
+  <meta name="description" content="הרחבה הציבורית של פסטיבל ג'אז ים סוף — דוכני שף, בר משקאות, מרצ'נדייז, הרכבי נגנים צעירים, דיג'ייז ותערוכת 40 שנה, במרחב ציבורי תוסס בנמל אילת." />
+  <meta name="keywords" content="Red Sea Jazz Festival, רחבה ציבורית, דוכני שף, בר, מרצ'נדייז, אילת, 2026" />
+  <meta property="og:title" content="הרחבה הציבורית · Red Sea Jazz Festival" />
   <meta property="og:description" content="הלב הפועם של הפסטיבל — אוכל, שתייה, אמנות ומוזיקה נפגשים בין ההופעות על רקע מימי נמל אילת." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="./Graphig assets/og-image.jpg" />
@@ -175,13 +175,15 @@
     .nav-links a::after {
       content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
       width: 0; height: 2px;
-      background: linear-gradient(90deg, var(--orange), var(--yellow));
+      background: linear-gradient(90deg, var(--orange), #E84021);
       transition: width 0.3s;
     }
-    .nav-links a:hover { color: var(--yellow); }
-    .nav-links a:hover::after { width: 100%; }
-    .nav-links a.active { color: var(--orange); font-weight: 700; }
-    .nav-links a.active::after { width: 100%; }
+    .nav-links a:hover, .nav-links a.active {
+      background: linear-gradient(90deg, var(--orange), #E84021);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-links a.active { font-weight: 700; }
     /* ── Nav dropdown: "מידע חשוב" — הקישור היחיד בטול-בר עם תת-תפריט (3 בנים) ── */
     .nav-drop { position: relative; }
     .nav-drop-toggle {
@@ -193,11 +195,15 @@
     .nav-drop-toggle::after {
       content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
       width: 0; height: 2px;
-      background: linear-gradient(90deg, var(--orange), var(--yellow));
+      background: linear-gradient(90deg, var(--orange), #E84021);
       transition: width 0.3s;
     }
-    .nav-drop-toggle:hover, .nav-drop-toggle.open { color: var(--yellow); }
+    .nav-drop-toggle:hover, .nav-drop-toggle.open {
+      background: linear-gradient(90deg, var(--orange), #E84021);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
     .nav-drop-toggle:hover::after, .nav-drop-toggle.open::after { width: 100%; }
+    .nav-drop-toggle:hover .nav-drop-chevron, .nav-drop-toggle.open .nav-drop-chevron { color: var(--orange); }
     .nav-drop-chevron { transition: transform 0.25s; flex-shrink: 0; }
     .nav-drop-toggle.open .nav-drop-chevron { transform: rotate(180deg); }
 
@@ -267,7 +273,7 @@
 
     /* ─── PAGE HERO (cream, Light Mode — decorative glows, dark title) ─── */
     .page-hero {
-      position: relative; overflow: hidden;
+      position: relative;
       padding-top: calc(var(--ticker-h) + var(--nav-h) + 64px);
       padding-bottom: 48px;
       display: flex; align-items: center; justify-content: center;
@@ -431,9 +437,9 @@
     <div class="page-hero-glow page-hero-glow-teal" aria-hidden="true"></div>
     <div class="page-hero-content">
       <h1 class="page-hero-title">
-        <span class="page-hero-title-he">הרחבה <span class="page-hero-title-accent">המרכזית</span></span>
+        <span class="page-hero-title-he">הרחבה <span class="page-hero-title-accent">הציבורית</span></span>
       </h1>
-      <p class="page-hero-sub">הלב הפועם של הפסטיבל — מרחב ציבורי תוסס שבו אוכל, שתייה, אמנות ומוזיקה נפגשים בין ההופעות, על רקע מימי נמל אילת.</p>
+      <p class="page-hero-sub">בין ארבע הבמות של הפסטיבל מחכה הרחבה הציבורית – מרחב פתוח שבו מוזיקה, קולינריה ואווירת פסטיבל נפגשות מול ים סוף והרי אילת.</p>
     </div>
   </header>
 
@@ -444,7 +450,7 @@
       <!-- 1 · דוכני שף -->
       <section class="plaza-row">
         <div class="plaza-row-media">
-          <img src="./Graphig assets/plaza/plaza-chef.jpg" alt="דוכני שף ברחבה המרכזית" width="1200" height="800" loading="lazy" />
+          <img src="./Graphig assets/plaza/plaza-chef.jpg" alt="דוכני שף ברחבה הציבורית" width="1200" height="800" loading="lazy" />
         </div>
         <div class="plaza-row-text">
           <h2 class="plaza-row-title">דוכני שף</h2>
@@ -455,55 +461,55 @@
       <!-- 2 · בר משקאות -->
       <section class="plaza-row">
         <div class="plaza-row-media">
-          <img src="./Graphig assets/plaza/plaza-bar.jpg" alt="בר משקאות ברחבה המרכזית" width="1200" height="800" loading="lazy" />
+          <img src="./Graphig assets/plaza/plaza-bar.jpg" alt="בר משקאות ברחבה הציבורית" width="1200" height="800" loading="lazy" />
         </div>
         <div class="plaza-row-text">
           <h2 class="plaza-row-title">בר משקאות</h2>
-          <p class="plaza-row-desc">בר מרכזי עם קוקטיילים ייחודיים, יינות מקומיים ומשקאות קלים. פינת ישיבה נעימה מול המים, שבה אפשר לעצור בין הופעה להופעה, להתרווח וללגום כוסית תחת אורות הפסטיבל.</p>
+          <p class="plaza-row-desc">בר מרכזי עם קוקטיילים ייחודיים, יינות מקומיים ומשקאות קלים. פינת ישיבה נעימה מול המים, שבה אפשר לעצור בין הופעה להופעה, להתרווח וללגום כוסית מול הנוף של נמל אילת.</p>
         </div>
       </section>
 
       <!-- 3 · דוכני מרצ'נדייז -->
       <section class="plaza-row">
         <div class="plaza-row-media">
-          <img src="./Graphig assets/plaza/plaza-merch.jpg" alt="דוכני מרצ׳נדייז ברחבה המרכזית" width="1200" height="800" loading="lazy" />
+          <img src="./Graphig assets/plaza/plaza-merch.jpg" alt="דוכני מרצ׳נדייז ברחבה הציבורית" width="1200" height="800" loading="lazy" />
         </div>
         <div class="plaza-row-text">
           <h2 class="plaza-row-title">דוכני מרצ׳נדייז</h2>
-          <p class="plaza-row-desc">דוכני המרצ׳נדייז הרשמיים של הפסטיבל מציעים תקליטים, חולצות, פוסטרים ומזכרות במהדורה מוגבלת לחגיגת 40 השנה. פריטי אספנות שנשארים איתכם הרבה אחרי שהמוזיקה נגמרת.</p>
+          <p class="plaza-row-desc">החנות הרשמית של הפסטיבל מציעה את קולקציית המרצ'נדייז של מהדורת 2026 – דרך לקחת איתכם חלק קטן מהחוויה גם אחרי שהפסטיבל יסתיים.</p>
         </div>
       </section>
 
       <!-- 4 · הרכבי נגנים צעירים -->
       <section class="plaza-row">
         <div class="plaza-row-media">
-          <img src="./Graphig assets/plaza/plaza-young.jpg" alt="הרכבי נגנים צעירים ברחבה המרכזית" width="1200" height="800" loading="lazy" />
+          <img src="./Graphig assets/plaza/plaza-young.jpg" alt="הרכבי נגנים צעירים ברחבה הציבורית" width="1200" height="800" loading="lazy" />
         </div>
         <div class="plaza-row-text">
           <h2 class="plaza-row-title">הרכבי נגנים צעירים</h2>
-          <p class="plaza-row-desc">במה אינטימית ברחבה מוקדשת לדור הבא של הג׳אז הישראלי. הרכבים צעירים מבתי הספר למוזיקה ומהתוכניות המצטיינות עולים לנגן לצד אמנים ותיקים, ומזמינים את הקהל לגלות כישרונות מתפרצים.</p>
+          <p class="plaza-row-desc">במה ייעודית להרכבים צעירים ולדור הבא של סצנת הג׳אז. הזדמנות להכיר מוזיקאים מבטיחים ולגלות את השמות שעוד תשמעו עליהם.</p>
         </div>
       </section>
 
       <!-- 5 · דיג'יי -->
       <section class="plaza-row">
         <div class="plaza-row-media">
-          <img src="./Graphig assets/plaza/plaza-dj.jpg" alt="דיג׳יי ברחבה המרכזית" width="1200" height="800" loading="lazy" />
+          <img src="./Graphig assets/plaza/plaza-dj.jpg" alt="דיג׳יי ברחבה הציבורית" width="1200" height="800" loading="lazy" />
         </div>
         <div class="plaza-row-text">
           <h2 class="plaza-row-title">דיג׳יי</h2>
-          <p class="plaza-row-desc">כשההופעות הראשיות מסתיימות, הרחבה ממשיכה לפעום. סטים של דיג׳ייים אורחים ממזגים ג׳אז, פאנק וגרוב אלקטרוני עד השעות הקטנות של הלילה — פסקול מושלם להמשך הערב מול הים.</p>
+          <p class="plaza-row-desc">לאורך ימי הפסטיבל ילוו את הרחבה הציבורית סטים של דיג'יי שייצרו את הפסקול בין ההופעות וישמרו על האווירה לאורך כל היום והערב.</p>
         </div>
       </section>
 
       <!-- 6 · תערוכת 40 שנה -->
       <section class="plaza-row">
         <div class="plaza-row-media">
-          <img src="./Graphig assets/plaza/plaza-exhibition.jpg" alt="תערוכת 40 שנה לפסטיבלים ברחבה המרכזית" width="1200" height="800" loading="lazy" />
+          <img src="./Graphig assets/plaza/plaza-exhibition.jpg" alt="תערוכת 40 שנה לפסטיבלים ברחבה הציבורית" width="1200" height="800" loading="lazy" />
         </div>
         <div class="plaza-row-text">
           <h2 class="plaza-row-title">תערוכת 40 שנה</h2>
-          <p class="plaza-row-desc">מסלול תצוגה בגלריית חוץ מספר את סיפורם של ארבעה עשורי פסטיבל: צילומים היסטוריים, פוסטרים מקוריים ורגעים בלתי-נשכחים מהבמות. מסע ויזואלי דרך ההיסטוריה של ג׳אז ים סוף.</p>
+          <p class="plaza-row-desc">תערוכה מיוחדת המציינת 40 שנה לפסטיבל, עם רגעים, סיפורים וזיכרונות מארבעה עשורים של ג׳אז באילת.</p>
         </div>
       </section>
 

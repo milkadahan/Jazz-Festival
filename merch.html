@@ -180,13 +180,15 @@
     .nav-links a::after {
       content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
       width: 0; height: 2px;
-      background: linear-gradient(90deg, var(--orange), var(--yellow));
+      background: linear-gradient(90deg, var(--orange), #E84021);
       transition: width 0.3s;
     }
-    .nav-links a:hover { color: var(--yellow); }
-    .nav-links a:hover::after { width: 100%; }
-    .nav-links a.active { color: var(--orange); font-weight: 700; }
-    .nav-links a.active::after { width: 100%; }
+    .nav-links a:hover, .nav-links a.active {
+      background: linear-gradient(90deg, var(--orange), #E84021);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-links a.active { font-weight: 700; }
 
     /* ── Nav dropdown: "מידע חשוב" — הקישור היחיד בטול-בר עם תת-תפריט (3 בנים) ── */
     .nav-drop { position: relative; }
@@ -199,11 +201,15 @@
     .nav-drop-toggle::after {
       content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
       width: 0; height: 2px;
-      background: linear-gradient(90deg, var(--orange), var(--yellow));
+      background: linear-gradient(90deg, var(--orange), #E84021);
       transition: width 0.3s;
     }
-    .nav-drop-toggle:hover, .nav-drop-toggle.open { color: var(--yellow); }
+    .nav-drop-toggle:hover, .nav-drop-toggle.open {
+      background: linear-gradient(90deg, var(--orange), #E84021);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
     .nav-drop-toggle:hover::after, .nav-drop-toggle.open::after { width: 100%; }
+    .nav-drop-toggle:hover .nav-drop-chevron, .nav-drop-toggle.open .nav-drop-chevron { color: var(--orange); }
     .nav-drop-chevron { transition: transform 0.25s; flex-shrink: 0; }
     .nav-drop-toggle.open .nav-drop-chevron { transform: rotate(180deg); }
 
@@ -285,7 +291,7 @@
 
     /* ─── PAGE HERO — כותרת גדולה זהה לשאר דפי האתר (כמו עמוד השאלות הנפוצות) ─── */
     .page-hero {
-      position: relative; overflow: hidden;
+      position: relative;
       padding-top: calc(var(--ticker-h) + var(--nav-h) + 64px);
       padding-bottom: 40px;
       display: flex; align-items: center; justify-content: center;
@@ -543,7 +549,7 @@
       <h1 class="page-hero-title">
         <span class="page-hero-title-he">חנות <span class="page-hero-title-accent">הפסטיבל</span></span>
       </h1>
-      <p class="page-hero-sub">קחו איתכם פיסה מפסטיבל ג׳אז ים סוף — פריטי אספנות, לבוש ואביזרים במהדורה מוגבלת של מהדורת 2026.</p>
+      <p class="page-hero-sub">קולקציית המרצ'נדייז הרשמית של מהדורת 2026 מחכה לכם.</p>
     </div>
   </header>
 
