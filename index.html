@@ -1260,7 +1260,7 @@
 
     /* ─── HOTEL BANNER ────────────────────────────────────────── */
     #hotels {
-      padding: 4rem 3rem 6.5rem;
+      padding: 200px 3rem 200px;
       background: var(--bg);
     }
     .hotel-banner {
@@ -1311,10 +1311,13 @@
       object-position: left bottom;
       display: block;
     }
-    /* Gradient overlay inside the image container — האיור+הצלליות גלויים בשמאל, נמוג ל-cream לכיוון הטקסט (ימין) */
+    /* Gradient overlay inside the image container — האיור+הצלליות גלויים בשמאל, נמוג ל-cream לכיוון הטקסט (ימין),
+       ונמוג גם למעלה ולמטה כדי שהאיור לא ייחתך בקו ישר (לפי Figma node 271-1081) */
     .banner-photo-overlay {
       position: absolute; inset: 0; z-index: 1; pointer-events: none;
-      background: linear-gradient(to right, rgba(243,233,214,0) 30%, rgba(243,233,214,0.45) 58%, var(--bg2) 82%);
+      background:
+        linear-gradient(to right, rgba(243,233,214,0) 30%, rgba(243,233,214,0.45) 58%, var(--bg2) 82%),
+        linear-gradient(to bottom, var(--bg2) 0%, rgba(243,233,214,0) 20%, rgba(243,233,214,0) 78%, var(--bg2) 100%);
     }
 
     /* Eilat silhouette strip inside banner */
@@ -1493,33 +1496,18 @@
       background: var(--bg);
       position: relative;
       overflow: hidden;
+      padding-inline: 0;
+      padding-top: 0;
       padding-bottom: 4rem;
-    }
-    .venue-heading {
-      position: relative; z-index: 1;
-      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
-      font-weight: 900; font-size: clamp(2rem, 4vw, 3rem);
-      line-height: 1.15; text-align: center;
-      margin-bottom: 2.4rem;
-    }
-    .venue-heading .dark { color: var(--text); }
-    .venue-heading .grad {
-      background: linear-gradient(169deg, var(--orange) 0%, #E84021 73%);
-      -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .venue-layout {
       position: relative; z-index: 1;
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 2rem; align-items: stretch;
     }
     .venue-photo-card {
+      display: block;
       position: relative;
-      border-radius: 12px; overflow: hidden;
-      min-height: 420px;
-      transition: box-shadow 0.3s;
-    }
-    .venue-photo-card:hover {
-      box-shadow: 0 20px 50px rgba(255,107,26,0.2);
+      overflow: hidden;
+      min-height: 540px;
     }
     .venue-photo-card img,
     .venue-photo-card video {
@@ -1527,93 +1515,59 @@
       width: 100%; height: 100%; object-fit: cover; display: block;
     }
     .venue-photo-card .venue-photo-fallback { display: none; }
-    .venue-photo-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.45) 16%, rgba(0,0,0,0) 42%);
-    }
     .venue-photo-caption {
-      position: absolute; inset-inline: 0; bottom: 0;
-      padding: 32px 32px 32px;
-      display: flex; align-items: flex-end; justify-content: flex-start; gap: 10px;
-      color: #fff;
-      transition: padding-bottom 0.25s ease;
+      position: absolute; inset: 0;
+      padding: 32px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; text-align: center;
     }
-    .venue-photo-card:hover .venue-photo-caption { padding-bottom: 48px; }
     .venue-photo-text {
+      display: flex; flex-direction: column; gap: 24px;
+      align-items: center; max-width: 90%;
+    }
+    .venue-photo-heading-group {
       display: flex; flex-direction: column; gap: 9px;
-      flex: 1 0 0; min-width: 0;
-      align-items: flex-start; text-align: right;
+      align-items: center; width: 100%;
     }
     .venue-photo-title {
       font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
-      font-weight: 700; font-size: 34px; line-height: 1.1; letter-spacing: 0.25px;
+      font-weight: 900; font-size: clamp(1.6rem, 5vw, 3.5rem); line-height: 1.1; letter-spacing: -0.5px;
+      white-space: nowrap;
     }
     .venue-photo-sub {
       font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
-      font-weight: 600; font-size: 1.25rem; line-height: 1.28; letter-spacing: 0.15px;
+      font-weight: 500; font-size: clamp(1.3rem, 2.8vw, 2.125rem); line-height: 1.1; letter-spacing: 0.25px;
     }
-    .venue-photo-arrow {
-      flex-shrink: 0; font-size: 1.3rem; line-height: 1; padding-bottom: 3px;
-      opacity: 0; transform: translateX(8px);
-      transition: opacity 0.25s, transform 0.25s;
+    .venue-photo-small {
+      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
+      font-weight: 400; font-size: 1.25rem; line-height: 1.28; letter-spacing: 0.15px;
     }
-    .venue-photo-card:hover .venue-photo-arrow { opacity: 1; transform: translateX(0); }
-    .venue-stage-grid {
-      display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;
-      gap: 1.2rem;
+    .venue-photo-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: #fff; color: var(--text);
+      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
+      font-weight: 700; font-size: 0.9rem; letter-spacing: 0.15px;
+      border-radius: 100px; padding: 10px 22px;
+      transition: transform 0.2s;
     }
-    .venue-stage-card {
-      position: relative; overflow: hidden;
-      background: var(--card-bg);
-      border: 1px solid var(--bg2);
-      border-radius: 12px;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 0.5rem; padding: 1.5rem 2.2rem;
-      text-align: center;
-      text-decoration: none;
-      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    .venue-photo-card:hover .venue-photo-btn {
+      transform: translateY(-3px);
     }
-    .venue-stage-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 50px rgba(255,107,26,0.2);
-      border-color: var(--stage-color);
-    }
-    .venue-stage-card-bar {
-      position: absolute; top: -1px; left: 50%;
-      transform: translateX(-50%);
-      width: 104px; height: 6px;
-      border-radius: 0 0 8px 8px;
-      background: var(--stage-color);
-    }
-    .venue-stage-name {
-      font-family: 'Google Sans', 'Hepta Slab', serif;
-      font-weight: 700; font-size: 1.5rem; line-height: 1.334;
-      color: var(--text);
-      transition: transform 0.25s;
-    }
-    .venue-stage-meta {
-      font-family: 'Google Sans', 'Hepta Slab', serif;
-      font-weight: 600; font-size: 1.25rem; line-height: 1.28; letter-spacing: 0.15px;
-      color: var(--muted);
-      transition: transform 0.25s;
-    }
-    .venue-stage-arrow {
-      position: absolute; bottom: 1.4rem; left: 50%;
-      transform: translate(-50%, -4px);
-      font-size: 1.1rem; color: var(--stage-color);
+    .venue-photo-btn-arrow {
+      display: inline-block;
+      width: 0;
       opacity: 0;
-      transition: opacity 0.25s, transform 0.25s;
+      overflow: hidden;
+      margin-inline-start: 0;
+      transition: width 0.25s ease, opacity 0.2s ease, margin-inline-start 0.25s ease;
     }
-    .venue-stage-card:hover .venue-stage-name,
-    .venue-stage-card:hover .venue-stage-meta { transform: translateY(-10px); }
-    .venue-stage-card:hover .venue-stage-arrow { opacity: 1; transform: translate(-50%, 0); }
+    .venue-photo-card:hover .venue-photo-btn-arrow {
+      width: 1em;
+      opacity: 1;
+      margin-inline-start: 0.5rem;
+    }
     @media (max-width: 900px) {
-      .venue-layout { grid-template-columns: 1fr; }
-      .venue-photo-card { min-height: 320px; }
-    }
-    @media (max-width: 600px) {
-      .venue-stage-grid { grid-template-columns: 1fr; }
-      .venue-stage-card { padding: 1.3rem; }
+      .venue-photo-card { min-height: 380px; }
     }
 
     /* ─── FOOTER ──────────────────────────────────────────────── */
@@ -2881,42 +2835,10 @@
     </a>
   </section>
 
-  <div class="divider"></div>
-
   <!-- ── VENUE ── -->
   <section id="venue">
 
-    <h2 class="venue-heading reveal"><span class="dark">4 במות.</span> <span class="grad">רחבה ציבורית אחת.</span></h2>
-    <p class="section-desc" style="text-align:center; margin-top:-1.6rem; margin-bottom:2.4rem;">נמל אילת מתעורר לחיים</p>
-
     <div class="venue-layout">
-      <div class="venue-stage-grid">
-        <a class="venue-stage-card reveal" href="./lineup.html?stage=Red%20Tent" style="--stage-color:var(--red)">
-          <div class="venue-stage-card-bar"></div>
-          <div class="venue-stage-name">Red Tent</div>
-          <div class="venue-stage-meta">230 מושבים, 23 הופעות</div>
-          <span class="venue-stage-arrow" aria-hidden="true">←</span>
-        </a>
-        <a class="venue-stage-card reveal" href="./lineup.html?stage=Main%20Stage" style="--stage-color:var(--orange)">
-          <div class="venue-stage-card-bar"></div>
-          <div class="venue-stage-name">Main Stage</div>
-          <div class="venue-stage-meta">800 מושבים, 16 הופעות</div>
-          <span class="venue-stage-arrow" aria-hidden="true">←</span>
-        </a>
-        <a class="venue-stage-card reveal" href="./lineup.html?stage=Green%20Pavilion" style="--stage-color:var(--yellow)">
-          <div class="venue-stage-card-bar"></div>
-          <div class="venue-stage-name">Green Pavilion</div>
-          <div class="venue-stage-meta">400 מושבים, 23 הופעות</div>
-          <span class="venue-stage-arrow" aria-hidden="true">←</span>
-        </a>
-        <a class="venue-stage-card reveal" href="./lineup.html?stage=Blue%20Dome" style="--stage-color:var(--teal)">
-          <div class="venue-stage-card-bar"></div>
-          <div class="venue-stage-name">Blue Dome</div>
-          <div class="venue-stage-meta">50 מושבים, 23 הופעות</div>
-          <span class="venue-stage-arrow" aria-hidden="true">←</span>
-        </a>
-      </div>
-
       <a class="venue-photo-card reveal" href="./plaza.html">
         <video autoplay muted loop playsinline
                preload="metadata"
@@ -2925,19 +2847,22 @@
           <source src="./Graphig assets/gallery/port-aerial.mp4" type="video/mp4">
         </video>
         <img class="venue-photo-fallback" src="./Graphig assets/gallery/port-aerial-drone-poster.jpg" alt="רחבה ציבורית — נמל אילת" width="1200" height="800" loading="lazy">
-        <div class="venue-photo-overlay"></div>
         <div class="venue-photo-caption">
           <div class="venue-photo-text">
-            <div class="venue-photo-title">רחבה ציבורית</div>
-            <div class="venue-photo-sub">דוכני שף, בר משקאות, הרכבי צעירים, ועוד</div>
+            <div class="venue-photo-heading-group">
+              <div class="venue-photo-title">4 במות. רחבה ציבורית אחת.</div>
+              <div class="venue-photo-sub">נמל אילת מתעורר לחיים</div>
+            </div>
+            <div class="venue-photo-small">דוכני שף, בר משקאות, הרכבי צעירים, ועוד</div>
+            <span class="venue-photo-btn">
+              פרטים נוספים
+              <span class="venue-photo-btn-arrow" aria-hidden="true">&#8592;</span>
+            </span>
           </div>
-          <span class="venue-photo-arrow" aria-hidden="true">←</span>
         </div>
       </a>
     </div>
   </section>
-
-  <div class="divider"></div>
 
   <!-- ── MERCH · חנות הפסטיבל (סקשן מצומצם) ── -->
   <section id="merch" dir="rtl">
@@ -3366,12 +3291,15 @@
       opacity: 0.6;
       pointer-events: none;
     }
-    /* gradient overlay — ריכוך עליון: צבע מלא (25%) → שקוף כמעט (100%) */
+    /* gradient overlay — ריכוך עליון: צבע מלא (25%) → שקוף כמעט (100%),
+       וריכוך תחתון מראה: שקוף (71.7%) → צבע מלא (100%), כך שהסקשן נמזג לרקע גם למטה (Figma node 271-1081) */
     .ticket-plans-section::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, #faf4e9 24.495%, rgba(250,244,233,0.24) 100%);
+      background:
+        linear-gradient(to bottom, rgba(250,244,233,0) 71.717%, #faf4e9 100%),
+        linear-gradient(to bottom, #faf4e9 24.495%, rgba(250,244,233,0.24) 100%);
       pointer-events: none;
       z-index: 1;
     }
@@ -3909,7 +3837,7 @@
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            entry.target.querySelectorAll('.news-card, .venue-stage-card, .merch-card').forEach((c, i) => {
+            entry.target.querySelectorAll('.news-card, .merch-card').forEach((c, i) => {
               c.style.transitionDelay = `${i * 0.07}s`;
             });
             revealObserver.unobserve(entry.target);
