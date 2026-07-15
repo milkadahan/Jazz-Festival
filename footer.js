@@ -60,6 +60,13 @@
     .footer-links a:hover { color: #fff; }
 
     /* ── Newsletter signup ── */
+    .footer-news-heading {
+      font-size: 0.9rem;
+      color: #fff;
+      font-weight: 500;
+      line-height: 1.6;
+      margin-bottom: 0.3rem;
+    }
     .footer-news-text {
       font-size: 0.9rem;
       color: rgba(230,216,214,0.65);
@@ -89,7 +96,7 @@
       border: none;
       outline: none;
       color: #f2ebe8;
-      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-family: var(--font);
       font-size: 0.9rem;
       padding: 0.5rem 0;
       direction: rtl;
@@ -103,7 +110,7 @@
       border: none;
       border-radius: 50px;
       padding: 0.5rem 1.25rem;
-      font-family: 'Noto Sans Hebrew', sans-serif;
+      font-family: var(--font);
       font-size: 0.85rem;
       font-weight: 700;
       cursor: not-allowed;
@@ -131,6 +138,23 @@
     .footer-news-msg.success { color: #35C88F; }
     .footer-news-msg.error { color: #FF6F6F; }
 
+    .footer-sponsors {
+      margin-bottom: 2.5rem;
+      max-width: 1200px;
+      margin-inline: auto;
+    }
+    .footer-sponsors-label {
+      font-size: 0.72rem; color: rgba(230,216,214,0.5); text-transform: uppercase; letter-spacing: 0.06em;
+      font-weight: 700; margin-bottom: 1.2rem; text-align: center;
+    }
+    .footer-sponsors-strip {
+      display: flex; align-items: center; justify-content: center;
+      flex-wrap: wrap; row-gap: 1.6rem; column-gap: clamp(18px, 2.3vw, 38px);
+    }
+    .footer-sponsor-logo {
+      height: clamp(13px, 1.6vw, 24px); width: auto; flex-shrink: 0;
+      object-fit: contain; display: block;
+    }
     .footer-bottom {
       border-top: 1px solid rgba(255,255,255,0.1);
       padding-top: 1.5rem;
@@ -170,10 +194,15 @@
           נמל אילת · 11–14 בנובמבר 2026
         </div>
         <div class="footer-social">
-          <button class="footer-social-btn" aria-label="פייסבוק">f</button>
-          <button class="footer-social-btn" aria-label="יוטיוב">▶</button>
-          <button class="footer-social-btn" aria-label="אינסטגרם">📸</button>
-          <button class="footer-social-btn" aria-label="ספוטיפיי">♪</button>
+          <button class="footer-social-btn" aria-label="פייסבוק">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h-2a4 4 0 0 0-4 4v3H6v4h3v7h4v-7h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </button>
+          <button class="footer-social-btn" aria-label="אינסטגרם">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="0.6" fill="currentColor" stroke="none"/></svg>
+          </button>
+          <button class="footer-social-btn" aria-label="טיקטוק">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v10.8a3.6 3.6 0 1 1-3.6-3.6c.32 0 .63.03.93.1"/><path d="M14 3c0 2.6 2.1 4.7 4.7 4.7"/></svg>
+          </button>
         </div>
       </div>
 
@@ -193,15 +222,15 @@
         <ul class="footer-links">
           <li><a href="./about.html">אודות הפסטיבל</a></li>
           <li><a href="./faq.html">שאלות נפוצות</a></li>
-          <li><a href="#">נגישות</a></li>
           <li><a href="./contact.html">יצירת קשר</a></li>
         </ul>
       </div>
 
       <div class="footer-news-col">
         <div class="footer-col-title">ניוזלטר</div>
+        <div class="footer-news-heading">הישארו מעודכנים!</div>
         <div class="footer-news-text">
-          הישארו מעודכנים — לוח הופעות, אמנים חדשים והטבות מוקדמות, ישירות למייל.
+          לוח הופעות, אמנים חדשים והטבות מוקדמות, ישירות למייל.
         </div>
         <form class="footer-news-form" novalidate>
           <div class="footer-news-field">
@@ -217,6 +246,22 @@
           </div>
           <div class="footer-news-msg" role="status" aria-live="polite"></div>
         </form>
+      </div>
+    </div>
+
+    <div class="footer-sponsors">
+      <div class="footer-sponsors-label">בחסות</div>
+      <div class="footer-sponsors-strip">
+        <img class="footer-sponsor-logo" src="./Graphig assets/sponsors/ministry-culture-sport.svg" alt="משרד התרבות והספורט" loading="lazy" />
+        <img class="footer-sponsor-logo" src="./Graphig assets/sponsors/ministry-tourism.png" alt="משרד התיירות" loading="lazy" />
+        <img class="footer-sponsor-logo" src="./Graphig assets/sponsors/ministry-negev-galilee.png" alt="משרד הנגב, הגליל והחוסן הלאומי" loading="lazy" />
+        <img class="footer-sponsor-logo" src="./Graphig assets/sponsors/mifal-hapayis.svg" alt="מפעל הפיס" loading="lazy" />
+        <img class="footer-sponsor-logo" src="./Graphig assets/sponsors/eilat-municipality.svg" alt="עיריית אילת" loading="lazy" />
+        <img class="footer-sponsor-logo" src="./Graphig assets/sponsors/eilat-tourism-corp.png" alt="תאגיד התיירות אילת" loading="lazy" />
+        <img class="footer-sponsor-logo" src="./Graphig assets/sponsors/kan-88.svg" alt="כאן 88" loading="lazy" />
+        <img class="footer-sponsor-logo" src="./Graphig assets/sponsors/kan-kol-hamusica.png" alt="כאן קול המוזיקה" loading="lazy" />
+        <img class="footer-sponsor-logo" src="./Graphig assets/sponsors/isrotel.png" alt="Isrotel" loading="lazy" />
+        <img class="footer-sponsor-logo" src="./Graphig assets/sponsors/forum-productions.png" alt="פורום הפקות" loading="lazy" />
       </div>
     </div>
 
