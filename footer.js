@@ -177,9 +177,28 @@
       footer { padding: 3rem 1.5rem 2rem; }
     }
     @media (max-width: 600px) {
-      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .footer-news-col { grid-column: auto; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem 1.25rem; }
+      /* מובייל: גוש לוגו+טאגליין+סושיאל ואחריו הניוזלטר — שניהם ברוחב מלא (span 2
+         העמודות); אחריהם עמודות ניווט ומידע זו לצד זו (כל אחת עמודה אחת) */
+      .footer-grid > div:nth-child(1) { grid-column: 1 / -1; order: 1; text-align: center; }
+      .footer-news-col { grid-column: 1 / -1; order: 2; }
+      .footer-grid > div:nth-child(2) { grid-column: auto; order: 3; }
+      .footer-grid > div:nth-child(3) { grid-column: auto; order: 4; }
       .footer-news-form { max-width: 100%; }
+      /* לוגו, תגית וסושיאל ממורכזים באמצע העמודה */
+      .footer-logo-img, .footer-tagline { margin-inline: auto; }
+      .footer-social { justify-content: center; }
+      /* שני פסי הפרדה מעל ומתחת לניוזלטר — אותו צבע בהיר כמו הבורדר של
+         כפתורי הסושיאל ושל שדה המייל (rgba(255,255,255,0.14)) */
+      .footer-news-col {
+        border-top: 1px solid rgba(255,255,255,0.14);
+        border-bottom: 1px solid rgba(255,255,255,0.14);
+        padding-block: 1.75rem;
+      }
+      /* מסתירים רק את הכותרת הכתומה "ניוזלטר" — לא נוגעים ב"ניווט"/"מידע" */
+      .footer-news-col .footer-col-title { display: none; }
+      /* שורת הזכויות/קישורים התחתונה — ממורכזת ואחת מתחת לשנייה */
+      .footer-bottom { flex-direction: column; justify-content: center; text-align: center; }
     }
   `;
   document.head.appendChild(style);

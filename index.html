@@ -90,11 +90,11 @@
       --teal:      #0A8F8E;   /* טורקיז — מותאם לקונטרסט על שמנת */
       --warm-glow: #FF8C42;   /* זוהר חם (לאפקטים על ההירו הכהה) */
       --text:      #3A2A1E;   /* טקסט ראשי — חום כהה */
-      --muted:     #8A7256;   /* טקסט משני — חום בינוני */
+      --muted:     #6A5540; --yellow-text: #7A5C00; --teal-text: #086665; --orange-text: #B8440A; --orange-btn: #C94A08;   /* טקסט משני — חום בינוני */
       --card-bg:   #FFFDF8;   /* רקע כרטיסים — לבן-שמנת */
       --border:    rgba(58,42,30,0.12);  /* מסגרות — חום שקוף */
       --border-strong: rgba(58,42,30,0.22);
-      --btn-gradient:  linear-gradient(135deg, var(--orange), var(--red)); /* גרדיאנט אחיד לכל הכפתורים */
+      --btn-gradient:  linear-gradient(135deg, var(--orange-btn), var(--red)); /* גרדיאנט אחיד לכל הכפתורים */
       --shadow:    rgba(58,42,30,0.10);  /* צללים רכים על בהיר */
       --shadow-strong: rgba(58,42,30,0.16);
       --on-accent: #FFFDF8;  /* טקסט על רקע צבעוני מלא */
@@ -154,7 +154,7 @@
       flex-shrink: 0;
       padding: 0 1.4rem 0 1rem;
       font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
-      color: var(--orange); text-transform: uppercase;
+      color: var(--orange-text); text-transform: uppercase;
       border-right: 1px solid rgba(224,86,11,0.35);
       white-space: nowrap;
     }
@@ -298,8 +298,8 @@
       white-space: nowrap; text-align: start;
       background: none; border: none; width: 100%; cursor: pointer; font-family: inherit;
     }
-    .nav-drop-panel > a:hover { background: rgba(224,86,11,0.08); color: var(--orange); }
-    .nav-drop-panel > a.active { color: var(--orange); font-weight: 700; }
+    .nav-drop-panel > a:hover { background: rgba(224,86,11,0.08); color: var(--orange-text); }
+    .nav-drop-panel > a.active { color: var(--orange-text); font-weight: 700; }
 
     /* ── Nav action buttons (left side) ── */
     .nav-actions {
@@ -325,7 +325,7 @@
       transition: border-color 0.2s, color 0.2s, transform 0.2s;
     }
     .nav-btn-secondary:hover {
-      border-color: var(--orange); color: var(--orange);
+      border-color: var(--orange); color: var(--orange-text);
       transform: translateY(-2px);
     }
     .nav-lang-sep {
@@ -342,10 +342,19 @@
       display: flex; align-items: center; gap: 0.35rem;
       transition: border-color 0.2s, color 0.2s;
     }
-    .nav-btn-lang:hover { border-color: var(--orange); color: var(--orange); }
+    .nav-btn-lang:hover { border-color: var(--orange); color: var(--orange-text); }
 
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger {
+      display: none; flex-direction: column; justify-content: center;
+      gap: 5px; cursor: pointer;
+      border: none; background: none;
+      padding: 9px; margin: -9px; /* מגדיל את שטח המגע ל-~38-42px בלי לשנות את המראה החזותי או לתפוס עוד מקום ב-flex */
+    }
     .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
+    /* תפריט פתוח: שני הפסים החיצוניים מסתובבים ל-X, האמצעי נעלם */
+    .hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .hamburger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
     /* ─── HERO – STICKY BG IMAGE ──────────────────────────────── */
     #hero-wrapper {
@@ -399,6 +408,10 @@
       .hero-bg-fallback { display: block; }
       .venue-photo-card video { display: none; }
       .venue-photo-card .venue-photo-fallback { display: block; }
+
+      /* גרסת מובייל בלבד — שוליים אחידים 16px סביב ההירו, תמונת הרקע ממורכזת. */
+      .hero-image-frame { top: 16px; left: 16px; right: 16px; bottom: 16px; }
+      .hero-bg-fallback { object-position: center center; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -448,6 +461,10 @@
       0%   { opacity: 0.3; }
       100% { opacity: 0.85; }
     }
+
+    /* עוטף hero-main-content + hero-content. display:contents בדסקטופ = לא קיים בעץ
+       הקופסאות, הילדים ממשיכים להתנהג בדיוק כמו קודם (position:absolute עצמאי). */
+    .hero-content-frame { display: contents; }
 
     /* Hero main content — logo + subtitle row, centered */
     .hero-main-content {
@@ -550,6 +567,48 @@
       background: #FAF4E9; /* תיקון מילקה — מסגרת/רקע סביב ה-countdown יושר לצבע רקע האתר */
       border-radius: 0 26px 0 0;
       padding: 16px 16px 0 0;
+    }
+
+    /* גרסת מובייל בלבד — hero-content-frame (שעד עכשיו היה display:contents) הופך לעמודת
+       flex שממוקמת בדיוק על אותו inset כמו hero-image-frame (16px). hero-main-content
+       הוא flex:1 וממרכז את תוכנו (badge/כותרת/כפתור) אנכית ואופקית בתוך השטח שנותר מעל
+       ה-countdown — כך המרחק מהשול העליון של הבאנר לטקסט שווה תמיד למרחק מהטקסט
+       ל-countdown, בלי חישובי פיקסלים קשיחים. ממוקם אחרי הכללים הבסיסיים כדי לגבור
+       עליהם בקסקייד (אותה specificity, אז סדר המקור קובע). */
+    @media (max-width: 768px) {
+      .hero-content-frame {
+        display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+        position: absolute; top: 16px; left: 16px; right: 16px; bottom: 16px;
+        z-index: 10; pointer-events: none;
+      }
+      .hero-main-content {
+        position: static;
+        transform: none;
+        flex: 1; width: 100%;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center; text-align: center;
+        max-width: 480px; margin-inline: auto;
+        padding-inline: 24px; box-sizing: border-box;
+      }
+      .hero-title-text { text-align: center; }
+      /* Unified with every other mobile section heading (2rem — the
+         ticket-plans-title size) instead of its own larger clamp. */
+      .hero-title-line1, .hero-title-line2 { font-size: 2rem; }
+      /* height אחיד עם שאר כפתורי ה-CTA במובייל (44px — כגובה כפתור
+         "פרטים נוספים" בסקשן #venue) */
+      .hero-lineup-btn { padding: 0.75rem 1.25rem; font-size: 16px; height: 44px; }
+
+      .hero-content {
+        position: static;
+        align-self: stretch;
+        background: transparent;
+        border-radius: 0;
+        padding: 0;
+        margin: 0 8px 8px 8px;
+        pointer-events: auto;
+      }
+      .countdown { width: 100%; box-sizing: border-box; }
+      .hero-corner { display: none; }
     }
 
     .hero-corner {
@@ -772,7 +831,7 @@
       text-align: center; margin-bottom: 3.5rem;
     }
     .section-title {
-      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
       font-weight: 900; line-height: 1.1;
     }
     .section-title .accent {
@@ -782,6 +841,11 @@
     .section-desc {
       color: var(--muted); font-size: 1rem; margin-top: 0.8rem; max-width: 500px;
       margin-inline: auto; line-height: 1.7;
+    }
+    /* גרסת מובייל בלבד — מונע מילה בודדת לבד בשורה האחרונה (widow) ע"י איזון
+       אורך השורות. ממוקם אחרי הכלל הבסיסי כדי לגבור עליו בקסקייד. */
+    @media (max-width: 600px) {
+      .section-desc { text-wrap: balance; }
     }
 
     /* Divider */
@@ -833,7 +897,9 @@
       display: flex; flex-direction: column;
       padding-bottom: 120px;
     }
-    #lineup-sticky .section-header { padding: 120px 3rem 40px; margin-bottom: 0; }
+    /* padding-top שווה בדיוק ל-padding-bottom של .alt-lineup-section-inner (הסקשן הקודם) —
+       כדי שהמפריד (.divider) ביניהם יישב בדיוק באמצע המרחק בין שני הסקשנים. */
+    #lineup-sticky .section-header { padding: 80px 3rem 40px; margin-bottom: 0; }
     .horiz-scroll-area {
       position: relative;
     }
@@ -913,6 +979,13 @@
       border-color: rgba(255,107,26,0.5);
       box-shadow: 0 20px 50px rgba(255,107,26,0.2);
     }
+    /* מובייל: מקטינים את הכרטיס כך שבתצוגה הראשונית (לפני גלילה) ייראה כרטיס
+       וחצי — הרמז החזותי לכך שיש עוד אמנים בגלילה אופקית. הכרטיס הראשון
+       ממוקם 16px מהשוליים הימניים (dir=rtl — זה הקצה שבו הפריט הראשון בתור). */
+    @media (max-width: 600px) {
+      .horiz-track { padding-right: 16px; gap: 16px; }
+      .artist-card { width: 68vw; }
+    }
 
     .artist-img {
       width: 100%; aspect-ratio: 16/12;
@@ -933,13 +1006,19 @@
       content: ''; position: absolute; inset: 0;
       background: radial-gradient(circle at 30% 70%, rgba(255,107,26,0.15), transparent 60%);
     }
+    /* גרסת מובייל בלבד — ממוקם אחרי הכלל הבסיסי של .artist-img כדי לגבור עליו
+       בקסקייד (אותה specificity, אז סדר המקור קובע). יותר מקום לתמונה — מגביהים
+       רק את גובה התמונה (וממילא את גובה הכרטיס), בלי לגעת ברוחב הכרטיס (60vw). */
+    @media (max-width: 600px) {
+      .artist-img { aspect-ratio: 3/4.6; }
+    }
 
     a.artist-card { display: block; text-decoration: none; color: inherit; }
     .artist-info { padding: 1.2rem; }
     .artist-name { font-size: 1.05rem; font-weight: 700; }
     .artist-tag {
       display: inline-block; margin-top: 0.6rem;
-      background: rgba(255,107,26,0.15); color: var(--orange);
+      background: rgba(255,107,26,0.15); color: var(--orange-text);
       border-radius: 50px; padding: 0.2rem 0.8rem; font-size: 0.75rem;
     }
 
@@ -1167,7 +1246,7 @@
     .schedule-table th {
       padding: 1rem; text-align: center;
       font-size: 0.8rem; letter-spacing: 0; text-transform: uppercase;
-      color: var(--orange); border-bottom: 1px solid var(--border);
+      color: var(--orange-text); border-bottom: 1px solid var(--border);
     }
     .time-col { color: var(--muted); font-size: 0.85rem; padding: 0.8rem 1rem; white-space: nowrap; }
     .show-cell {
@@ -1215,10 +1294,10 @@
 
     .show-name { font-weight: 700; font-size: 0.9rem; }
     .show-meta { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
-    .show-time { font-size: 0.75rem; color: var(--orange); margin-top: 4px; }
-    .show-block.teal .show-time { color: var(--teal); }
+    .show-time { font-size: 0.75rem; color: var(--orange-text); margin-top: 4px; }
+    .show-block.teal .show-time { color: var(--teal-text); }
     .show-block.pink .show-time { color: var(--pink); }
-    .show-block.yellow .show-time { color: var(--yellow); }
+    .show-block.yellow .show-time { color: var(--yellow-text); }
 
     /* Lineup list view */
     .lineup-list { display: flex; flex-direction: column; gap: 1rem; }
@@ -1253,15 +1332,16 @@
       border-radius: 50px; border: 1px solid;
       font-weight: 500;
     }
-    .lineup-stage.stage-1 { color: var(--orange); border-color: rgba(255,107,26,0.4); background: rgba(255,107,26,0.08); }
-    .lineup-stage.stage-2 { color: var(--teal);   border-color: rgba(0,200,200,0.4);   background: rgba(0,200,200,0.08); }
+    .lineup-stage.stage-1 { color: var(--orange-text); border-color: rgba(255,107,26,0.4); background: rgba(255,107,26,0.08); }
+    .lineup-stage.stage-2 { color: var(--teal-text);   border-color: rgba(0,200,200,0.4);   background: rgba(0,200,200,0.08); }
     .lineup-stage.stage-3 { color: var(--pink);   border-color: rgba(255,110,180,0.4); background: rgba(255,110,180,0.08); }
-    .lineup-stage.stage-4 { color: var(--yellow); border-color: rgba(255,210,52,0.4);  background: rgba(255,210,52,0.08); }
+    .lineup-stage.stage-4 { color: var(--yellow-text); border-color: rgba(255,210,52,0.4);  background: rgba(255,210,52,0.08); }
 
     /* ─── HOTEL BANNER ────────────────────────────────────────── */
     #hotels {
       padding: 200px 3rem 200px;
       background: var(--bg);
+      z-index: 1; /* sits above #venue's pinned video so its own tail visually peels away and reveals it */
     }
     .hotel-banner {
       position: relative; overflow: hidden;
@@ -1402,13 +1482,50 @@
       background: linear-gradient(to top, rgba(13,14,26,0.8), transparent 50%);
     }
     .news-body { padding: 1.3rem; }
-    .news-date { font-size: 0.75rem; color: var(--teal); letter-spacing: 0; margin-bottom: 0.5rem; }
+    .news-date { font-size: 0.75rem; color: var(--teal-text); letter-spacing: 0; margin-bottom: 0.5rem; }
     .news-title { font-size: 1rem; font-weight: 700; line-height: 1.4; margin-bottom: 0.5rem; }
     .news-excerpt { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
-    .news-more { font-size: 0.82rem; color: var(--orange); margin-top: 0.8rem; display: flex; align-items: center; gap: 0.3rem; }
+    .news-more { font-size: 0.82rem; color: var(--orange-text); margin-top: 0.8rem; display: flex; align-items: center; gap: 0.3rem; }
+
+    /* מובייל בלבד: הכתבות הופכות לקרוסלה אופקית עם snap למרכז — כל כרטיס
+       תופס 82% מרוחב הטראק כך שקצוות הכרטיסים השכנים נקבצים בשוליים,
+       הרמז החזותי שיש עוד כתבות בגלילה. הלולאה האינסופית (מעגליות)
+       מנוהלת ב-JS דרך שכפול הכרטיס הראשון/אחרון בקצוות. */
+    @media (max-width: 600px) {
+      .news-grid {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 1rem;
+        /* בוטל הפדינג הימני/שמאלי (היה 9% משני הצדדים) כדי שהכרטיסים יגלשו
+           עד לשוליים בפועל, בלי "קיר" ריק בקצוות הגלילה. margin-inline שלילי
+           מבטל גם את הפדינג של הסקשן עצמו (1rem מכל צד). */
+        padding-inline: 0;
+        scroll-padding-inline: 0;
+        margin-inline: -1rem;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; -ms-overflow-style: none;
+      }
+      .news-grid::-webkit-scrollbar { display: none; }
+      .news-card {
+        flex: 0 0 82%;
+        scroll-snap-align: center;
+      }
+      /* מקסימום 3 שורות לתיאור, חיתוך בשלוש נקודות */
+      .news-excerpt {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      /* מרחק של 16px בין "קרא עוד" לסוף הכרטיס (היה 1.3rem/~21px) */
+      .news-body { padding-bottom: 16px; }
+    }
 
     /* ─── MERCH – חנות הפסטיבל (סקשן מצומצם בעמוד הבית) ─── */
-    #merch { background: var(--bg); text-align: center; }
+    /* position+z-index above #venue so it visually rises over and covers
+       the sticky-pinned video from #venue as the page scrolls past it. */
+    #merch { background: var(--bg); text-align: center; position: relative; z-index: 2; }
     .merch-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -1452,7 +1569,7 @@
     .merch-buy {
       margin-top: auto;
       display: inline-flex; align-items: center; gap: 0.3rem;
-      color: var(--orange);
+      color: var(--orange-text);
       font-size: 0.85rem; font-weight: 700;
     }
 
@@ -1476,7 +1593,7 @@
     .merch-cta-wrap { margin-top: 3rem; text-align: center; }
     .merch-cta {
       display: inline-flex; align-items: center; gap: 0.5rem;
-      background: transparent; color: var(--orange);
+      background: transparent; color: var(--orange-text);
       border: 1.5px solid var(--orange);
       border-radius: 50px; padding: 0.85rem 2.2rem;
       font-size: 1rem; font-weight: 700; text-decoration: none;
@@ -1484,30 +1601,84 @@
     }
     .merch-cta:hover { background: rgba(224,86,11,0.07); transform: translateY(-2px); }
 
+    /* height אחיד עם שאר כפתורי ה-CTA במובייל (44px — כגובה כפתור
+       "פרטים נוספים" בסקשן #venue) */
+    @media (max-width: 768px) {
+      .merch-cta { height: 44px; }
+    }
+
     @media (max-width: 980px) {
       .merch-grid { grid-template-columns: repeat(2, 1fr); }
     }
-    @media (max-width: 520px) {
-      .merch-grid { grid-template-columns: 1fr; gap: 1.1rem; }
+    /* מובייל: קרוסלת גלילה אופקית כמו קרוסלת האמנים בראש העמוד —
+       16px בין כרטיסים, תצוגה ראשונית של כרטיס וחצי (60vw לכרטיס) */
+    @media (max-width: 600px) {
+      .merch-grid {
+        display: flex;
+        grid-template-columns: none;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        scrollbar-width: none; -ms-overflow-style: none;
+        scroll-snap-type: x mandatory;
+        gap: 16px;
+        max-width: none;
+        /* מבטל את הפדינג של הסקשן (1rem) רק בצד הסיום (שמאל, dir=rtl) כדי
+           שהכרטיסים יגלשו עד לשוליים בפועל שם. בצד ההתחלה (ימין) *לא* מבטלים
+           את הפדינג — כך שבתצוגה הראשונית נשארים 16px הפדינג הטבעי של הסקשן
+           לפני הכרטיס הראשון, אבל ברגע שמתחילה גלילה הוא כבר לא נראה (הוא
+           רק מיקום ה-box של הגריד על העמוד, לא ריפוד פנימי של אזור הגלילה
+           עצמו — ברגע שגוללים שמאלה הוא נעלם לגמרי מהתצוגה). */
+        margin-inline-end: -1rem;
+      }
+      .merch-grid::-webkit-scrollbar { display: none; }
+      .merch-grid .merch-card {
+        flex: 0 0 60vw;
+        scroll-snap-align: start;
+      }
+      /* מבטל את אפקט ה-hover (הרמה + צל) בקרוסלת המובייל — מגע על מסך נוגע
+         משאיר לפעמים מצב hover "תקוע" אחרי טאץ' / גלילה. */
+      .merch-grid .merch-card:hover {
+        transform: none;
+        border-color: var(--border);
+        box-shadow: none;
+      }
+      .merch-grid .merch-card-featured:hover {
+        border-color: var(--orange);
+        box-shadow: 0 10px 30px rgba(224,86,11,0.18);
+      }
     }
 
     /* ─── VENUE · LOCATIONS ─────────────────────────────────────── */
+    /* Sticky-reveal: same technique as #hero-wrapper — video pins in place
+       while scrolling. No overflow:hidden here — it would break
+       position:sticky on the descendant card.
+       The negative margin pulls #venue's sticky video up underneath the
+       tail of #hotels (which has a higher z-index) — so the video is
+       already pinned in place *before* #hotels finishes scrolling away,
+       and its tail visually peels back to reveal it, instead of the video
+       just entering like a normal next section. #merch (z-index above
+       #venue) later covers it again the same way as it scrolls up. */
     #venue {
       background: var(--bg);
       position: relative;
-      overflow: hidden;
+      z-index: 0;
+      margin-top: -300px;
       padding-inline: 0;
-      padding-top: 0;
-      padding-bottom: 4rem;
+      padding-block: 0;
     }
     .venue-layout {
       position: relative; z-index: 1;
+      height: 170vh;
+      height: 170dvh;
     }
     .venue-photo-card {
       display: block;
-      position: relative;
+      position: sticky;
+      top: 0;
       overflow: hidden;
-      min-height: 540px;
+      height: 100vh;
+      height: 100dvh;
     }
     .venue-photo-card img,
     .venue-photo-card video {
@@ -1515,11 +1686,27 @@
       width: 100%; height: 100%; object-fit: cover; display: block;
     }
     .venue-photo-card .venue-photo-fallback { display: none; }
+    /* Gentle scrim so the white caption stays legible over busy video
+       frames (containers, vehicles, etc.) without flattening the video —
+       same treatment on mobile and desktop, no media-query split needed. */
+    .venue-photo-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0, 0, 0, 0.22);
+      pointer-events: none;
+    }
+    /* opacity/transform are driven directly by scroll position in JS (see
+       the venue caption reveal script), not a CSS transition — a fixed-
+       duration transition can't keep up with a fast/flick scroll, so the
+       text would only be partway faded in by the time the user has
+       already scrolled past it. Driving it off scroll position instead
+       means it's always exactly as revealed as the scroll position says,
+       however fast the user scrolls. */
     .venue-photo-caption {
       position: absolute; inset: 0;
       padding: 32px;
       display: flex; align-items: center; justify-content: center;
       color: #fff; text-align: center;
+      opacity: 0;
     }
     .venue-photo-text {
       display: flex; flex-direction: column; gap: 24px;
@@ -1566,10 +1753,14 @@
       opacity: 1;
       margin-inline-start: 0.5rem;
     }
-    @media (max-width: 900px) {
-      .venue-photo-card { min-height: 380px; }
+    @media (max-width: 768px) {
+      /* Unified with every other mobile section heading (2rem). white-space
+         switches to normal (from nowrap) because at 2rem this title no
+         longer fits on one line within the card's 90%-max-width text
+         column — nowrap would just get clipped by .venue-photo-card's
+         overflow:hidden instead of wrapping. */
+      .venue-photo-title { font-size: 2rem; white-space: normal; }
     }
-
     /* ─── FOOTER ──────────────────────────────────────────────── */
     footer {
       background: #2d2726;
@@ -1621,47 +1812,157 @@
     .reveal.visible { opacity: 1; transform: translateY(0); will-change: auto; }
 
     /* ─── RESPONSIVE ──────────────────────────────────────────── */
+    /* מוסתרים כברירת מחדל (דסקטופ); נחשפים/ממוקמים בתוך המדיה קוורי של מובייל למטה */
+    .nav-link-mobile-flat, .nav-mobile-menu-actions { display: none; }
+    /* עטיפת הפאנל שקופה לחלוטין בדסקטופ — לא משפיעה על ה-flex של nav-inner */
+    .mobile-menu-panel { display: contents; }
     @media (max-width: 900px) {
-      .nav-inner { padding: 0 1rem; }
+      /* טולבר מקופל: גריד 3 עמודות — המבורגר צמוד לשוליים הימניים, הלוגו במרכז,
+         כרטיסים צמוד לשוליים השמאליים. nav-inner/nav-actions הופכים ל-display:contents
+         כדי שהילדים שלהם (hamburger/tickets) ישתתפו ישירות בגריד של ה-nav. */
+      nav { display: grid; grid-template-columns: 1fr auto 1fr; padding-inline: 16px; }
+      .nav-inner { display: contents; padding: 0; }
+      .nav-actions { display: contents; }
       .nav-links { display: none; }
       .nav-btn-secondary { display: none; }
-      .hamburger { display: flex; }
-      .nav-logo-tab { padding: 0.5rem 1rem; }
-      .nav-links.open {
+      .nav-logo-tab { grid-column: 2; grid-row: 1; justify-self: center; padding: 0.5rem 1rem; }
+      /* לוגו במצב התחלתי (לא-scrolled) במובייל — מעט גדול יותר מברירת המחדל
+         הישנה (48px), עדיין קטן משמעותית מהדסקטופ (80px). nav.scrolled ממשיך
+         לכווץ ל-44px כרגיל, בלי קשר לגודל הזה. */
+      .nav-logo-img { height: 56px; }
+      .hamburger { display: flex; grid-column: 1; grid-row: 1; justify-self: start; }
+      /* כפתור הכרטיסים של הטולבר הקבוע: יושב בעמודה השלישית (הפנויה
+         כש-hamburger=col1 ו-logo=col2), צמוד לשוליים השמאליים. כשהתפריט
+         נפתח מוחלף ע"י הגרסה שבתוך .nav-mobile-menu-actions (למטה). */
+      .nav-actions > .nav-btn-primary { grid-column: 3; grid-row: 1; justify-self: end; }
+      body.mobile-nav-open .nav-actions > .nav-btn-primary { display: none; }
+      /* כפתור ה-EN של הדסקטופ (בתוך nav-actions) לא מקבל grid-column ייעודי —
+         מסתירים אותו במובייל כדי שלא יישאר "תקוע" כפריט גריד בלי מיקום; הגרסה
+         המובילית שלו עברה ל-.nav-mobile-menu-actions. */
+      .nav-lang-sep, .nav-actions > #langBtn { display: none; }
+      /* "מידע חשוב": בדסקטופ dropdown, במובייל שטוח — 3 קישורים נפרדים
+         באותה שורה אחד-מתחת-לשני כמו שאר קישורי התפריט. */
+      #navInfoDrop { display: none; }
+      .nav-link-mobile-flat { display: block; }
+      /* פאנל התפריט הפתוח: מתחיל בדיוק מתחת ל-nav (שלא זז בין פתוח/סגור —
+         לכן ההמבורגר/X נשאר באותו מיקום). סטריפ העדכונים נשאר fixed במיקומו
+         המקורי (top:0, מעל ה-nav) גם כשהתפריט פתוח — לא זז ולא מתנתק. */
+      .mobile-menu-panel.open {
         display: flex; flex-direction: column;
-        position: fixed; inset: 0; top: calc(var(--ticker-h) + 64px);
+        position: fixed; inset: 0; top: calc(var(--ticker-h) + var(--nav-h));
         background: rgba(250,244,233,0.98); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-        padding: 2rem; gap: 1.5rem; font-size: 1.2rem;
         z-index: 99;
+        overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
       }
-      section { padding: 4rem 1.5rem; }
+      .mobile-menu-panel.open .nav-links {
+        display: flex; flex-direction: column;
+        padding: 2rem; gap: 1.5rem; font-size: 1.2rem;
+      }
+      /* פס הגלילה של הפאנל שקוף כברירת מחדל ומופיע רק בזמן גלילה בפועל
+         (מחלקת .scrolling מתווספת/מוסרת ע"י JS) — לא נשאר צבוע כל הזמן. */
+      .mobile-menu-panel.open::-webkit-scrollbar-thumb { background: transparent; transition: background 0.25s; }
+      .mobile-menu-panel.open.scrolling::-webkit-scrollbar-thumb { background: var(--orange); }
+      /* כרטיסים + שפה בזמן שהתפריט פתוח: יושבים ב-nav עצמו (לא ב-.nav-links)
+         כדי לא לרשת את עיצוב .nav-links a — 16px מהשוליים השמאליים (padding-inline
+         של ה-nav), אותה שורה כמו כפתור ה-X. */
+      .nav-mobile-menu-actions {
+        display: none; align-items: center; gap: 0.6rem;
+        grid-column: 3; grid-row: 1; justify-self: end;
+      }
+      body.mobile-nav-open .nav-mobile-menu-actions { display: flex; }
+      /* תפריט פתוח: הלוגו מוסתר, במקומו כרטיסים+שפה (.nav-mobile-menu-actions) */
+      body.mobile-nav-open .nav-logo-tab { display: none; }
+      /* מובייל: כל הסקשנים בדף הבית מקבלים מרווח אחיד של 60px משוליים עליון/תחתון
+         (venue מוחרג — סקשן וידאו sticky-scroll עם padding-block:0 מכוון) */
+      section { padding: 60px 1.5rem; }
+      /* Unified with every other mobile section heading (2rem — same as
+         .ticket-plans-title, .alt-lineup-title, .hero-title-line1/2,
+         .hotel-banner-title, .venue-photo-title). Used by the lineup,
+         merch and news section headings. */
+      .section-title { font-size: 2rem; }
+      #about-strip { padding-top: 60px; padding-bottom: 60px; }
+      /* padding-top מבוטל: הרווח מלמעלה כבר מגיע מה-padding-bottom של הסקשן
+         הקודם (מסלולי כרטיסים) — פדינג עליון נוסף כאן נראה כרווח כפול */
+      #hotels { padding-top: 0; padding-bottom: 60px; }
       footer { padding: 3rem 1.5rem 2rem; }
       .modal-header, .modal-controls, .modal-body { padding-inline: 1.5rem; }
       .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
       .artist-card.featured { grid-column: span 1; }
       .schedule-table { font-size: 0.8rem; }
-      .stat { border-inline-end: none; border-bottom: 1px solid var(--border); }
-      .stat:last-child { border-bottom: none; }
+      .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 0; }
+      .stat { border: none; }
     }
 
     @media (max-width: 600px) {
-      .hero-main-content { top: 90px; right: 20px; }
-      .hero-lineup-btn { display: none; }
-      .hero-date-badge { height: 32px; }
-      .countdown { padding: 20px 14px 12px; height: auto; }
-      .countdown-row { gap: 12px; }
-      .countdown-item { width: 44px; }
+      .hero-main-content { gap: 24px; padding-inline: 20px; }
+      .hero-date-badge { height: 48px; }
+      .countdown { padding: 32px 14px 12px; height: auto; }
+      .countdown-row { gap: 0; width: 100%; }
+      .countdown-item { width: auto; flex: 1; }
       .countdown-num { font-size: 22px; }
       .countdown-label { font-size: 13px; }
       .countdown-caption { font-size: 11px; }
-      section { padding: 3rem 1rem; }
+      section { padding: 60px 1rem; }
       .schedule-table th, .time-col { padding: 0.5rem; font-size: 0.7rem; }
       .show-name { font-size: 0.78rem; }
-      .hotel-banner { flex-direction: column; padding: 1.5rem; }
+      /* padding-bottom 24px: הכפתור הוא הילד האחרון בעמודת ה-flex, אז המרחק
+         שלו מהשוליים התחתונים של הבאנר נקבע ישירות ע"י ה-padding-bottom כאן.
+         padding-top מצומצם גם הוא — קונטיינר נמוך יותר = פחות זום-קרופ אוטומטי
+         של תמונת הרקע הרחבה (object-fit:cover), כך שנראה יותר מהתמונה. */
+      .hotel-banner { flex-direction: column; padding: 48px 16px 24px; }
       .btn-primary, .btn-secondary { width: 100%; }
       .hero-subtitle-text { font-size: clamp(18px, 5vw, 28px); }
-      #about-strip { padding: 1.5rem 1rem; }
+      #about-strip { padding: 60px 1rem; }
       .stat { min-width: 90px; }
+    }
+
+    /* ─── HOTEL BANNER · MOBILE (≤600px) ──────────────────────────
+       פדינג צדדי אחיד של 16px (תואם את שאר הרכיבים באתר), טיפוגרפיה
+       פנימית עם היררכיה ברורה (כותרת > תיאור > תגיות), הכל ממורכז,
+       ושכבת הצבע מצומצמת לאזור הטקסט בלבד כדי לחשוף את התמונה. */
+    @media (max-width: 600px) {
+      /* בדסקטופ ה-200px אנכי (#hotels בסיסי) נועד לתת ל-.hotel-banner לצוף
+         בתוך רקע גדול; במובייל זה נראה כרווח ענק בין הסקשנים — מצמצמים לפדינג
+         תואם לשאר הסקשנים במובייל (כמו .ticket-plans-section). padding-top
+         מבוטל: הרווח מלמעלה כבר מגיע מסוף הסקשן הקודם — למעלה זה נראה כפול. */
+      #hotels { padding: 0 16px 60px; }
+
+      .hotel-banner-content { align-items: center; text-align: center; padding-inline-end: 0; }
+      /* Unified with every other mobile section heading (2rem). */
+      .hotel-banner-title { align-items: center; font-size: 2rem; }
+      .hotel-banner-sub { text-align: center; font-size: 15px; }
+      .hotel-logos { justify-content: center; }
+
+      .hotel-banner-btn { padding: 0.75rem 2rem; height: 44px; }
+
+      /* בלי זום נוסף על ה-object-fit:cover הטבעי — כך נראה יותר מהתמונה הרחבה
+         (מלונות, דקלים והרים), במקום קרופ צר ומזוהה-קשה. object-position:left
+         (בכלל הבסיסי) ממשיך לעגן לאשכול המלון+דקלים שבצד שמאל התמונה. */
+
+      /* שכבת הצבע מכסה רק מלמעלה ועד בערך לאמצע (אזור הטקסט) ונעלמת
+         לגמרי לקראת התחתית, כדי לא לכסות את התמונה בשוליים התחתונים.
+         שקיפות קלה (0.88 ולא אטום לגמרי) גם באזור הטקסט עצמו, כדי
+         שהתמונה האחורית תיראה בעדינות גם שם. */
+      .banner-photo-overlay {
+        background: linear-gradient(to bottom,
+          rgba(243,233,214,0.88) 0%,
+          rgba(243,233,214,0.88) 38%,
+          rgba(243,233,214,0.5) 55%,
+          rgba(243,233,214,0) 70%);
+      }
+    }
+
+    /* טלפונים קטנים מאוד (~≤400px): ה-toolbar (לוגו + כפתור כרטיסים + EN + המבורגר)
+       צר מדי לכל האלמנטים במידותיהם הרגילות — הם נדחקים החוצה משמאל וה-nav
+       (overflow:hidden) חותך את ההמבורגר לגמרי. מצמצמים padding/gap/font כדי
+       שהכול יישאר בתוך הרוחב הזמין. */
+    @media (max-width: 400px) {
+      .nav-logo-tab { padding: 0.4rem 0.6rem; }
+      .nav-inner { padding: 0 0.5rem; }
+      .nav-btn-primary { padding: 0.5rem 0.8rem; font-size: 0.78rem; }
+      /* מגדיל את שטח המגע ל-~44×44px בלי לשנות את הפריסה החזותית (padding מתקזז ע"י margin שלילי זהה).
+         סימטרי — ההמבורגר יושב לבדו בקצה עמודת הגריד הימנית, אין יותר כפתור EN צמוד אליו. */
+      .hamburger { padding: 14px; margin: -14px; }
     }
 
     /* ─── ARTIST AVATAR IN LINEUP CARDS ─────────────────── */
@@ -1795,7 +2096,7 @@
     .show-panel-origin { font-size: 0.82rem; color: var(--muted); }
     .show-panel-genre-tag {
       display: inline-block;
-      background: rgba(255,107,26,0.12); color: var(--orange);
+      background: rgba(255,107,26,0.12); color: var(--orange-text);
       border-radius: 50px; padding: 0.18rem 0.75rem; font-size: 0.73rem;
     }
 
@@ -1846,6 +2147,9 @@
 
     @media (max-width: 480px) {
       .show-panel { width: 100vw; border-inline-end: none; }
+      /* height אחיד עם שאר כפתורי ה-CTA במובייל (44px — כגובה כפתור
+         "פרטים נוספים" בסקשן #venue) */
+      .show-panel-ticket-btn { height: 44px; }
     }
 
     /* ─── ARTIST MODE inside show panel ──────────────────────── */
@@ -1901,7 +2205,7 @@
   <a class="skip-link" href="#page-body">דלג לתוכן הראשי</a>
 
   <!-- ── TICKER BAR ── -->
-  <div class="ticker-bar" role="marquee" aria-label="עדכוני פסטיבל">
+  <div class="ticker-bar" role="status" aria-live="off" aria-label="עדכוני פסטיבל">
     <div class="ticker-track-wrap">
       <div class="ticker-track" id="tickerTrack">
         <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
@@ -1935,6 +2239,10 @@
 
     <!-- Nav inner: links (center) + action buttons (left) -->
     <div class="nav-inner">
+      <!-- מובייל: העטיפה הזו הופכת לפאנל הקבוע (fixed) שנפתח; סטריפ העדכונים
+           עובר לתוכה ב-JS כילד ראשון כדי ש-nav עצמו (ולכן ההמבורגר/X) לא יזוז
+           בין מצב פתוח לסגור. בדסקטופ ה-wrapper שקוף (display:contents). -->
+      <div class="mobile-menu-panel" id="mobileMenuPanel">
       <ul class="nav-links" id="navLinks">
         <li><a href="#artist-lineup-text" data-he="ליין אפ" data-en="Lineup">ליין אפ</a></li>
         <li><a href="./lineup.html" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
@@ -1954,7 +2262,13 @@
             <a href="./contact.html" data-he="יצירת קשר" data-en="Contact">יצירת קשר</a>
           </div>
         </li>
+        <!-- גרסת מובייל של "מידע חשוב": שלושת הקישורים שטוחים, בלי קיבוץ תחת dropdown
+             (בדסקטופ הם מוצגים דרך #navInfoDrop למעלה; הקישורים האלה מוסתרים שם). -->
+        <li class="nav-link-mobile-flat"><a href="#" data-he="הסעות" data-en="Shuttles">הסעות</a></li>
+        <li class="nav-link-mobile-flat"><a href="./faq.html" data-he="שאלות נפוצות" data-en="FAQ">שאלות נפוצות</a></li>
+        <li class="nav-link-mobile-flat"><a href="./contact.html" data-he="יצירת קשר" data-en="Contact">יצירת קשר</a></li>
       </ul>
+      </div>
 
       <div class="nav-actions">
         <a class="nav-btn-secondary" data-he="חבילות נופש" data-en="Stay Packages"
@@ -1971,6 +2285,15 @@
           <span></span><span></span><span></span>
         </button>
       </div>
+    </div>
+
+    <!-- כרטיסים + שפה בזמן שתפריט המובייל פתוח: יושבים ישירות ב-nav (לא בתוך
+         ה-ul) כדי לא לרשת את עיצוב הקישורים של .nav-links (שגרם לצבע/פונט
+         שבורים כשהיו בתוך הרשימה). מוצג רק כש-body.mobile-nav-open, בשוליים
+         השמאליים של ה-nav, 16px מהקצה — סימטרי לכפתור ה-X בצד הימני. -->
+    <div class="nav-mobile-menu-actions" id="navMobileMenuActions">
+      <a class="nav-btn-primary" data-he="כרטיסים" data-en="Tickets" href="#ticket-plans">כרטיסים</a>
+      <button class="nav-btn-lang" id="langBtnMobile" onclick="switchLang()">🇺🇸 EN</button>
     </div>
 
   </nav>
@@ -1995,7 +2318,10 @@
            fetchpriority="high">
     </div>
 
-    <!-- Hero title + date badge + full-lineup CTA — right-aligned, 80px from the banner's right edge -->
+    <!-- Hero title + date badge + full-lineup CTA — right-aligned, 80px from the banner's right edge (desktop).
+         .hero-content-frame is display:contents on desktop (no-op); on mobile it becomes the flex track
+         both blocks share, so the gap above the text and the gap above the countdown stay equal. -->
+    <div class="hero-content-frame">
     <div class="hero-main-content">
       <img class="hero-date-badge" src="./Graphig assets/hero-date-badge.svg" alt="11–14.11.26" width="216" height="52">
       <h1 class="hero-title-text">
@@ -2008,7 +2334,7 @@
       </a>
     </div>
 
-    <!-- Countdown — bottom-left of hero -->
+    <!-- Countdown — bottom-left of hero (desktop) / bottom-center (mobile) -->
     <div class="hero-content">
       <img src="./Graphig assets/corner-subtract.svg" class="hero-corner hero-corner-tl" alt="" width="32" height="32">
       <img src="./Graphig assets/corner-subtract.svg" class="hero-corner hero-corner-br" alt="" width="32" height="32">
@@ -2035,6 +2361,7 @@
         </div>
       </div>
     </div>
+    </div><!-- /hero-content-frame -->
     <div class="scroll-indicator" id="scrollIndicator" aria-hidden="true">
       <div class="scroll-arrow"></div>
     </div>
@@ -2332,24 +2659,28 @@
     /* ── CTA BUTTON ── */
     /* Responsive */
     @media (max-width: 900px) {
-      .alt-lineup-section-inner { padding: 4rem 1.5rem; }
+      .alt-lineup-section-inner { padding: 60px 1.5rem; }
+      #lineup-sticky .section-header { padding-top: 60px; }
+      #lineup-sticky { padding-bottom: 60px; }
       .featuring-pill-text { font-size: 18px; }
       .featuring-pill-sub { font-size: 15px; }
       .alt-lineup-grid { gap: 12px 24px; }
-    }
-    @media (max-width: 600px) {
-      .alt-lineup-section-inner { padding: 3rem 1rem; }
-      /* במובייל: צ'יפים ארוכים עוטפים שורות במקום לחרוג מהמסך.
+      /* צ'יפים ארוכים עוטפים שורות במקום לחרוג מהמסך (גם בטאבלט, לא רק במובייל).
          הקצוות הקרועים (align-self:stretch) נמתחים אוטומטית לגובה הצ'יפ הרב-שורתי. */
-      .alt-artist-btn { max-width: calc(100vw - 3.5rem); min-width: 0; }
+      .alt-artist-btn { max-width: calc(100vw - 3rem); min-width: 0; }
       .featuring-pill-text {
-        font-size: 15px;
         white-space: normal;
         overflow-wrap: anywhere;
         word-break: break-word;
         flex: 1 1 auto;
         min-width: 0;
       }
+    }
+    @media (max-width: 600px) {
+      .alt-lineup-section-inner { padding: 60px 1rem; }
+      #lineup-sticky .section-header { padding-top: 60px; }
+      .alt-artist-btn { max-width: calc(100vw - 3.5rem); min-width: 0; }
+      .featuring-pill-text { font-size: 15px; }
       .featuring-pill-sub { font-size: 13px; }
       .alt-lineup-grid { gap: 10px 16px; }
     }
@@ -2699,30 +3030,7 @@
 
     <div class="ticket-plans-grid reveal">
 
-      <!-- Card 1: הופעה בודדת -->
-      <div class="ticket-plan-card">
-        <div class="ticket-plan-inner">
-          <div class="ticket-plan-top">
-            <div class="ticket-plan-name">הופעה בודדת</div>
-            <p class="ticket-plan-desc">בחרו הופעה אחת ספציפית — אמן,<br>תאריך ובמה.</p>
-          </div>
-          <div class="ticket-plan-features">
-            <div class="ticket-plan-feature">
-              <span class="ticket-plan-feature-text">הופעה אחת לבחירה</span>
-              <img class="ticket-plan-feature-check" src="./Graphig assets/check-circle.svg" alt="✓" aria-hidden="true">
-            </div>
-            <div class="ticket-plan-feature">
-              <span class="ticket-plan-feature-text">הסעות מאורגנות בשאטלים חינם</span>
-              <img class="ticket-plan-feature-check" src="./Graphig assets/check-circle.svg" alt="✓" aria-hidden="true">
-            </div>
-          </div>
-        </div>
-        <a href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" class="ticket-plan-cta ticket-plan-cta-secondary">
-          לרכישה ←
-        </a>
-      </div>
-
-      <!-- Card 2: פס מלא (הכי פופולרי) — באמצע -->
+      <!-- Card 1: פס מלא (הכי פופולרי) — ראשון -->
       <div class="ticket-plan-card ticket-plan-featured">
         <div class="ticket-plan-badge-new">הכי פופולרי</div>
         <div class="ticket-plan-inner">
@@ -2758,7 +3066,7 @@
         </a>
       </div>
 
-      <!-- Card 3: כניסה יומית -->
+      <!-- Card 2: כניסה יומית — שני -->
       <div class="ticket-plan-card">
         <div class="ticket-plan-inner">
           <div class="ticket-plan-top">
@@ -2776,6 +3084,29 @@
             </div>
             <div class="ticket-plan-feature">
               <span class="ticket-plan-feature-text">כניסה לכל ההופעות באותו יום</span>
+              <img class="ticket-plan-feature-check" src="./Graphig assets/check-circle.svg" alt="✓" aria-hidden="true">
+            </div>
+            <div class="ticket-plan-feature">
+              <span class="ticket-plan-feature-text">הסעות מאורגנות בשאטלים חינם</span>
+              <img class="ticket-plan-feature-check" src="./Graphig assets/check-circle.svg" alt="✓" aria-hidden="true">
+            </div>
+          </div>
+        </div>
+        <a href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" class="ticket-plan-cta ticket-plan-cta-secondary">
+          לרכישה ←
+        </a>
+      </div>
+
+      <!-- Card 3: הופעה בודדת — שלישי -->
+      <div class="ticket-plan-card">
+        <div class="ticket-plan-inner">
+          <div class="ticket-plan-top">
+            <div class="ticket-plan-name">הופעה בודדת</div>
+            <p class="ticket-plan-desc">בחרו הופעה אחת ספציפית — אמן,<br>תאריך ובמה.</p>
+          </div>
+          <div class="ticket-plan-features">
+            <div class="ticket-plan-feature">
+              <span class="ticket-plan-feature-text">הופעה אחת לבחירה</span>
               <img class="ticket-plan-feature-check" src="./Graphig assets/check-circle.svg" alt="✓" aria-hidden="true">
             </div>
             <div class="ticket-plan-feature">
@@ -2847,6 +3178,7 @@
           <source src="./Graphig assets/gallery/port-aerial.mp4" type="video/mp4">
         </video>
         <img class="venue-photo-fallback" src="./Graphig assets/gallery/port-aerial-drone-poster.jpg" alt="רחבה ציבורית — נמל אילת" width="1200" height="800" loading="lazy">
+        <div class="venue-photo-overlay" aria-hidden="true"></div>
         <div class="venue-photo-caption">
           <div class="venue-photo-text">
             <div class="venue-photo-heading-group">
@@ -2937,7 +3269,7 @@
     <div class="news-grid reveal">
       <a class="news-card" href="./article.html">
         <div class="news-img">
-          <img src="./Graphig assets/niva-amali-maoz.png" alt="ניבה עמלי מעוז חושפת את הלינאפ המלא של פסטיבל 2026" width="1200" height="480" loading="lazy" style="object-position:center 15%;">
+          <img src="./Graphig assets/niva-amali-maoz.jpg" alt="ניבה עמלי מעוז חושפת את הלינאפ המלא של פסטיבל 2026" width="1200" height="480" loading="lazy" style="object-position:center 15%;">
         </div>
         <div class="news-body">
           <div class="news-date">מאי 2026</div>
@@ -3125,10 +3457,10 @@
             <table class="schedule-table">
               <thead><tr>
                 <th style="width:70px">שעה</th>
-                <th style="color:var(--orange)">Port arena</th>
-                <th style="color:var(--teal)">Red Note Club</th>
+                <th style="color:var(--orange-text)">Port arena</th>
+                <th style="color:var(--teal-text)">Red Note Club</th>
                 <th style="color:var(--pink)">DE future</th>
-                <th style="color:var(--yellow)">the present</th>
+                <th style="color:var(--yellow-text)">the present</th>
               </tr></thead>
               <tbody>
                 <tr data-day="2">
@@ -3345,13 +3677,13 @@
     }
 
     /* ── כרטיס בסיס ──
-     * Figma: bg=white, border=1px #b9a88e, radius=16, pt=50 pb=24 px=24
+     * bg=white, border תואם לצבע הבורדר של כרטיסי האמנים בסקשן הליין־אפ (var(--border)), radius=16, pt=50 pb=24 px=24
      * flex-col עם justify-content:space-between → top+features בחלק אחד, CTA בתחתית
      * min-height=460px לכרטיסי non-featured
      */
     .ticket-plan-card {
       background: #ffffff;
-      border: 1px solid #b9a88e;
+      border: 1px solid var(--border);
       border-radius: 16px;
       padding: 50px 24px 24px;
       display: flex;
@@ -3423,10 +3755,10 @@
       min-height: 130px;
     }
 
-    /* שם המסלול — Figma: 34px, bold, #2b1a0e, tracking=0.25px */
+    /* שם המסלול — קטן מכותרות הסקשנים (.section-title min=28px, .ticket-plans-title min=32px), bold, #2b1a0e, tracking=0.25px */
     .ticket-plan-name {
       font-family: var(--font);
-      font-size: 34px;
+      font-size: 26px;
       font-weight: 700;
       line-height: 1.1;
       letter-spacing: 0.25px;
@@ -3531,6 +3863,11 @@
     }
 
     /* Responsive */
+    /* טווח טאבלט (901–900... עד 1023px): מיישרים את המרווח האנכי ל-60px התקני
+       של המובייל בלי לגעת בעמודות הגריד (זה נשאר תפקיד ה-breakpoints למטה) */
+    @media (max-width: 900px) {
+      .ticket-plans-section { padding-top: 60px; padding-bottom: 60px; }
+    }
     @media (max-width: 1023px) {
       .ticket-plans-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -3542,13 +3879,30 @@
         width: 100%;
       }
     }
-    @media (max-width: 767px) {
-      .ticket-plans-section { padding: 60px 16px; }
+    @media (max-width: 768px) {
+      .ticket-plans-section { padding: 60px 16px; min-height: auto; }
+      /* מובייל: הכרטיסיות נערמות בעמודה אחת וגובה הסקשן הופך משתנה לפי
+         התוכן — שכבת תמונת הרקע העיטורית (ה-::after) לא נועדה לגובה
+         כזה ונשארת תלויה כרקע מוזר מתחת לכרטיסיה האחרונה, לכן מוסתרת. */
+      .ticket-plans-section::after { display: none; }
       .ticket-plans-grid { grid-template-columns: 1fr; }
       .ticket-plan-card.ticket-plan-featured {
         grid-column: auto;
         max-width: none;
       }
+      /* מובייל: כרטיסיות עולות לעמודה אחת — אין יותר צורך בגובה אחיד ביניהן,
+         מסירים את ה-min-height כדי שכל כרטיסייה תתאים בדיוק לגובה התוכן שלה
+         ומצמצמים מעט את המרווחים הפנימיים */
+      .ticket-plan-card,
+      .ticket-plan-card.ticket-plan-featured {
+        min-height: 0;
+      }
+      .ticket-plan-inner { gap: 22px; padding-bottom: 16px; }
+      .ticket-plan-top { gap: 10px; min-height: 0; }
+      .ticket-plan-features { gap: 12px; }
+      /* height אחיד עם שאר כפתורי ה-CTA במובייל (44px — כגובה כפתור
+         "פרטים נוספים" בסקשן #venue) */
+      .ticket-plan-cta { padding-block: 0; height: 44px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -3616,25 +3970,43 @@
 
     function toggleMenu() {
       const hb = document.getElementById('hamburger');
-      const navLinks = document.getElementById('navLinks');
-      const isOpen = navLinks?.classList.contains('open');
+      const panel = document.getElementById('mobileMenuPanel');
+      const isOpen = panel?.classList.contains('open');
       if (hb) hb.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
-      if (!navLinks) return;
+      if (!panel) return;
       if (!isOpen) {
         // פתיחה: ה-nav מכיל overflow:hidden + backdrop-filter (שיוצר containing block
         // ל-position:fixed) — זה חותך את תפריט המובייל המסך-מלא. לכן מנתקים זמנית ל-body.
-        if (navLinks.parentElement !== document.body) {
-          navLinks.__origParent = navLinks.parentElement;
-          navLinks.__origNext = navLinks.nextSibling;
-          document.body.appendChild(navLinks);
+        // סטריפ העדכונים (.ticker-bar) לא זז ולא מתנתק — הוא נשאר fixed במיקומו
+        // המקורי מעל ה-nav תמיד, גם כשהתפריט פתוח.
+        if (panel.parentElement !== document.body) {
+          panel.__origParent = panel.parentElement;
+          panel.__origNext = panel.nextSibling;
+          document.body.appendChild(panel);
         }
-        navLinks.classList.add('open');
+        panel.classList.add('open');
+        document.body.classList.add('mobile-nav-open');
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+        // פס הגלילה הכתום מופיע רק בזמן גלילה בפועל בתוך הפאנל, ונעלם
+        // כמה רגעים אחרי שהגלילה נעצרת (לא נשאר צבוע כל הזמן על המסך).
+        if (!panel.__scrollListenerAttached) {
+          panel.__scrollListenerAttached = true;
+          panel.addEventListener('scroll', () => {
+            panel.classList.add('scrolling');
+            clearTimeout(panel.__scrollHideTimer);
+            panel.__scrollHideTimer = setTimeout(() => panel.classList.remove('scrolling'), 800);
+          }, { passive: true });
+        }
       } else {
-        navLinks.classList.remove('open');
+        panel.classList.remove('open');
         closeNavDrop();
-        if (navLinks.__origParent) {
-          navLinks.__origParent.insertBefore(navLinks, navLinks.__origNext);
+        if (panel.__origParent) {
+          panel.__origParent.insertBefore(panel, panel.__origNext);
         }
+        document.body.classList.remove('mobile-nav-open');
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
       }
     }
 
@@ -3701,7 +4073,9 @@
       document.querySelectorAll('[data-he][data-en]').forEach(el => {
         el.textContent = isEn ? el.dataset.en : el.dataset.he;
       });
-      document.getElementById('langBtn').textContent = isEn ? '🇮🇱 HE' : '🇺🇸 EN';
+      document.querySelectorAll('.nav-btn-lang').forEach(el => {
+        el.textContent = isEn ? '🇮🇱 HE' : '🇺🇸 EN';
+      });
     }
 
     // ── Pill toggle helper ────────────────────────────────────────
@@ -3828,6 +4202,88 @@
       }, true);
     })();
 
+    // ── Mobile carousels — seamless infinite loop ──────────────────
+    // Clones the first/last card to the opposite ends of the track so
+    // swiping past an edge wraps around instead of stopping. `align`
+    // matches the track's own scroll-snap-align ('center' for the
+    // magazine carousel, 'start' for the merch carousel) so the JS
+    // settle-detection agrees with where CSS snapping actually lands.
+    function initSeamlessCarouselLoop(trackSelector, cardClass, cloneClass, align) {
+      const track = document.querySelector(trackSelector);
+      if (!track) return;
+      const mq = window.matchMedia('(max-width: 600px)');
+      let firstClone = null, lastClone = null, settleTimer = null;
+
+      function realCards() {
+        return Array.from(track.querySelectorAll('.' + cardClass + ':not(.' + cloneClass + ')'));
+      }
+
+      function jumpTo(card) {
+        const prevBehavior = track.style.scrollBehavior;
+        track.style.scrollBehavior = 'auto';
+        card.scrollIntoView({ inline: align, block: 'nearest' });
+        track.style.scrollBehavior = prevBehavior;
+      }
+
+      // Whether a clone has scrolled into view at all — checked by visibility
+      // rather than "nearest to the snap anchor", because a clone sitting at
+      // the very end of the track (no trailing space left, since the mobile
+      // carousels bleed to the edges) can never reach a perfectly-snapped
+      // position, so a pure distance comparison would never pick it.
+      function isVisible(el, trackRect) {
+        const r = el.getBoundingClientRect();
+        const center = r.left + r.width / 2;
+        return center >= trackRect.left && center <= trackRect.right;
+      }
+
+      function settle() {
+        if (!firstClone) return;
+        const trackRect = track.getBoundingClientRect();
+        const cards = realCards();
+        if (isVisible(lastClone, trackRect)) jumpTo(cards[cards.length - 1]);
+        else if (isVisible(firstClone, trackRect)) jumpTo(cards[0]);
+      }
+
+      function onScroll() {
+        clearTimeout(settleTimer);
+        settleTimer = setTimeout(settle, 120);
+      }
+
+      function setup() {
+        if (firstClone) return;
+        const cards = realCards();
+        if (cards.length < 2) return;
+        firstClone = cards[0].cloneNode(true);
+        lastClone = cards[cards.length - 1].cloneNode(true);
+        [firstClone, lastClone].forEach((el) => {
+          el.classList.add(cloneClass);
+          el.setAttribute('aria-hidden', 'true');
+          el.tabIndex = -1;
+        });
+        track.insertBefore(lastClone, cards[0]);
+        track.appendChild(firstClone);
+        track.addEventListener('scroll', onScroll, { passive: true });
+        requestAnimationFrame(() => jumpTo(cards[0]));
+      }
+
+      function teardown() {
+        if (!firstClone) return;
+        track.removeEventListener('scroll', onScroll);
+        firstClone.remove();
+        lastClone.remove();
+        firstClone = lastClone = null;
+      }
+
+      function apply() {
+        if (mq.matches) setup(); else teardown();
+      }
+
+      mq.addEventListener('change', apply);
+      apply();
+    }
+    initSeamlessCarouselLoop('.news-grid', 'news-card', 'news-card--clone', 'center');
+    initSeamlessCarouselLoop('.merch-grid', 'merch-card', 'merch-card--clone', 'start');
+
     // ── Scroll reveal ─────────────────────────────────────────────
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
@@ -3846,6 +4302,36 @@
       }, { threshold: 0.1 });
       document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
     }
+
+    // ── Venue caption reveal ────────────────────────────────────────
+    // The caption only starts entering once #hotels has fully scrolled
+    // past — entering earlier (while the pinned video is still peeking
+    // out from under the banner) makes it look pinned to the banner's
+    // edge. Opacity/translateY are driven directly off scroll position
+    // (not a CSS transition) over a short fixed distance, so the entrance
+    // always finishes within that same bit of scrolling no matter how
+    // fast the user scrolls — a time-based transition could otherwise
+    // still be mid-fade by the time a fast scroll has carried past it.
+    (function () {
+      const hotelsEl = document.getElementById('hotels');
+      const caption = document.querySelector('.venue-photo-caption');
+      if (!hotelsEl || !caption) return;
+      if (prefersReducedMotion) { caption.style.opacity = '1'; return; }
+      const ENTRANCE_DISTANCE = 80; // px of scroll the entrance completes over
+      let ticking = false;
+      function update() {
+        ticking = false;
+        const hotelsBottom = hotelsEl.getBoundingClientRect().bottom;
+        const progress = Math.min(Math.max(-hotelsBottom / ENTRANCE_DISTANCE, 0), 1);
+        caption.style.opacity = progress;
+        caption.style.transform = `translateY(${(1 - progress) * 16}px)`;
+      }
+      function onScroll() {
+        if (!ticking) { ticking = true; requestAnimationFrame(update); }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      update();
+    })();
 
     // ── Stat count-up animation ────────────────────────────────────
     (function () {
