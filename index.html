@@ -583,9 +583,9 @@
     @media (max-width: 768px) {
       .hero-content-frame {
         display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
-        /* bottom: 0 (במקום 16px) — כרטיס הספירה לאחור (עם margin-bottom: 8px שלו) הוא
-           זה שקובע את המרחק מהשול התחתון האמיתי של הבאנר, ולא ה-16px של framing נוסף */
-        position: absolute; top: 16px; left: 16px; right: 16px; bottom: 0;
+        /* inset תואם בדיוק ל-.hero-image-frame (16px) — זו מסגרת הקואורדינטות
+           של "הבאנר" עצמו (התמונה), וממנה נמדדים 8px של הספירה לאחור. */
+        position: absolute; top: 16px; left: 16px; right: 16px; bottom: 16px;
         z-index: 10; pointer-events: none;
       }
       .hero-main-content {
@@ -612,13 +612,14 @@
       .hero-lineup-btn { padding: 0.75rem 1.25rem; font-size: 16px; height: 44px; }
 
       .hero-content {
-        position: static;
-        align-self: stretch;
-        flex-shrink: 0;
+        /* ממוקם ישירות ביחס למסגרת (8px משלושת הצדדים) במקום להסתמך על flex flow —
+           כך המרחק תמיד מדויק ולא תלוי כמה מקום hero-main-content צריך מעליו. */
+        position: absolute;
+        left: 8px; right: 8px; bottom: 8px;
         background: transparent;
         border-radius: 0;
         padding: 0;
-        margin: 0 8px 8px 8px;
+        margin: 0;
         pointer-events: auto;
       }
       .countdown { width: 100%; box-sizing: border-box; border: 2px solid #2FD3D6; }
