@@ -71,11 +71,11 @@
       --teal:      #0A8F8E;
       --warm-glow: #FF8C42;
       --text:      #3A2A1E;
-      --muted:     #8A7256;
+      --muted:     #6A5540; --yellow-text: #7A5C00; --teal-text: #086665; --orange-text: #B8440A; --orange-btn: #C94A08;
       --card-bg:   #FFFDF8;
       --border:    rgba(58,42,30,0.12);
       --border-strong: rgba(58,42,30,0.22);
-      --btn-gradient:  linear-gradient(135deg, var(--orange), var(--red));
+      --btn-gradient:  linear-gradient(135deg, var(--orange-btn), var(--red));
       --shadow:    rgba(58,42,30,0.10);
       --shadow-strong: rgba(58,42,30,0.16);
       --on-accent: #FFFDF8;
@@ -120,7 +120,7 @@
       flex-shrink: 0;
       padding: 0 1.4rem 0 1rem;
       font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
-      color: var(--orange); text-transform: uppercase;
+      color: var(--orange-text); text-transform: uppercase;
       border-right: 1px solid rgba(224,86,11,0.35);
       white-space: nowrap;
     }
@@ -252,8 +252,8 @@
       white-space: nowrap; text-align: start;
       background: none; border: none; width: 100%; cursor: pointer; font-family: inherit;
     }
-    .nav-drop-panel > a:hover { background: rgba(224,86,11,0.08); color: var(--orange); }
-    .nav-drop-panel > a.active { color: var(--orange); font-weight: 700; }
+    .nav-drop-panel > a:hover { background: rgba(224,86,11,0.08); color: var(--orange-text); }
+    .nav-drop-panel > a.active { color: var(--orange-text); font-weight: 700; }
 
 
     .nav-actions {
@@ -281,7 +281,7 @@
       text-decoration: none; display: inline-block;
     }
     .nav-btn-secondary:hover {
-      border-color: var(--orange); color: var(--orange);
+      border-color: var(--orange); color: var(--orange-text);
       transform: translateY(-2px);
     }
     .nav-lang-sep {
@@ -291,32 +291,82 @@
     }
     .nav-btn-lang {
       background: transparent;
-      color: rgba(58,42,30,0.62);
-      border: 1.5px solid var(--border);
+      color: var(--text);
+      border: 1.5px solid var(--border-strong);
       border-radius: 50px; padding: 0.45rem 0.9rem;
       font-size: 0.85rem; font-weight: 600; cursor: pointer;
       display: flex; align-items: center; gap: 0.35rem;
       transition: border-color 0.2s, color 0.2s;
       font-family: var(--font);
     }
-    .nav-btn-lang:hover { border-color: var(--orange); color: var(--orange); }
+    .nav-btn-lang:hover { border-color: var(--orange); color: var(--orange-text); }
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; border:none; background:transparent; }
     .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
+    /* תפריט פתוח: שני הפסים החיצוניים מסתובבים ל-X, האמצעי נעלם */
+    .hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .hamburger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+    /* מוסתרים כברירת מחדל (דסקטופ); נחשפים/ממוקמים בתוך המדיה קוורי של מובייל למטה */
+    .nav-link-mobile-flat, .nav-mobile-menu-actions { display: none; }
+    /* עטיפת הפאנל שקופה לחלוטין בדסקטופ — לא משפיעה על ה-flex של nav-inner */
+    .mobile-menu-panel { display: contents; }
     @media (max-width: 900px) {
+      /* טולבר מקופל: גריד 3 עמודות — המבורגר צמוד לשוליים הימניים, הלוגו במרכז,
+         כרטיסים צמוד לשוליים השמאליים. nav-inner/nav-actions הופכים ל-display:contents
+         כדי שהילדים שלהם (hamburger/tickets) ישתתפו ישירות בגריד של ה-nav. */
+      nav { display: grid; grid-template-columns: 1fr auto 1fr; padding-inline: 16px; }
+      .nav-inner { display: contents; padding: 0; }
+      .nav-actions { display: contents; }
       .nav-links { display: none; }
-      .hamburger { display: flex; }
-      .nav-inner { padding: 0 1rem; }
       .nav-btn-secondary { display: none; }
-      .nav-btn-lang { display: none; }
-      .nav-lang-sep { display: none; }
-      .nav-links.open {
+      .nav-logo-tab { grid-column: 2; grid-row: 1; justify-self: center; padding: 0.5rem 1rem; }
+      /* לוגו במצב התחלתי (לא-scrolled) במובייל — מעט גדול יותר מברירת המחדל
+         הישנה (48px), עדיין קטן משמעותית מהדסקטופ (80px). nav.scrolled ממשיך
+         לכווץ ל-44px כרגיל, בלי קשר לגודל הזה. */
+      .nav-logo-img { height: 56px; }
+      .hamburger { display: flex; grid-column: 1; grid-row: 1; justify-self: start; }
+      /* כפתור הכרטיסים של הטולבר הקבוע: יושב בעמודה השלישית (הפנויה
+         כש-hamburger=col1 ו-logo=col2), צמוד לשוליים השמאליים. כשהתפריט
+         נפתח מוחלף ע"י הגרסה שבתוך .nav-mobile-menu-actions (למטה). */
+      .nav-actions > .nav-btn-primary { grid-column: 3; grid-row: 1; justify-self: end; }
+      body.mobile-nav-open .nav-actions > .nav-btn-primary { display: none; }
+      /* כפתור ה-EN של הדסקטופ (בתוך nav-actions) לא מקבל grid-column ייעודי —
+         מסתירים אותו במובייל כדי שלא יישאר "תקוע" כפריט גריד בלי מיקום; הגרסה
+         המובילית שלו עברה ל-.nav-mobile-menu-actions. */
+      .nav-lang-sep, .nav-actions > #langBtn { display: none; }
+      /* "מידע חשוב": בדסקטופ dropdown, במובייל שטוח — 3 קישורים נפרדים
+         באותה שורה אחד-מתחת-לשני כמו שאר קישורי התפריט. */
+      #navInfoDrop { display: none; }
+      .nav-link-mobile-flat { display: block; }
+      /* פאנל התפריט הפתוח: מתחיל בדיוק מתחת ל-nav (שלא זז בין פתוח/סגור —
+         לכן ההמבורגר/X נשאר באותו מיקום). סטריפ העדכונים נשאר fixed במיקומו
+         המקורי (top:0, מעל ה-nav) גם כשהתפריט פתוח — לא זז ולא מתנתק. */
+      .mobile-menu-panel.open {
         display: flex; flex-direction: column;
-        position: fixed; inset: 0; top: calc(var(--ticker-h) + 64px);
+        position: fixed; inset: 0; top: calc(var(--ticker-h) + var(--nav-h));
         background: rgba(250,244,233,0.98); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-        padding: 2rem; gap: 1.5rem; font-size: 1.2rem;
         z-index: 99;
+        overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
       }
+      .mobile-menu-panel.open .nav-links {
+        display: flex; flex-direction: column;
+        padding: 2rem; gap: 1.5rem; font-size: 1.2rem;
+      }
+      /* פס הגלילה של הפאנל שקוף כברירת מחדל ומופיע רק בזמן גלילה בפועל
+         (מחלקת .scrolling מתווספת/מוסרת ע"י JS) — לא נשאר צבוע כל הזמן. */
+      .mobile-menu-panel.open::-webkit-scrollbar-thumb { background: transparent; transition: background 0.25s; }
+      .mobile-menu-panel.open.scrolling::-webkit-scrollbar-thumb { background: var(--orange); }
+      /* כרטיסים + שפה בזמן שהתפריט פתוח: יושבים ב-nav עצמו (לא ב-.nav-links)
+         כדי לא לרשת את עיצוב .nav-links a — 16px מהשוליים השמאליים (padding-inline
+         של ה-nav), אותה שורה כמו כפתור ה-X. */
+      .nav-mobile-menu-actions {
+        display: none; align-items: center; gap: 0.6rem;
+        grid-column: 3; grid-row: 1; justify-self: end;
+      }
+      body.mobile-nav-open .nav-mobile-menu-actions { display: flex; }
+      /* תפריט פתוח: הלוגו מוסתר, במקומו כרטיסים+שפה (.nav-mobile-menu-actions) */
+      body.mobile-nav-open .nav-logo-tab { display: none; }
     }
 
     /* ─── PAGE HERO ────────────────────────────────────────────── */
@@ -388,10 +438,10 @@
     .section-eyebrow {
       font-size: 0.78rem; font-weight: 700;
       text-transform: uppercase; letter-spacing: 0.1em;
-      color: var(--orange); margin-bottom: 0.5rem;
+      color: var(--orange-text); margin-bottom: 0.5rem;
     }
     .section-title {
-      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
       font-weight: 900; color: var(--text);
       line-height: 1.2; margin-bottom: 0.6rem;
     }
@@ -435,13 +485,13 @@
     .artist-genre {
       display: inline-flex; align-items: center;
       background: rgba(224,86,11,0.08);
-      color: var(--orange);
+      color: var(--orange-text);
       border-radius: 50px; padding: 0.2rem 0.75rem;
       font-size: 0.72rem; font-weight: 700;
       align-self: flex-start;
       margin-top: 0.1rem;
     }
-    .artist-genre.genre-fusion { background: rgba(10,143,142,0.1); color: var(--teal); }
+    .artist-genre.genre-fusion { background: rgba(10,143,142,0.1); color: var(--teal-text); }
     .artist-genre.genre-latin  { background: rgba(214,34,70,0.1); color: var(--red); }
     .artist-genre.genre-vocal  { background: rgba(224,168,0,0.12); color: #b07a00; }
     .artist-genre.genre-blues  { background: rgba(58,42,30,0.08); color: var(--muted); }
@@ -518,7 +568,7 @@
     .past-tl-eyebrow {
       font-size: 0.78rem; font-weight: 700;
       text-transform: uppercase; letter-spacing: 0.1em;
-      color: var(--orange); margin-bottom: 0.5rem;
+      color: var(--orange-text); margin-bottom: 0.5rem;
     }
     .past-tl-heading {
       font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
@@ -653,7 +703,7 @@
     .past-tl-year-col.active .past-tl-year-label {
       font-size: 0.85rem;
       font-weight: 700;
-      color: var(--orange);
+      color: var(--orange-text);
     }
     .past-tl-year-col:hover:not(.active) .past-tl-year-label { color: var(--text); }
 
@@ -771,15 +821,18 @@
 
     /* ─── RESPONSIVE ───────────────────────────────────────────── */
     @media (max-width: 700px) {
-      .page-hero { height: calc(300px + var(--ticker-h) + var(--nav-h)); }
+      /* מובייל: גובה באנר אחיד (260px תוכן) לכל דפי הבאנר באתר, מלבד לוח ההופעות */
+      .page-hero { height: calc(260px + var(--ticker-h) + var(--nav-h)); }
       .page-hero-content { padding-inline: 1.2rem; }
       .footer-grid { grid-template-columns: 1fr; gap: 1.8rem; }
       .past-timeline-section { padding: 2.5rem 0 3rem; }
       .past-tl-year-num { font-size: clamp(4rem, 18vw, 7rem); }
-      .past-tl-arrow { width: 32px; height: 32px; font-size: 0.88rem; }
-      .past-tl-arrow--prev { left: 0.75rem; }
-      .past-tl-arrow--next { right: 0.75rem; }
+      /* מובייל: מבטלים את חצי הגלילה — הגלילה נעשית ב-swipe/גרירה על ציר הזמן עצמו
+         (הגרירה כבר מיושמת ב-JS וב-overflow-x:auto של .past-tl-track-wrap) */
+      .past-tl-arrow { display: none; }
       .past-tl-year-col { padding: 0 18px; }
+      /* מובייל: מצמצמים מעט את המרווח בין ציר הזמן לתוויות האמנים שמתחתיו */
+      .past-tl-artists-wrap { margin-top: 48px; }
       footer { padding: 2rem 1rem; }
     }
     /* ─── REDUCED MOTION ────────────────────────────────────── */
@@ -791,13 +844,25 @@
         scroll-behavior: auto !important;
       }
     }
-  </style>
+      /* טלפונים קטנים מאוד (~≤400px): ה-toolbar (לוגו + כפתור כרטיסים + EN + המבורגר)
+       צר מדי לכל האלמנטים במידותיהם הרגילות — הם נדחקים החוצה משמאל וה-nav
+       (overflow:hidden) חותך את ההמבורגר לגמרי. מצמצמים padding/gap/font כדי
+       שהכול יישאר בתוך הרוחב הזמין. */
+    @media (max-width: 400px) {
+      .nav-logo-tab { padding: 0.4rem 0.6rem; }
+      .nav-inner { padding: 0 0.5rem; }
+      .nav-btn-primary { padding: 0.5rem 0.8rem; font-size: 0.78rem; }
+      /* מגדיל את שטח המגע ל-~44×44px בלי לשנות את הפריסה החזותית (padding מתקזז ע"י margin שלילי זהה).
+         סימטרי — ההמבורגר יושב לבדו בקצה עמודת הגריד הימנית, אין יותר כפתור EN צמוד אליו. */
+      .hamburger { padding: 14px; margin: -14px; }
+    }
+</style>
   <link rel="stylesheet" href="./page-transitions.css" />
 </head>
 <body>
 
   <!-- ── TICKER BAR ── -->
-  <div class="ticker-bar" role="marquee" aria-label="עדכוני פסטיבל">
+  <div class="ticker-bar" role="status" aria-live="off" aria-label="עדכוני פסטיבל">
     <div class="ticker-track-wrap">
       <div class="ticker-track">
         <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
@@ -827,7 +892,9 @@
       <img src="State=Vertical.svg" alt="Red Sea Jazz Festival" class="nav-logo-img" width="80" height="80" />
     </a>
     <div class="nav-inner">
+      <div class="mobile-menu-panel" id="mobileMenuPanel">
       <ul class="nav-links" id="navLinks">
+        <li class="nav-link-mobile-flat"><a href="./index.html" data-he="דף הבית" data-en="Home">דף הבית</a></li>
         <li><a href="./index.html#artist-lineup-text" data-he="ליין אפ" data-en="Lineup">ליין אפ</a></li>
         <li><a href="./lineup.html" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
         <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
@@ -846,7 +913,11 @@
             <a href="./contact.html" data-he="יצירת קשר" data-en="Contact">יצירת קשר</a>
           </div>
         </li>
+        <li class="nav-link-mobile-flat"><a href="#" data-he="הסעות" data-en="Shuttles">הסעות</a></li>
+        <li class="nav-link-mobile-flat"><a href="./faq.html" data-he="שאלות נפוצות" data-en="FAQ">שאלות נפוצות</a></li>
+        <li class="nav-link-mobile-flat"><a href="./contact.html" data-he="יצירת קשר" data-en="Contact">יצירת קשר</a></li>
       </ul>
+      </div>
       <div class="nav-actions">
         <a class="nav-btn-secondary" data-he="חבילות נופש" data-en="Stay Packages"
           href="./index.html#hotels" rel="noopener">
@@ -854,7 +925,7 @@
         </a>
         <a class="nav-btn-primary" data-he="כרטיסים" data-en="Tickets"
           href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener">
-          כרטיסים ←
+          כרטיסים
         </a>
         <div class="nav-lang-sep"></div>
         <button class="nav-btn-lang" id="langBtn" onclick="switchLang()">🇺🇸 EN</button>
@@ -864,6 +935,12 @@
         </button>
       </div>
     </div>
+
+    <div class="nav-mobile-menu-actions" id="navMobileMenuActions">
+      <a class="nav-btn-primary" data-he="כרטיסים" data-en="Tickets" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener">כרטיסים</a>
+      <button class="nav-btn-lang" id="langBtnMobile" onclick="switchLang()">🇺🇸 EN</button>
+    </div>
+
   </nav>
 
   <!-- ── PAGE HERO ── -->
@@ -1485,26 +1562,44 @@
 
     /* ─── Mobile menu ─── */
     function toggleMenu() {
-      var hb = document.getElementById('hamburger');
-      var navLinks = document.getElementById('navLinks');
-      var isOpen = navLinks && navLinks.classList.contains('open');
+      const hb = document.getElementById('hamburger');
+      const panel = document.getElementById('mobileMenuPanel');
+      const isOpen = panel?.classList.contains('open');
       if (hb) hb.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
-      if (!navLinks) return;
+      if (!panel) return;
       if (!isOpen) {
         // פתיחה: ה-nav מכיל overflow:hidden + backdrop-filter (שיוצר containing block
         // ל-position:fixed) — זה חותך את תפריט המובייל המסך-מלא. לכן מנתקים זמנית ל-body.
-        if (navLinks.parentElement !== document.body) {
-          navLinks.__origParent = navLinks.parentElement;
-          navLinks.__origNext = navLinks.nextSibling;
-          document.body.appendChild(navLinks);
+        // סטריפ העדכונים (.ticker-bar) לא זז ולא מתנתק — הוא נשאר fixed במיקומו
+        // המקורי מעל ה-nav תמיד, גם כשהתפריט פתוח.
+        if (panel.parentElement !== document.body) {
+          panel.__origParent = panel.parentElement;
+          panel.__origNext = panel.nextSibling;
+          document.body.appendChild(panel);
         }
-        navLinks.classList.add('open');
+        panel.classList.add('open');
+        document.body.classList.add('mobile-nav-open');
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+        // פס הגלילה הכתום מופיע רק בזמן גלילה בפועל בתוך הפאנל, ונעלם
+        // כמה רגעים אחרי שהגלילה נעצרת (לא נשאר צבוע כל הזמן על המסך).
+        if (!panel.__scrollListenerAttached) {
+          panel.__scrollListenerAttached = true;
+          panel.addEventListener('scroll', () => {
+            panel.classList.add('scrolling');
+            clearTimeout(panel.__scrollHideTimer);
+            panel.__scrollHideTimer = setTimeout(() => panel.classList.remove('scrolling'), 800);
+          }, { passive: true });
+        }
       } else {
-        navLinks.classList.remove('open');
+        panel.classList.remove('open');
         closeNavDrop();
-        if (navLinks.__origParent) {
-          navLinks.__origParent.insertBefore(navLinks, navLinks.__origNext);
+        if (panel.__origParent) {
+          panel.__origParent.insertBefore(panel, panel.__origNext);
         }
+        document.body.classList.remove('mobile-nav-open');
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
       }
     }
 
@@ -1567,7 +1662,9 @@
     var currentLang = 'he';
     function switchLang() {
       currentLang = currentLang === 'he' ? 'en' : 'he';
-      document.getElementById('langBtn').textContent = currentLang === 'he' ? '🇺🇸 EN' : '🇮🇱 HE';
+      document.querySelectorAll('.nav-btn-lang').forEach(function(el) {
+        el.textContent = currentLang === 'he' ? '🇺🇸 EN' : '🇮🇱 HE';
+      });
       document.querySelectorAll('[data-he]').forEach(function(el) {
         el.textContent = el.getAttribute('data-' + currentLang) || el.textContent;
       });

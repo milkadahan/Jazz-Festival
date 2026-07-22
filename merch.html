@@ -76,11 +76,11 @@
       --teal:      #0A8F8E;
       --warm-glow: #FF8C42;
       --text:      #3A2A1E;
-      --muted:     #8A7256;
+      --muted:     #6A5540; --yellow-text: #7A5C00; --teal-text: #086665; --orange-text: #B8440A; --orange-btn: #C94A08;
       --card-bg:   #FFFDF8;
       --border:    rgba(58,42,30,0.12);
       --border-strong: rgba(58,42,30,0.22);
-      --btn-gradient:  linear-gradient(135deg, var(--orange), var(--red));
+      --btn-gradient:  linear-gradient(135deg, var(--orange-btn), var(--red));
       --shadow:    rgba(58,42,30,0.10);
       --shadow-strong: rgba(58,42,30,0.16);
       --on-accent: #FFFDF8;
@@ -251,8 +251,8 @@
     .nav-btn-secondary:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-2px); }
     .nav-lang-sep { width: 1px; height: 20px; flex-shrink: 0; background: var(--border-strong); margin-inline: 0.3rem; }
     .nav-btn-lang {
-      background: transparent; color: rgba(58,42,30,0.62);
-      border: 1.5px solid var(--border); border-radius: 50px;
+      background: transparent; color: var(--text);
+      border: 1.5px solid var(--border-strong); border-radius: 50px;
       padding: 0.45rem 0.9rem; font-size: 0.85rem; font-weight: 600;
       cursor: pointer; display: flex; align-items: center; gap: 0.35rem;
       transition: border-color 0.2s, color 0.2s; font-family: var(--font);
@@ -260,20 +260,70 @@
     .nav-btn-lang:hover { border-color: var(--orange); color: var(--orange); }
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; border: none; background: transparent; }
     .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
+    /* תפריט פתוח: שני הפסים החיצוניים מסתובבים ל-X, האמצעי נעלם */
+    .hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .hamburger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    /* מוסתרים כברירת מחדל (דסקטופ); נחשפים/ממוקמים בתוך המדיה קוורי של מובייל למטה */
+    .nav-link-mobile-flat, .nav-mobile-menu-actions { display: none; }
+    /* עטיפת הפאנל שקופה לחלוטין בדסקטופ — לא משפיעה על ה-flex של nav-inner */
+    .mobile-menu-panel { display: contents; }
     @media (max-width: 900px) {
+      /* טולבר מקופל: גריד 3 עמודות — המבורגר צמוד לשוליים הימניים, הלוגו במרכז,
+         כרטיסים צמוד לשוליים השמאליים. nav-inner/nav-actions הופכים ל-display:contents
+         כדי שהילדים שלהם (hamburger/tickets) ישתתפו ישירות בגריד של ה-nav. */
+      nav { display: grid; grid-template-columns: 1fr auto 1fr; padding-inline: 16px; }
+      .nav-inner { display: contents; padding: 0; }
+      .nav-actions { display: contents; }
       .nav-links { display: none; }
-      .hamburger { display: flex; }
-      .nav-inner { padding: 0 1rem; }
       .nav-btn-secondary { display: none; }
-      .nav-btn-lang { display: none; }
-      .nav-lang-sep { display: none; }
-      .nav-links.open {
+      .nav-logo-tab { grid-column: 2; grid-row: 1; justify-self: center; padding: 0.5rem 1rem; }
+      /* לוגו במצב התחלתי (לא-scrolled) במובייל — מעט גדול יותר מברירת המחדל
+         הישנה (48px), עדיין קטן משמעותית מהדסקטופ (80px). nav.scrolled ממשיך
+         לכווץ ל-44px כרגיל, בלי קשר לגודל הזה. */
+      .nav-logo-img { height: 56px; }
+      .hamburger { display: flex; grid-column: 1; grid-row: 1; justify-self: start; }
+      /* כפתור הכרטיסים של הטולבר הקבוע: יושב בעמודה השלישית (הפנויה
+         כש-hamburger=col1 ו-logo=col2), צמוד לשוליים השמאליים. כשהתפריט
+         נפתח מוחלף ע"י הגרסה שבתוך .nav-mobile-menu-actions (למטה). */
+      .nav-actions > .nav-btn-primary { grid-column: 3; grid-row: 1; justify-self: end; }
+      body.mobile-nav-open .nav-actions > .nav-btn-primary { display: none; }
+      /* כפתור ה-EN של הדסקטופ (בתוך nav-actions) לא מקבל grid-column ייעודי —
+         מסתירים אותו במובייל כדי שלא יישאר "תקוע" כפריט גריד בלי מיקום; הגרסה
+         המובילית שלו עברה ל-.nav-mobile-menu-actions. */
+      .nav-lang-sep, .nav-actions > #langBtn { display: none; }
+      /* "מידע חשוב": בדסקטופ dropdown, במובייל שטוח — 3 קישורים נפרדים
+         באותה שורה אחד-מתחת-לשני כמו שאר קישורי התפריט. */
+      #navInfoDrop { display: none; }
+      .nav-link-mobile-flat { display: block; }
+      /* פאנל התפריט הפתוח: מתחיל בדיוק מתחת ל-nav (שלא זז בין פתוח/סגור —
+         לכן ההמבורגר/X נשאר באותו מיקום). סטריפ העדכונים נשאר fixed במיקומו
+         המקורי (top:0, מעל ה-nav) גם כשהתפריט פתוח — לא זז ולא מתנתק. */
+      .mobile-menu-panel.open {
         display: flex; flex-direction: column;
-        position: fixed; inset: 0; top: calc(var(--ticker-h) + 64px);
-        background: rgba(250,244,233,0.98);
-        -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-        padding: 2rem; gap: 1.5rem; font-size: 1.2rem; z-index: 99;
+        position: fixed; inset: 0; top: calc(var(--ticker-h) + var(--nav-h));
+        background: rgba(250,244,233,0.98); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+        z-index: 99;
+        overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
       }
+      .mobile-menu-panel.open .nav-links {
+        display: flex; flex-direction: column;
+        padding: 2rem; gap: 1.5rem; font-size: 1.2rem;
+      }
+      /* פס הגלילה של הפאנל שקוף כברירת מחדל ומופיע רק בזמן גלילה בפועל
+         (מחלקת .scrolling מתווספת/מוסרת ע"י JS) — לא נשאר צבוע כל הזמן. */
+      .mobile-menu-panel.open::-webkit-scrollbar-thumb { background: transparent; transition: background 0.25s; }
+      .mobile-menu-panel.open.scrolling::-webkit-scrollbar-thumb { background: var(--orange); }
+      /* כרטיסים + שפה בזמן שהתפריט פתוח: יושבים ב-nav עצמו (לא ב-.nav-links)
+         כדי לא לרשת את עיצוב .nav-links a — 16px מהשוליים השמאליים (padding-inline
+         של ה-nav), אותה שורה כמו כפתור ה-X. */
+      .nav-mobile-menu-actions {
+        display: none; align-items: center; gap: 0.6rem;
+        grid-column: 3; grid-row: 1; justify-self: end;
+      }
+      body.mobile-nav-open .nav-mobile-menu-actions { display: flex; }
+      /* תפריט פתוח: הלוגו מוסתר, במקומו כרטיסים+שפה (.nav-mobile-menu-actions) */
+      body.mobile-nav-open .nav-logo-tab { display: none; }
     }
 
     /* ─── SHOP / חנות הפסטיבל — רקע שמנת מלא (Light Mode) ─── */
@@ -292,6 +342,7 @@
     /* ─── PAGE HERO — כותרת גדולה זהה לשאר דפי האתר (כמו עמוד השאלות הנפוצות) ─── */
     .page-hero {
       position: relative;
+      overflow: hidden;
       padding-top: calc(var(--ticker-h) + var(--nav-h) + 64px);
       padding-bottom: 40px;
       display: flex; align-items: center; justify-content: center;
@@ -308,6 +359,40 @@
     .page-hero-glow-teal {
       top: 140px; inset-inline-end: -220px; width: 900px; height: 900px;
       background: radial-gradient(circle, rgba(0,200,200,0.18) 0%, transparent 65%);
+    }
+    /* גרסת מובייל בלבד — .page-hero חותך את הזוהר בקו חד (overflow:hidden) לפני
+       תחילת סקשן המוצרים. בפועל, .page-hero-glow-bleed הוא עותק זהה של הזוהר
+       הירקרק (teal), אבל ממוקם כילד ישיר של body (לפני כל תוכן) במקום בתוך
+       .page-hero — כך שהוא לא נחתך ע"י ה-overflow, וגולש חופשי מתחת לתוכן עד
+       מאחורי הכרטיס הראשון (vinyl-banner). מוסתר לגמרי בדסקטופ.
+       .page-hero-glow-bleed-wrap עוטף אותו ב-overflow:hidden משלו — בלי זה,
+       העיגול הענק (900px) שחורג עם inset שלילי גורם לבאג ריצוף/paint אמיתי
+       בכרום headless שמזיז ויזואלית את כרטיסי .shop-grid מהמיקום הלוגי שלהם
+       (אומת ע"י getBoundingClientRect מול פיקסלים בפועל) — למרות שה-DOM וה-CSS
+       שלהם תקינים לחלוטין. עטיפה עצמאית עם overflow:hidden מונעת את זה. */
+    .page-hero-glow-bleed-wrap { display: none; }
+    @media (max-width: 600px) {
+      /* הזוהר הכתום קטן ויושב קרוב לראש ה-hero — נשאר בתוך .page-hero כרגיל
+         (אין לו בעיית "חיתוך", כי הוא לא חורג לסקשן הבא). הזוהר הירקרק
+         (teal) גדול וחורג — מוחלף לגמרי בגרסת ה-bleed שממוקמת מחוץ ל-
+         .page-hero, כדי שלא יחתוך אותו overflow:hidden באמצע. */
+      .page-hero .page-hero-glow-teal { display: none; }
+      .page-hero-glow-bleed-wrap {
+        display: block;
+        position: absolute; top: 0; left: 0; width: 100%; height: 1100px;
+        overflow: hidden; pointer-events: none; z-index: 0;
+      }
+      .page-hero-glow-bleed {
+        position: absolute; pointer-events: none;
+        border-radius: 50%;
+        top: 140px; inset-inline-end: -220px; width: 900px; height: 900px;
+        background: radial-gradient(circle, rgba(0,200,200,0.18) 0%, transparent 65%);
+      }
+      /* .page-hero ו-.shop-body היו עם var(--bg) אטום — היה חוסם את הזוהר
+         הגולש (הוא ממוקם מאחוריהם ב-DOM/paint order). שקופים כדי לתת לו
+         להיראות לכל אורכו, מראש ה-hero וברציפות דרך גבול הסקשן, בלי קו חיתוך —
+         (הכרטיסים עצמם עדיין אטומים ומכסים אותו כרגיל היכן שהם נמצאים) */
+      .page-hero, .shop-body { background: transparent; }
     }
     .page-hero-content {
       position: relative; z-index: 2;
@@ -393,6 +478,18 @@
       transition: box-shadow 0.2s, transform 0.2s;
     }
     .vinyl-banner:hover .vinyl-banner-buy { box-shadow: 0 6px 22px rgba(224,86,11,0.45); }
+    /* height אחיד עם שאר כפתורי ה-CTA במובייל (44px — כגובה כפתור
+       "פרטים נוספים" בסקשן #venue באתר הבית) */
+    @media (max-width: 700px) {
+      .vinyl-banner-buy { height: 44px; }
+      /* מובייל: גובה באנר אחיד (260px תוכן) לכל דפי הבאנר באתר, מלבד לוח ההופעות —
+         מוחלף ממודל padding-based למודל height מפורש כמו שאר הדפים */
+      .page-hero {
+        height: calc(260px + var(--ticker-h) + var(--nav-h));
+        padding-top: calc(var(--ticker-h) + var(--nav-h));
+        padding-bottom: 0;
+      }
+    }
     .vinyl-banner-media {
       position: relative; min-height: 300px; min-width: 0;
     }
@@ -453,7 +550,7 @@
     .shop-card-buy {
       margin-top: auto;
       display: inline-flex; align-items: center; gap: 0.3rem;
-      color: var(--orange);
+      color: var(--orange-text);
       font-size: 0.85rem; font-weight: 700;
     }
 
@@ -467,21 +564,58 @@
     @media (max-width: 980px) {
       .shop-grid { grid-template-columns: repeat(2, 1fr); }
       .vinyl-banner { grid-template-columns: 1fr; }
-      .vinyl-banner-media { min-height: 260px; order: -1; }
+      /* בפריסה נערמת התמונה חוזרת לזרימה רגילה (במקום absolute+bottom) כדי שלא תגלוש מעל הכותרת/תת-הכותרת */
+      .vinyl-banner-media { min-height: 0; order: -1; padding: 1.6rem 1.6rem 0; }
+      .vinyl-banner-media::before { display: none; }
+      .vinyl-banner-media img {
+        position: static;
+        left: auto; bottom: auto;
+        display: block;
+        width: 100%; max-width: 420px;
+        margin: 0 auto;
+      }
       .vinyl-banner-content { padding: 2rem 2rem; }
     }
     @media (max-width: 520px) {
       .shop-grid { grid-template-columns: 1fr; gap: 1.1rem; }
       .shop-body { padding-bottom: 64px; }
       .vinyl-banner-content { padding: 1.6rem 1.4rem; }
-      .vinyl-banner-media { min-height: 220px; }
+      .vinyl-banner-media { padding: 1.4rem 1.4rem 0; }
     }
-  </style>
+    /* גרסת מובייל בלבד — 16px משוליים ומ-מוצר-למוצר; גובר על הצמצום ל-1fr
+       שהוגדר למעלה (≤520px), כדי שהמוצרים תמיד יוצגו בגריד של 2 עמודות.
+       באנר התקליט (vinyl-banner) ממשיך לתפוס את כל השורה כרגיל — לא משתנה. */
+    @media (max-width: 600px) {
+      .shop-wrap { max-width: calc(100% - 32px); }
+      .shop-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      /* עקביות עם ה-gap של הגריד (16px) — היה 24px, נוסף מעל ה-gap עצמו */
+      .vinyl-banner { margin-bottom: 0; }
+    }
+      /* טלפונים קטנים מאוד (~≤400px): ה-toolbar (לוגו + כפתור כרטיסים + EN + המבורגר)
+       צר מדי לכל האלמנטים במידותיהם הרגילות — הם נדחקים החוצה משמאל וה-nav
+       (overflow:hidden) חותך את ההמבורגר לגמרי. מצמצמים padding/gap/font כדי
+       שהכול יישאר בתוך הרוחב הזמין. */
+    @media (max-width: 400px) {
+      .nav-logo-tab { padding: 0.4rem 0.6rem; }
+      .nav-inner { padding: 0 0.5rem; }
+      .nav-btn-primary { padding: 0.5rem 0.8rem; font-size: 0.78rem; }
+      /* מגדיל את שטח המגע ל-~44×44px בלי לשנות את הפריסה החזותית (padding מתקזז ע"י margin שלילי זהה).
+         סימטרי — ההמבורגר יושב לבדו בקצה עמודת הגריד הימנית, אין יותר כפתור EN צמוד אליו. */
+      .hamburger { padding: 14px; margin: -14px; }
+    }
+</style>
 </head>
 <body>
 
+  <!-- מובייל בלבד: עותק זהה של הזוהר הירקרק בעמוד ה-hero, ממוקם ברמת ה-body
+       (לא נחתך ע"י overflow:hidden של .page-hero) כדי לגלוש רך עד מאחורי
+       הכרטיס הראשון בסקשן המוצרים. ראו הערה ליד .page-hero-glow-bleed-wrap ב-CSS. -->
+  <div class="page-hero-glow-bleed-wrap" aria-hidden="true">
+    <div class="page-hero-glow-bleed"></div>
+  </div>
+
   <!-- ── TICKER BAR ── -->
-  <div class="ticker-bar" role="marquee" aria-label="עדכוני פסטיבל">
+  <div class="ticker-bar" role="status" aria-live="off" aria-label="עדכוני פסטיבל">
     <div class="ticker-track-wrap">
       <div class="ticker-track" id="tickerTrack">
         <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
@@ -507,7 +641,9 @@
       <img src="State=Vertical.svg" alt="Red Sea Jazz Festival" class="nav-logo-img" width="80" height="80" />
     </a>
     <div class="nav-inner">
+      <div class="mobile-menu-panel" id="mobileMenuPanel">
       <ul class="nav-links" id="navLinks">
+        <li class="nav-link-mobile-flat"><a href="./index.html" data-he="דף הבית" data-en="Home">דף הבית</a></li>
         <li><a href="./index.html#artist-lineup-text" data-he="ליין אפ" data-en="Lineup">ליין אפ</a></li>
         <li><a href="./lineup.html" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
         <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
@@ -526,12 +662,16 @@
             <a href="./contact.html" data-he="יצירת קשר" data-en="Contact">יצירת קשר</a>
           </div>
         </li>
+        <li class="nav-link-mobile-flat"><a href="#" data-he="הסעות" data-en="Shuttles">הסעות</a></li>
+        <li class="nav-link-mobile-flat"><a href="./faq.html" data-he="שאלות נפוצות" data-en="FAQ">שאלות נפוצות</a></li>
+        <li class="nav-link-mobile-flat"><a href="./contact.html" data-he="יצירת קשר" data-en="Contact">יצירת קשר</a></li>
       </ul>
+      </div>
       <div class="nav-actions">
         <a class="nav-btn-secondary" data-he="חבילות נופש" data-en="Stay Packages"
           href="./index.html#hotels" rel="noopener">חבילות נופש</a>
         <a class="nav-btn-primary" data-he="כרטיסים" data-en="Tickets"
-          href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener">כרטיסים ←</a>
+          href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener">כרטיסים</a>
         <div class="nav-lang-sep"></div>
         <button class="nav-btn-lang" id="langBtn" onclick="switchLang()">🇺🇸 EN</button>
         <button class="hamburger" id="hamburger" aria-label="תפריט ניווט" aria-expanded="false" onclick="toggleMenu()">
@@ -539,6 +679,12 @@
         </button>
       </div>
     </div>
+
+    <div class="nav-mobile-menu-actions" id="navMobileMenuActions">
+      <a class="nav-btn-primary" data-he="כרטיסים" data-en="Tickets" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener">כרטיסים</a>
+      <button class="nav-btn-lang" id="langBtnMobile" onclick="switchLang()">🇺🇸 EN</button>
+    </div>
+
   </nav>
 
   <!-- ── PAGE HERO · כותרת גדולה (זהה לשאר דפי האתר) ── -->
@@ -580,7 +726,7 @@
             <img src="./Graphig assets/merch/merch-cap.jpg" alt="כובע מצחייה של פסטיבל ג׳אז ים סוף" width="600" height="600" loading="lazy">
           </div>
           <div class="shop-card-body">
-            <div class="shop-card-name">כובע מצחייה רקום</div>
+            <h3 class="shop-card-name">כובע מצחייה רקום</h3>
             <div class="shop-card-price">₪79</div>
             <span class="shop-card-buy">לרכישה ←</span>
           </div>
@@ -592,7 +738,7 @@
             <img src="./Graphig assets/merch/merch-bottle.jpg" alt="בקבוק מים תרמי של פסטיבל ג׳אז ים סוף" width="600" height="600" loading="lazy">
           </div>
           <div class="shop-card-body">
-            <div class="shop-card-name">בקבוק מים תרמי</div>
+            <h3 class="shop-card-name">בקבוק מים תרמי</h3>
             <div class="shop-card-price">₪59</div>
             <span class="shop-card-buy">לרכישה ←</span>
           </div>
@@ -604,7 +750,7 @@
             <img src="./Graphig assets/merch/merch-shirt.jpg" alt="חולצת פסטיבל ג׳אז ים סוף עם הדפס סקסופון" width="600" height="600" loading="lazy">
           </div>
           <div class="shop-card-body">
-            <div class="shop-card-name">חולצת פסטיבל מודפסת</div>
+            <h3 class="shop-card-name">חולצת פסטיבל מודפסת</h3>
             <div class="shop-card-price">₪89</div>
             <span class="shop-card-buy">לרכישה ←</span>
           </div>
@@ -616,7 +762,7 @@
             <img src="./Graphig assets/merch/merch-tote.jpg" alt="שקית בד של פסטיבל ג׳אז ים סוף" width="600" height="600" loading="lazy">
           </div>
           <div class="shop-card-body">
-            <div class="shop-card-name">שקית בד לפסטיבל</div>
+            <h3 class="shop-card-name">שקית בד לפסטיבל</h3>
             <div class="shop-card-price">₪49</div>
             <span class="shop-card-buy">לרכישה ←</span>
           </div>
@@ -628,7 +774,7 @@
             <img src="./Graphig assets/merch/merch-poster.jpg" alt="פוסטר אמנותי של פסטיבל ג׳אז ים סוף" width="600" height="600" loading="lazy">
           </div>
           <div class="shop-card-body">
-            <div class="shop-card-name">פוסטר רשמי — מהדורת 2026</div>
+            <h3 class="shop-card-name">פוסטר רשמי — מהדורת 2026</h3>
             <div class="shop-card-price">₪69</div>
             <span class="shop-card-buy">לרכישה ←</span>
           </div>
@@ -640,7 +786,7 @@
             <img src="./Graphig assets/merch/merch-hoodie.jpg" alt="קפוצ'ון של פסטיבל ג׳אז ים סוף" width="600" height="600" loading="lazy">
           </div>
           <div class="shop-card-body">
-            <div class="shop-card-name">קפוצ'ון הפסטיבל</div>
+            <h3 class="shop-card-name">קפוצ'ון הפסטיבל</h3>
             <div class="shop-card-price">₪169</div>
             <span class="shop-card-buy">לרכישה ←</span>
           </div>
@@ -673,25 +819,43 @@
     // Mobile menu toggle
     function toggleMenu() {
       const hb = document.getElementById('hamburger');
-      const navLinks = document.getElementById('navLinks');
-      const isOpen = navLinks?.classList.contains('open');
+      const panel = document.getElementById('mobileMenuPanel');
+      const isOpen = panel?.classList.contains('open');
       if (hb) hb.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
-      if (!navLinks) return;
+      if (!panel) return;
       if (!isOpen) {
         // פתיחה: ה-nav מכיל overflow:hidden + backdrop-filter (שיוצר containing block
         // ל-position:fixed) — זה חותך את תפריט המובייל המסך-מלא. לכן מנתקים זמנית ל-body.
-        if (navLinks.parentElement !== document.body) {
-          navLinks.__origParent = navLinks.parentElement;
-          navLinks.__origNext = navLinks.nextSibling;
-          document.body.appendChild(navLinks);
+        // סטריפ העדכונים (.ticker-bar) לא זז ולא מתנתק — הוא נשאר fixed במיקומו
+        // המקורי מעל ה-nav תמיד, גם כשהתפריט פתוח.
+        if (panel.parentElement !== document.body) {
+          panel.__origParent = panel.parentElement;
+          panel.__origNext = panel.nextSibling;
+          document.body.appendChild(panel);
         }
-        navLinks.classList.add('open');
+        panel.classList.add('open');
+        document.body.classList.add('mobile-nav-open');
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+        // פס הגלילה הכתום מופיע רק בזמן גלילה בפועל בתוך הפאנל, ונעלם
+        // כמה רגעים אחרי שהגלילה נעצרת (לא נשאר צבוע כל הזמן על המסך).
+        if (!panel.__scrollListenerAttached) {
+          panel.__scrollListenerAttached = true;
+          panel.addEventListener('scroll', () => {
+            panel.classList.add('scrolling');
+            clearTimeout(panel.__scrollHideTimer);
+            panel.__scrollHideTimer = setTimeout(() => panel.classList.remove('scrolling'), 800);
+          }, { passive: true });
+        }
       } else {
-        navLinks.classList.remove('open');
+        panel.classList.remove('open');
         closeNavDrop();
-        if (navLinks.__origParent) {
-          navLinks.__origParent.insertBefore(navLinks, navLinks.__origNext);
+        if (panel.__origParent) {
+          panel.__origParent.insertBefore(panel, panel.__origNext);
         }
+        document.body.classList.remove('mobile-nav-open');
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
       }
     }
 
@@ -754,7 +918,9 @@
     let currentLang = 'he';
     function switchLang() {
       currentLang = currentLang === 'he' ? 'en' : 'he';
-      document.getElementById('langBtn').textContent = currentLang === 'he' ? '🇺🇸 EN' : '🇮🇱 HE';
+      document.querySelectorAll('.nav-btn-lang').forEach(el => {
+        el.textContent = currentLang === 'he' ? '🇺🇸 EN' : '🇮🇱 HE';
+      });
       document.querySelectorAll('[data-he]').forEach(el => {
         el.textContent = el.getAttribute('data-' + currentLang) || el.textContent;
       });

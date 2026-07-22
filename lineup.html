@@ -81,11 +81,11 @@
       --teal:      #0A8F8E;
       --warm-glow: #FF8C42;
       --text:      #3A2A1E;
-      --muted:     #8A7256;
+      --muted:     #6A5540; --yellow-text: #7A5C00; --teal-text: #086665; --orange-text: #B8440A; --orange-btn: #C94A08;
       --card-bg:   #FFFDF8;
       --border:    rgba(58,42,30,0.12);
       --border-strong: rgba(58,42,30,0.22);
-      --btn-gradient:  linear-gradient(135deg, var(--orange), var(--red));
+      --btn-gradient:  linear-gradient(135deg, var(--orange-btn), var(--red));
       --shadow:    rgba(58,42,30,0.10);
       --shadow-strong: rgba(58,42,30,0.16);
       --on-accent: #FFFDF8;
@@ -130,7 +130,7 @@
       flex-shrink: 0;
       padding: 0 1.4rem 0 1rem;
       font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
-      color: var(--orange); text-transform: uppercase;
+      color: var(--orange-text); text-transform: uppercase;
       border-right: 1px solid rgba(224,86,11,0.35);
       white-space: nowrap;
     }
@@ -265,8 +265,8 @@
       white-space: nowrap; text-align: start;
       background: none; border: none; width: 100%; cursor: pointer; font-family: inherit;
     }
-    .nav-drop-panel > a:hover { background: rgba(224,86,11,0.08); color: var(--orange); }
-    .nav-drop-panel > a.active { color: var(--orange); font-weight: 700; }
+    .nav-drop-panel > a:hover { background: rgba(224,86,11,0.08); color: var(--orange-text); }
+    .nav-drop-panel > a.active { color: var(--orange-text); font-weight: 700; }
 
 
     /* Nav action buttons */
@@ -295,7 +295,7 @@
       text-decoration: none; display: inline-block;
     }
     .nav-btn-secondary:hover {
-      border-color: var(--orange); color: var(--orange);
+      border-color: var(--orange); color: var(--orange-text);
       transform: translateY(-2px);
     }
     .nav-lang-sep {
@@ -305,32 +305,57 @@
     }
     .nav-btn-lang {
       background: transparent;
-      color: rgba(58,42,30,0.62);
-      border: 1.5px solid var(--border);
+      color: var(--text);
+      border: 1.5px solid var(--border-strong);
       border-radius: 50px; padding: 0.45rem 0.9rem;
       font-size: 0.85rem; font-weight: 600; cursor: pointer;
       display: flex; align-items: center; gap: 0.35rem;
       transition: border-color 0.2s, color 0.2s;
       font-family: var(--font);
     }
-    .nav-btn-lang:hover { border-color: var(--orange); color: var(--orange); }
+    .nav-btn-lang:hover { border-color: var(--orange); color: var(--orange-text); }
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; border:none; background:transparent; }
     .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
+    /* תפריט פתוח: שני הפסים החיצוניים מסתובבים ל-X, האמצעי נעלם */
+    .hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .hamburger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+    .nav-link-mobile-flat, .nav-mobile-menu-actions { display: none; }
+    .mobile-menu-panel { display: contents; }
     @media (max-width: 900px) {
+      nav { display: grid; grid-template-columns: 1fr auto 1fr; padding-inline: 16px; }
+      .nav-inner { display: contents; padding: 0; }
+      .nav-actions { display: contents; }
       .nav-links { display: none; }
-      .hamburger { display: flex; }
-      .nav-inner { padding: 0 1rem; }
       .nav-btn-secondary { display: none; }
-      .nav-btn-lang { display: none; }
-      .nav-lang-sep { display: none; }
-      .nav-links.open {
+      .nav-logo-tab { grid-column: 2; grid-row: 1; justify-self: center; padding: 0.5rem 1rem; }
+      .nav-logo-img { height: 56px; }
+      .hamburger { display: flex; grid-column: 1; grid-row: 1; justify-self: start; }
+      .nav-actions > .nav-btn-primary { grid-column: 3; grid-row: 1; justify-self: end; }
+      body.mobile-nav-open .nav-actions > .nav-btn-primary { display: none; }
+      .nav-lang-sep, .nav-actions > #langBtn { display: none; }
+      #navInfoDrop { display: none; }
+      .nav-link-mobile-flat { display: block; }
+      .mobile-menu-panel.open {
         display: flex; flex-direction: column;
-        position: fixed; inset: 0; top: calc(var(--ticker-h) + 64px);
+        position: fixed; inset: 0; top: calc(var(--ticker-h) + var(--nav-h));
         background: rgba(250,244,233,0.98); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-        padding: 2rem; gap: 1.5rem; font-size: 1.2rem;
         z-index: 99;
+        overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
       }
+      .mobile-menu-panel.open .nav-links {
+        display: flex; flex-direction: column;
+        padding: 2rem; gap: 1.5rem; font-size: 1.2rem;
+      }
+      .mobile-menu-panel.open::-webkit-scrollbar-thumb { background: transparent; transition: background 0.25s; }
+      .mobile-menu-panel.open.scrolling::-webkit-scrollbar-thumb { background: var(--orange); }
+      .nav-mobile-menu-actions {
+        display: none; align-items: center; gap: 0.6rem;
+        grid-column: 3; grid-row: 1; justify-self: end;
+      }
+      body.mobile-nav-open .nav-mobile-menu-actions { display: flex; }
+      body.mobile-nav-open .nav-logo-tab { display: none; }
     }
 
     /* ─── PAGE HERO ────────────────────────────────────────────── */
@@ -344,19 +369,24 @@
       padding-top: calc(var(--ticker-h) + var(--nav-h));
       background: #f5efe6;
     }
-    /* BG image: מוקטן מ-400px ל-280px (כדי שיוצג יותר מהתוכנייה מתחת) — היחס לתמונת המקור נשמר, ה-crop מורכז מחדש */
+    /* BG image: מוקטן מ-400px ל-280px (כדי שיוצג יותר מהתוכנייה מתחת) — היחס לתמונת המקור נשמר, ה-crop מורכז מחדש
+       object-fit:cover — height קבוע לצד width:100% ללא object-fit גרם למתיחה/עיוות של התמונה בכל רוחב שאינו הרוחב היחיד שבו היחס תואם במקרה */
     .page-hero-bg-img {
       position: absolute;
       left: 0; width: 100%;
       height: 947.88px;
       top: calc(var(--ticker-h) + var(--nav-h) - 386px);
+      object-fit: cover;
       pointer-events: none;
       display: block;
     }
+    /* היה <img> שהצביע על glow-teal.png — קובץ פגום (SVG ריק ששמור בטעות בסיומת .png,
+       ללא תוכן/גודל טבעי) שהוצג כתיבת "תמונה שבורה" אפורה. מוחלף בגרדיאנט CSS טהור. */
     .page-hero-glow-teal {
       position: absolute;
       bottom: -115px; right: -503px;
       width: 441px; height: 441px;
+      background: radial-gradient(circle, rgba(10,143,142,0.35) 0%, rgba(10,143,142,0) 70%);
       pointer-events: none;
       z-index: 1;
     }
@@ -368,7 +398,7 @@
     }
     .page-hero-title {
       display: flex; align-items: center; gap: 26px;
-      font-size: clamp(3rem, 7vw, 6rem);
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
       font-weight: 800;
       color: #ffffff;
       line-height: 1.1;
@@ -401,6 +431,11 @@
     /* ─── DAY NAVIGATION ───────────────────────────────────────── */
     /* --view-toggle-h מחושב לפי גובה ה-view-toggle-bar: padding*2 + כפתור 42px + border */
     :root { --view-toggle-h: 62px; }
+    /* display:contents בדסקטופ — העטיפה "נעלמת" מעץ הקופסאות, .day-nav ממשיך
+       להתנהג בדיוק כמו קודם. הופך למכל אמיתי (position:relative) רק במובייל. */
+    .day-nav-dropdown-wrap { display: contents; }
+    /* כפתור הטריגר של התפריט הנפתח — קיים רק במובייל; בדסקטופ שורת הימים מוצגת ישירות */
+    .day-nav-dropdown-toggle { display: none; }
     .day-nav {
       display: flex; align-items: center; gap: 8px; flex: 1; justify-content: center;
       flex-wrap: wrap;
@@ -418,7 +453,7 @@
       transition: all 0.2s; white-space: nowrap;
       display: inline-flex; align-items: center;
     }
-    .day-nav-btn:hover { border-color: var(--orange); color: var(--orange); }
+    .day-nav-btn:hover { border-color: var(--orange); color: var(--orange-text); }
     #btnAllDays { display: none; }
     body.view-calendar #btnAllDays { display: inline-flex; }
     .day-nav-btn.active {
@@ -441,7 +476,7 @@
       transition: all 0.2s; white-space: nowrap;
     }
     .stage-dropdown-toggle:hover,
-    .stage-dropdown-toggle.open { border-color: var(--orange); color: var(--orange); }
+    .stage-dropdown-toggle.open { border-color: var(--orange); color: var(--orange-text); }
     .stage-dropdown-toggle .chevron {
       transition: transform 0.2s;
       order: 1; /* החץ בקצה השמאלי של הכפתור (אחרי הטקסט ב-flex, ב-RTL נדחף שמאלה) */
@@ -499,7 +534,7 @@
     }
     .day-block-count {
       background: rgba(224,86,11,0.1);
-      color: var(--orange);
+      color: var(--orange-text);
       border: 1px solid rgba(224,86,11,0.25);
       border-radius: 50px; padding: 0.3rem 0.9rem;
       font-size: 0.875rem; font-weight: 600;
@@ -601,7 +636,7 @@
     .show-card-more {
       display: inline-flex; align-items: center; gap: 0.3rem;
       font-size: 13px; font-weight: 600;
-      color: var(--orange);
+      color: var(--orange-text);
       width: fit-content;
       margin-top: 2px;
     }
@@ -738,6 +773,12 @@
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .show-drawer-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(224,86,11,0.5); }
+    /* height אחיד עם שאר כפתורי ה-CTA במובייל (44px — כגובה כפתור
+       "פרטים נוספים" בסקשן #venue באתר הבית) */
+    @media (max-width: 700px) {
+      .show-drawer-cta { height: 44px; }
+      .lineup-cta-btn { height: 44px; }
+    }
 
     /* ── תיאור הופעה — line-height מופחת, צבע כהה יותר ── */
     .show-drawer-desc {
@@ -857,7 +898,13 @@
       letter-spacing: 0.17px;
       box-shadow: 0 0 10px rgba(255,107,26,0.35);
     }
-    .view-toggle-btn:not(.active):hover { color: var(--orange); }
+    .view-toggle-btn:not(.active):hover { color: var(--orange-text); }
+    /* אייקון מוסתר בדסקטופ — הכפתור מציג טקסט כרגיל. במובייל (ראו @media
+       למטה) הטקסט מוחלף באייקון, בהתאמה ל-Figma (node 334:1660). הפס"ד
+       ("mask") משתמש בקבצי ה-SVG המיוצאים מ-Figma ממש כפי שהם — הצבע
+       מגיע מ-currentColor, כך שהאייקון עוקב אוטומטית אחרי צבע הטקסט של
+       הכפתור (לבן כשפעיל, חום כשלא). */
+    .view-toggle-btn .vt-icon { display: none; }
 
     /* ─── CALENDAR VIEW ─────────────────────────────────────────── */
     .calendar-section { display: none; }
@@ -932,8 +979,21 @@
       font-size: 0.75rem; color: var(--muted); font-weight: 600;
     }
     @media (max-width: 700px) {
-      #cal-weekly { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-      .cal-weekly-grid { min-width: 600px; grid-template-columns: 60px repeat(4, minmax(110px,1fr)); }
+      /* מובייל: 4 הימים נכנסים בלי גלילה צידית — בלי min-width מאולץ, עמודות
+         גמישות (1fr); כרטיסי ההופעה מצטמצמים לצבע-במה + שם + שעה בלבד
+         (בלי תמונה/תגית — see .show-thumb, .show-tag rules below) */
+      .cal-weekly-grid { grid-template-columns: 30px repeat(4, 1fr); }
+      .cal-weekly-day-header { padding: 0.6rem 0.2rem; }
+      .cal-weekly-day-name { font-size: 0.74rem; }
+      .cal-weekly-day-date { font-size: 0.62rem; }
+      .cal-weekly-time-header { padding: 0.6rem 0.15rem; font-size: 0.6rem; }
+      .cal-weekly-time { padding: 0.5rem 0.1rem; font-size: 0.66rem; }
+      .cal-weekly-cell { padding: 0.25rem 0.2rem; min-height: 0; }
+      .cal-weekly-cell .show-block { min-height: 0; }
+      .cal-weekly-cell .show-block-inner { padding: 0.35rem 0.4rem; gap: 0; }
+      .cal-weekly-cell .show-tag { display: none; }
+      .cal-weekly-cell .show-block .show-name { font-size: 0.66rem; line-height: 1.2; }
+      .cal-weekly-cell .show-block .show-time { font-size: 0.58rem; margin-top: 2px; }
     }
 
     /* כותרת יום ביומן — משתמשת ב-.day-block-header הזהה לתצוגת הרשימה */
@@ -953,7 +1013,7 @@
       padding: 1rem;
       font-size: 0.8rem; font-weight: 700;
       text-transform: uppercase; letter-spacing: 0;
-      color: var(--orange);
+      color: var(--orange-text);
       border-bottom: 1px solid var(--border);
       display: flex; align-items: center; justify-content: center; gap: 0.4rem;
     }
@@ -1036,12 +1096,12 @@
     }
     .show-text { flex: 1; min-width: 0; }
     .show-name { font-weight: 700; font-size: 0.9rem; color: var(--text); }
-    .show-time { font-size: 0.75rem; color: var(--orange); font-weight: 600; margin-top: 4px; }
+    .show-time { font-size: 0.75rem; color: var(--orange-text); font-weight: 600; margin-top: 4px; }
     .show-tag {
       display: inline-block; margin-top: 0.25rem;
       font-size: 0.63rem; font-weight: 700;
       border-radius: 50px; padding: 0.1rem 0.45rem;
-      background: rgba(224,86,11,0.12); color: var(--orange);
+      background: rgba(224,86,11,0.12); color: var(--orange-text);
     }
     /* Red Tent */
     .show-block.stage-red { background: rgba(214,34,70,0.1); border-color: rgba(214,34,70,0.3); }
@@ -1053,58 +1113,194 @@
     .show-block.stage-teal { background: rgba(10,143,142,0.1); border-color: rgba(10,143,142,0.3); }
     .show-block.stage-teal::before { background: linear-gradient(to bottom, var(--teal), #006d6c); }
     .show-block.stage-teal:hover { background: rgba(10,143,142,0.2); box-shadow: 0 5px 20px rgba(10,143,142,0.2); }
-    .show-block.stage-teal .show-time { color: var(--teal); }
-    .show-block.stage-teal .show-tag { background: rgba(10,143,142,0.12); color: var(--teal); }
+    .show-block.stage-teal .show-time { color: var(--teal-text); }
+    .show-block.stage-teal .show-tag { background: rgba(10,143,142,0.12); color: var(--teal-text); }
     /* Green Pavilion */
     .show-block.stage-yellow { background: rgba(224,168,0,0.1); border-color: rgba(224,168,0,0.3); }
     .show-block.stage-yellow::before { background: linear-gradient(to bottom, var(--yellow), #a07a00); }
     .show-block.stage-yellow:hover { background: rgba(224,168,0,0.2); box-shadow: 0 5px 20px rgba(224,168,0,0.2); }
-    .show-block.stage-yellow .show-time { color: var(--yellow); }
-    .show-block.stage-yellow .show-tag { background: rgba(224,168,0,0.12); color: var(--yellow); }
+    .show-block.stage-yellow .show-time { color: var(--yellow-text); }
+    .show-block.stage-yellow .show-tag { background: rgba(224,168,0,0.12); color: var(--yellow-text); }
     /* תא ריק — ריק לגמרי כמו ב-index.html (ללא "—") */
     .cal-empty { font-size: 0; }
 
     /* ─── RESPONSIVE ───────────────────────────────────────────── */
     @media (max-width: 700px) {
       .page-hero { height: calc(180px + var(--ticker-h) + var(--nav-h)); }
-      .page-hero-bg-img { height: 618px; top: calc(var(--ticker-h) + var(--nav-h) - 250px); }
+      /* מרימים את התמונה מעט כך שיראו רמז לאלמנטים בתחתית האיור (הפיר/מגדלור של אילת) */
+      .page-hero-bg-img { height: 618px; top: calc(var(--ticker-h) + var(--nav-h) - 340px); }
       .page-hero-content { padding-inline: 1.5rem; }
       .page-hero-title { font-size: clamp(2rem, 10vw, 3rem); gap: 16px; }
       .page-hero-glow-teal { width: 220px; height: 220px; right: -180px; bottom: -60px; }
       main { padding: 2rem 1rem 4rem; }
       .footer-grid { grid-template-columns: 1fr; gap: 1.8rem; }
-      .show-card { padding: 10px 12px 10px 14px; gap: 10px; min-height: 80px; flex-wrap: wrap; }
+      /* מובייל: כרטיסיית הופעה בהתאמה לעיצוב Figma (node 337-2293) —
+         תמונה בצד ימין וטקסט אחריה בצד שמאל (מיושר לימין), כותרת+תגית
+         נערמות זו מעל זו, ובלי מספר סידורי/קו מפריד/קישור "מידע נוסף" */
+      .show-card {
+        padding: 14px; gap: 16px;
+        min-height: 0; flex-wrap: wrap;
+        align-items: flex-start;
+      }
       .show-card-img { width: 60px; height: 60px; }
-      .show-card-num { font-size: 22px; }
+      .show-card-num { display: none; }
+      /* flex-direction:column → הציר הצולב הוא ציר ה-inline: ב-RTL, flex-start=ימין (לא flex-end!) */
+      .show-card-title-row { flex-direction: column; align-items: flex-start; gap: 4px; }
       .show-card-name { font-size: 15px; }
-      .show-card-sub { font-size: 13px; }
-      .show-card-more { font-size: 12px; }
-      .show-card-time { font-size: 14px; min-width: 3ch; }
+      .show-card-sub { font-size: 14px; }
+      .show-card-more { display: none; }
+      .show-card-time { font-size: 16px; min-width: 3ch; font-weight: 700; }
       .show-card-tag { font-size: 10px; padding: 2px 6px; }
+      .show-card-divider { display: none; }
       .show-card-meta {
+        order: 3;
         flex-basis: 100%;
-        justify-content: flex-end;
-        margin-top: 6px;
-        padding-top: 8px;
+        justify-content: space-between;
+        margin-top: 0;
+        padding-top: 13px;
         border-top: 1px solid rgba(58,42,30,0.08);
       }
-      .show-card-tickets-link { padding: 0.45rem 1rem; font-size: 12.5px; }
+      .show-card-tickets-link { height: 36px; padding: 0 1rem; font-size: 12.5px; min-height: 0; }
       .day-block-title { font-size: 1.3rem; }
-      /* controls-strip — stack vertically */
+      /* controls-strip — התאמה ל-Figma (node 334:1660): שורה אחת בלבד, טריגר
+         סינון-ימים בצד אחד ובחירת-תצוגה בצד השני. סינון הבמות מוסתר לגמרי
+         (יוחזר בעיצוב אחר בהמשך); סינון הימים עובר לתפריט נפתח (הפאנל עצמו
+         עדיין לא מעוצב סופית — זה יגיע בהמשך). */
       .controls-strip {
-        flex-direction: column;
-        align-items: stretch;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
         padding: 10px 1rem;
         gap: 8px;
         top: calc(var(--ticker-h) + var(--nav-h));
       }
-      .day-nav { justify-content: center; gap: 6px; }
-      .day-nav-btn { padding: 0 12px; font-size: 12px; height: 36px; }
-      .view-toggle-group { align-self: center; }
-      .stage-dropdown-wrap { align-self: center; }
-      /* יומן במובייל — scroll אופקי */
-      .calendar-section { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .stage-dropdown-wrap { display: none; }
+      .day-nav-dropdown-wrap { display: block; position: relative; }
+      .day-nav-dropdown-toggle {
+        display: inline-flex; align-items: center; gap: 4px;
+        background: transparent;
+        border: 1px solid #E6D8D6;
+        color: #483F3B; border-radius: 50px;
+        height: 42px; padding: 0 22px;
+        font-size: 14px; font-weight: 600;
+        font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
+        cursor: pointer; transition: all 0.2s; white-space: nowrap;
+      }
+      .day-nav-dropdown-toggle:hover,
+      .day-nav-dropdown-toggle.open { border-color: var(--orange); color: var(--orange-text); }
+      .day-nav-dropdown-toggle .chevron { transition: transform 0.2s; order: 1; }
+      .day-nav-dropdown-toggle.open .chevron { transform: rotate(180deg); }
+      /* בקסי backdrop כהה מאחורי הפאנל — נפתח/נסגר עם fade, תואם את התבנית
+         הקיימת של show-drawer-overlay */
+      .day-nav-overlay {
+        position: fixed; inset: 0;
+        background: rgba(45,39,38,0.5);
+        z-index: 199; opacity: 0; pointer-events: none; transition: opacity 0.25s;
+      }
+      .day-nav-overlay.open { opacity: 1; pointer-events: all; }
+      /* פאנל הימים — bottom sheet לפי Figma (node 339:2162): רשימת שורות מלאות-רוחב
+         עם קו מפריד ביניהן, עולה מלמטה מעל backdrop, במקום דרופדאון מעוגן.
+         מרוחק 8px מכל אחד משלושת השוליים (ימין/שמאל/תחתון) — לא מקצה לקצה —
+         ולכן רדיוס בכל 4 הפינות, לא רק למעלה. */
+      .day-nav {
+        display: none;
+        position: fixed; inset-inline: 8px; bottom: 8px;
+        background: #fff; border-radius: 16px;
+        padding: 16px 20px calc(16px + env(safe-area-inset-bottom, 0px));
+        box-shadow: 0 -4px 20px rgba(58,42,30,0.12);
+        z-index: 200; flex-direction: column;
+        max-height: 70vh; overflow-y: auto;
+      }
+      .day-nav.open { display: flex; }
+      .day-nav-btn {
+        position: relative;
+        width: 100%; display: flex; align-items: center;
+        /* flex-start ולא flex-end: "end" הוא כיוון לוגי יחסית ל-direction:rtl
+           שהאלמנט יורש — ב-rtl ה-main-end הוא השמאל, לא הימין. flex-start הוא
+           זה שבפועל דוחף לימין (ה-main-start ב-rtl). */
+        justify-content: flex-start;
+        background: none; border: none; border-bottom: 1px solid rgba(58,42,30,0.12);
+        border-radius: 0; height: 48px; padding: 0;
+        font-size: 16px; font-weight: 400; color: var(--text);
+        white-space: normal; text-align: right;
+      }
+      .day-nav-btn:last-child { border-bottom: none; }
+      .day-nav-btn.active {
+        background: none; border-color: transparent; border-bottom: 1px solid rgba(58,42,30,0.12);
+        color: var(--text); font-weight: 700;
+        filter: none;
+        /* מרווח לוי (24px) + רווח (10px) — בלעדיו הטקסט המודגש (רחב יותר מ-
+           regular) יכול להגיע עד קצה השורה השמאלי ולהיחתך מתחת לוי. */
+        padding-left: 34px;
+      }
+      .day-nav-btn:last-child.active { border-bottom: none; }
+      /* הוי בעיגול הכתום ממוקם בעצמאות מוחלטת מהטקסט — צמוד לשול השמאלי של
+         השורה (שכבר מרוחק 20px מהשול השמאלי של הפאנל דרך ה-padding שלו),
+         בלי קשר לאורך התווית, כך שהטקסט תמיד נשאר צמוד לימין. */
+      .day-nav-btn.active::before {
+        content: '';
+        position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+        width: 24px; height: 24px;
+        background: url('./Graphig assets/icons/check-circle.svg') center / contain no-repeat;
+      }
+      /* התאמה ל-Figma (node 334:1660) — גרסת מובייל בלבד: מסגרת דקה יותר
+         (1px במקום 1.5px) וזוהר מצומצם/עדין יותר סביב האלמנטים הפעילים
+         (blur 5px במקום 10px), תואם את "בחירת תצוגה" בעיצוב.
+         .day-nav-btn לא כלול יותר — הפאנל עוצב מחדש כ-bottom sheet (Figma
+         node 339:2162) בלי מסגרת/זוהר בכלל, וכלל ישן זה היה דורס את
+         ה-filter:none של העיצוב החדש. */
+      .view-toggle-group { border-width: 1px; padding: 5px; }
+      .view-toggle-btn.active { box-shadow: 0 0 5px rgba(255,107,26,0.35); }
+      .stage-dropdown-toggle { border-width: 1px; }
+      /* בחירת התצוגה (Line-up / לוח זמנים) עוברת מטקסט לאייקונים במובייל,
+         בהתאמה ל-Figma (node 334:1660 — "Menu"/"Calendar"). */
+      .view-toggle-btn { width: 40px; padding: 0; }
+      .view-toggle-btn .vt-text { display: none; }
+      /* גודל הסמל בפועל תואם למידה הטבעית של ה-SVG המיוצא מ-Figma (לא נמתח
+         כדי "למלא" את התא — ב-Figma עצמו הסמל יושב במידתו המקורית בתוך
+         תא 24×24, ממורכז). mask-size מוגדר בנפרד לכל אייקון לפי הפרופורציה
+         האמיתית שלו (menu: 18×12, calendar: 18×20). */
+      .view-toggle-btn .vt-icon {
+        display: inline-block; width: 24px; height: 24px;
+        background-color: currentColor;
+        -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+        -webkit-mask-position: center; mask-position: center;
+      }
+      .view-toggle-btn .vt-icon-menu {
+        -webkit-mask-size: 18px 12px; mask-size: 18px 12px;
+        -webkit-mask-image: url('./Graphig assets/icons/outline-menu.svg');
+        mask-image: url('./Graphig assets/icons/outline-menu.svg');
+      }
+      .view-toggle-btn .vt-icon-calendar {
+        -webkit-mask-size: 18px 20px; mask-size: 18px 20px;
+        -webkit-mask-image: url('./Graphig assets/icons/outline-calendar.svg');
+        mask-image: url('./Graphig assets/icons/outline-calendar.svg');
+      }
+      /* יומן במובייל — תצוגת יום בודד: מורחבת יותר, גלילה אופקית מותרת */
+      .calendar-section {
+        overflow-x: auto; -webkit-overflow-scrolling: touch;
+        /* גלישה ללא שוליים בצד שמאל (קצה הגלילה) — מבטל את ה-padding השמאלי
+           של main; הימין (התחלת הגלילה) נשאר עם הגוטר הרגיל */
+        margin-left: -1rem;
+      }
+      /* פס הגלילה מוסתר במנוחה ומופיע רק בזמן גלילה בפועל (JS מוסיף/מסיר
+         is-scrolling על .calendar-section — ראו script בתחתית העמוד) */
+      .calendar-section::-webkit-scrollbar { height: 4px; }
+      .calendar-section::-webkit-scrollbar-track { background: transparent; }
+      .calendar-section::-webkit-scrollbar-thumb { background: transparent; border-radius: 2px; transition: background 0.25s; }
+      .calendar-section.is-scrolling::-webkit-scrollbar-thumb { background: var(--orange); }
+      .calendar-section { scrollbar-width: none; }
+      .calendar-section.is-scrolling { scrollbar-width: thin; }
       .cal-grid { grid-template-columns: 64px repeat(4, minmax(120px, 1fr)); min-width: 560px; }
+      /* מסירים את תמונת האירוע מהיומן (גם בתצוגת כל הימים וגם ביום בודד) כדי לפנות מקום לטקסט */
+      .show-thumb { display: none; }
+      /* עמודת השעות קבועה בזמן גלילה אופקית — הכרטיסיות גוללות מתחתיה */
+      .cal-time-cell, .cal-header-cell.cal-header-time {
+        position: sticky;
+        right: 0;
+        z-index: 2;
+        background: var(--bg);
+      }
     }
     /* ─── REDUCED MOTION ────────────────────────────────────── */
     @media (prefers-reduced-motion: reduce) {
@@ -1115,13 +1311,25 @@
         scroll-behavior: auto !important;
       }
     }
-  </style>
+      /* טלפונים קטנים מאוד (~≤400px): ה-toolbar (לוגו + כפתור כרטיסים + EN + המבורגר)
+       צר מדי לכל האלמנטים במידותיהם הרגילות — הם נדחקים החוצה משמאל וה-nav
+       (overflow:hidden) חותך את ההמבורגר לגמרי. מצמצמים padding/gap/font כדי
+       שהכול יישאר בתוך הרוחב הזמין. */
+    @media (max-width: 400px) {
+      .nav-logo-tab { padding: 0.4rem 0.6rem; }
+      .nav-inner { padding: 0 0.5rem; }
+      .nav-btn-primary { padding: 0.5rem 0.8rem; font-size: 0.78rem; }
+      /* מגדיל את שטח המגע ל-~44×44px בלי לשנות את הפריסה החזותית (padding מתקזז ע"י margin שלילי זהה).
+         סימטרי — ההמבורגר יושב לבדו בקצה עמודת הגריד הימנית, אין יותר כפתור EN צמוד אליו. */
+      .hamburger { padding: 14px; margin: -14px; }
+    }
+</style>
   <link rel="stylesheet" href="./page-transitions.css" />
 </head>
 <body>
 
   <!-- ── TICKER BAR ── -->
-  <div class="ticker-bar" role="marquee" aria-label="עדכוני פסטיבל">
+  <div class="ticker-bar" role="status" aria-live="off" aria-label="עדכוני פסטיבל">
     <div class="ticker-track-wrap">
       <div class="ticker-track" id="tickerTrack">
         <span class="ticker-item">הכרטיסים Early Bird כבר במכירה — מהרו לפני שנגמרו</span>
@@ -1151,7 +1359,9 @@
       <img src="State=Vertical.svg" alt="Red Sea Jazz Festival" class="nav-logo-img" width="80" height="80" />
     </a>
     <div class="nav-inner">
+      <div class="mobile-menu-panel" id="mobileMenuPanel">
       <ul class="nav-links" id="navLinks">
+        <li class="nav-link-mobile-flat"><a href="./index.html" data-he="דף הבית" data-en="Home">דף הבית</a></li>
         <li><a href="./index.html#artist-lineup-text" data-he="ליין אפ" data-en="Lineup">ליין אפ</a></li>
         <li><a href="./lineup.html" class="active" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
         <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
@@ -1170,7 +1380,11 @@
             <a href="./contact.html" data-he="יצירת קשר" data-en="Contact">יצירת קשר</a>
           </div>
         </li>
+        <li class="nav-link-mobile-flat"><a href="#" data-he="הסעות" data-en="Shuttles">הסעות</a></li>
+        <li class="nav-link-mobile-flat"><a href="./faq.html" data-he="שאלות נפוצות" data-en="FAQ">שאלות נפוצות</a></li>
+        <li class="nav-link-mobile-flat"><a href="./contact.html" data-he="יצירת קשר" data-en="Contact">יצירת קשר</a></li>
       </ul>
+      </div>
       <div class="nav-actions">
         <a class="nav-btn-secondary" data-he="חבילות נופש" data-en="Stay Packages"
           href="./index.html#hotels" rel="noopener">
@@ -1178,7 +1392,7 @@
         </a>
         <a class="nav-btn-primary" data-he="כרטיסים" data-en="Tickets"
           href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener">
-          כרטיסים ←
+          כרטיסים
         </a>
         <div class="nav-lang-sep"></div>
         <button class="nav-btn-lang" id="langBtn" onclick="switchLang()">🇺🇸 EN</button>
@@ -1188,12 +1402,16 @@
         </button>
       </div>
     </div>
+    <div class="nav-mobile-menu-actions" id="navMobileMenuActions">
+      <a class="nav-btn-primary" data-he="כרטיסים" data-en="Tickets" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener">כרטיסים</a>
+      <button class="nav-btn-lang" id="langBtnMobile" onclick="switchLang()">🇺🇸 EN</button>
+    </div>
   </nav>
 
   <!-- ── PAGE HERO ── -->
   <div class="page-hero">
     <img class="page-hero-bg-img" src="./Graphig assets/banner-lineup.png" alt="" aria-hidden="true" width="4096" height="2578" fetchpriority="high" />
-    <img class="page-hero-glow-teal" src="./Graphig assets/glow-teal.png" alt="" aria-hidden="true" loading="lazy" />
+    <div class="page-hero-glow-teal" aria-hidden="true"></div>
     <div class="page-hero-content">
       <h1 class="page-hero-title">
         <span class="page-hero-title-he">ליינאפ</span>
@@ -1208,17 +1426,36 @@
 
     <!-- RIGHT: View Toggle -->
     <div class="view-toggle-group" role="group" aria-label="בחירת תצוגה">
-      <button class="view-toggle-btn active" id="btnList" onclick="switchView('list')" aria-pressed="true">Line-up</button>
-      <button class="view-toggle-btn" id="btnCal" onclick="switchView('calendar')" aria-pressed="false">לוח זמנים</button>
+      <button class="view-toggle-btn active" id="btnList" onclick="switchView('list')" aria-pressed="true">
+        <span class="vt-icon vt-icon-menu" aria-hidden="true"></span>
+        <span class="vt-text">Line-up</span>
+      </button>
+      <button class="view-toggle-btn" id="btnCal" onclick="switchView('calendar')" aria-pressed="false">
+        <span class="vt-icon vt-icon-calendar" aria-hidden="true"></span>
+        <span class="vt-text">לוח זמנים</span>
+      </button>
     </div>
 
-    <!-- CENTER: Day Navigation -->
-    <div class="day-nav" role="navigation" aria-label="ניווט לפי יום">
-      <button class="day-nav-btn" id="btnAllDays" onclick="selectAllDays(this)">כל הימים</button>
-      <button class="day-nav-btn active" onclick="scrollToDay('day-1', this)">יום ד׳ · 11.11</button>
-      <button class="day-nav-btn" onclick="scrollToDay('day-2', this)">יום ה׳ · 12.11</button>
-      <button class="day-nav-btn" onclick="scrollToDay('day-3', this)">יום ו׳ · 13.11</button>
-      <button class="day-nav-btn" onclick="scrollToDay('day-4', this)">שבת · 14.11</button>
+    <!-- CENTER: Day Navigation — במובייל נכנס לתוך bottom sheet (עיצוב לפי Figma
+         node 339:2162): כפתור טריגר + backdrop + פאנל שעולה מלמטה.
+         ה-backdrop (#dayNavOverlay) יושב סטטית כילד ישיר של body, בהמשך הדף
+         (ליד .show-drawer-overlay) — לא כאן, כדי לא להיתקע ב-stacking context
+         המקומי של .controls-strip (z-index:51 סוגר עליו ומונע ממנו לעלות מעל
+         ה-ticker). #dayNav עצמו נשאר כאן לצורך התצוגה בדסקטופ (display:contents),
+         ומועבר זמנית ל-body ב-JS רק כשנפתח במובייל — אותה טכניקה בדיוק כמו
+         תפריט ההמבורגר (ראו toggleMenu()). -->
+    <div class="day-nav-dropdown-wrap" id="dayNavDropdownWrap">
+      <button class="day-nav-dropdown-toggle" id="dayNavDropdownBtn" onclick="toggleDayNavDropdown()">
+        <svg class="chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        <span id="dayNavDropdownLabel">יום ד׳ · 11.11</span>
+      </button>
+      <div class="day-nav" id="dayNav" role="navigation" aria-label="ניווט לפי יום">
+        <button class="day-nav-btn" id="btnAllDays" onclick="selectAllDays(this)">כל הימים</button>
+        <button class="day-nav-btn active" onclick="scrollToDay('day-1', this)">יום ד׳ · 11.11</button>
+        <button class="day-nav-btn" onclick="scrollToDay('day-2', this)">יום ה׳ · 12.11</button>
+        <button class="day-nav-btn" onclick="scrollToDay('day-3', this)">יום ו׳ · 13.11</button>
+        <button class="day-nav-btn" onclick="scrollToDay('day-4', this)">שבת · 14.11</button>
+      </div>
     </div>
 
     <!-- LEFT: Stage Filter Dropdown -->
@@ -1267,7 +1504,7 @@
       <div class="stage-group">
         <div class="stage-group-header">
           <div class="stage-dot" style="background:var(--orange)"></div>
-          <div class="stage-group-name" style="color:var(--orange)">Main Stage</div>
+          <div class="stage-group-name" style="color:var(--orange-text)">Main Stage</div>
           <div class="stage-group-line"></div>
         </div>
         <div class="shows-list">
@@ -1372,7 +1609,7 @@
       <div class="stage-group">
         <div class="stage-group-header">
           <div class="stage-dot" style="background:var(--teal)"></div>
-          <div class="stage-group-name" style="color:var(--teal)">Blue Dome</div>
+          <div class="stage-group-name" style="color:var(--teal-text)">Blue Dome</div>
           <div class="stage-group-line"></div>
         </div>
         <div class="shows-list">
@@ -1424,7 +1661,7 @@
       <div class="stage-group">
         <div class="stage-group-header">
           <div class="stage-dot" style="background:var(--orange)"></div>
-          <div class="stage-group-name" style="color:var(--orange)">Main Stage</div>
+          <div class="stage-group-name" style="color:var(--orange-text)">Main Stage</div>
           <div class="stage-group-line"></div>
         </div>
         <div class="shows-list">
@@ -1514,7 +1751,7 @@
       <div class="stage-group">
         <div class="stage-group-header">
           <div class="stage-dot" style="background:var(--teal)"></div>
-          <div class="stage-group-name" style="color:var(--teal)">Blue Dome</div>
+          <div class="stage-group-name" style="color:var(--teal-text)">Blue Dome</div>
           <div class="stage-group-line"></div>
         </div>
         <div class="shows-list">
@@ -1550,7 +1787,7 @@
       <div class="stage-group">
         <div class="stage-group-header">
           <div class="stage-dot" style="background:var(--orange)"></div>
-          <div class="stage-group-name" style="color:var(--orange)">Main Stage</div>
+          <div class="stage-group-name" style="color:var(--orange-text)">Main Stage</div>
           <div class="stage-group-line"></div>
         </div>
         <div class="shows-list">
@@ -1672,7 +1909,7 @@
       <div class="stage-group">
         <div class="stage-group-header">
           <div class="stage-dot" style="background:var(--teal)"></div>
-          <div class="stage-group-name" style="color:var(--teal)">Blue Dome</div>
+          <div class="stage-group-name" style="color:var(--teal-text)">Blue Dome</div>
           <div class="stage-group-line"></div>
         </div>
         <div class="shows-list">
@@ -1757,7 +1994,7 @@
       <div class="stage-group">
         <div class="stage-group-header">
           <div class="stage-dot" style="background:var(--orange)"></div>
-          <div class="stage-group-name" style="color:var(--orange)">Main Stage</div>
+          <div class="stage-group-name" style="color:var(--orange-text)">Main Stage</div>
           <div class="stage-group-line"></div>
         </div>
         <div class="shows-list">
@@ -1828,7 +2065,7 @@
       <div class="stage-group">
         <div class="stage-group-header">
           <div class="stage-dot" style="background:var(--teal)"></div>
-          <div class="stage-group-name" style="color:var(--teal)">Blue Dome</div>
+          <div class="stage-group-name" style="color:var(--teal-text)">Blue Dome</div>
           <div class="stage-group-line"></div>
         </div>
         <div class="shows-list">
@@ -1856,7 +2093,7 @@
       <div class="stage-group">
         <div class="stage-group-header">
           <div class="stage-dot" style="background:var(--yellow)"></div>
-          <div class="stage-group-name" style="color:var(--yellow)">Green Pavilion</div>
+          <div class="stage-group-name" style="color:var(--yellow-text)">Green Pavilion</div>
           <div class="stage-group-line"></div>
         </div>
         <div class="shows-list">
@@ -2194,10 +2431,10 @@
       <div class="cal-grid">
         <!-- כותרות בימות -->
         <div class="cal-header-cell cal-header-time">שעה</div>
-        <div class="cal-header-cell" style="color:var(--orange)">Main Stage</div>
+        <div class="cal-header-cell" style="color:var(--orange-text)">Main Stage</div>
         <div class="cal-header-cell" style="color:var(--red)">Red Tent</div>
-        <div class="cal-header-cell" style="color:var(--teal)">Blue Dome</div>
-        <div class="cal-header-cell" style="color:var(--yellow)">Green Pavilion</div>
+        <div class="cal-header-cell" style="color:var(--teal-text)">Blue Dome</div>
+        <div class="cal-header-cell" style="color:var(--yellow-text)">Green Pavilion</div>
         <!-- 18:00 -->
         <div class="cal-time-cell">18:00</div>
         <div class="cal-cell">
@@ -2255,10 +2492,10 @@
       </div>
       <div class="cal-grid">
         <div class="cal-header-cell cal-header-time">שעה</div>
-        <div class="cal-header-cell" style="color:var(--orange)">Main Stage</div>
+        <div class="cal-header-cell" style="color:var(--orange-text)">Main Stage</div>
         <div class="cal-header-cell" style="color:var(--red)">Red Tent</div>
-        <div class="cal-header-cell" style="color:var(--teal)">Blue Dome</div>
-        <div class="cal-header-cell" style="color:var(--yellow)">Green Pavilion</div>
+        <div class="cal-header-cell" style="color:var(--teal-text)">Blue Dome</div>
+        <div class="cal-header-cell" style="color:var(--yellow-text)">Green Pavilion</div>
         <!-- 18:00 -->
         <div class="cal-time-cell">18:00</div>
         <div class="cal-cell cal-empty"></div>
@@ -2308,10 +2545,10 @@
       </div>
       <div class="cal-grid">
         <div class="cal-header-cell cal-header-time">שעה</div>
-        <div class="cal-header-cell" style="color:var(--orange)">Main Stage</div>
+        <div class="cal-header-cell" style="color:var(--orange-text)">Main Stage</div>
         <div class="cal-header-cell" style="color:var(--red)">Red Tent</div>
-        <div class="cal-header-cell" style="color:var(--teal)">Blue Dome</div>
-        <div class="cal-header-cell" style="color:var(--yellow)">Green Pavilion</div>
+        <div class="cal-header-cell" style="color:var(--teal-text)">Blue Dome</div>
+        <div class="cal-header-cell" style="color:var(--yellow-text)">Green Pavilion</div>
         <!-- 09:30 -->
         <div class="cal-time-cell">09:30</div>
         <div class="cal-cell cal-empty"></div>
@@ -2423,10 +2660,10 @@
       </div>
       <div class="cal-grid">
         <div class="cal-header-cell cal-header-time">שעה</div>
-        <div class="cal-header-cell" style="color:var(--orange)">Main Stage</div>
+        <div class="cal-header-cell" style="color:var(--orange-text)">Main Stage</div>
         <div class="cal-header-cell" style="color:var(--red)">Red Tent</div>
-        <div class="cal-header-cell" style="color:var(--teal)">Blue Dome</div>
-        <div class="cal-header-cell" style="color:var(--yellow)">Green Pavilion</div>
+        <div class="cal-header-cell" style="color:var(--teal-text)">Blue Dome</div>
+        <div class="cal-header-cell" style="color:var(--yellow-text)">Green Pavilion</div>
         <!-- 10:00 -->
         <div class="cal-time-cell">10:00</div>
         <div class="cal-cell cal-empty"></div>
@@ -2495,7 +2732,7 @@
       <p style="color:var(--muted); font-size:0.92rem; margin-bottom:1.5rem">
         * הליינאפ עשוי להתעדכן. עקבו אחר הפסטיבל לעדכונים.
       </p>
-      <a href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener"
+      <a class="lineup-cta-btn" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener"
          style="
            display:inline-flex; align-items:center; gap:0.6rem;
            background:linear-gradient(135deg,var(--orange),var(--red));
@@ -2515,6 +2752,9 @@
   <!-- ── FOOTER ── -->
   <footer id="site-footer"></footer>
   <script src="./footer.js"></script>
+
+  <!-- ── DAY-NAV DROPDOWN BACKDROP (מובייל) ── -->
+  <div class="day-nav-overlay" id="dayNavOverlay"></div>
 
   <!-- ── SHOW DRAWER ── -->
   <div class="show-drawer-overlay" id="showDrawerOverlay"></div>
@@ -2607,6 +2847,21 @@
         });
         activeCalDay = null;
       }
+
+      // שומרים את מצב התצוגה ב-URL (?view=calendar) כדי שאם עוזבים לעמוד הופעה
+      // (show.html) ואז חוזרים אחורה בדפדפן, נחזור לאותה תצוגה שיצאנו ממנה
+      // במקום לאתחל תמיד לתצוגת רשימה (ברירת המחדל). replaceState ולא
+      // pushState — מעבר בין List/Calendar לא אמור ליצור רשומות history נפרדות.
+      var url = new URL(window.location.href);
+      if (view === 'calendar') url.searchParams.set('view', 'calendar');
+      else url.searchParams.delete('view');
+      history.replaceState(history.state, '', url);
+    }
+
+    // שחזור תצוגת יומן אם הגענו לכאן עם ?view=calendar (למשל בחזרה אחורה
+    // מ-show.html אחרי לחיצה על הופעה מתוך תצוגת היומן).
+    if (new URLSearchParams(window.location.search).get('view') === 'calendar') {
+      switchView('calendar');
     }
 
     var scrollingToDay = false;
@@ -2733,6 +2988,20 @@
     }
     document.addEventListener('DOMContentLoaded', applyShowImages);
 
+    /* ── יומן במובייל: פס גלילה מופיע רק בזמן גלילה בפועל ── */
+    document.addEventListener('DOMContentLoaded', function() {
+      var scrollHideTimer;
+      document.querySelectorAll('.calendar-section').forEach(function(section) {
+        section.addEventListener('scroll', function() {
+          section.classList.add('is-scrolling');
+          clearTimeout(scrollHideTimer);
+          scrollHideTimer = setTimeout(function() {
+            section.classList.remove('is-scrolling');
+          }, 600);
+        }, { passive: true });
+      });
+    });
+
     // זיהוי show-block עם שם ארוך (מעל שורה אחת) → class לתיקון ויזואלי
     function markMultilineBlocks() {
       document.querySelectorAll('.show-name').forEach(function(el) {
@@ -2758,6 +3027,55 @@
       if (wrap && !wrap.contains(e.target)) {
         document.getElementById('stageDropdownPanel')?.classList.remove('open');
         document.getElementById('stageDropdownBtn')?.classList.remove('open');
+      }
+    });
+
+    // Day-nav dropdown toggle (מובייל בלבד — במחשב .day-nav מוצג ישירות ואין טריגר)
+    // #dayNav מועבר זמנית ל-body בפתיחה ומוחזר למקומו המקורי (בתוך
+    // .day-nav-dropdown-wrap, לצורך ה-display:contents של הדסקטופ) בסגירה —
+    // אותה טכניקה בדיוק כמו תפריט ההמבורגר (ראו toggleMenu()): .controls-strip
+    // הוא stacking context משלו (z-index:51), אז בלי ההעברה ה-backdrop/הפאנל
+    // ה-fixed לא היו יכולים לעלות מעל ה-ticker (z-index:101).
+    function openDayNavDropdown() {
+      const panel = document.getElementById('dayNav');
+      if (panel.parentElement !== document.body) {
+        panel.__origParent = panel.parentElement;
+        panel.__origNext = panel.nextSibling;
+        document.body.appendChild(panel);
+      }
+      panel.classList.add('open');
+      document.getElementById('dayNavDropdownBtn')?.classList.add('open');
+      document.getElementById('dayNavOverlay')?.classList.add('open');
+    }
+    function closeDayNavDropdown() {
+      const panel = document.getElementById('dayNav');
+      panel.classList.remove('open');
+      if (panel.__origParent) {
+        panel.__origParent.insertBefore(panel, panel.__origNext);
+      }
+      document.getElementById('dayNavDropdownBtn')?.classList.remove('open');
+      document.getElementById('dayNavOverlay')?.classList.remove('open');
+    }
+    function toggleDayNavDropdown() {
+      const isOpen = document.getElementById('dayNav').classList.contains('open');
+      if (isOpen) closeDayNavDropdown(); else openDayNavDropdown();
+    }
+    // מסונכרן ל-scrollToDay()/selectAllDays() דרך event delegation (בלי לגעת בהן):
+    // מעדכן את הטקסט על הטריגר וסוגר את הפאנל אחרי שנבחר יום.
+    document.getElementById('dayNav')?.addEventListener('click', function(e) {
+      const btn = e.target.closest('.day-nav-btn');
+      if (!btn) return;
+      const label = document.getElementById('dayNavDropdownLabel');
+      if (label) label.textContent = btn.textContent;
+      closeDayNavDropdown();
+    });
+    document.addEventListener('click', function(e) {
+      const wrap = document.getElementById('dayNavDropdownWrap');
+      const panel = document.getElementById('dayNav');
+      const insideWrap = wrap && wrap.contains(e.target);
+      const insidePanel = panel && panel.contains(e.target);
+      if (!insideWrap && !insidePanel) {
+        closeDayNavDropdown();
       }
     });
 
@@ -2840,25 +3158,43 @@
     // Mobile menu toggle
     function toggleMenu() {
       const hb = document.getElementById('hamburger');
-      const navLinks = document.getElementById('navLinks');
-      const isOpen = navLinks?.classList.contains('open');
+      const panel = document.getElementById('mobileMenuPanel');
+      const isOpen = panel?.classList.contains('open');
       if (hb) hb.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
-      if (!navLinks) return;
+      if (!panel) return;
       if (!isOpen) {
         // פתיחה: ה-nav מכיל overflow:hidden + backdrop-filter (שיוצר containing block
         // ל-position:fixed) — זה חותך את תפריט המובייל המסך-מלא. לכן מנתקים זמנית ל-body.
-        if (navLinks.parentElement !== document.body) {
-          navLinks.__origParent = navLinks.parentElement;
-          navLinks.__origNext = navLinks.nextSibling;
-          document.body.appendChild(navLinks);
+        // סטריפ העדכונים (.ticker-bar) לא זז ולא מתנתק — הוא נשאר fixed במיקומו
+        // המקורי מעל ה-nav תמיד, גם כשהתפריט פתוח.
+        if (panel.parentElement !== document.body) {
+          panel.__origParent = panel.parentElement;
+          panel.__origNext = panel.nextSibling;
+          document.body.appendChild(panel);
         }
-        navLinks.classList.add('open');
+        panel.classList.add('open');
+        document.body.classList.add('mobile-nav-open');
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+        // פס הגלילה הכתום מופיע רק בזמן גלילה בפועל בתוך הפאנל, ונעלם
+        // כמה רגעים אחרי שהגלילה נעצרת (לא נשאר צבוע כל הזמן על המסך).
+        if (!panel.__scrollListenerAttached) {
+          panel.__scrollListenerAttached = true;
+          panel.addEventListener('scroll', () => {
+            panel.classList.add('scrolling');
+            clearTimeout(panel.__scrollHideTimer);
+            panel.__scrollHideTimer = setTimeout(() => panel.classList.remove('scrolling'), 800);
+          }, { passive: true });
+        }
       } else {
-        navLinks.classList.remove('open');
+        panel.classList.remove('open');
         closeNavDrop();
-        if (navLinks.__origParent) {
-          navLinks.__origParent.insertBefore(navLinks, navLinks.__origNext);
+        if (panel.__origParent) {
+          panel.__origParent.insertBefore(panel, panel.__origNext);
         }
+        document.body.classList.remove('mobile-nav-open');
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
       }
     }
 
@@ -2921,7 +3257,9 @@
     let currentLang = 'he';
     function switchLang() {
       currentLang = currentLang === 'he' ? 'en' : 'he';
-      document.getElementById('langBtn').textContent = currentLang === 'he' ? '🇺🇸 EN' : '🇮🇱 HE';
+      document.querySelectorAll('.nav-btn-lang').forEach(el => {
+        el.textContent = currentLang === 'he' ? '🇺🇸 EN' : '🇮🇱 HE';
+      });
       document.querySelectorAll('[data-he]').forEach(el => {
         el.textContent = el.getAttribute('data-' + currentLang) || el.textContent;
       });

@@ -411,7 +411,10 @@
 
       /* גרסת מובייל בלבד — שוליים אחידים 16px סביב ההירו, תמונת הרקע ממורכזת. */
       .hero-image-frame { top: 16px; left: 16px; right: 16px; bottom: 16px; }
-      .hero-bg-fallback { object-position: center center; }
+      .hero-bg-fallback {
+        object-position: 62% center;
+        transform: scale(1.5) translateY(-18%);
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -483,7 +486,7 @@
     .hero-date-badge {
       pointer-events: auto;
       display: block;
-      height: 52px;
+      height: 46px;
       width: auto;
     }
 
@@ -578,13 +581,21 @@
     @media (max-width: 768px) {
       .hero-content-frame {
         display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
-        position: absolute; top: 16px; left: 16px; right: 16px; bottom: 16px;
+        /* bottom: 0 (במקום 16px) — כרטיס הספירה לאחור (עם margin-bottom: 8px שלו) הוא
+           זה שקובע את המרחק מהשול התחתון האמיתי של הבאנר, ולא ה-16px של framing נוסף */
+        position: absolute; top: 16px; left: 16px; right: 16px; bottom: 0;
         z-index: 10; pointer-events: none;
       }
       .hero-main-content {
         position: static;
-        transform: none;
-        flex: 1; width: 100%;
+        /* מרימים מעט את הטקסט כלפי מעלה כדי לצמצם את הרווח מול הספירה לאחור,
+           בהתאמה להרמת תמונת הרקע */
+        transform: translateY(-28px);
+        /* flex-basis: auto (במקום ה-0% של "flex: 1") + min-height: 0 + overflow: hidden —
+           כשגובה הבאנר קצר מדי, הבלוק הזה (לוגו/כותרת/כפתור) הוא זה שמצטמצם ונחתך,
+           לא כרטיס הספירה לאחור — כך הכרטיס תמיד שלם בתוך הבאנר. */
+        flex: 1 1 auto; min-height: 0; overflow: hidden;
+        width: 100%;
         display: flex; flex-direction: column;
         align-items: center; justify-content: center; text-align: center;
         max-width: 480px; margin-inline: auto;
@@ -601,13 +612,14 @@
       .hero-content {
         position: static;
         align-self: stretch;
+        flex-shrink: 0;
         background: transparent;
         border-radius: 0;
         padding: 0;
         margin: 0 8px 8px 8px;
         pointer-events: auto;
       }
-      .countdown { width: 100%; box-sizing: border-box; }
+      .countdown { width: 100%; box-sizing: border-box; border: 2px solid #2FD3D6; }
       .hero-corner { display: none; }
     }
 
@@ -1391,13 +1403,12 @@
       object-position: left bottom;
       display: block;
     }
-    /* Gradient overlay inside the image container — האיור+הצלליות גלויים בשמאל, נמוג ל-cream לכיוון הטקסט (ימין),
-       ונמוג גם למעלה ולמטה כדי שהאיור לא ייחתך בקו ישר (לפי Figma node 271-1081) */
+    /* Gradient overlay inside the image container — האיור+הצלליות גלויים בשמאל,
+       נמוג ל-cream רק לכיוון הטקסט (ימין). אין יותר נמיגה אנכית (למעלה/למטה) —
+       זו יצרה פס קרם רוחבי-מלא לא רצוי גם מעל האיור בצד שמאל. */
     .banner-photo-overlay {
       position: absolute; inset: 0; z-index: 1; pointer-events: none;
-      background:
-        linear-gradient(to right, rgba(243,233,214,0) 30%, rgba(243,233,214,0.45) 58%, var(--bg2) 82%),
-        linear-gradient(to bottom, var(--bg2) 0%, rgba(243,233,214,0) 20%, rgba(243,233,214,0) 78%, var(--bg2) 100%);
+      background: linear-gradient(to right, rgba(243,233,214,0) 30%, rgba(243,233,214,0.45) 58%, var(--bg2) 82%);
     }
 
     /* Eilat silhouette strip inside banner */
@@ -1589,17 +1600,19 @@
       display: inline-flex; align-items: center; gap: 0.3rem;
     }
 
-    /* כפתור מעבר לעמוד המרצ' הפנימי */
+    /* כפתור מעבר לעמוד המרצ' הפנימי — תואם בדיוק לעיצוב הכפתור המשני
+       בכרטיסיות המסלולים (.ticket-plan-cta-secondary) — כל כפתור באיררכיה
+       משנית באתר אמור להיראות זהה לזה. */
     .merch-cta-wrap { margin-top: 3rem; text-align: center; }
     .merch-cta {
       display: inline-flex; align-items: center; gap: 0.5rem;
-      background: transparent; color: var(--orange-text);
-      border: 1.5px solid var(--orange);
-      border-radius: 50px; padding: 0.85rem 2.2rem;
-      font-size: 1rem; font-weight: 700; text-decoration: none;
+      background: transparent; color: #d9382d;
+      border: 1px solid #ff6b1a;
+      border-radius: 50px; padding: 15px 24px;
+      font-size: 16px; font-weight: 700; text-decoration: none;
       transition: background 0.2s, transform 0.2s;
     }
-    .merch-cta:hover { background: rgba(224,86,11,0.07); transform: translateY(-2px); }
+    .merch-cta:hover { background: rgba(255,107,26,0.06); transform: translateY(-2px); }
 
     /* height אחיד עם שאר כפתורי ה-CTA במובייל (44px — כגובה כפתור
        "פרטים נוספים" בסקשן #venue) */
@@ -1895,7 +1908,7 @@
 
     @media (max-width: 600px) {
       .hero-main-content { gap: 24px; padding-inline: 20px; }
-      .hero-date-badge { height: 48px; }
+      .hero-date-badge { height: 42px; }
       .countdown { padding: 32px 14px 12px; height: auto; }
       .countdown-row { gap: 0; width: 100%; }
       .countdown-item { width: auto; flex: 1; }
@@ -2244,6 +2257,7 @@
            בין מצב פתוח לסגור. בדסקטופ ה-wrapper שקוף (display:contents). -->
       <div class="mobile-menu-panel" id="mobileMenuPanel">
       <ul class="nav-links" id="navLinks">
+        <li class="nav-link-mobile-flat"><a href="./index.html" data-he="דף הבית" data-en="Home">דף הבית</a></li>
         <li><a href="#artist-lineup-text" data-he="ליין אפ" data-en="Lineup">ליין אפ</a></li>
         <li><a href="./lineup.html" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
         <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
@@ -3711,6 +3725,14 @@
       box-shadow: 0 20px 56px rgba(255,107,26,0.28);
     }
 
+    /* גרסת web בלבד (גריד 3 עמודות) — "פס מלא" (הכרטיסייה המובלטת) ממורכזת
+       באמצע במקום בקצה; שתי הכרטיסיות האחרות נשארות זו לצד זו סביבה. */
+    @media (min-width: 1024px) {
+      .ticket-plan-card.ticket-plan-featured { order: 2; }
+      .ticket-plan-card:nth-child(2) { order: 1; }
+      .ticket-plan-card:nth-child(3) { order: 3; }
+    }
+
     /* ── תגית "הכי פופולרי" ──
      * Figma: h=32, w=110, top=-18, radius=26, gradient #ff6b1a→#e84021 (153.26°)
      * left:50% + translateX(-50%) = מרכז אופקי מדויק
@@ -3827,7 +3849,7 @@
       align-items: center;
       justify-content: center;
       width: 100%;
-      border-radius: 26px;
+      border-radius: 50px;
       padding: 15px 24px;
       font-family: var(--font);
       font-size: 16px;
@@ -4218,11 +4240,24 @@
         return Array.from(track.querySelectorAll('.' + cardClass + ':not(.' + cloneClass + ')'));
       }
 
+      // scrollIntoView() walks up every scrollable ancestor, not just this
+      // track — with block:'nearest' it will also drag the whole PAGE
+      // vertically into view if the carousel happens to be off-screen when
+      // this runs (e.g. right after a fresh page load, before the user has
+      // scrolled down to this section). Forcing the document's own scroll
+      // instant (not smooth) and restoring window scroll position right
+      // after keeps the vertical page scroll completely untouched, so only
+      // the track's horizontal position moves.
       function jumpTo(card) {
-        const prevBehavior = track.style.scrollBehavior;
+        const prevTrackBehavior = track.style.scrollBehavior;
+        const prevHtmlBehavior = document.documentElement.style.scrollBehavior;
         track.style.scrollBehavior = 'auto';
+        document.documentElement.style.scrollBehavior = 'auto';
+        const scrollX = window.scrollX, scrollY = window.scrollY;
         card.scrollIntoView({ inline: align, block: 'nearest' });
-        track.style.scrollBehavior = prevBehavior;
+        window.scrollTo(scrollX, scrollY);
+        track.style.scrollBehavior = prevTrackBehavior;
+        document.documentElement.style.scrollBehavior = prevHtmlBehavior;
       }
 
       // Whether a clone has scrolled into view at all — checked by visibility
