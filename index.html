@@ -623,7 +623,9 @@
         pointer-events: auto;
       }
       .countdown { width: 100%; box-sizing: border-box; border: 2px solid #2FD3D6; }
-      .hero-corner { display: none; }
+      /* selector עם 2 מחלקות (במקום .hero-corner בלבד) — כדי לגבור בפועל על הכלל
+         הכללי הלא-מותנה (display:block) שמופיע אחריו במקור, למרות סדר ה-cascade */
+      img.hero-corner { display: none; }
     }
 
     .hero-corner {
