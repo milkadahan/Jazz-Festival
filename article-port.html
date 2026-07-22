@@ -662,6 +662,16 @@
       }
     }
 
+    // לחיצה על קישור ניווט בתוך התפריט הנייד הפתוח (למשל "ליין אפ") סוגרת
+    // אותו — בלעדי זה, גלילת עוגן באותו עמוד (כמו #artist-lineup-text)
+    // מתבצעת בפועל אבל נשארת מוסתרת מתחת לפאנל שנשאר פתוח, ונראית כאילו
+    // הלחיצה "לא מובילה לשום מקום".
+    document.getElementById('mobileMenuPanel')?.addEventListener('click', function(e) {
+      if (e.target.closest('a[href]') && document.body.classList.contains('mobile-nav-open')) {
+        toggleMenu();
+      }
+    });
+
     // ── תפריט "מידע חשוב" (dropdown יחיד ברמה אחת) ─────────────────
     (function initNavDrop() {
       var panel = document.getElementById('navDropPanel');
