@@ -340,6 +340,11 @@
         top: 140px; inset-inline-end: -220px; width: 900px; height: 900px;
         background: radial-gradient(circle, rgba(0,200,200,0.18) 0%, transparent 65%);
       }
+      /* .page-hero ו-.faq-body היו עם var(--bg) אטום — היה חוסם את הזוהר
+         הגולש (הוא ממוקם מאחוריהם ב-DOM/paint order). שקופים כדי לתת לו
+         להיראות לכל אורכו, מראש ה-hero וברציפות דרך גבול הסקשן, בלי קו חיתוך —
+         (הכרטיסים עצמם עדיין אטומים ומכסים אותו כרגיל היכן שהם נמצאים) */
+      .page-hero, .faq-body { background: transparent; }
     }
     .page-hero-content {
       position: relative; z-index: 2;
@@ -398,6 +403,7 @@
       border: 1px solid var(--border);
       border-radius: 16px;
       overflow: hidden;
+      position: relative;
       transition: border-color 0.25s, box-shadow 0.25s;
     }
     .faq-item.open {
@@ -903,6 +909,16 @@
         document.body.style.overflow = '';
       }
     }
+
+    // לחיצה על קישור ניווט בתוך התפריט הנייד הפתוח (למשל "ליין אפ") סוגרת
+    // אותו — בלעדי זה, גלילת עוגן באותו עמוד (כמו #artist-lineup-text)
+    // מתבצעת בפועל אבל נשארת מוסתרת מתחת לפאנל שנשאר פתוח, ונראית כאילו
+    // הלחיצה "לא מובילה לשום מקום".
+    document.getElementById('mobileMenuPanel')?.addEventListener('click', function(e) {
+      if (e.target.closest('a[href]') && document.body.classList.contains('mobile-nav-open')) {
+        toggleMenu();
+      }
+    });
 
     // ── תפריט "מידע חשוב" (dropdown יחיד ברמה אחת) ─────────────────
     (function initNavDrop() {

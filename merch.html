@@ -482,13 +482,15 @@
        "פרטים נוספים" בסקשן #venue באתר הבית) */
     @media (max-width: 700px) {
       .vinyl-banner-buy { height: 44px; }
-      /* מובייל: גובה באנר אחיד (260px תוכן) לכל דפי הבאנר באתר, מלבד לוח ההופעות —
-         מוחלף ממודל padding-based למודל height מפורש כמו שאר הדפים */
+      /* מובייל: גובה ה-hero נגזר מהתוכן (לא קבוע) עם padding מפורש למעלה
+         ולמטה — כך שהמרחק מהטולבר לכותרת, ומתת-הכותרת לכרטיסייה הראשונה,
+         קבוע ב-60px בכל מקרה (לא תלוי במספר השורות שתת-הכותרת עוטפת) */
       .page-hero {
-        height: calc(260px + var(--ticker-h) + var(--nav-h));
-        padding-top: calc(var(--ticker-h) + var(--nav-h));
+        height: auto;
+        padding-top: calc(var(--ticker-h) + var(--nav-h) + 60px);
         padding-bottom: 0;
       }
+      .shop-grid { margin-top: 52px; } /* + 8px מ-.shop-body padding-top = 60px */
     }
     .vinyl-banner-media {
       position: relative; min-height: 300px; min-width: 0;
@@ -590,6 +592,46 @@
       .shop-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
       /* עקביות עם ה-gap של הגריד (16px) — היה 24px, נוסף מעל ה-gap עצמו */
       .vinyl-banner { margin-bottom: 0; }
+    }
+    /* ── באנר התקליט במובייל — עיצוב "מרחף" לפי Figma (node 342:1398): התמונה
+       בולטת מעל שפת הכרטיס והתוכן ממורכז מתחתיה, מחיר וכפתור בטור אחד.
+       הבלוק הזה מגיע בכוונה אחרי ≤980px/≤520px כדי לגבור עליהם באותה
+       specificity (המקור המאוחר יותר מנצח). ≤980–600px (טאבלט/מובייל רחב)
+       ממשיך להשתמש בפריסה הישנה (תמונה סטטית למעלה) — העיצוב המרחף מיועד
+       לרוחבי טלפון (Figma עוצב על פריים 414px), ומעל ~600px הכרטיס רחב מדי
+       וה-88% width של התמונה גדל בלי גבול וגולש על הטקסט.
+       הערה: הבליטה במקור ב-Figma (-114px) חושבה מול רווח גדול בהרבה מעל
+       הכרטיס. אצלנו הרווח מתת-הכותרת לכרטיס קבוע ומדויק ב-60px (לפי בקשה
+       קודמת), אז צמצמתי את הבליטה ל-40px כדי שהתמונה תישאר צפה מעל שפת
+       הכרטיס בלי לגלוש על טקסט תת-הכותרת — ו-padding-top של התוכן גדל
+       בהתאם (190px) כדי לפנות מקום לכל גובה התמונה. */
+    @media (max-width: 600px) {
+      .vinyl-banner { display: block; }
+      .vinyl-banner-content {
+        /* position+z-index — כדי שהתוכן ייצבע מעל .vinyl-banner-media (absolute)
+           בלי קשר לסדר ב-DOM, אותו עיקרון שתוקן קודם ב-.shop-card/.faq-item */
+        position: relative; z-index: 1;
+        display: flex; flex-direction: column;
+        align-items: center; text-align: center;
+        gap: 14px;
+        padding: 200px 20px 26px;
+      }
+      .vinyl-banner-desc { max-width: none; }
+      .vinyl-banner-foot { flex-direction: column; gap: 8px; margin-top: 6px; }
+      .vinyl-banner-media {
+        position: absolute;
+        top: -40px; left: 0; width: 100%;
+        padding: 0;
+      }
+      .vinyl-banner-media img {
+        position: static; left: auto; bottom: auto;
+        width: 88%; max-width: 340px;
+        margin: 0 auto; display: block;
+        /* התמונה מלבנית (לא PNG שקוף) — box-shadow היה נצבע כמלבן קשה
+           מאחוריה במקום צל תמונה רך, ולא קיים בעיצוב המקורי. הוסר. */
+        box-shadow: none;
+        filter: none;
+      }
     }
       /* טלפונים קטנים מאוד (~≤400px): ה-toolbar (לוגו + כפתור כרטיסים + EN + המבורגר)
        צר מדי לכל האלמנטים במידותיהם הרגילות — הם נדחקים החוצה משמאל וה-nav
@@ -858,6 +900,16 @@
         document.body.style.overflow = '';
       }
     }
+
+    // לחיצה על קישור ניווט בתוך התפריט הנייד הפתוח (למשל "ליין אפ") סוגרת
+    // אותו — בלעדי זה, גלילת עוגן באותו עמוד (כמו #artist-lineup-text)
+    // מתבצעת בפועל אבל נשארת מוסתרת מתחת לפאנל שנשאר פתוח, ונראית כאילו
+    // הלחיצה "לא מובילה לשום מקום".
+    document.getElementById('mobileMenuPanel')?.addEventListener('click', function(e) {
+      if (e.target.closest('a[href]') && document.body.classList.contains('mobile-nav-open')) {
+        toggleMenu();
+      }
+    });
 
     // ── תפריט "מידע חשוב" (dropdown יחיד ברמה אחת) ─────────────────
     (function initNavDrop() {
