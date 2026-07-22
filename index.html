@@ -359,7 +359,9 @@
     /* ─── HERO – STICKY BG IMAGE ──────────────────────────────── */
     #hero-wrapper {
       position: sticky; top: 0;
-      height: 100vh; z-index: 0;
+      height: 100vh;
+      height: 100dvh;
+      z-index: 0;
       display: flex; flex-direction: column;
       padding-top: calc(var(--ticker-h) + var(--nav-h) + 2px);
       box-sizing: border-box;
@@ -4031,6 +4033,16 @@
         document.body.style.overflow = '';
       }
     }
+
+    // לחיצה על קישור ניווט בתוך התפריט הנייד הפתוח (למשל "ליין אפ") סוגרת
+    // אותו — בלעדי זה, גלילת עוגן באותו עמוד (כמו #artist-lineup-text)
+    // מתבצעת בפועל אבל נשארת מוסתרת מתחת לפאנל שנשאר פתוח, ונראית כאילו
+    // הלחיצה "לא מובילה לשום מקום".
+    document.getElementById('mobileMenuPanel')?.addEventListener('click', function(e) {
+      if (e.target.closest('a[href]') && document.body.classList.contains('mobile-nav-open')) {
+        toggleMenu();
+      }
+    });
 
     // ── תפריט "מידע חשוב" (dropdown יחיד ברמה אחת) ─────────────────
     // הפאנל מנותק ל-body כדי לא להיחתך ע"י overflow:hidden של ה-nav,
