@@ -513,7 +513,7 @@
     .stage-filter-dot {
       width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
     }
-    .stage-group.sf-hidden { display: none; }
+    .show-card.sf-hidden { display: none; }
     .day-block.sf-hidden { display: none; }
 
     /* ─── MAIN CONTENT ─────────────────────────────────────────── */
@@ -524,8 +524,11 @@
       margin-bottom: 4.5rem;
       scroll-margin-top: calc(var(--ticker-h) + var(--nav-h) + 120px);
     }
+    /* כותרת יום — התאריך למעלה, ומתחתיו כותרת-משנה (מספר ההופעות) כטקסט
+       פשוט (לא תווית/pill) */
     .day-block-header {
-      display: flex; align-items: center; justify-content: space-between;
+      display: flex; flex-direction: column;
+      gap: 4px;
       margin-bottom: 1.5rem;
     }
     .day-block-title {
@@ -533,31 +536,11 @@
       line-height: 1.2;
     }
     .day-block-count {
-      background: rgba(224,86,11,0.1);
-      color: var(--orange-text);
-      border: 1px solid rgba(224,86,11,0.25);
-      border-radius: 50px; padding: 0.3rem 0.9rem;
-      font-size: 0.875rem; font-weight: 600;
+      color: var(--muted);
+      font-size: 0.95rem; font-weight: 400;
       font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
-      white-space: nowrap;
     }
 
-    /* ─── STAGE GROUP ──────────────────────────────────────────── */
-    .stage-group { margin-bottom: 2rem; }
-    .stage-group-header {
-      display: flex; align-items: center; gap: 0.7rem;
-      margin-bottom: 0.9rem;
-    }
-    .stage-dot {
-      width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0;
-    }
-    .stage-group-name {
-      font-size: 1rem; font-weight: 600;
-      font-family: 'Google Sans', 'Hepta Slab', serif;
-    }
-    .stage-group-line {
-      flex: 1; height: 1px; background: rgba(58,42,30,0.12);
-    }
 
     /* ─── SHOW CARDS ─────────────────────────────────────────────── */
     .shows-list { display: flex; flex-direction: column; gap: 11px; counter-reset: show-num; }
@@ -659,14 +642,14 @@
     /* עוטף time (+ divider) — display:contents בדסקטופ (לא משפיע על הפריסה
        הקיימת), הופך ל-flex במובייל כדי לקבץ יחד את תווית הבמה עם השעה. */
     .show-card-time-wrap { display: contents; }
-    /* תווית במה בתוך הכרטיסיה, לצד השעה — מוצגת רק במובייל (הסינון-לפי-במה
-       מוסתר שם, ראו @media max-width:700px); בדסקטופ ה-stage-group-header
-       כבר מציג את שם הבמה, אז אין כפילות. */
+    /* תווית במה בתוך כל כרטיסיה, לצד השעה — מוצגת בכל הרוחבים. אין יותר
+       קיבוץ-לפי-במה (stage-group-header) בשום viewport, אז זו הדרך היחידה
+       לדעת לאיזו במה שייכת כל הופעה ברשימה הכרונולוגית. */
     .show-card-stage {
-      display: none;
+      display: inline-flex;
       align-items: center; gap: 5px;
-      font-size: 11px; font-weight: 600;
-      color: #8a7256;
+      font-size: 13px; font-weight: 600;
+      color: var(--stage-color, #8a7256);
       white-space: nowrap;
     }
     .show-card-stage-dot {
@@ -1179,7 +1162,6 @@
         font-size: 11px; padding: 3px 9px;
         background: rgba(255,253,248,0.92);
         border-color: rgba(255,255,255,0.6);
-        box-shadow: 0 2px 10px rgba(0,0,0,0.22);
         backdrop-filter: blur(3px);
         -webkit-backdrop-filter: blur(3px);
       }
@@ -1188,16 +1170,18 @@
         border-color: rgba(255,255,255,0.4);
         color: #fff;
       }
-      .show-card-info { padding: 14px 14px 0; gap: 4px; }
+      /* padding-bottom זהה ל-padding-top — אותו ריווח בין התמונה לכותרת
+         מוחל גם בין שורת התיאור (האחרונה בזרימה, show-card-more מוסתר
+         במובייל) לדיביידר (border-top) של .show-card-meta שאחריה */
+      .show-card-info { padding: 14px 14px 14px; gap: 4px; }
       /* flex-direction:column → הציר הצולב הוא ציר ה-inline: ב-RTL, flex-start=ימין */
       .show-card-title-row { flex-direction: column; align-items: flex-start; gap: 4px; }
       .show-card-name { font-size: 16px; }
       .show-card-sub { font-size: 14px; }
       .show-card-more { display: none; }
-      .show-card-time { font-size: 16px; min-width: 3ch; font-weight: 700; }
+      .show-card-time { font-size: 18px; min-width: 3ch; font-weight: 700; }
       .show-card-divider { display: none; }
       .show-card-time-wrap { display: flex; align-items: center; gap: 8px; }
-      .show-card-stage { display: inline-flex; }
       .show-card-meta {
         justify-content: space-between;
         align-items: center;
@@ -1409,7 +1393,9 @@
       <ul class="nav-links" id="navLinks">
         <li class="nav-link-mobile-flat"><a href="./index.html" data-he="דף הבית" data-en="Home">דף הבית</a></li>
         <li><a href="./index.html#artist-lineup-text" data-he="ליין אפ" data-en="Lineup">ליין אפ</a></li>
+        <li class="nav-link-mobile-flat"><a href="./index.html#lineup" data-he="אמני הפסטיבל" data-en="Festival Artists">אמני הפסטיבל</a></li>
         <li><a href="./lineup.html" class="active" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
+        <li class="nav-link-mobile-flat"><a href="https://www.hotels.com/" target="_blank" rel="noopener" data-he="חבילות לינה" data-en="Stay Packages">חבילות לינה</a></li>
         <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
         <li><a href="./index.html#news" data-he="חדשות" data-en="News">חדשות</a></li>
         <li><a href="./merch.html" data-he="מרצ'יינדיז" data-en="Merch">מרצ'יינדיז</a></li>
@@ -1429,7 +1415,6 @@
         <li class="nav-link-mobile-flat"><a href="#" data-he="הסעות" data-en="Shuttles">הסעות</a></li>
         <li class="nav-link-mobile-flat"><a href="./faq.html" data-he="שאלות נפוצות" data-en="FAQ">שאלות נפוצות</a></li>
         <li class="nav-link-mobile-flat"><a href="./contact.html" data-he="יצירת קשר" data-en="Contact">יצירת קשר</a></li>
-        <li class="nav-link-mobile-flat"><a href="https://www.hotels.com/" target="_blank" rel="noopener" data-he="חבילות לינה" data-en="Stay Packages">חבילות לינה</a></li>
       </ul>
       </div>
       <div class="nav-actions">
@@ -1540,22 +1525,16 @@
   <!-- ── MAIN LINEUP ── -->
   <main>
 
-    <!-- ════ יום ד׳ — 11 בנובמבר ════ -->
+    <!-- ════ יום ד׳ — 11 בנובמבר — ממוין כרונולוגית, ללא קיבוץ לפי במה ════ -->
+
     <section class="day-block" id="day-1">
       <div class="day-block-header">
         <div class="day-block-title">יום ד׳ · 11 בנובמבר</div>
         <div class="day-block-count">8 הופעות</div>
       </div>
 
-      <!-- Main Stage -->
-      <div class="stage-group">
-        <div class="stage-group-header">
-          <div class="stage-dot" style="background:var(--orange)"></div>
-          <div class="stage-group-name" style="color:var(--orange-text)">Main Stage</div>
-          <div class="stage-group-line"></div>
-        </div>
-        <div class="shows-list">
-          <div class="show-card">
+      <div class="shows-list">
+          <div class="show-card" data-stage="Main Stage">
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
@@ -1572,7 +1551,39 @@
               <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
             </div>
           </div>
-          <div class="show-card">
+          <div class="show-card" data-stage="Blue Dome">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-title-row">
+                <div class="show-card-name">שישיית קאי גלוסקא</div>
+              </div>
+              <div class="show-card-sub">ג׳אז עכשווי ישראלי</div>
+              <span class="show-card-more">מידע נוסף ←</span>
+            </div>
+            <div class="show-card-meta">
+              <div class="show-card-time">18:30</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
+          </div>
+          <div class="show-card" data-stage="Red Tent">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-title-row">
+                <div class="show-card-name">שלישיית יותם זילברשטיין</div>
+              </div>
+              <div class="show-card-sub">גיטרה, בס ותופים — ג׳אז עכשווי</div>
+              <span class="show-card-more">מידע נוסף ←</span>
+            </div>
+            <div class="show-card-meta">
+              <div class="show-card-time">19:00</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
+          </div>
+          <div class="show-card" data-stage="Main Stage">
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
@@ -1589,94 +1600,7 @@
               <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
             </div>
           </div>
-          <div class="show-card">
-            <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
-            <div class="show-card-info">
-              <div class="show-card-title-row">
-                <div class="show-card-name">Las Piratas Piratas</div>
-                <span class="show-card-tag">כניסה חופשית</span>
-              </div>
-              <div class="show-card-sub">ג׳אז לטיני — פתיחת פסטיבל חגיגית</div>
-              <span class="show-card-more">מידע נוסף ←</span>
-            </div>
-            <div class="show-card-meta">
-              <div class="show-card-time">22:00</div>
-              <div class="show-card-divider"></div>
-              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Red Tent -->
-      <div class="stage-group">
-        <div class="stage-group-header">
-          <div class="stage-dot" style="background:var(--red)"></div>
-          <div class="stage-group-name" style="color:var(--red)">Red Tent</div>
-          <div class="stage-group-line"></div>
-        </div>
-        <div class="shows-list">
-          <div class="show-card">
-            <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
-            <div class="show-card-info">
-              <div class="show-card-title-row">
-                <div class="show-card-name">שלישיית יותם זילברשטיין</div>
-              </div>
-              <div class="show-card-sub">גיטרה, בס ותופים — ג׳אז עכשווי</div>
-              <span class="show-card-more">מידע נוסף ←</span>
-            </div>
-            <div class="show-card-meta">
-              <div class="show-card-time">19:00</div>
-              <div class="show-card-divider"></div>
-              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
-            </div>
-          </div>
-          <div class="show-card">
-            <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
-            <div class="show-card-info">
-              <div class="show-card-title-row">
-                <div class="show-card-name">הדר נויברג New Quartet</div>
-              </div>
-              <div class="show-card-sub">חליל, פסנתר, בס ותופים — ג׳אז / פיוז׳ן</div>
-              <span class="show-card-more">מידע נוסף ←</span>
-            </div>
-            <div class="show-card-meta">
-              <div class="show-card-time">21:00</div>
-              <div class="show-card-divider"></div>
-              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Blue Dome -->
-      <div class="stage-group">
-        <div class="stage-group-header">
-          <div class="stage-dot" style="background:var(--teal)"></div>
-          <div class="stage-group-name" style="color:var(--teal-text)">Blue Dome</div>
-          <div class="stage-group-line"></div>
-        </div>
-        <div class="shows-list">
-          <div class="show-card">
-            <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
-            <div class="show-card-info">
-              <div class="show-card-title-row">
-                <div class="show-card-name">שישיית קאי גלוסקא</div>
-              </div>
-              <div class="show-card-sub">ג׳אז עכשווי ישראלי</div>
-              <span class="show-card-more">מידע נוסף ←</span>
-            </div>
-            <div class="show-card-meta">
-              <div class="show-card-time">18:30</div>
-              <div class="show-card-divider"></div>
-              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
-            </div>
-          </div>
-          <div class="show-card">
+          <div class="show-card" data-stage="Blue Dome">
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
@@ -1693,26 +1617,69 @@
               <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
             </div>
           </div>
-        </div>
+          <div class="show-card" data-stage="Red Tent">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-title-row">
+                <div class="show-card-name">הדר נויברג New Quartet</div>
+              </div>
+              <div class="show-card-sub">חליל, פסנתר, בס ותופים — ג׳אז / פיוז׳ן</div>
+              <span class="show-card-more">מידע נוסף ←</span>
+            </div>
+            <div class="show-card-meta">
+              <div class="show-card-time">21:00</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
+          </div>
+          <div class="show-card" data-stage="Main Stage">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-title-row">
+                <div class="show-card-name">Las Piratas Piratas</div>
+                <span class="show-card-tag">כניסה חופשית</span>
+              </div>
+              <div class="show-card-sub">ג׳אז לטיני — פתיחת פסטיבל חגיגית</div>
+              <span class="show-card-more">מידע נוסף ←</span>
+            </div>
+            <div class="show-card-meta">
+              <div class="show-card-time">22:00</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
+          </div>
       </div>
     </section>
 
     <!-- ════ יום ה׳ — 12 בנובמבר ════ -->
+
     <section class="day-block" id="day-2">
       <div class="day-block-header">
         <div class="day-block-title">יום ה׳ · 12 בנובמבר</div>
         <div class="day-block-count">7 הופעות</div>
       </div>
 
-      <!-- Main Stage -->
-      <div class="stage-group">
-        <div class="stage-group-header">
-          <div class="stage-dot" style="background:var(--orange)"></div>
-          <div class="stage-group-name" style="color:var(--orange-text)">Main Stage</div>
-          <div class="stage-group-line"></div>
-        </div>
-        <div class="shows-list">
-          <div class="show-card"
+      <div class="shows-list">
+          <div class="show-card" data-stage="Red Tent">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-title-row">
+                <div class="show-card-name">אבות ובנים — מפגש דורות</div>
+                <span class="show-card-tag">הפקת מקור</span>
+              </div>
+              <div class="show-card-sub">אלוארצ׳יק, גרוס, נחמיה, סאלם, פורטוגלי, צור, שטרקר</div>
+              <span class="show-card-more">מידע נוסף ←</span>
+            </div>
+            <div class="show-card-meta">
+              <div class="show-card-time">18:00</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
+          </div>
+          <div class="show-card" data-stage="Main Stage"
             data-desc="שלושת הכהנים – ענת (קלרינט), אבישי (חצוצרה) ויובל (סקסופון) – הם שושלת מעוררת גאווה של ג׳אז בינלאומי שצמחה בישראל. במקביל לקריירות סולו מסחררות חובקות עולם, האחים חוזרים הביתה למפגש שלישייה נדיר עם ביג-בנד ישראלי שנבחר במיוחד לערב זה. על העיבודים והניצוח — עודד לב-ארי."
             data-musicians="ענת כהן – קלרינט | אבישי כהן – חצוצרה | יובל כהן – סקסופון סופרן | חגי אמיר – סקסופון אלט | אורי מנשה – סקסופון אלט | עמית פרידמן – סקסופון טנור | יהונתן כהן – סקסופון טנור | טל ורון – סקסופון בריטון | יובל פלג – חצוצרה | יונתן קולובסקי – חצוצרה | רוי זוזובסקי – חצוצרה | מתן כהן – חצוצרה | עודד מאיר – טרומבון | דור אסף – טרומבון | סלוצקי – טרומבון | טריפמן – טרומבון | קטיה טובול – פסנתר | אלון ניר – בס אקוסטי | אביב כהן – תופים | עודד לב-ארי – עיבודים וניצוח">
             <div class="show-card-img"></div>
@@ -1731,51 +1698,7 @@
               <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
             </div>
           </div>
-          <div class="show-card">
-            <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
-            <div class="show-card-info">
-              <div class="show-card-title-row">
-                <div class="show-card-name">ג׳ימבו ג׳אז — אורח: תמיר בר</div>
-              </div>
-              <div class="show-card-sub">ג׳אז ישראלי אנרגטי</div>
-              <span class="show-card-more">מידע נוסף ←</span>
-            </div>
-            <div class="show-card-meta">
-              <div class="show-card-time">22:30</div>
-              <div class="show-card-divider"></div>
-              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Red Tent -->
-      <div class="stage-group">
-        <div class="stage-group-header">
-          <div class="stage-dot" style="background:var(--red)"></div>
-          <div class="stage-group-name" style="color:var(--red)">Red Tent</div>
-          <div class="stage-group-line"></div>
-        </div>
-        <div class="shows-list">
-          <div class="show-card">
-            <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
-            <div class="show-card-info">
-              <div class="show-card-title-row">
-                <div class="show-card-name">אבות ובנים — מפגש דורות</div>
-                <span class="show-card-tag">הפקת מקור</span>
-              </div>
-              <div class="show-card-sub">אלוארצ׳יק, גרוס, נחמיה, סאלם, פורטוגלי, צור, שטרקר</div>
-              <span class="show-card-more">מידע נוסף ←</span>
-            </div>
-            <div class="show-card-meta">
-              <div class="show-card-time">18:00</div>
-              <div class="show-card-divider"></div>
-              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
-            </div>
-          </div>
-          <div class="show-card">
+          <div class="show-card" data-stage="Red Tent">
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
@@ -1791,18 +1714,23 @@
               <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
             </div>
           </div>
-        </div>
-      </div>
-
-      <!-- Blue Dome -->
-      <div class="stage-group">
-        <div class="stage-group-header">
-          <div class="stage-dot" style="background:var(--teal)"></div>
-          <div class="stage-group-name" style="color:var(--teal-text)">Blue Dome</div>
-          <div class="stage-group-line"></div>
-        </div>
-        <div class="shows-list">
-          <div class="show-card">
+          <div class="show-card" data-stage="Main Stage">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-title-row">
+                <div class="show-card-name">ג׳ימבו ג׳אז — אורח: תמיר בר</div>
+              </div>
+              <div class="show-card-sub">ג׳אז ישראלי אנרגטי</div>
+              <span class="show-card-more">מידע נוסף ←</span>
+            </div>
+            <div class="show-card-meta">
+              <div class="show-card-time">22:30</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
+          </div>
+          <div class="show-card" data-stage="Blue Dome">
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
@@ -1819,148 +1747,19 @@
               <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
             </div>
           </div>
-        </div>
       </div>
     </section>
 
     <!-- ════ יום ו׳ — 13 בנובמבר ════ -->
+
     <section class="day-block" id="day-3">
       <div class="day-block-header">
         <div class="day-block-title">יום ו׳ · 13 בנובמבר</div>
         <div class="day-block-count">12 הופעות</div>
       </div>
 
-      <!-- Main Stage -->
-      <div class="stage-group">
-        <div class="stage-group-header">
-          <div class="stage-dot" style="background:var(--orange)"></div>
-          <div class="stage-group-name" style="color:var(--orange-text)">Main Stage</div>
-          <div class="stage-group-line"></div>
-        </div>
-        <div class="shows-list">
-          <div class="show-card">
-            <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
-            <div class="show-card-info">
-              <div class="show-card-title-row">
-                <div class="show-card-name">Eli Degibri Quartet</div>
-                <span class="show-card-tag headliner">Headliner · מיוחד לפסטיבל</span>
-              </div>
-              <div class="show-card-sub">עם רביעיית כלי מיתר + אורח מיוחד: שם טוב לוי</div>
-              <span class="show-card-more">מידע נוסף ←</span>
-            </div>
-            <div class="show-card-meta">
-              <div class="show-card-time">12:30</div>
-              <div class="show-card-divider"></div>
-              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
-            </div>
-          </div>
-          <div class="show-card">
-            <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
-            <div class="show-card-info">
-              <div class="show-card-title-row">
-                <div class="show-card-name">חוה אלברשטיין</div>
-                <span class="show-card-tag headliner">Headliner · מיוחד לפסטיבל</span>
-              </div>
-              <div class="show-card-sub">ערב מיוחד עם עיבודי ג׳אז</div>
-              <span class="show-card-more">מידע נוסף ←</span>
-            </div>
-            <div class="show-card-meta">
-              <div class="show-card-time">20:00</div>
-              <div class="show-card-divider"></div>
-              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Red Tent -->
-      <div class="stage-group">
-        <div class="stage-group-header">
-          <div class="stage-dot" style="background:var(--red)"></div>
-          <div class="stage-group-name" style="color:var(--red)">Red Tent</div>
-          <div class="stage-group-line"></div>
-        </div>
-        <div class="shows-list">
-          <div class="show-card">
-            <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
-            <div class="show-card-info">
-              <div class="show-card-title-row">
-                <div class="show-card-name">שלישיית אריאל ברט</div>
-                <span class="show-card-tag">השקת אלבום</span>
-              </div>
-              <div class="show-card-sub">השקת האלבום הרשמית</div>
-              <span class="show-card-more">מידע נוסף ←</span>
-            </div>
-            <div class="show-card-meta">
-              <div class="show-card-time">11:00</div>
-              <div class="show-card-divider"></div>
-              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
-            </div>
-          </div>
-          <div class="show-card">
-            <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
-            <div class="show-card-info">
-              <div class="show-card-title-row">
-                <div class="show-card-name">רביעיית אוריאל הרמן מארחת את רמי קליינשטיין</div>
-              </div>
-              <div class="show-card-sub">ג׳אז פגש פופ — מפגש מיוחד</div>
-              <span class="show-card-more">מידע נוסף ←</span>
-            </div>
-            <div class="show-card-meta">
-              <div class="show-card-time">14:00</div>
-              <div class="show-card-divider"></div>
-              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
-            </div>
-          </div>
-          <div class="show-card">
-            <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
-            <div class="show-card-info">
-              <div class="show-card-title-row">
-                <div class="show-card-name">שלישיית יותם זילברשטיין</div>
-              </div>
-              <div class="show-card-sub">גיטרה ג׳אז — אמנות ורגישות</div>
-              <span class="show-card-more">מידע נוסף ←</span>
-            </div>
-            <div class="show-card-meta">
-              <div class="show-card-time">16:30</div>
-              <div class="show-card-divider"></div>
-              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
-            </div>
-          </div>
-          <div class="show-card">
-            <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
-            <div class="show-card-info">
-              <div class="show-card-title-row">
-                <div class="show-card-name">SHALOSH — אורח: רוני איתן</div>
-                <span class="show-card-tag">השקת אלבום</span>
-              </div>
-              <div class="show-card-sub">הופעת לילה סוחפת</div>
-              <span class="show-card-more">מידע נוסף ←</span>
-            </div>
-            <div class="show-card-meta">
-              <div class="show-card-time">21:45</div>
-              <div class="show-card-divider"></div>
-              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Blue Dome -->
-      <div class="stage-group">
-        <div class="stage-group-header">
-          <div class="stage-dot" style="background:var(--teal)"></div>
-          <div class="stage-group-name" style="color:var(--teal-text)">Blue Dome</div>
-          <div class="stage-group-line"></div>
-        </div>
-        <div class="shows-list">
-          <div class="show-card">
+      <div class="shows-list">
+          <div class="show-card" data-stage="Blue Dome">
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
@@ -1977,7 +1776,57 @@
               <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
             </div>
           </div>
-          <div class="show-card">
+          <div class="show-card" data-stage="Red Tent">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-title-row">
+                <div class="show-card-name">שלישיית אריאל ברט</div>
+                <span class="show-card-tag">השקת אלבום</span>
+              </div>
+              <div class="show-card-sub">השקת האלבום הרשמית</div>
+              <span class="show-card-more">מידע נוסף ←</span>
+            </div>
+            <div class="show-card-meta">
+              <div class="show-card-time">11:00</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
+          </div>
+          <div class="show-card" data-stage="Main Stage">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-title-row">
+                <div class="show-card-name">Eli Degibri Quartet</div>
+                <span class="show-card-tag headliner">Headliner · מיוחד לפסטיבל</span>
+              </div>
+              <div class="show-card-sub">עם רביעיית כלי מיתר + אורח מיוחד: שם טוב לוי</div>
+              <span class="show-card-more">מידע נוסף ←</span>
+            </div>
+            <div class="show-card-meta">
+              <div class="show-card-time">12:30</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
+          </div>
+          <div class="show-card" data-stage="Red Tent">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-title-row">
+                <div class="show-card-name">רביעיית אוריאל הרמן מארחת את רמי קליינשטיין</div>
+              </div>
+              <div class="show-card-sub">ג׳אז פגש פופ — מפגש מיוחד</div>
+              <span class="show-card-more">מידע נוסף ←</span>
+            </div>
+            <div class="show-card-meta">
+              <div class="show-card-time">14:00</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
+          </div>
+          <div class="show-card" data-stage="Blue Dome">
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
@@ -1993,7 +1842,23 @@
               <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
             </div>
           </div>
-          <div class="show-card">
+          <div class="show-card" data-stage="Red Tent">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-title-row">
+                <div class="show-card-name">שלישיית יותם זילברשטיין</div>
+              </div>
+              <div class="show-card-sub">גיטרה ג׳אז — אמנות ורגישות</div>
+              <span class="show-card-more">מידע נוסף ←</span>
+            </div>
+            <div class="show-card-meta">
+              <div class="show-card-time">16:30</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
+          </div>
+          <div class="show-card" data-stage="Blue Dome">
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
@@ -2009,7 +1874,41 @@
               <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
             </div>
           </div>
-          <div class="show-card">
+          <div class="show-card" data-stage="Main Stage">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-title-row">
+                <div class="show-card-name">חוה אלברשטיין</div>
+                <span class="show-card-tag headliner">Headliner · מיוחד לפסטיבל</span>
+              </div>
+              <div class="show-card-sub">ערב מיוחד עם עיבודי ג׳אז</div>
+              <span class="show-card-more">מידע נוסף ←</span>
+            </div>
+            <div class="show-card-meta">
+              <div class="show-card-time">20:00</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
+          </div>
+          <div class="show-card" data-stage="Red Tent">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-title-row">
+                <div class="show-card-name">SHALOSH — אורח: רוני איתן</div>
+                <span class="show-card-tag">השקת אלבום</span>
+              </div>
+              <div class="show-card-sub">הופעת לילה סוחפת</div>
+              <span class="show-card-more">מידע נוסף ←</span>
+            </div>
+            <div class="show-card-meta">
+              <div class="show-card-time">21:45</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
+          </div>
+          <div class="show-card" data-stage="Blue Dome">
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
@@ -2026,125 +1925,19 @@
               <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
             </div>
           </div>
-        </div>
       </div>
     </section>
 
     <!-- ════ שבת — 14 בנובמבר ════ -->
+
     <section class="day-block" id="day-4">
       <div class="day-block-header">
         <div class="day-block-title">שבת · 14 בנובמבר</div>
         <div class="day-block-count">7 הופעות</div>
       </div>
 
-      <!-- Main Stage -->
-      <div class="stage-group">
-        <div class="stage-group-header">
-          <div class="stage-dot" style="background:var(--orange)"></div>
-          <div class="stage-group-name" style="color:var(--orange-text)">Main Stage</div>
-          <div class="stage-group-line"></div>
-        </div>
-        <div class="shows-list">
-          <div class="show-card">
-            <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
-            <div class="show-card-info">
-              <div class="show-card-title-row">
-                <div class="show-card-name">תזמורת הג׳אז הישראלית</div>
-                <span class="show-card-tag headliner">Headliner · מופע סיום · הפקת מקור</span>
-              </div>
-              <div class="show-card-sub">מופע סיום — אורחות: נטע ברזילי, גל דה פז, נונו ולירז צ׳רכי</div>
-              <span class="show-card-more">מידע נוסף ←</span>
-            </div>
-            <div class="show-card-meta">
-              <div class="show-card-time">14:45</div>
-              <div class="show-card-divider"></div>
-              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Red Tent -->
-      <div class="stage-group">
-        <div class="stage-group-header">
-          <div class="stage-dot" style="background:var(--red)"></div>
-          <div class="stage-group-name" style="color:var(--red)">Red Tent</div>
-          <div class="stage-group-line"></div>
-        </div>
-        <div class="shows-list">
-          <div class="show-card">
-            <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
-            <div class="show-card-info">
-              <div class="show-card-title-row">
-                <div class="show-card-name">הדר נויברג New Quartet</div>
-              </div>
-              <div class="show-card-sub">חליל, פסנתר, בס ותופים — שבת בוקר מוסיקלי</div>
-              <span class="show-card-more">מידע נוסף ←</span>
-            </div>
-            <div class="show-card-meta">
-              <div class="show-card-time">11:00</div>
-              <div class="show-card-divider"></div>
-              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
-            </div>
-          </div>
-          <div class="show-card">
-            <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
-            <div class="show-card-info">
-              <div class="show-card-title-row">
-                <div class="show-card-name">עידית מינצר ויחזקאל רז</div>
-              </div>
-              <div class="show-card-sub">קונצרט חלק ב׳ — ווקאל ג׳אז + גיטרה</div>
-              <span class="show-card-more">מידע נוסף ←</span>
-            </div>
-            <div class="show-card-meta">
-              <div class="show-card-time">13:45</div>
-              <div class="show-card-divider"></div>
-              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Blue Dome -->
-      <div class="stage-group">
-        <div class="stage-group-header">
-          <div class="stage-dot" style="background:var(--teal)"></div>
-          <div class="stage-group-name" style="color:var(--teal-text)">Blue Dome</div>
-          <div class="stage-group-line"></div>
-        </div>
-        <div class="shows-list">
-          <div class="show-card">
-            <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
-            <div class="show-card-info">
-              <div class="show-card-title-row">
-                <div class="show-card-name">Anat Cohen — Artist in Residence</div>
-                <span class="show-card-tag headliner">Artist Resident · הופעת יובל</span>
-              </div>
-              <div class="show-card-sub">Anat Cohen & Marcello Goncalves — מופע אינטימי</div>
-              <span class="show-card-more">מידע נוסף ←</span>
-            </div>
-            <div class="show-card-meta">
-              <div class="show-card-time">12:30</div>
-              <div class="show-card-divider"></div>
-              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Green Pavilion -->
-      <div class="stage-group">
-        <div class="stage-group-header">
-          <div class="stage-dot" style="background:var(--yellow)"></div>
-          <div class="stage-group-name" style="color:var(--yellow-text)">Green Pavilion</div>
-          <div class="stage-group-line"></div>
-        </div>
-        <div class="shows-list">
-          <div class="show-card"
+      <div class="shows-list">
+          <div class="show-card" data-stage="Green Pavilion"
             data-desc="שלושת הכהנים – ענת (קלרינט), אבישי (חצוצרה) ויובל (סקסופון) – מופיעים יחד עם ביג-בנד ישראלי בניצוח עודד לב-ארי. מפגש חד-פעמי של אלתור, צבע, סווינג ואינטראקציה משפחתית במיטבה."
             data-musicians="ענת כהן – קלרינט | אבישי כהן – חצוצרה | יובל כהן – סקסופון סופרן | חגי אמיר – סקסופון אלט | אורי מנשה – סקסופון אלט | עמית פרידמן – סקסופון טנור | יהונתן כהן – סקסופון טנור | טל ורון – סקסופון בריטון | יובל פלג – חצוצרה | יונתן קולובסקי – חצוצרה | רוי זוזובסקי – חצוצרה | מתן כהן – חצוצרה | עודד מאיר – טרומבון | דור אסף – טרומבון | סלוצקי – טרומבון | טריפמן – טרומבון | קטיה טובול – פסנתר | אלון ניר – בס אקוסטי | אביב כהן – תופים | עודד לב-ארי – עיבודים וניצוח">
             <div class="show-card-img"></div>
@@ -2162,7 +1955,23 @@
               <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
             </div>
           </div>
-          <div class="show-card">
+          <div class="show-card" data-stage="Red Tent">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-title-row">
+                <div class="show-card-name">הדר נויברג New Quartet</div>
+              </div>
+              <div class="show-card-sub">חליל, פסנתר, בס ותופים — שבת בוקר מוסיקלי</div>
+              <span class="show-card-more">מידע נוסף ←</span>
+            </div>
+            <div class="show-card-meta">
+              <div class="show-card-time">11:00</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
+          </div>
+          <div class="show-card" data-stage="Green Pavilion">
             <div class="show-card-img"></div>
             <div class="show-card-num"></div>
             <div class="show-card-info">
@@ -2178,7 +1987,56 @@
               <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
             </div>
           </div>
-        </div>
+          <div class="show-card" data-stage="Blue Dome">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-title-row">
+                <div class="show-card-name">Anat Cohen — Artist in Residence</div>
+                <span class="show-card-tag headliner">Artist Resident · הופעת יובל</span>
+              </div>
+              <div class="show-card-sub">Anat Cohen &amp; Marcello Goncalves — מופע אינטימי</div>
+              <span class="show-card-more">מידע נוסף ←</span>
+            </div>
+            <div class="show-card-meta">
+              <div class="show-card-time">12:30</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
+          </div>
+          <div class="show-card" data-stage="Red Tent">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-title-row">
+                <div class="show-card-name">עידית מינצר ויחזקאל רז</div>
+              </div>
+              <div class="show-card-sub">קונצרט חלק ב׳ — ווקאל ג׳אז + גיטרה</div>
+              <span class="show-card-more">מידע נוסף ←</span>
+            </div>
+            <div class="show-card-meta">
+              <div class="show-card-time">13:45</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
+          </div>
+          <div class="show-card" data-stage="Main Stage">
+            <div class="show-card-img"></div>
+            <div class="show-card-num"></div>
+            <div class="show-card-info">
+              <div class="show-card-title-row">
+                <div class="show-card-name">תזמורת הג׳אז הישראלית</div>
+                <span class="show-card-tag headliner">Headliner · מופע סיום · הפקת מקור</span>
+              </div>
+              <div class="show-card-sub">מופע סיום — אורחות: נטע ברזילי, גל דה פז, נונו ולירז צ׳רכי</div>
+              <span class="show-card-more">מידע נוסף ←</span>
+            </div>
+            <div class="show-card-meta">
+              <div class="show-card-time">14:45</div>
+              <div class="show-card-divider"></div>
+              <a class="show-card-tickets-link" href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" onclick="event.stopPropagation()">רכישת כרטיסים</a>
+            </div>
+          </div>
       </div>
     </section>
 
@@ -3138,33 +2996,33 @@
       } else {
         label.textContent = selected.length + ' במות';
       }
-      document.querySelectorAll('.stage-group').forEach(group => {
-        const stageName = group.querySelector('.stage-group-name')?.textContent.trim();
+      // אין יותר קיבוץ-לפי-במה — הסינון פועל ישירות על כל כרטיסיה לפי
+      // data-stage שלה (במקום להסתיר קבוצות שלמות).
+      document.querySelectorAll('.shows-list .show-card').forEach(card => {
+        const stageName = card.dataset.stage;
         if (selected.length === 0 || selected.includes(stageName)) {
-          group.classList.remove('sf-hidden');
+          card.classList.remove('sf-hidden');
         } else {
-          group.classList.add('sf-hidden');
+          card.classList.add('sf-hidden');
         }
       });
-      // אם לא נותרו במות גלויות ביום מסוים (כתוצאה מהסינון) — להסתיר את כל בלוק היום
+      // אם לא נותרו הופעות גלויות ביום מסוים (כתוצאה מהסינון) — להסתיר את כל בלוק היום
       // (כותרת + מספר הופעות), ולא להשאיר כותרת יום ריקה.
       document.querySelectorAll('.day-block').forEach(day => {
-        const groups = Array.from(day.querySelectorAll('.stage-group'));
-        const visibleGroups = groups.filter(g => !g.classList.contains('sf-hidden'));
-        const anyVisible = visibleGroups.length > 0;
+        const cards = Array.from(day.querySelectorAll('.show-card'));
+        const visibleCards = cards.filter(c => !c.classList.contains('sf-hidden'));
+        const anyVisible = visibleCards.length > 0;
         day.classList.toggle('sf-hidden', !anyVisible);
         // עדכון מונה ההופעות בכותרת היום כך שישקף רק את מה שמוצג בפועל אחרי הסינון
         if (anyVisible) {
-          const showCount = visibleGroups.reduce((sum, g) => sum + g.querySelectorAll('.show-card').length, 0);
           const countEl = day.querySelector('.day-block-count');
-          if (countEl) countEl.textContent = showCount + ' הופעות';
+          if (countEl) countEl.textContent = visibleCards.length + ' הופעות';
         }
       });
     }
 
-    // תווית במה בתוך כל כרטיסיה (לצד השעה) — מוצגת רק במובייל, ראו
-    // .show-card-stage ב-CSS. נבנית מ-.stage-group-name/הצבע של הקבוצה
-    // העוטפת, כדי שלא נצטרך לשכפל את שם הבמה ידנית בכל כרטיסיה.
+    // תווית במה בתוך כל כרטיסיה (לצד השעה), נבנית מ-data-stage שכל כרטיסיה
+    // נושאת ישירות — כדי שלא נצטרך לשכפל את שם הבמה ידנית בכל כרטיסיה.
     (function addStageBadgesToShowCards() {
       const stageMeta = {
         'Main Stage':     'var(--orange)',
@@ -3176,8 +3034,7 @@
         const timeEl = card.querySelector('.show-card-time');
         const meta = card.querySelector('.show-card-meta');
         if (!timeEl || !meta) return;
-        const group = card.closest('.stage-group');
-        const stageName = group ? (group.querySelector('.stage-group-name')?.textContent.trim() || '') : '';
+        const stageName = card.dataset.stage || '';
         const color = stageMeta[stageName];
         if (!color) return;
 
@@ -3191,9 +3048,10 @@
         badge.className = 'show-card-stage';
         badge.style.setProperty('--stage-color', color);
         badge.innerHTML = '<span class="show-card-stage-dot"></span>' + stageName;
-        wrap.appendChild(badge);
 
+        // הזמן ראשון ב-DOM (=בשול הימני ב-RTL), שם הבמה אחריו
         wrap.appendChild(timeEl);
+        wrap.appendChild(badge);
         const divider = meta.querySelector('.show-card-divider');
         if (divider) wrap.appendChild(divider);
       });
@@ -3688,9 +3546,8 @@
 
       var card = e.target.closest('.show-card');
       if (card) {
-        var stageGroup = card.closest('.stage-group');
         var dayBlock = card.closest('.day-block');
-        var _sn = stageGroup ? (stageGroup.querySelector('.stage-group-name') || {}).textContent || '' : '';
+        var _sn = card.dataset.stage || '';
         var _ti = (card.querySelector('.show-card-time') || {}).textContent || '';
         var _dt = dayBlock ? (dayBlock.querySelector('.day-block-title') || {}).textContent || '' : '';
         window.location.href = 'show.html?show=' + _makeShowSlug(_sn, _ti, _dt);
