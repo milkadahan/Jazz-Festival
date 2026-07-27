@@ -848,7 +848,9 @@
       text-align: center; margin-bottom: 3.5rem;
     }
     .section-title {
-      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      /* מאוחד עם כל כותרות הסקשנים בדף הבית (.alt-lineup-title,
+         .ticket-plans-title, .hotel-banner-title, .venue-photo-title) */
+      font-size: clamp(2rem, 5vw, 3.5rem);
       font-weight: 900; line-height: 1.1;
     }
     .section-title .accent {
@@ -1423,7 +1425,8 @@
     .hotel-banner-content { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 14px; align-items: flex-start; flex: 1; min-width: 0; text-align: right; padding-inline-end: 80px; }
     .hotel-banner-title {
       display: flex; flex-direction: column; align-items: flex-start;
-      font-size: clamp(1.5rem, 3vw, 2.375rem);
+      /* מאוחד עם כל כותרות הסקשנים בדף הבית — ראו .section-title */
+      font-size: clamp(2rem, 5vw, 3.5rem);
       font-weight: 900; line-height: normal;
     }
     .hotel-banner-title .title-line1 { color: var(--banner-fg); }
@@ -1737,7 +1740,8 @@
     }
     .venue-photo-title {
       font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
-      font-weight: 900; font-size: clamp(1.6rem, 5vw, 3.5rem); line-height: 1.1; letter-spacing: -0.5px;
+      /* מאוחד עם כל כותרות הסקשנים בדף הבית — ראו .section-title */
+      font-weight: 900; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; letter-spacing: -0.5px;
       white-space: nowrap;
     }
     .venue-photo-sub {
@@ -1773,12 +1777,13 @@
       margin-inline-start: 0.5rem;
     }
     @media (max-width: 768px) {
-      /* Unified with every other mobile section heading (2rem). white-space
-         switches to normal (from nowrap) because at 2rem this title no
-         longer fits on one line within the card's 90%-max-width text
-         column — nowrap would just get clipped by .venue-photo-card's
-         overflow:hidden instead of wrapping. */
-      .venue-photo-title { font-size: 2rem; white-space: normal; }
+      /* font-size קבוע של 2rem הוסר מכאן — היה גורם לפער מול שאר כותרות
+         הסקשנים שממשיכות לגדול עם clamp() ברוחבי טאבלט (ראו .section-title).
+         white-space נשאר normal: בכל גודל שה-clamp הנוכחי (עד 3.5rem) עלול
+         לתת, הכותרת יכולה לא להיכנס בשורה אחת בתוך עמודת הטקסט
+         (90% max-width) — nowrap היה נחתך ע"י overflow:hidden של
+         .venue-photo-card במקום לרדת שורה. */
+      .venue-photo-title { white-space: normal; }
     }
     /* ─── FOOTER ──────────────────────────────────────────────── */
     footer {
@@ -1894,11 +1899,10 @@
       /* מובייל: כל הסקשנים בדף הבית מקבלים מרווח אחיד של 60px משוליים עליון/תחתון
          (venue מוחרג — סקשן וידאו sticky-scroll עם padding-block:0 מכוון) */
       section { padding: 60px 1.5rem; }
-      /* Unified with every other mobile section heading (2rem — same as
-         .ticket-plans-title, .alt-lineup-title, .hero-title-line1/2,
-         .hotel-banner-title, .venue-photo-title). Used by the lineup,
-         merch and news section headings. */
-      .section-title { font-size: 2rem; }
+      /* גובר בעבר על .section-title עם 2rem קבוע כאן (≤900px) — נעלמה כי
+         היא זו שגרמה לפער מול שאר כותרות הסקשנים (.alt-lineup-title,
+         .ticket-plans-title...) שאין להן override דומה וממשיכות לגדול
+         עם clamp() גם ברוחבי טאבלט. .section-title עכשיו זהה להן. */
       #about-strip { padding-top: 60px; padding-bottom: 60px; }
       /* padding-top מבוטל: הרווח מלמעלה כבר מגיע מה-padding-bottom של הסקשן
          הקודם (מסלולי כרטיסים) — פדינג עליון נוסף כאן נראה כרווח כפול */
@@ -2267,7 +2271,9 @@
       <ul class="nav-links" id="navLinks">
         <li class="nav-link-mobile-flat"><a href="./index.html" data-he="דף הבית" data-en="Home">דף הבית</a></li>
         <li><a href="#artist-lineup-text" data-he="ליין אפ" data-en="Lineup">ליין אפ</a></li>
+        <li class="nav-link-mobile-flat"><a href="#lineup" data-he="אמני הפסטיבל" data-en="Festival Artists">אמני הפסטיבל</a></li>
         <li><a href="./lineup.html" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
+        <li class="nav-link-mobile-flat"><a href="https://www.hotels.com/" target="_blank" rel="noopener" data-he="חבילות לינה" data-en="Stay Packages">חבילות לינה</a></li>
         <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
         <li><a href="./index.html#news" data-he="חדשות" data-en="News">חדשות</a></li>
         <li><a href="./merch.html" data-he="מרצ'יינדיז" data-en="Merch">מרצ'יינדיז</a></li>
@@ -2289,7 +2295,6 @@
         <li class="nav-link-mobile-flat"><a href="#" data-he="הסעות" data-en="Shuttles">הסעות</a></li>
         <li class="nav-link-mobile-flat"><a href="./faq.html" data-he="שאלות נפוצות" data-en="FAQ">שאלות נפוצות</a></li>
         <li class="nav-link-mobile-flat"><a href="./contact.html" data-he="יצירת קשר" data-en="Contact">יצירת קשר</a></li>
-        <li class="nav-link-mobile-flat"><a href="https://www.hotels.com/" target="_blank" rel="noopener" data-he="חבילות לינה" data-en="Stay Packages">חבילות לינה</a></li>
       </ul>
       </div>
 
@@ -2420,7 +2425,7 @@
     <div class="alt-lineup-section-inner">
 
       <div class="alt-lineup-header reveal">
-        <h2 class="alt-lineup-title">ליין <span class="alt-lineup-title-accent">אפ</span></h2>
+        <h2 class="alt-lineup-title">ליין אפ <span class="alt-lineup-title-accent">2026</span></h2>
       </div>
 
       <div class="alt-lineup-grid reveal">
@@ -2703,9 +2708,11 @@
       .alt-lineup-section-inner { padding: 60px 1rem; }
       #lineup-sticky .section-header { padding-top: 60px; }
       .alt-artist-btn { max-width: calc(100vw - 3.5rem); min-width: 0; }
-      .featuring-pill-text { font-size: 15px; }
-      .featuring-pill-sub { font-size: 13px; }
-      .alt-lineup-grid { gap: 10px 16px; }
+      .featuring-pill-text { font-size: 13px; padding-block: 6px; }
+      .featuring-pill-sub { font-size: 11px; }
+      /* 8px אחיד גם בין שורות וגם בין צ'יפים באותה שורה — מקצר את הגלילה
+         האנכית של הסקשן (פחות מרווח מצטבר בין כל השורות) */
+      .alt-lineup-grid { gap: 8px; }
     }
 
     /* ── DRAWER OVERLAY ── */
@@ -3271,6 +3278,42 @@
         <div class="merch-body">
           <div class="merch-name">חולצת פסטיבל מודפסת</div>
           <div class="merch-price">₪89</div>
+          <span class="merch-buy">לרכישה ←</span>
+        </div>
+      </a>
+
+      <!-- שקית בד -->
+      <a class="merch-card" href="./merch.html" aria-label="שקית בד של הפסטיבל — רכישה">
+        <div class="merch-img">
+          <img src="./Graphig assets/merch/merch-tote.jpg" alt="שקית בד של פסטיבל ג׳אז ים סוף" width="600" height="600" loading="lazy">
+        </div>
+        <div class="merch-body">
+          <div class="merch-name">שקית בד לפסטיבל</div>
+          <div class="merch-price">₪49</div>
+          <span class="merch-buy">לרכישה ←</span>
+        </div>
+      </a>
+
+      <!-- פוסטר -->
+      <a class="merch-card" href="./merch.html" aria-label="פוסטר הפסטיבל — רכישה">
+        <div class="merch-img">
+          <img src="./Graphig assets/merch/merch-poster.jpg" alt="פוסטר אמנותי של פסטיבל ג׳אז ים סוף" width="600" height="600" loading="lazy">
+        </div>
+        <div class="merch-body">
+          <div class="merch-name">פוסטר רשמי — מהדורת 2026</div>
+          <div class="merch-price">₪69</div>
+          <span class="merch-buy">לרכישה ←</span>
+        </div>
+      </a>
+
+      <!-- קפוצ'ון -->
+      <a class="merch-card" href="./merch.html" aria-label="קפוצ'ון הפסטיבל — רכישה">
+        <div class="merch-img">
+          <img src="./Graphig assets/merch/merch-hoodie.jpg" alt="קפוצ'ון של פסטיבל ג׳אז ים סוף" width="600" height="600" loading="lazy">
+        </div>
+        <div class="merch-body">
+          <div class="merch-name">קפוצ'ון הפסטיבל</div>
+          <div class="merch-price">₪169</div>
           <span class="merch-buy">לרכישה ←</span>
         </div>
       </a>
@@ -4354,7 +4397,67 @@
       apply();
     }
     initSeamlessCarouselLoop('.news-grid', 'news-card', 'news-card--clone', 'center');
-    initSeamlessCarouselLoop('.merch-grid', 'merch-card', 'merch-card--clone', 'start');
+    // .merch-grid: בוטלה הקרוסלה המעגלית (clone + jump לאשליית לולאה
+    // אינסופית) — נשארת גלילה אופקית רגילה עם scroll-snap (ראו CSS
+    // ≤600px), עוצרת בקצוות כמו שצריך, עם כל 7 המוצרים מהחנות המלאה.
+
+    // ── Featuring pills (גוש האמנים): אריזה הדוקה יותר במובייל ──────
+    // flex-wrap הרגיל עוטף לפי סדר ה-DOM בלבד ("greedy" נאיבי) — צ'יפ קצר
+    // שמגיע אחרי צ'יפ ארוך שלא משאיר לו מקום נופל לשורה משלו, גם אם צ'יפ
+    // קצר אחר עוד יותר מאוחר בסדר כן היה נכנס לידו. כאן סורקים קדימה בתוך
+    // כל שורה ומושכים פנימה את הצ'יפ הבא (מבין אלה שעוד לא מוקמו) שבאמת
+    // נכנס בשטח שנשאר — ורק אז עוברים לשורה הבאה. משנים סדר ויזואלי בלבד
+    // (CSS order), לא את סדר ה-DOM/קריאת מקלדת.
+    (function () {
+      const grid = document.querySelector('.alt-lineup-grid');
+      if (!grid) return;
+      const mq = window.matchMedia('(max-width: 600px)');
+
+      function reset() {
+        grid.querySelectorAll('.alt-artist-btn').forEach((el) => { el.style.order = ''; });
+      }
+
+      function pack() {
+        const items = Array.from(grid.querySelectorAll('.alt-artist-btn'));
+        if (items.length < 2) return;
+        reset(); // מודדים לפי הרוחב הטבעי (סדר DOM), לא לפי אריזה קודמת
+        const gap = parseFloat(getComputedStyle(grid).columnGap) || 8;
+        const rowWidth = grid.clientWidth;
+        const remaining = items.map((el) => ({ el, width: el.getBoundingClientRect().width, placed: false }));
+        const sequence = [];
+
+        while (remaining.some((r) => !r.placed)) {
+          let rowSpace = rowWidth;
+          let firstInRow = true;
+          for (const item of remaining) {
+            if (item.placed) continue;
+            const needed = item.width + (firstInRow ? 0 : gap);
+            // firstInRow: תמיד ממקמים, גם אם הפריט לבד רחב מהשורה (עוטף פנימית כרגיל)
+            if (firstInRow || needed <= rowSpace) {
+              sequence.push(item.el);
+              item.placed = true;
+              rowSpace -= needed;
+              firstInRow = false;
+            }
+          }
+        }
+        sequence.forEach((el, i) => { el.style.order = i; });
+      }
+
+      function apply() {
+        if (mq.matches) pack(); else reset();
+      }
+
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(apply, 150);
+      }, { passive: true });
+      mq.addEventListener('change', apply);
+
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(apply);
+      else apply();
+    })();
 
     // ── Scroll reveal ─────────────────────────────────────────────
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
