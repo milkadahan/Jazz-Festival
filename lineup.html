@@ -656,6 +656,23 @@
       color: #483f3b;
       min-width: 3.5ch; text-align: center;
     }
+    /* עוטף time (+ divider) — display:contents בדסקטופ (לא משפיע על הפריסה
+       הקיימת), הופך ל-flex במובייל כדי לקבץ יחד את תווית הבמה עם השעה. */
+    .show-card-time-wrap { display: contents; }
+    /* תווית במה בתוך הכרטיסיה, לצד השעה — מוצגת רק במובייל (הסינון-לפי-במה
+       מוסתר שם, ראו @media max-width:700px); בדסקטופ ה-stage-group-header
+       כבר מציג את שם הבמה, אז אין כפילות. */
+    .show-card-stage {
+      display: none;
+      align-items: center; gap: 5px;
+      font-size: 11px; font-weight: 600;
+      color: #8a7256;
+      white-space: nowrap;
+    }
+    .show-card-stage-dot {
+      width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+      background: var(--stage-color, var(--orange));
+    }
     .show-card-tickets-link {
       flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
@@ -1134,37 +1151,66 @@
       .page-hero-glow-teal { width: 220px; height: 220px; right: -180px; bottom: -60px; }
       main { padding: 2rem 1rem 4rem; }
       .footer-grid { grid-template-columns: 1fr; gap: 1.8rem; }
-      /* מובייל: כרטיסיית הופעה בהתאמה לעיצוב Figma (node 337-2293) —
-         תמונה בצד ימין וטקסט אחריה בצד שמאל (מיושר לימין), כותרת+תגית
-         נערמות זו מעל זו, ובלי מספר סידורי/קו מפריד/קישור "מידע נוסף" */
+      /* מובייל: כרטיסיית הופעה כ"באנר" — התמונה תופסת את כל רוחב הכרטיס בראשו,
+         והתווית מרחפת על גבי התמונה בשול העליון הימני (בקשת מילקה). הכרטיס
+         הופך לטור אנכי: תמונה מלאת-רוחב → פרטים (שם+תיאור) → זמן+כרטיסים.
+         בלי מספר סידורי / קו מפריד / קישור "מידע נוסף". */
       .show-card {
-        padding: 14px; gap: 16px;
-        min-height: 0; flex-wrap: wrap;
-        align-items: flex-start;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0; gap: 0;
+        min-height: 0;
+        position: relative;   /* עוגן ל-overlay של התווית מעל התמונה */
+        overflow: hidden;     /* חותך את פינות התמונה לרדיוס הכרטיס */
       }
-      .show-card-img { width: 60px; height: 60px; }
+      .show-card-img {
+        width: 100%; height: auto;
+        aspect-ratio: 16/10;
+        border-radius: 0;
+        background-position: center;
+      }
       .show-card-num { display: none; }
-      /* flex-direction:column → הציר הצולב הוא ציר ה-inline: ב-RTL, flex-start=ימין (לא flex-end!) */
+      /* התווית מרחפת על גבי התמונה, פינה ימנית-עליונה (RTL: right = start).
+         היא absolute → נשלפת מזרימת ה-title-row ומעוגנת ל-.show-card (relative). */
+      .show-card-tag {
+        position: absolute;
+        top: 12px; right: 12px;
+        z-index: 2;
+        font-size: 11px; padding: 3px 9px;
+        background: rgba(255,253,248,0.92);
+        border-color: rgba(255,255,255,0.6);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.22);
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
+      }
+      .show-card-tag.headliner {
+        background: rgba(214,34,70,0.92);
+        border-color: rgba(255,255,255,0.4);
+        color: #fff;
+      }
+      .show-card-info { padding: 14px 14px 0; gap: 4px; }
+      /* flex-direction:column → הציר הצולב הוא ציר ה-inline: ב-RTL, flex-start=ימין */
       .show-card-title-row { flex-direction: column; align-items: flex-start; gap: 4px; }
-      .show-card-name { font-size: 15px; }
+      .show-card-name { font-size: 16px; }
       .show-card-sub { font-size: 14px; }
       .show-card-more { display: none; }
       .show-card-time { font-size: 16px; min-width: 3ch; font-weight: 700; }
-      .show-card-tag { font-size: 10px; padding: 2px 6px; }
       .show-card-divider { display: none; }
+      .show-card-time-wrap { display: flex; align-items: center; gap: 8px; }
+      .show-card-stage { display: inline-flex; }
       .show-card-meta {
-        order: 3;
-        flex-basis: 100%;
         justify-content: space-between;
+        align-items: center;
         margin-top: 0;
-        padding-top: 13px;
+        padding: 13px 14px 14px;
         border-top: 1px solid rgba(58,42,30,0.08);
       }
       .show-card-tickets-link { height: 36px; padding: 0 1rem; font-size: 12.5px; min-height: 0; }
       .day-block-title { font-size: 1.3rem; }
       /* controls-strip — התאמה ל-Figma (node 334:1660): שורה אחת בלבד, טריגר
-         סינון-ימים בצד אחד ובחירת-תצוגה בצד השני. סינון הבמות מוסתר לגמרי
-         (יוחזר בעיצוב אחר בהמשך); סינון הימים עובר לתפריט נפתח (הפאנל עצמו
+         סינון-ימים בצד אחד ובחירת-תצוגה בצד השני. סינון הבמות מוסתר לגמרי —
+         במקום זאת כל כרטיסיה מציגה תווית במה משלה, לצד השעה (ראו
+         .show-card-stage); סינון הימים עובר לתפריט נפתח (הפאנל עצמו
          עדיין לא מעוצב סופית — זה יגיע בהמשך). */
       .controls-strip {
         flex-direction: row;
@@ -1383,6 +1429,7 @@
         <li class="nav-link-mobile-flat"><a href="#" data-he="הסעות" data-en="Shuttles">הסעות</a></li>
         <li class="nav-link-mobile-flat"><a href="./faq.html" data-he="שאלות נפוצות" data-en="FAQ">שאלות נפוצות</a></li>
         <li class="nav-link-mobile-flat"><a href="./contact.html" data-he="יצירת קשר" data-en="Contact">יצירת קשר</a></li>
+        <li class="nav-link-mobile-flat"><a href="https://www.hotels.com/" target="_blank" rel="noopener" data-he="חבילות לינה" data-en="Stay Packages">חבילות לינה</a></li>
       </ul>
       </div>
       <div class="nav-actions">
@@ -3114,6 +3161,43 @@
         }
       });
     }
+
+    // תווית במה בתוך כל כרטיסיה (לצד השעה) — מוצגת רק במובייל, ראו
+    // .show-card-stage ב-CSS. נבנית מ-.stage-group-name/הצבע של הקבוצה
+    // העוטפת, כדי שלא נצטרך לשכפל את שם הבמה ידנית בכל כרטיסיה.
+    (function addStageBadgesToShowCards() {
+      const stageMeta = {
+        'Main Stage':     'var(--orange)',
+        'Red Tent':       'var(--red)',
+        'Blue Dome':      'var(--teal)',
+        'Green Pavilion': 'var(--yellow)'
+      };
+      document.querySelectorAll('.shows-list .show-card').forEach(card => {
+        const timeEl = card.querySelector('.show-card-time');
+        const meta = card.querySelector('.show-card-meta');
+        if (!timeEl || !meta) return;
+        const group = card.closest('.stage-group');
+        const stageName = group ? (group.querySelector('.stage-group-name')?.textContent.trim() || '') : '';
+        const color = stageMeta[stageName];
+        if (!color) return;
+
+        // עוטפים את time (+ divider אם קיים) יחד עם התווית, כדי שהשניים
+        // יופיעו צמודים זה לזה גם כשה-meta עובר ל-justify-content:space-between
+        const wrap = document.createElement('div');
+        wrap.className = 'show-card-time-wrap';
+        meta.insertBefore(wrap, timeEl);
+
+        const badge = document.createElement('div');
+        badge.className = 'show-card-stage';
+        badge.style.setProperty('--stage-color', color);
+        badge.innerHTML = '<span class="show-card-stage-dot"></span>' + stageName;
+        wrap.appendChild(badge);
+
+        wrap.appendChild(timeEl);
+        const divider = meta.querySelector('.show-card-divider');
+        if (divider) wrap.appendChild(divider);
+      });
+    })();
 
     // Pre-filter by stage when arriving via a link like lineup.html?stage=Main%20Stage
     (function applyStageFromURL() {

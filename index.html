@@ -1024,10 +1024,11 @@
       background: radial-gradient(circle at 30% 70%, rgba(255,107,26,0.15), transparent 60%);
     }
     /* גרסת מובייל בלבד — ממוקם אחרי הכלל הבסיסי של .artist-img כדי לגבור עליו
-       בקסקייד (אותה specificity, אז סדר המקור קובע). יותר מקום לתמונה — מגביהים
-       רק את גובה התמונה (וממילא את גובה הכרטיס), בלי לגעת ברוחב הכרטיס (60vw). */
+       בקסקייד (אותה specificity, אז סדר המקור קובע). מקטינים מעט את גובה התמונה
+       (וממילא את גובה הכרטיס) כדי שהתמונה תהיה יותר ריבועית — נטייה עדינה בלבד
+       לפורטרט (1/1.1) במקום הפורטרט הגבוה הקודם (3/4.6), בלי לגעת ברוחב הכרטיס. */
     @media (max-width: 600px) {
-      .artist-img { aspect-ratio: 3/4.6; }
+      .artist-img { aspect-ratio: 1/1.1; }
     }
 
     a.artist-card { display: block; text-decoration: none; color: inherit; }
@@ -1909,6 +1910,8 @@
       .schedule-table { font-size: 0.8rem; }
       .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 0; }
       .stat { border: none; }
+      /* סטריפ המספרים (40 שנות פסטיבל / 4 ימים / 4 במות / 78 הופעות) מוסתר במובייל */
+      #about-strip { display: none; }
     }
 
     @media (max-width: 600px) {
@@ -2286,6 +2289,7 @@
         <li class="nav-link-mobile-flat"><a href="#" data-he="הסעות" data-en="Shuttles">הסעות</a></li>
         <li class="nav-link-mobile-flat"><a href="./faq.html" data-he="שאלות נפוצות" data-en="FAQ">שאלות נפוצות</a></li>
         <li class="nav-link-mobile-flat"><a href="./contact.html" data-he="יצירת קשר" data-en="Contact">יצירת קשר</a></li>
+        <li class="nav-link-mobile-flat"><a href="https://www.hotels.com/" target="_blank" rel="noopener" data-he="חבילות לינה" data-en="Stay Packages">חבילות לינה</a></li>
       </ul>
       </div>
 
@@ -2323,7 +2327,7 @@
 
     <div class="hero-image-frame" aria-hidden="true">
       <video class="hero-bg-video"
-             autoplay muted loop playsinline
+             autoplay muted loop playsinline webkit-playsinline="true"
              preload="metadata"
              poster="./Graphig assets/hero-poster.jpg"
              aria-hidden="true">
@@ -2416,7 +2420,7 @@
     <div class="alt-lineup-section-inner">
 
       <div class="alt-lineup-header reveal">
-        <h2 class="alt-lineup-title"><span class="alt-lineup-title-accent">אמני</span> הפסטיבל</h2>
+        <h2 class="alt-lineup-title">ליין <span class="alt-lineup-title-accent">אפ</span></h2>
       </div>
 
       <div class="alt-lineup-grid reveal">
@@ -2964,7 +2968,7 @@
   <div id="lineup-outer">
     <div id="lineup-sticky">
       <div class="section-header" id="lineup">
-        <h2 class="section-title">הלייןאפ של <span class="accent">2026</span></h2>
+        <h2 class="section-title"><span class="accent">אמני</span> הפסטיבל</h2>
         <p class="section-desc">40 הופעות. 4 ימים. פסטיבל אחד.</p>
       </div>
       <div class="horiz-scroll-area">
@@ -3190,7 +3194,7 @@
 
     <div class="venue-layout">
       <a class="venue-photo-card reveal" href="./plaza.html">
-        <video autoplay muted loop playsinline
+        <video autoplay muted loop playsinline webkit-playsinline="true"
                preload="metadata"
                poster="./Graphig assets/gallery/port-aerial-drone-poster.jpg"
                aria-hidden="true">
@@ -4443,6 +4447,37 @@
         if (bg) bg.style.transform = `scale(1.04) translateY(${window.scrollY * 0.08}px)`;
       }, { passive: true });
     }
+
+    // ── Autoplay reliability (bug: iPhone — סרטונים לא מתחילים אוטומטית
+    //    ומציגים כפתור Play, שלחיצה עליו "מפעילה" את הלינק שעוטף אותם).
+    //    ב-iOS Safari play() לפעמים נדחה/נעצר (Low Power Mode, יציאה מרקע,
+    //    שינוי גודל/orientation שחושף מחדש וידאו שהיה display:none). מוודאים
+    //    muted דרך ה-property (לא רק attribute) וקוראים ל-play() מחדש בכל
+    //    נקודה שבה הדפדפן עשוי לעצור/לא להתחיל את הניגון. ---------------
+    (function ensureVideosAutoplay() {
+      const videos = Array.from(document.querySelectorAll('.hero-bg-video, .venue-photo-card video'));
+      if (!videos.length) return;
+      videos.forEach(v => { v.muted = true; v.defaultMuted = true; });
+      function tryPlayAll() {
+        videos.forEach(v => {
+          if (v.paused) {
+            const p = v.play();
+            if (p && p.catch) p.catch(() => { /* ינוסה שוב באירוע הבא */ });
+          }
+        });
+      }
+      tryPlayAll();
+      videos.forEach(v => {
+        v.addEventListener('loadedmetadata', tryPlayAll);
+        v.addEventListener('canplay', tryPlayAll);
+        v.addEventListener('pause', tryPlayAll);
+      });
+      document.addEventListener('visibilitychange', () => { if (!document.hidden) tryPlayAll(); });
+      window.addEventListener('pageshow', tryPlayAll);
+      window.addEventListener('resize', tryPlayAll);
+      window.addEventListener('orientationchange', tryPlayAll);
+      document.addEventListener('touchend', tryPlayAll, { once: true, passive: true });
+    })();
 
     // ── Water ripple canvas ───────────────────────────────────────
     (function () {
