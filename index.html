@@ -1599,6 +1599,10 @@
       box-shadow: 0 10px 30px rgba(224,86,11,0.18);
     }
     .merch-card-featured:hover { box-shadow: 0 16px 40px rgba(224,86,11,0.30); }
+    /* מוצרים שקיימים רק בקרוסלת המובייל (שקית בד/פוסטר/קפוצ'ון) — בדסקטופ
+       נשארים 4 המוצרים המקוריים (תקליט/כובע/בקבוק/חולצה) + כפתור "לכל
+       המוצרים בחנות" מתחתם; מוצג ל-≤600px, ראו override ב-@media למטה */
+    .merch-card-mobile-only { display: none; }
     .merch-badge {
       position: absolute; top: 0.85rem; inset-inline-start: 0.85rem;
       z-index: 3;
@@ -1652,12 +1656,17 @@
            רק מיקום ה-box של הגריד על העמוד, לא ריפוד פנימי של אזור הגלילה
            עצמו — ברגע שגוללים שמאלה הוא נעלם לגמרי מהתצוגה). */
         margin-inline-end: -1rem;
+        /* מרווח קטן וקבוע בתוך אזור הגלילה עצמו (לא ריפוד הסקשן שבוטל
+           למעלה) כדי שהכרטיס האחרון לא ייצמד לשול בסוף הגלילה */
+        padding-inline-end: 16px;
       }
       .merch-grid::-webkit-scrollbar { display: none; }
       .merch-grid .merch-card {
         flex: 0 0 60vw;
         scroll-snap-align: start;
       }
+      /* כל 7 המוצרים בקרוסלה הנגללת — רק במובייל (ראו הגדרת הבסיס למעלה) */
+      .merch-card-mobile-only { display: flex; }
       /* מבטל את אפקט ה-hover (הרמה + צל) בקרוסלת המובייל — מגע על מסך נוגע
          משאיר לפעמים מצב hover "תקוע" אחרי טאץ' / גלילה. */
       .merch-grid .merch-card:hover {
@@ -3282,8 +3291,8 @@
         </div>
       </a>
 
-      <!-- שקית בד -->
-      <a class="merch-card" href="./merch.html" aria-label="שקית בד של הפסטיבל — רכישה">
+      <!-- שקית בד — מובייל בלבד -->
+      <a class="merch-card merch-card-mobile-only" href="./merch.html" aria-label="שקית בד של הפסטיבל — רכישה">
         <div class="merch-img">
           <img src="./Graphig assets/merch/merch-tote.jpg" alt="שקית בד של פסטיבל ג׳אז ים סוף" width="600" height="600" loading="lazy">
         </div>
@@ -3294,8 +3303,8 @@
         </div>
       </a>
 
-      <!-- פוסטר -->
-      <a class="merch-card" href="./merch.html" aria-label="פוסטר הפסטיבל — רכישה">
+      <!-- פוסטר — מובייל בלבד -->
+      <a class="merch-card merch-card-mobile-only" href="./merch.html" aria-label="פוסטר הפסטיבל — רכישה">
         <div class="merch-img">
           <img src="./Graphig assets/merch/merch-poster.jpg" alt="פוסטר אמנותי של פסטיבל ג׳אז ים סוף" width="600" height="600" loading="lazy">
         </div>
@@ -3306,8 +3315,8 @@
         </div>
       </a>
 
-      <!-- קפוצ'ון -->
-      <a class="merch-card" href="./merch.html" aria-label="קפוצ'ון הפסטיבל — רכישה">
+      <!-- קפוצ'ון — מובייל בלבד -->
+      <a class="merch-card merch-card-mobile-only" href="./merch.html" aria-label="קפוצ'ון הפסטיבל — רכישה">
         <div class="merch-img">
           <img src="./Graphig assets/merch/merch-hoodie.jpg" alt="קפוצ'ון של פסטיבל ג׳אז ים סוף" width="600" height="600" loading="lazy">
         </div>
