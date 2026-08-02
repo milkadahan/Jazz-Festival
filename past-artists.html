@@ -373,7 +373,7 @@
     .page-hero {
       position: relative;
       overflow: hidden;
-      height: calc(400px + var(--ticker-h) + var(--nav-h));
+      height: calc(340px + var(--ticker-h) + var(--nav-h));
       display: flex;
       align-items: center;
       justify-content: center;
@@ -580,7 +580,7 @@
     .past-tl-year-wrap { text-align: center; }
     .past-tl-year-num {
       font-family: 'Google Sans', 'Hepta Slab', serif;
-      font-size: clamp(5rem, 14vw, 9rem);
+      font-size: clamp(4.5rem, 12vw, 8rem);
       font-weight: 400;
       line-height: 0.9;
       color: #d9382d;
@@ -733,6 +733,38 @@
       width: 100%;
     }
 
+    /* 2026 special layout: poster (right) + lineup column (left) */
+    .past-tl-poster-layout {
+      display: flex;
+      align-items: flex-start;
+      gap: 48px;
+      width: 100%;
+    }
+    .past-tl-poster-artists {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+    .past-tl-poster-artists .past-artists-grid {
+      justify-content: flex-start;
+    }
+    .past-tl-poster-image {
+      flex: 0 0 300px;
+      width: 300px;
+    }
+    .past-tl-poster-image img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+    }
+    @media (max-width: 900px) {
+      .past-tl-poster-layout { flex-direction: column; align-items: center; gap: 32px; }
+      .past-tl-poster-image { width: 220px; flex-basis: auto; }
+      .past-tl-poster-artists { width: 100%; }
+      .past-tl-poster-artists .past-artists-grid { justify-content: center; }
+    }
+
     /* ── ALT-ARTIST CHIP ── */
     .alt-artist-btn {
       background: transparent;
@@ -822,11 +854,12 @@
     /* ─── RESPONSIVE ───────────────────────────────────────────── */
     @media (max-width: 700px) {
       /* מובייל: גובה באנר אחיד (260px תוכן) לכל דפי הבאנר באתר, מלבד לוח ההופעות */
-      .page-hero { height: calc(260px + var(--ticker-h) + var(--nav-h)); }
+      .page-hero { height: calc(220px + var(--ticker-h) + var(--nav-h)); }
       .page-hero-content { padding-inline: 1.2rem; }
+      .page-hero-title { font-size: clamp(1.5rem, 6.2vw, 2.1rem); }
       .footer-grid { grid-template-columns: 1fr; gap: 1.8rem; }
       .past-timeline-section { padding: 2.5rem 0 3rem; }
-      .past-tl-year-num { font-size: clamp(4rem, 18vw, 7rem); }
+      .past-tl-year-num { font-size: clamp(3.5rem, 16vw, 6rem); }
       /* מובייל: מבטלים את חצי הגלילה — הגלילה נעשית ב-swipe/גרירה על ציר הזמן עצמו
          (הגרירה כבר מיושמת ב-JS וב-overflow-x:auto של .past-tl-track-wrap) */
       .past-tl-arrow { display: none; }
@@ -896,7 +929,6 @@
       <ul class="nav-links" id="navLinks">
         <li class="nav-link-mobile-flat"><a href="./index.html" data-he="דף הבית" data-en="Home">דף הבית</a></li>
         <li><a href="./index.html#artist-lineup-text" data-he="ליין אפ" data-en="Lineup">ליין אפ</a></li>
-        <li class="nav-link-mobile-flat"><a href="./index.html#lineup" data-he="אמני הפסטיבל" data-en="Festival Artists">אמני הפסטיבל</a></li>
         <li><a href="./lineup.html" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
         <li class="nav-link-mobile-flat"><a href="https://www.hotels.com/" target="_blank" rel="noopener" data-he="חבילות לינה" data-en="Stay Packages">חבילות לינה</a></li>
         <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
@@ -950,8 +982,8 @@
     <div class="page-hero-bg"></div>
     <div class="page-hero-grid"></div>
     <div class="page-hero-content">
-      <h1 class="page-hero-title">40 שנות<br><span class="accent">ג'אז באילת</span></h1>
-      <p class="page-hero-subtitle">מ-1986 עד 2026 — מאות אמנים מהעולם ומישראל על חוף ים סוף</p>
+      <h1 class="page-hero-title">40 שנות <span class="accent">ג'אז באילת</span></h1>
+      <p class="page-hero-subtitle">מ-1986 עד 2026 — מאות אמנים מהעולם<br>ומישראל על חוף ים סוף</p>
     </div>
   </div>
 
@@ -959,10 +991,6 @@
   <section class="past-timeline-section" aria-label="ציר זמן הפסטיבל">
 
     <div class="past-tl-inner">
-      <!-- Header -->
-      <div class="past-tl-header">
-        <h2 class="past-tl-heading">פסטיבל הג׳אז על ציר הזמן</h2>
-      </div>
       <!-- Big year number -->
       <div class="past-tl-year-wrap">
         <div class="past-tl-year-num" id="yearDisplayNum">2026</div>
@@ -1425,23 +1453,35 @@
 
     /* ─── RENDER ARTISTS ─── */
     function renderArtists(yearNum) {
-      var grid = document.getElementById('tlArtistsGrid');
+      var wrap = document.getElementById('pastArtistsWrap');
       var data = YEARS_DATA[yearNum];
 
       if (!data || !data.artists || data.artists.length === 0) {
-        grid.innerHTML = '<div class="past-tl-empty">פרטי אמנים עבור ' + yearNum + ' אינם זמינים כעת.</div>';
+        wrap.innerHTML = '<div class="past-artists-grid" id="tlArtistsGrid">'
+              + '<div class="past-tl-empty">פרטי אמנים עבור ' + yearNum + ' אינם זמינים כעת.</div>'
+              + '</div>';
         return;
       }
 
-      var html = '';
+      var pillsHtml = '';
       data.artists.forEach(function(a) {
-        html += '<div class="alt-artist-btn" style="--pill-bg:#e6d8d6;--pill-text:#2d2726;">'
+        pillsHtml += '<div class="alt-artist-btn" style="--pill-bg:#e6d8d6;--pill-text:#2d2726;">'
               + '<span class="featuring-pill-deco featuring-pill-deco--left"></span>'
               + '<span class="featuring-pill-text">' + a.name + '</span>'
               + '<span class="featuring-pill-deco featuring-pill-deco--right"></span>'
               + '</div>';
       });
-      grid.innerHTML = html;
+
+      if (yearNum === 2026) {
+        wrap.innerHTML = '<div class="past-tl-poster-layout">'
+              + '<div class="past-tl-poster-image">'
+              + '<img src="./Graphig assets/poster-2026.jpg" alt="פוסטר פסטיבל הג׳אז 2026 — 40 שנה, 11–14 בנובמבר 2026, נמל אילת" width="900" height="1600" loading="lazy">'
+              + '</div>'
+              + '<div class="past-tl-poster-artists"><div class="past-artists-grid" id="tlArtistsGrid">' + pillsHtml + '</div></div>'
+              + '</div>';
+      } else {
+        wrap.innerHTML = '<div class="past-artists-grid" id="tlArtistsGrid">' + pillsHtml + '</div>';
+      }
     }
 
     /* ─── SCROLL TIMELINE TO ACTIVE YEAR ─── */

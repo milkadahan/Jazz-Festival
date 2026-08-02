@@ -873,188 +873,14 @@
       background: linear-gradient(90deg, transparent, var(--border), transparent);
     }
 
-    /* ─── ABOUT STRIP / STATS ────────────────────────────────── */
-    /* שוחזר לאחר Light Mode — הצבעים token-driven, מתאימים לבהיר */
-    #about-strip {
-      padding: 2.5rem 3rem;
-      background: rgba(210, 140, 130, 0.08);
-    }
-    .about-stats {
-      display: flex; flex-wrap: wrap;
-      justify-content: center; align-items: center;
-      max-width: 1100px; margin-inline: auto;
-    }
-    .stat {
-      text-align: center; padding: 0.5rem 0;
-      flex: 1; min-width: 120px;
-      border-inline-end: 1px solid var(--border);
-    }
-    .stat:last-child { border-inline-end: none; }
-    .stat-num {
-      font-size: 2.9rem; font-weight: 900;
-      color: var(--orange);
-    }
-    .stat-label { font-size: 0.95rem; color: var(--text); margin-top: 0.2rem; }
-
     /* All content after hero sits above sticky background */
     /* Single stacking layer — prevents sub-pixel cracks between sections */
     #page-body {
       position: relative; z-index: 1;
       background: var(--bg);
     }
-    #lineup-outer, #hotels, #venue, #news, footer {
+    #hotels, #venue, #news, footer {
       position: relative;
-    }
-
-    /* ─── LINEUP – HORIZONTAL SCROLL (native, non scroll-jacking) ── */
-    /* Section sits in normal document flow — no sticky pin, no forced
-       extra height. Vertical page scroll is NEVER captured: the track-wrap
-       only has overflow-x, so a vertical wheel/trackpad gesture over it
-       bubbles straight to the page like anywhere else. Horizontal movement
-       is native scrolling (touch/trackpad/drag) + arrow buttons. */
-    #lineup-sticky {
-      display: flex; flex-direction: column;
-      padding-bottom: 120px;
-    }
-    /* padding-top שווה בדיוק ל-padding-bottom של .alt-lineup-section-inner (הסקשן הקודם) —
-       כדי שהמפריד (.divider) ביניהם יישב בדיוק באמצע המרחק בין שני הסקשנים. */
-    #lineup-sticky .section-header { padding: 80px 3rem 40px; margin-bottom: 0; }
-    .horiz-scroll-area {
-      position: relative;
-    }
-    .horiz-track-wrap {
-      overflow-x: auto; overflow-y: hidden;
-      -webkit-overflow-scrolling: touch;
-      scroll-behavior: smooth;
-      scrollbar-width: none; -ms-overflow-style: none;
-      cursor: grab;
-      /* negative margin + matching padding gives the hover lift/shadow
-         room to breathe without permanently changing the section's layout size */
-      padding: 90px 0;
-      margin: -90px 0;
-    }
-    .horiz-track-wrap::-webkit-scrollbar { display: none; }
-    .horiz-track-wrap.is-dragging { cursor: grabbing; scroll-behavior: auto; user-select: none; }
-    .horiz-track {
-      display: flex; gap: 1.5rem; padding: 0 3rem;
-      width: max-content;
-    }
-    /* prevent the browser's native link/image drag-ghost from hijacking mouse drag-to-scroll */
-    .horiz-track a, .horiz-track img { -webkit-user-drag: none; user-drag: none; }
-    /* Arrow buttons — absolutely positioned over the track edges */
-    .horiz-arrow {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      width: 44px; height: 44px; border-radius: 50%;
-      background: var(--card-bg);
-      border: 1.5px solid var(--border);
-      color: var(--muted);
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; font-size: 1.15rem; line-height: 1;
-      font-family: var(--font); z-index: 3;
-      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s, opacity 0.2s;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
-    }
-    .horiz-arrow--prev { right: 0.5rem; }
-    .horiz-arrow--next { left: 0.5rem; }
-    .horiz-arrow:hover:not(:disabled) {
-      background: var(--orange); border-color: var(--orange); color: #fff;
-      transform: translateY(-50%) scale(1.08);
-    }
-    .horiz-arrow:disabled { opacity: 0; pointer-events: none; }
-    @media (max-width: 900px) {
-      .horiz-arrow { display: none; } /* touch/trackpad drag covers mobile */
-    }
-    /* Progress bar */
-    .horiz-progress {
-      height: 2px; background: var(--border); margin: 0.5rem 3rem 0;
-      flex-shrink: 0;
-    }
-    .horiz-progress-bar {
-      height: 100%; width: 100%;
-      background: linear-gradient(90deg, var(--orange), var(--yellow));
-      transform: scaleX(0);
-      transform-origin: 100% 0; /* grows from the RTL start (right) */
-      will-change: transform;
-    }
-    /* hint text */
-    .horiz-hint {
-      text-align: center; padding: 0.5rem; font-size: 0.75rem;
-      color: var(--muted); letter-spacing: 0.12em; flex-shrink: 0;
-    }
-
-    .artist-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 16px; overflow: hidden;
-      transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94),
-                  box-shadow 0.35s, border-color 0.35s;
-      position: relative;
-      cursor: pointer;
-      flex-shrink: 0;
-      width: 380px;
-    }
-    .artist-card:hover {
-      transform: translateY(-8px) scale(1.02);
-      border-color: rgba(255,107,26,0.5);
-      box-shadow: 0 20px 50px rgba(255,107,26,0.2);
-    }
-    /* מובייל: מקטינים את הכרטיס כך שבתצוגה הראשונית (לפני גלילה) ייראה כרטיס
-       וחצי — הרמז החזותי לכך שיש עוד אמנים בגלילה אופקית. הכרטיס הראשון
-       ממוקם 16px מהשוליים הימניים (dir=rtl — זה הקצה שבו הפריט הראשון בתור). */
-    @media (max-width: 600px) {
-      .horiz-track { padding-right: 16px; gap: 16px; }
-      .artist-card { width: 68vw; }
-    }
-
-    .artist-img {
-      width: 100%; aspect-ratio: 16/12;
-      background: linear-gradient(135deg, #1a1025, #0d1a2a);
-      background-size: cover;
-      background-position: center top;
-      display: flex; align-items: center; justify-content: center;
-      position: relative; overflow: hidden;
-    }
-    .artist-img .placeholder-icon {
-      font-size: 3rem; opacity: 0.3;
-    }
-    .artist-img-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(7,8,15,0.9) 0%, transparent 50%);
-    }
-    .artist-img::after {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(circle at 30% 70%, rgba(255,107,26,0.15), transparent 60%);
-    }
-    /* גרסת מובייל בלבד — ממוקם אחרי הכלל הבסיסי של .artist-img כדי לגבור עליו
-       בקסקייד (אותה specificity, אז סדר המקור קובע). מקטינים מעט את גובה התמונה
-       (וממילא את גובה הכרטיס) כדי שהתמונה תהיה יותר ריבועית — נטייה עדינה בלבד
-       לפורטרט (1/1.1) במקום הפורטרט הגבוה הקודם (3/4.6), בלי לגעת ברוחב הכרטיס. */
-    @media (max-width: 600px) {
-      .artist-img { aspect-ratio: 1/1.1; }
-    }
-
-    a.artist-card { display: block; text-decoration: none; color: inherit; }
-    .artist-info { padding: 1.2rem; }
-    .artist-name { font-size: 1.05rem; font-weight: 700; }
-    .artist-tag {
-      display: inline-block; margin-top: 0.6rem;
-      background: rgba(255,107,26,0.15); color: var(--orange-text);
-      border-radius: 50px; padding: 0.2rem 0.8rem; font-size: 0.75rem;
-    }
-
-    /* Headliner tag */
-    .headliner-badge {
-      position: absolute; top: 12px; inset-inline-start: 12px;
-      background: var(--btn-gradient);
-      color: #fff; border-radius: 50px; padding: 0.25rem 0.8rem;
-      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
-      text-transform: uppercase; z-index: 2;
-    }
-    /* Ticket-style variant: ללא רקע על ה-wrapper עצמו */
-    .headliner-badge--ticket {
-      background: none;
-      padding: 0;
-      border-radius: 0;
     }
 
     /* ─── TICKET-STYLE TAG — Figma node 142:815 "Featuring Name" ──────
@@ -1912,19 +1738,13 @@
          היא זו שגרמה לפער מול שאר כותרות הסקשנים (.alt-lineup-title,
          .ticket-plans-title...) שאין להן override דומה וממשיכות לגדול
          עם clamp() גם ברוחבי טאבלט. .section-title עכשיו זהה להן. */
-      #about-strip { padding-top: 60px; padding-bottom: 60px; }
       /* padding-top מבוטל: הרווח מלמעלה כבר מגיע מה-padding-bottom של הסקשן
          הקודם (מסלולי כרטיסים) — פדינג עליון נוסף כאן נראה כרווח כפול */
       #hotels { padding-top: 0; padding-bottom: 60px; }
       footer { padding: 3rem 1.5rem 2rem; }
       .modal-header, .modal-controls, .modal-body { padding-inline: 1.5rem; }
       .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .artist-card.featured { grid-column: span 1; }
       .schedule-table { font-size: 0.8rem; }
-      .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 0; }
-      .stat { border: none; }
-      /* סטריפ המספרים (40 שנות פסטיבל / 4 ימים / 4 במות / 78 הופעות) מוסתר במובייל */
-      #about-strip { display: none; }
     }
 
     @media (max-width: 600px) {
@@ -1946,8 +1766,6 @@
       .hotel-banner { flex-direction: column; padding: 48px 16px 24px; }
       .btn-primary, .btn-secondary { width: 100%; }
       .hero-subtitle-text { font-size: clamp(18px, 5vw, 28px); }
-      #about-strip { padding: 60px 1rem; }
-      .stat { min-width: 90px; }
     }
 
     /* ─── HOTEL BANNER · MOBILE (≤600px) ──────────────────────────
@@ -2280,7 +2098,6 @@
       <ul class="nav-links" id="navLinks">
         <li class="nav-link-mobile-flat"><a href="./index.html" data-he="דף הבית" data-en="Home">דף הבית</a></li>
         <li><a href="#artist-lineup-text" data-he="ליין אפ" data-en="Lineup">ליין אפ</a></li>
-        <li class="nav-link-mobile-flat"><a href="#lineup" data-he="אמני הפסטיבל" data-en="Festival Artists">אמני הפסטיבל</a></li>
         <li><a href="./lineup.html" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
         <li class="nav-link-mobile-flat"><a href="https://www.hotels.com/" target="_blank" rel="noopener" data-he="חבילות לינה" data-en="Stay Packages">חבילות לינה</a></li>
         <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
@@ -2406,28 +2223,6 @@
   </div><!-- /hero-wrapper -->
 
   <main id="page-body">
-
-  <!-- ── ABOUT STRIP / STATS ── -->
-  <div id="about-strip" class="reveal">
-    <div class="about-stats">
-      <div class="stat">
-        <div class="stat-num">40</div>
-        <div class="stat-label">שנות פסטיבל</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">4</div>
-        <div class="stat-label">ימים</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">4</div>
-        <div class="stat-label">במות</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">78</div>
-        <div class="stat-label">הופעות</div>
-      </div>
-    </div>
-  </div>
 
   <!-- ── ARTIST LINEUP TEXT SECTION ── -->
   <section id="artist-lineup-text">
@@ -2697,8 +2492,6 @@
     /* Responsive */
     @media (max-width: 900px) {
       .alt-lineup-section-inner { padding: 60px 1.5rem; }
-      #lineup-sticky .section-header { padding-top: 60px; }
-      #lineup-sticky { padding-bottom: 60px; }
       .featuring-pill-text { font-size: 18px; }
       .featuring-pill-sub { font-size: 15px; }
       .alt-lineup-grid { gap: 12px 24px; }
@@ -2715,7 +2508,6 @@
     }
     @media (max-width: 600px) {
       .alt-lineup-section-inner { padding: 60px 1rem; }
-      #lineup-sticky .section-header { padding-top: 60px; }
       .alt-artist-btn { max-width: calc(100vw - 3.5rem); min-width: 0; }
       .featuring-pill-text { font-size: 13px; padding-block: 6px; }
       .featuring-pill-sub { font-size: 11px; }
@@ -2977,88 +2769,6 @@
         closeArtistDrawer();
     });
   </script>
-
-  <div class="divider"></div>
-
-  <!-- ── LINEUP (native horizontal scroll — never captures page scroll) ── -->
-  <div id="lineup-outer">
-    <div id="lineup-sticky">
-      <div class="section-header" id="lineup">
-        <h2 class="section-title"><span class="accent">אמני</span> הפסטיבל</h2>
-        <p class="section-desc">40 הופעות. 4 ימים. פסטיבל אחד.</p>
-      </div>
-      <div class="horiz-scroll-area">
-        <button type="button" class="horiz-arrow horiz-arrow--prev" id="horizPrev" onclick="scrollLineup(-1)" aria-label="אמנים קודמים">→</button>
-        <button type="button" class="horiz-arrow horiz-arrow--next" id="horizNext" onclick="scrollLineup(1)" aria-label="עוד אמנים">←</button>
-        <div class="horiz-track-wrap" id="horizTrackWrap">
-        <div class="horiz-track" id="horizTrack">
-
-          <a class="artist-card featured" href="./show.html?artist=three-cohens">
-            <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/3-cohens.jpg'); background-position: center 40%"><div class="artist-img-overlay"></div></div>
-            <div class="artist-info">
-              <div class="artist-name">The 3 Cohens</div>
-            </div>
-          </a>
-          <a class="artist-card featured" href="./show.html?artist=chava-alberstein">
-            <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/chava-alberstein.jpg'); background-position: center 20%"><div class="artist-img-overlay"></div></div>
-            <div class="artist-info">
-              <div class="artist-name">חוה אלברשטיין</div>
-            </div>
-          </a>
-          <a class="artist-card featured" href="./show.html?artist=anat-cohen">
-            <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/anat-cohen.jpg'); background-position: center 20%"><div class="artist-img-overlay"></div></div>
-            <div class="artist-info">
-              <div class="artist-name">Anat Cohen</div>
-            </div>
-          </a>
-          <a class="artist-card" href="./show.html?artist=eli-degibri">
-            <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/eli-degibri.jpg'); background-position: center 15%"><div class="artist-img-overlay"></div></div>
-            <div class="artist-info">
-              <div class="artist-name">Eli Degibri Quartet</div>
-            </div>
-          </a>
-          <a class="artist-card" href="./show.html?artist=avot-uvanim">
-            <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/jazz-atmosphere.jpg')"><div class="artist-img-overlay"></div></div>
-            <div class="artist-info">
-              <div class="artist-name">אבות ובנים</div>
-            </div>
-          </a>
-          <a class="artist-card" href="./show.html?artist=shalosh">
-            <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/shalosh.jpg'); background-position: center 25%"><div class="artist-img-overlay"></div></div>
-            <div class="artist-info">
-              <div class="artist-name">SHALOSH</div>
-            </div>
-          </a>
-          <a class="artist-card" href="./show.html?artist=hagai-amir">
-            <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/hagai-amir.jpg')"><div class="artist-img-overlay"></div></div>
-            <div class="artist-info">
-              <div class="artist-name">שישיית חגי אמיר</div>
-            </div>
-          </a>
-          <a class="artist-card" href="./show.html?artist=las-piratas">
-            <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/las-piratas.jpg'); background-position: center 30%"><div class="artist-img-overlay"></div></div>
-            <div class="artist-info">
-              <div class="artist-name">Las Piratas Piratas</div>
-            </div>
-          </a>
-          <a class="artist-card" href="./show.html?artist=jazz-orchestra">
-            <div class="artist-img" style="background-image: url('./Graphig assets/artist-photos/jazz-orchestra.jpg')"><div class="artist-img-overlay"></div></div>
-            <div class="artist-info">
-              <div class="artist-name">תזמורת הג׳אז</div>
-            </div>
-          </a>
-          <div class="artist-card" style="background:rgba(255,107,26,0.05); border-color:rgba(255,107,26,0.2); display:flex; align-items:center; justify-content:center; text-align:center; padding:2rem;">
-            <div>
-              <div style="font-weight:700; margin-bottom:0.4rem">+ עוד אמנים</div>
-              <div style="font-size:0.8rem; color:var(--muted)">יתווספו בקרוב</div>
-            </div>
-          </div>
-
-        </div><!-- /horiz-track -->
-        </div><!-- /horiz-track-wrap -->
-      </div><!-- /horiz-scroll-area -->
-    </div>
-  </div>
 
   <!-- ── TICKET PLANS ── -->
   <section id="ticket-plans" dir="rtl" class="ticket-plans-section">
@@ -4212,89 +3922,6 @@
       if (e.key === 'Escape') closeLineupModal();
     });
 
-    // ── Lineup horizontal scroll — NATIVE scroll, never traps the page ──
-    // The track-wrap only has overflow-x, so vertical wheel/trackpad
-    // scrolling over it is never intercepted: with no vertical overflow to
-    // consume, the browser bubbles the scroll straight to the page exactly
-    // as it would anywhere else. Horizontal movement is 100% native
-    // (touch swipe, trackpad shift+wheel / horizontal wheel) plus a
-    // mouse drag-to-scroll fallback and the two arrow buttons below —
-    // nothing here ever calls preventDefault() on a wheel/scroll event.
-    (function () {
-      const wrap = document.getElementById('horizTrackWrap');
-      const bar  = document.getElementById('horizBar');
-      const prevBtn = document.getElementById('horizPrev');
-      const nextBtn = document.getElementById('horizNext');
-      if (!wrap) return;
-
-      function maxScroll() {
-        return Math.max(0, wrap.scrollWidth - wrap.clientWidth);
-      }
-
-      // Math.abs() keeps this correct regardless of which scrollLeft sign
-      // convention the browser uses for RTL containers (0→+max or 0→-max) —
-      // both conventions start at 0 and move away from it toward max.
-      function progress() {
-        const max = maxScroll();
-        if (max <= 0) return 0;
-        return Math.min(1, Math.max(0, Math.abs(wrap.scrollLeft) / max));
-      }
-
-      function updateUI() {
-        const p = progress();
-        if (bar) bar.style.transform = `scaleX(${p})`;
-        if (prevBtn) prevBtn.disabled = p <= 0.01;
-        if (nextBtn) nextBtn.disabled = p >= 0.99;
-      }
-
-      // Direction convention: this track keeps the page's natural RTL flow
-      // (first card on the right), so "next" (reveal further cards) always
-      // moves scrollLeft further from 0, and "prev" always moves it back
-      // toward 0 — regardless of the browser's +/- sign convention.
-      window.scrollLineup = function (dir) {
-        const max = maxScroll();
-        if (max <= 0) return;
-        const sign = wrap.scrollLeft < 0 ? -1 : 1;
-        const step = Math.min(420, wrap.clientWidth * 0.85);
-        wrap.scrollBy({ left: sign * dir * step, behavior: 'smooth' });
-      };
-
-      wrap.addEventListener('scroll', updateUI, { passive: true });
-      window.addEventListener('resize', updateUI, { passive: true });
-      updateUI();
-
-      // ── Mouse drag-to-scroll (mice without a horizontal wheel axis) ──
-      let isDown = false, dragged = false, startX = 0, startScroll = 0;
-
-      wrap.addEventListener('mousedown', function (e) {
-        // Without this, the browser starts its own native link/image drag
-        // on mousemove (cards are <a> tags), which hijacks the gesture and
-        // stops our mousemove handler from getting further events.
-        e.preventDefault();
-        isDown = true; dragged = false;
-        wrap.classList.add('is-dragging');
-        startX = e.pageX;
-        startScroll = wrap.scrollLeft;
-      });
-      ['mouseup', 'mouseleave'].forEach(function (ev) {
-        wrap.addEventListener(ev, function () {
-          isDown = false;
-          wrap.classList.remove('is-dragging');
-        });
-      });
-      wrap.addEventListener('mousemove', function (e) {
-        if (!isDown) return;
-        const walk = e.pageX - startX;
-        if (Math.abs(walk) > 4) dragged = true;
-        wrap.scrollLeft = startScroll - walk;
-      });
-      // Suppress the artist-card click that would otherwise fire right
-      // after a drag ends (so dragging never accidentally opens a show page)
-      wrap.addEventListener('click', function (e) {
-        if (dragged) { e.preventDefault(); e.stopPropagation(); dragged = false; }
-      }, true);
-    })();
-
     // ── Mobile carousels — seamless infinite loop ──────────────────
     // Clones the first/last card to the opposite ends of the track so
     // swiping past an edge wraps around instead of stopping. `align`
@@ -4515,41 +4142,6 @@
       }
       window.addEventListener('scroll', onScroll, { passive: true });
       update();
-    })();
-
-    // ── Stat count-up animation ────────────────────────────────────
-    (function () {
-      const statNums = document.querySelectorAll('.stat-num');
-      const aboutStrip = document.getElementById('about-strip');
-      if (!statNums.length || !aboutStrip || prefersReducedMotion) return;
-
-      function animateCountUp(el) {
-        const raw = el.textContent.trim();
-        const m = raw.match(/^(\D*)(\d+)(\D*)$/);
-        if (!m) return;
-        const [, prefix, digits, suffix] = m;
-        const target = parseInt(digits, 10);
-        const duration = 1000;
-        const startTime = performance.now();
-        function tick(now) {
-          const progress = Math.min((now - startTime) / duration, 1);
-          const eased = 1 - Math.pow(1 - progress, 3);
-          el.textContent = prefix + Math.round(target * eased) + suffix;
-          if (progress < 1) requestAnimationFrame(tick);
-          else el.textContent = raw;
-        }
-        requestAnimationFrame(tick);
-      }
-
-      const statObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            statNums.forEach(el => animateCountUp(el));
-            statObserver.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.4 });
-      statObserver.observe(aboutStrip);
     })();
 
     // ── Hero bg subtle parallax ───────────────────────────────────
@@ -4971,27 +4563,6 @@ document.getElementById('panelGenre').textContent  = data.genre  || '';
     document.addEventListener('click', function(e) {
       if (e.target.closest('.show-panel') || e.target.closest('.show-panel-overlay')) return;
       if (e.target.closest('.modal-close')) return;
-
-      // Carousel artist cards
-      var card = e.target.closest('#horizTrack .artist-card');
-      if (card) {
-        var cardName = card.querySelector('.artist-name');
-        if (!cardName) return;
-        var _carouselSlugs = {
-          'The 3 Cohens': 'main-1211-2000',
-          "חוה אלברשטיין": 'main-1311-2000',
-          'Anat Cohen': 'teal-1411-1230',
-          'Eli Degibri Quartet': 'main-1311-1230',
-          "אבות ובנים": 'red-1211-1800',
-          'SHALOSH': 'red-1311-2145',
-          "שישיית חגי אמיר": 'teal-1311-1800',
-          'Las Piratas Piratas': 'teal-1311-2230',
-          "תזמורת הג'אז": 'main-1411-1445'
-        };
-        var cSlug = _carouselSlugs[cardName.textContent.trim()];
-        if (cSlug) window.location.href = 'show.html?show=' + cSlug;
-        return;
-      }
 
       // Schedule table show blocks
       var block = e.target.closest('.show-block');
