@@ -9,7 +9,7 @@
   <meta property="og:image" content="./Graphig assets/og-image.jpg" />
   <meta property="og:locale" content="he_IL" />
   <meta property="og:site_name" content="Red Sea Jazz Festival" />
-  <meta name="theme-color" content="#E0560B" />
+  <meta name="theme-color" content="#D5645F" />
   <link rel="icon" type="image/x-icon" href="./favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
@@ -55,8 +55,8 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --bg: #FAF4E9; --bg2: #F3E9D6;
-      --orange: #E0560B; --yellow: #E0A800; --red: #D62246; --teal: #0A8F8E;
-      --text: #3A2A1E; --muted: #6A5540; --yellow-text: #7A5C00; --teal-text: #086665; --orange-text: #B8440A; --orange-btn: #C94A08; --card-bg: #FFFDF8;
+      --orange: #D5645F; --yellow: #E0A800; --red: #D62246; --teal: #0A8F8E;
+      --text: #521648; --text-rgb: 82,22,72; --muted: #6A5540; --yellow-text: #7A5C00; --teal-text: #086665; --orange-text: #C93C36; --orange-btn: #CF4943; --card-bg: #FFFDF8;
       --border: rgba(58,42,30,0.12); --border-strong: rgba(58,42,30,0.22);
       --btn-gradient: linear-gradient(135deg, var(--orange-btn), var(--red));
       --shadow: rgba(58,42,30,0.10);
@@ -69,8 +69,8 @@
     button { font-family: var(--font); cursor: pointer; }
 
     /* ── TICKER ── */
-    .ticker-bar { position: fixed; top: 0; left: 0; right: 0; height: var(--ticker-h); z-index: 101; background: #2d2726; display: flex; align-items: center; direction: ltr; overflow: hidden; border-bottom: 1px solid rgba(224,86,11,0.3); }
-    .ticker-label { flex-shrink: 0; padding: 0 1.4rem 0 1rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; color: var(--orange-text); text-transform: uppercase; border-right: 1px solid rgba(224,86,11,0.35); white-space: nowrap; }
+    .ticker-bar { position: fixed; top: 0; left: 0; right: 0; height: var(--ticker-h); z-index: 101; background: #290B24; display: flex; align-items: center; direction: ltr; overflow: hidden; border-bottom: 1px solid rgba(213,100,95,0.3); }
+    .ticker-label { flex-shrink: 0; padding: 0 1.4rem 0 1rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; color: var(--orange-text); text-transform: uppercase; border-right: 1px solid rgba(213,100,95,0.35); white-space: nowrap; }
     .ticker-track-wrap { flex: 1; overflow: hidden; }
     .ticker-track { display: flex; direction: ltr; animation: ticker-scroll 28s linear infinite; will-change: transform; width: max-content; }
     .ticker-item { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; color: #e6d8d6; padding: 0 2.5rem; white-space: nowrap; }
@@ -88,9 +88,9 @@
     nav.scrolled .nav-logo-img { height: 44px; }
     .nav-inner { flex: 1; display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; }
     .nav-links { display: flex; gap: 1.8rem; list-style: none; font-size: 0.88rem; font-weight: 500; }
-    .nav-links a { position: relative; padding-bottom: 3px; transition: color 0.25s; color: rgba(58,42,30,0.78); }
-    .nav-links a::after { content: ''; position: absolute; bottom: 0; inset-inline-end: 0; width: 0; height: 2px; background: linear-gradient(90deg, var(--orange), #E84021); transition: width 0.3s; }
-    .nav-links a:hover, .nav-links a.active { background: linear-gradient(90deg, var(--orange), #E84021); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .nav-links a { position: relative; padding-bottom: 3px; transition: color 0.25s; color: rgba(var(--text-rgb),0.78); }
+    .nav-links a::after { content: ''; position: absolute; bottom: 0; inset-inline-end: 0; width: 0; height: 2px; background: linear-gradient(90deg, #F3746F, #F3746F); transition: width 0.3s; }
+    .nav-links a:hover, .nav-links a.active { background: linear-gradient(90deg, #F3746F, #F3746F); -webkit-background-clip: text; background-clip: text; color: transparent; }
     .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
     .nav-links a.active { font-weight: 700; }
     /* ── Nav dropdown: "מידע חשוב" — הקישור היחיד בטול-בר עם תת-תפריט (3 בנים) ── */
@@ -99,16 +99,16 @@
       display: flex; align-items: center; gap: 0.35rem;
       background: none; border: none; padding: 0 0 3px; margin: 0;
       font: inherit; font-size: inherit; font-weight: 500;
-      color: rgba(58,42,30,0.78); cursor: pointer; position: relative;
+      color: rgba(var(--text-rgb),0.78); cursor: pointer; position: relative;
     }
     .nav-drop-toggle::after {
       content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
       width: 0; height: 2px;
-      background: linear-gradient(90deg, var(--orange), #E84021);
+      background: linear-gradient(90deg, #F3746F, #F3746F);
       transition: width 0.3s;
     }
     .nav-drop-toggle:hover, .nav-drop-toggle.open {
-      background: linear-gradient(90deg, var(--orange), #E84021);
+      background: linear-gradient(90deg, #F3746F, #F3746F);
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .nav-drop-toggle:hover::after, .nav-drop-toggle.open::after { width: 100%; }
@@ -132,17 +132,17 @@
       white-space: nowrap; text-align: start;
       background: none; border: none; width: 100%; cursor: pointer; font-family: inherit;
     }
-    .nav-drop-panel > a:hover { background: rgba(224,86,11,0.08); color: var(--orange-text); }
-    .nav-drop-panel > a.active { color: var(--orange-text); font-weight: 700; }
+    .nav-drop-panel > a:hover { background: rgba(213,100,95,0.08); color: #F3746F; }
+    .nav-drop-panel > a.active { color: #F3746F; font-weight: 700; }
 
     .nav-actions { display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0; }
-    .nav-btn-primary { background: var(--btn-gradient); color: var(--on-accent); border: none; border-radius: 50px; padding: 0.5rem 1.3rem; font-size: 0.85rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 14px rgba(224,86,11,0.32); transition: transform 0.2s, box-shadow 0.2s; text-decoration: none; display: inline-block; }
-    .nav-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(224,86,11,0.45); }
+    .nav-btn-primary { background: var(--btn-gradient); color: var(--on-accent); border: none; border-radius: 50px; padding: 0.5rem 1.3rem; font-size: 0.85rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 14px rgba(213,100,95,0.32); transition: transform 0.2s, box-shadow 0.2s; text-decoration: none; display: inline-block; }
+    .nav-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(213,100,95,0.45); }
     .nav-btn-secondary { background: transparent; color: var(--text); border: 1.5px solid var(--border-strong); border-radius: 50px; padding: 0.48rem 1.2rem; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: border-color 0.2s, color 0.2s, transform 0.2s; text-decoration: none; display: inline-block; }
     .nav-btn-secondary:hover { border-color: var(--orange); color: var(--orange-text); transform: translateY(-2px); }
     .nav-lang-sep { width: 1px; height: 20px; flex-shrink: 0; background: var(--border-strong); margin-inline: 0.3rem; }
     .nav-btn-lang { background: transparent; color: var(--text); border: 1.5px solid var(--border-strong); border-radius: 50px; padding: 0.45rem 0.9rem; font-size: 0.85rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.35rem; transition: border-color 0.2s, color 0.2s; font-family: var(--font); }
-    .nav-btn-lang:hover { border-color: var(--orange); color: var(--orange-text); }
+    .nav-btn-lang:hover { border-color: var(--orange); color: #F3746F; }
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; border: none; background: transparent; }
     .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
     /* תפריט פתוח: שני הפסים החיצוניים מסתובבים ל-X, האמצעי נעלם */
@@ -291,11 +291,11 @@
       border: none; border-radius: 50px; padding: 0.6rem 1.4rem;
       font-size: 0.88rem; font-weight: 700; cursor: pointer;
       text-decoration: none; font-family: var(--font);
-      box-shadow: 0 3px 12px rgba(224,86,11,0.3);
+      box-shadow: 0 3px 12px rgba(213,100,95,0.3);
       white-space: nowrap;
       transition: transform 0.2s, box-shadow 0.2s;
     }
-    .show-perf-ticket-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(224,86,11,0.48); }
+    .show-perf-ticket-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(213,100,95,0.48); }
 
     @media (max-width: 620px) {
       .show-perf-card { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
@@ -354,7 +354,7 @@
   <!-- NAV -->
   <nav id="navbar">
     <a class="nav-logo-tab" href="./index.html">
-      <img src="State=Vertical.svg" alt="Red Sea Jazz Festival" class="nav-logo-img" width="80" height="80" />
+      <img src="State=Vertical.svg?v=2" alt="Red Sea Jazz Festival" class="nav-logo-img" width="80" height="80" />
     </a>
     <div class="nav-inner">
       <div class="mobile-menu-panel" id="mobileMenuPanel">
@@ -572,7 +572,7 @@
         imgPosition: 'center 60%',
         description: ['טקס הפתיחה הרשמי של פסטיבל ג׳אז ים סוף מהדורת היובל — 40 שנה לפסטיבל. חגיגת פתיחה עם אמנים, מוסיקה ומסר מיוחד לציון ארבעה עשורים של מוסיקה חיה על חוף ים סוף.'],
         shows: [
-          { slug:'main-1111-1800', stage:'Main Stage', stageColor:'#E0560B', dayLabel:'יום ד׳', date:'11 בנובמבר 2026', time:'18:00', tag:'אירוע פתיחה', isHeadliner:false }
+          { slug:'main-1111-1800', stage:'Main Stage', stageColor:'#D5645F', dayLabel:'יום ד׳', date:'11 בנובמבר 2026', time:'18:00', tag:'אירוע פתיחה', isHeadliner:false }
         ]
       },
 
@@ -583,7 +583,7 @@
         imgPosition: 'center 25%',
         description: ['שלישיית SHALOSH – ג׳אז ישראלי עכשווי שמשלב אנרגיה, עומק ורגישות. הם חוגגים בפסטיבל 2026 השקת אלבום ראשון, עם אורח מיוחד: רוני איתן.'],
         shows: [
-          { slug:'main-1111-2000', stage:'Main Stage', stageColor:'#E0560B', dayLabel:'יום ד׳', date:'11 בנובמבר 2026', time:'20:00', tag:'השקת אלבום', isHeadliner:false },
+          { slug:'main-1111-2000', stage:'Main Stage', stageColor:'#D5645F', dayLabel:'יום ד׳', date:'11 בנובמבר 2026', time:'20:00', tag:'השקת אלבום', isHeadliner:false },
           { slug:'red-1311-2145', stage:'Red Tent', stageColor:'#D62246', dayLabel:'יום ו׳', date:'13 בנובמבר 2026', time:'21:45', tag:'השקת אלבום · אורח: רוני איתן', isHeadliner:false }
         ]
       },
@@ -595,7 +595,7 @@
         imgPosition: 'center 40%',
         description: ['Las Piratas Piratas מביאים ערבי ג׳אז לטיני אנרגטיים עם ריתמוסים חמים, כניסה חופשית ומוסיקה שגורמת לגוף לזוז. חגיגה אמיתית לפתיחת ולסיום הפסטיבל.'],
         shows: [
-          { slug:'main-1111-2200', stage:'Main Stage', stageColor:'#E0560B', dayLabel:'יום ד׳', date:'11 בנובמבר 2026', time:'22:00', tag:'כניסה חופשית', isHeadliner:false },
+          { slug:'main-1111-2200', stage:'Main Stage', stageColor:'#D5645F', dayLabel:'יום ד׳', date:'11 בנובמבר 2026', time:'22:00', tag:'כניסה חופשית', isHeadliner:false },
           { slug:'teal-1311-2230', stage:'Blue Dome', stageColor:'#0A8F8E', dayLabel:'יום ו׳', date:'13 בנובמבר 2026', time:'22:30', tag:'כניסה חופשית', isHeadliner:false }
         ]
       },
@@ -670,7 +670,7 @@
           'על העיבודים והניצוח אמון עודד לב-ארי – שיצר עבור הפרויקט עולם מוזיקלי המשלב תזמור עשיר ודיאלוג סוחף. מפגש חד-פעמי של אלתור, צבע, סווינג ואינטראקציה משפחתית במיטבה.'
         ],
         shows: [
-          { slug:'main-1211-2000', stage:'Main Stage', stageColor:'#E0560B', dayLabel:'יום ה׳', date:'12 בנובמבר 2026', time:'20:00', tag:'Headliner · Artist Residence', isHeadliner:true },
+          { slug:'main-1211-2000', stage:'Main Stage', stageColor:'#D5645F', dayLabel:'יום ה׳', date:'12 בנובמבר 2026', time:'20:00', tag:'Headliner · Artist Residence', isHeadliner:true },
           { slug:'yellow-1411-1000', stage:'Green Pavilion', stageColor:'#E0A800', dayLabel:'שבת', date:'14 בנובמבר 2026', time:'10:00', tag:'Artist Residence', isHeadliner:true }
         ]
       },
@@ -682,7 +682,7 @@
         imgPosition: '50% top',
         description: ['ג׳ימבו ג׳אז מגיע לנמל אילת עם אורח מיוחד — תמיר בר. ג׳אז ישראלי אנרגטי לסיום לילה מושלם.'],
         shows: [
-          { slug:'main-1211-2230', stage:'Main Stage', stageColor:'#E0560B', dayLabel:'יום ה׳', date:'12 בנובמבר 2026', time:'22:30', tag:'', isHeadliner:false }
+          { slug:'main-1211-2230', stage:'Main Stage', stageColor:'#D5645F', dayLabel:'יום ה׳', date:'12 בנובמבר 2026', time:'22:30', tag:'', isHeadliner:false }
         ]
       },
 
@@ -723,7 +723,7 @@
         imgPosition: 'center 8%',
         description: ['רביעיית הג׳אז של אלי דה-ג׳יברי – מופע מיוחד לפסטיבל עם רביעיית כלי מיתר ואורח מיוחד: שם טוב לוי. הצלילים האינטלקטואליים של דה-ג׳יברי פוגשים את הלהט הרגשי של שם טוב לוי.'],
         shows: [
-          { slug:'main-1311-1230', stage:'Main Stage', stageColor:'#E0560B', dayLabel:'יום ו׳', date:'13 בנובמבר 2026', time:'12:30', tag:'Headliner · מיוחד לפסטיבל', isHeadliner:true }
+          { slug:'main-1311-1230', stage:'Main Stage', stageColor:'#D5645F', dayLabel:'יום ו׳', date:'13 בנובמבר 2026', time:'12:30', tag:'Headliner · מיוחד לפסטיבל', isHeadliner:true }
         ]
       },
 
@@ -735,7 +735,7 @@
         imgPosition: 'center 20%',
         description: ['ערב מיוחד עם גדולת הזמרת הישראלית – חוה אלברשטיין. עיבודי ג׳אז ייחודיים לשיריה הנצחיים מביאים ממד חדש לפנינים מהרפרטואר העשיר שלה.'],
         shows: [
-          { slug:'main-1311-2000', stage:'Main Stage', stageColor:'#E0560B', dayLabel:'יום ו׳', date:'13 בנובמבר 2026', time:'20:00', tag:'Headliner · מיוחד לפסטיבל', isHeadliner:true }
+          { slug:'main-1311-2000', stage:'Main Stage', stageColor:'#D5645F', dayLabel:'יום ו׳', date:'13 בנובמבר 2026', time:'20:00', tag:'Headliner · מיוחד לפסטיבל', isHeadliner:true }
         ]
       },
 
@@ -779,7 +779,7 @@
         image: './Graphig assets/artist-photos/jazz-orchestra.jpg',
         description: ['הפקת מקור — מופע סיום מרהיב עם תזמורת הג׳אז הישראלית ואורחות מיוחדות: נטע ברזילי, גל דה פז, נונו ולירז צ׳רכי. מהדורת יובל לפסטיבל ג׳אז ים סוף — סיום הולם לחגיגה בת ארבעה ימים.'],
         shows: [
-          { slug:'main-1411-1445', stage:'Main Stage', stageColor:'#E0560B', dayLabel:'שבת', date:'14 בנובמבר 2026', time:'14:45', tag:'Headliner · מופע סיום · הפקת מקור', isHeadliner:true }
+          { slug:'main-1411-1445', stage:'Main Stage', stageColor:'#D5645F', dayLabel:'שבת', date:'14 בנובמבר 2026', time:'14:45', tag:'Headliner · מופע סיום · הפקת מקור', isHeadliner:true }
         ]
       }
 

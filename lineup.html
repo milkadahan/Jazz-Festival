@@ -20,8 +20,8 @@
   <meta name="twitter:description" content="40+ הופעות · 4 במות · 11–14 בנובמבר 2026 · נמל אילת" />
   <meta name="twitter:image" content="./Graphig assets/og-image.jpg" />
   <meta name="twitter:image:alt" content="Red Sea Jazz Festival 2026 — ליינאפ מלא" />
-  <meta name="theme-color" content="#E0560B" />
-  <meta name="msapplication-TileColor" content="#E0560B" />
+  <meta name="theme-color" content="#D5645F" />
+  <meta name="msapplication-TileColor" content="#D5645F" />
   <link rel="icon" type="image/x-icon" href="./favicon.ico" />
   <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
@@ -74,14 +74,14 @@
     :root {
       --bg:        #FAF4E9;
       --bg2:       #F3E9D6;
-      --orange:    #E0560B;
+      --orange:    #D5645F;
       --yellow:    #E0A800;
       --red:       #D62246;
       --pink:      #E0568F;
       --teal:      #0A8F8E;
-      --warm-glow: #FF8C42;
-      --text:      #3A2A1E;
-      --muted:     #6A5540; --yellow-text: #7A5C00; --teal-text: #086665; --orange-text: #B8440A; --orange-btn: #C94A08;
+      --warm-glow: #F3746F;
+      --text:      #521648; --text-rgb: 82,22,72;
+      --muted:     #6A5540; --yellow-text: #7A5C00; --teal-text: #086665; --orange-text: #C93C36; --orange-btn: #CF4943;
       --card-bg:   #FFFDF8;
       --border:    rgba(58,42,30,0.12);
       --border-strong: rgba(58,42,30,0.22);
@@ -120,18 +120,18 @@
     .ticker-bar {
       position: fixed; top: 0; left: 0; right: 0;
       height: var(--ticker-h); z-index: 101;
-      background: #2d2726;
+      background: #290B24;
       display: flex; align-items: center;
       direction: ltr;
       overflow: hidden;
-      border-bottom: 1px solid rgba(224,86,11,0.3);
+      border-bottom: 1px solid rgba(213,100,95,0.3);
     }
     .ticker-label {
       flex-shrink: 0;
       padding: 0 1.4rem 0 1rem;
       font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
       color: var(--orange-text); text-transform: uppercase;
-      border-right: 1px solid rgba(224,86,11,0.35);
+      border-right: 1px solid rgba(213,100,95,0.35);
       white-space: nowrap;
     }
     .ticker-track-wrap { flex: 1; overflow: hidden; position: relative; }
@@ -212,16 +212,16 @@
     }
     .nav-links a {
       position: relative; padding-bottom: 3px;
-      transition: color 0.25s; color: rgba(58,42,30,0.78);
+      transition: color 0.25s; color: rgba(var(--text-rgb),0.78);
     }
     .nav-links a::after {
       content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
       width: 0; height: 2px;
-      background: linear-gradient(90deg, var(--orange), #E84021);
+      background: linear-gradient(90deg, #F3746F, #F3746F);
       transition: width 0.3s;
     }
     .nav-links a:hover, .nav-links a.active {
-      background: linear-gradient(90deg, var(--orange), #E84021);
+      background: linear-gradient(90deg, #F3746F, #F3746F);
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
@@ -232,16 +232,16 @@
       display: flex; align-items: center; gap: 0.35rem;
       background: none; border: none; padding: 0 0 3px; margin: 0;
       font: inherit; font-size: inherit; font-weight: 500;
-      color: rgba(58,42,30,0.78); cursor: pointer; position: relative;
+      color: rgba(var(--text-rgb),0.78); cursor: pointer; position: relative;
     }
     .nav-drop-toggle::after {
       content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
       width: 0; height: 2px;
-      background: linear-gradient(90deg, var(--orange), #E84021);
+      background: linear-gradient(90deg, #F3746F, #F3746F);
       transition: width 0.3s;
     }
     .nav-drop-toggle:hover, .nav-drop-toggle.open {
-      background: linear-gradient(90deg, var(--orange), #E84021);
+      background: linear-gradient(90deg, #F3746F, #F3746F);
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .nav-drop-toggle:hover::after, .nav-drop-toggle.open::after { width: 100%; }
@@ -265,8 +265,8 @@
       white-space: nowrap; text-align: start;
       background: none; border: none; width: 100%; cursor: pointer; font-family: inherit;
     }
-    .nav-drop-panel > a:hover { background: rgba(224,86,11,0.08); color: var(--orange-text); }
-    .nav-drop-panel > a.active { color: var(--orange-text); font-weight: 700; }
+    .nav-drop-panel > a:hover { background: rgba(213,100,95,0.08); color: #F3746F; }
+    .nav-drop-panel > a.active { color: #F3746F; font-weight: 700; }
 
 
     /* Nav action buttons */
@@ -278,13 +278,13 @@
       color: var(--on-accent); border: none; border-radius: 50px;
       padding: 0.5rem 1.3rem; font-size: 0.85rem; font-weight: 700;
       letter-spacing: normal; cursor: pointer;
-      box-shadow: 0 4px 14px rgba(224,86,11,0.32);
+      box-shadow: 0 4px 14px rgba(213,100,95,0.32);
       transition: transform 0.2s, box-shadow 0.2s;
       text-decoration: none; display: inline-block;
     }
     .nav-btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 22px rgba(224,86,11,0.45);
+      box-shadow: 0 6px 22px rgba(213,100,95,0.45);
     }
     .nav-btn-secondary {
       background: transparent;
@@ -313,7 +313,7 @@
       transition: border-color 0.2s, color 0.2s;
       font-family: var(--font);
     }
-    .nav-btn-lang:hover { border-color: var(--orange); color: var(--orange-text); }
+    .nav-btn-lang:hover { border-color: var(--orange); color: #F3746F; }
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; border:none; background:transparent; }
     .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
     /* תפריט פתוח: שני הפסים החיצוניים מסתובבים ל-X, האמצעי נעלם */
@@ -457,9 +457,9 @@
     #btnAllDays { display: none; }
     body.view-calendar #btnAllDays { display: inline-flex; }
     .day-nav-btn.active {
-      background: linear-gradient(161.51deg, #E0560B 0%, #D62246 100%);
+      background: linear-gradient(161.51deg, #D5645F 0%, #D62246 100%);
       border-color: transparent; color: #fff;
-      filter: drop-shadow(0px 0px 10px rgba(255,107,26,0.35));
+      filter: drop-shadow(0px 0px 10px rgba(243,116,111,0.35));
     }
 
     /* ─── STAGE FILTER DROPDOWN ─────────────────────────────────── */
@@ -515,6 +515,7 @@
     }
     .show-card.sf-hidden { display: none; }
     .day-block.sf-hidden { display: none; }
+    .show-block.sf-hidden { display: none; }
 
     /* ─── MAIN CONTENT ─────────────────────────────────────────── */
     main { max-width: 1200px; margin-inline: auto; padding: 3rem 2rem 5rem; }
@@ -532,7 +533,7 @@
       margin-bottom: 1.5rem;
     }
     .day-block-title {
-      font-size: 1.7rem; font-weight: 900; color: #3a2a1e;
+      font-size: 1.7rem; font-weight: 900; color: #521648;
       line-height: 1.2;
     }
     .day-block-count {
@@ -543,16 +544,14 @@
 
 
     /* ─── SHOW CARDS ─────────────────────────────────────────────── */
-    .shows-list { display: flex; flex-direction: column; gap: 11px; counter-reset: show-num; }
+    .shows-list { display: flex; flex-direction: column; gap: 11px; }
     .show-card {
-      display: flex; align-items: center; gap: 16px;
+      display: flex; align-items: stretch; gap: 32px;
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 9px 9px 9px 25px;
-      min-height: 110px;
+      overflow: hidden;
       cursor: pointer;
-      counter-increment: show-num;
       transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
     }
     .show-card:hover {
@@ -562,8 +561,7 @@
     }
     .show-card-img {
       flex-shrink: 0;
-      width: 92px; height: 92px;
-      border-radius: 8px;
+      width: 160px;
       background: linear-gradient(145deg, #2d2219, #3a2a1e);
       background-size: cover;
       background-position: center top;
@@ -576,24 +574,18 @@
       pointer-events: none;
     }
     .show-card-img.has-img::after { content: none; }
-    .show-card-num {
-      flex-shrink: 0;
-      font-size: 34px; font-weight: 700;
-      font-family: 'Google Sans', 'Hepta Slab', serif;
-      color: #a09593;
-      min-width: 2.2ch; text-align: center;
-    }
-    .show-card-num::before { content: counter(show-num, decimal-leading-zero); }
     .show-card-info {
       flex: 1;
       display: flex; flex-direction: column; gap: 4px;
+      padding-block: 24px;
+      padding-inline-end: 25px;
     }
     .show-card-title-row {
       display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
     }
     .show-card-name {
       font-size: 20px; font-weight: 600;
-      color: #3a2a1e; line-height: 1.3;
+      color: #521648; line-height: 1.3;
     }
     .show-card-sub {
       font-size: 16px; font-weight: 400;
@@ -627,6 +619,7 @@
     .show-card-meta {
       flex-shrink: 0;
       display: flex; align-items: center; gap: 16px;
+      padding-inline-end: 24px;
     }
     .show-card-divider {
       width: 1px; height: 36px;
@@ -664,12 +657,12 @@
       padding: 0.55rem 1.2rem;
       font-size: 14px; font-weight: 700;
       text-decoration: none; white-space: nowrap;
-      box-shadow: 0 3px 14px rgba(224,86,11,0.3);
+      box-shadow: 0 3px 14px rgba(213,100,95,0.3);
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .show-card-tickets-link:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 22px rgba(224,86,11,0.45);
+      box-shadow: 0 6px 22px rgba(213,100,95,0.45);
     }
 
     /* ─── SHOW DRAWER ──────────────────────────────────────────── */
@@ -769,10 +762,10 @@
       width: 100%;
       background: var(--btn-gradient); color: #fff; border-radius: 50px; padding: 0.9rem 2.4rem;
       font-size: 1rem; font-weight: 700; text-decoration: none;
-      box-shadow: 0 4px 20px rgba(224,86,11,0.35);
+      box-shadow: 0 4px 20px rgba(213,100,95,0.35);
       transition: transform 0.2s, box-shadow 0.2s;
     }
-    .show-drawer-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(224,86,11,0.5); }
+    .show-drawer-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(213,100,95,0.5); }
     /* height אחיד עם שאר כפתורי ה-CTA במובייל (44px — כגובה כפתור
        "פרטים נוספים" בסקשן #venue באתר הבית) */
     @media (max-width: 700px) {
@@ -823,7 +816,7 @@
 
     /* ─── FOOTER ───────────────────────────────────────────────── */
     footer {
-      background: #EFE3CE;
+      background: #290B24;
       border-top: 1px solid var(--border);
       padding: 3rem 3rem 2rem;
     }
@@ -840,7 +833,7 @@
       background-clip: text; margin-bottom: 0.8rem;
     }
     .footer-tagline { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
-    .footer-col-title { font-size: 0.8rem; color: var(--orange); letter-spacing: 0; text-transform: uppercase; margin-bottom: 1rem; font-weight: 600; }
+    .footer-col-title { font-size: 0.8rem; color: #fff; letter-spacing: 0; text-transform: uppercase; margin-bottom: 1rem; font-weight: 600; }
     .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
     .footer-links a { font-size: 0.9rem; color: var(--muted); transition: color 0.2s; }
     .footer-links a:hover { color: var(--text); }
@@ -889,14 +882,14 @@
       letter-spacing: 0.1px;
     }
     .view-toggle-btn.active {
-      background: linear-gradient(163.98deg, #E0560B 0%, #D62246 100%);
+      background: linear-gradient(163.98deg, #D5645F 0%, #D62246 100%);
       color: #fff;
       /* font-stack דו-לשוני כמו שאר האתר: Hepta Slab לאנגלית, Noto Sans Hebrew לעברית.
          Hepta Slab חסר גליפים עבריים — בלי ה-fallback העברי "לוח זמנים" נשבר ל-serif מערכת. */
       font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
       font-weight: 700;
       letter-spacing: 0.17px;
-      box-shadow: 0 0 10px rgba(255,107,26,0.35);
+      box-shadow: 0 0 10px rgba(243,116,111,0.35);
     }
     .view-toggle-btn:not(.active):hover { color: var(--orange-text); }
     /* אייקון מוסתר בדסקטופ — הכפתור מציג טקסט כרגיל. במובייל (ראו @media
@@ -1038,8 +1031,8 @@
     /* Show blocks — same design as index.html */
     .cal-cell .show-block { flex: 0 0 auto; }
     .show-block {
-      background: rgba(224,86,11,0.1);
-      border: 1px solid rgba(224,86,11,0.3);
+      background: rgba(213,100,95,0.1);
+      border: 1px solid rgba(213,100,95,0.3);
       border-radius: 10px; padding: 0;
       cursor: pointer; transition: all 0.25s;
       position: relative; overflow: hidden;
@@ -1053,9 +1046,9 @@
       background: linear-gradient(to bottom, var(--orange), var(--red));
     }
     .show-block:hover {
-      background: rgba(224,86,11,0.2);
+      background: rgba(213,100,95,0.2);
       transform: scale(1.02);
-      box-shadow: 0 5px 20px rgba(224,86,11,0.2);
+      box-shadow: 0 5px 20px rgba(213,100,95,0.2);
     }
     /* ── זהה ל-index.html — show-block עם thumbnail אמן ── */
     .show-block-inner {
@@ -1063,6 +1056,7 @@
       display: flex; gap: 0.6rem; align-items: center;
     }
     .show-thumb {
+      display: none;
       flex: 0 0 52px;
       width: 52px; height: 52px;
       margin-inline-start: 8px; /* 8px from right edge (RTL) */
@@ -1074,7 +1068,7 @@
     }
     .show-thumb::after {
       content: ''; position: absolute; inset: 0;
-      background: radial-gradient(circle at 30% 70%, rgba(224,86,11,0.2), transparent 70%);
+      background: radial-gradient(circle at 30% 70%, rgba(213,100,95,0.2), transparent 70%);
     }
     /* Placeholder glyph — מוצג רק כשאין תמונה אמיתית בשורה */
     .show-thumb::before {
@@ -1095,13 +1089,13 @@
       background: radial-gradient(circle at 30% 70%, rgba(224,168,0,0.2), transparent 70%);
     }
     .show-text { flex: 1; min-width: 0; }
-    .show-name { font-weight: 700; font-size: 0.9rem; color: var(--text); }
+    .show-name { font-weight: 700; font-size: 1rem; color: var(--text); }
     .show-time { font-size: 0.75rem; color: var(--orange-text); font-weight: 600; margin-top: 4px; }
     .show-tag {
       display: inline-block; margin-top: 0.25rem;
       font-size: 0.63rem; font-weight: 700;
       border-radius: 50px; padding: 0.1rem 0.45rem;
-      background: rgba(224,86,11,0.12); color: var(--orange-text);
+      background: rgba(213,100,95,0.12); color: var(--orange-text);
     }
     /* Red Tent */
     .show-block.stage-red { background: rgba(214,34,70,0.1); border-color: rgba(214,34,70,0.3); }
@@ -1152,7 +1146,6 @@
         border-radius: 0;
         background-position: center;
       }
-      .show-card-num { display: none; }
       /* התווית מרחפת על גבי התמונה, פינה ימנית-עליונה (RTL: right = start).
          היא absolute → נשלפת מזרימת ה-title-row ומעוגנת ל-.show-card (relative). */
       .show-card-tag {
@@ -1280,7 +1273,7 @@
          node 339:2162) בלי מסגרת/זוהר בכלל, וכלל ישן זה היה דורס את
          ה-filter:none של העיצוב החדש. */
       .view-toggle-group { border-width: 1px; padding: 5px; }
-      .view-toggle-btn.active { box-shadow: 0 0 5px rgba(255,107,26,0.35); }
+      .view-toggle-btn.active { box-shadow: 0 0 5px rgba(243,116,111,0.35); }
       .stage-dropdown-toggle { border-width: 1px; }
       /* בחירת התצוגה (Line-up / לוח זמנים) עוברת מטקסט לאייקונים במובייל,
          בהתאמה ל-Figma (node 334:1660 — "Menu"/"Calendar"). */
@@ -1386,13 +1379,13 @@
   <!-- ── NAV ── -->
   <nav id="navbar">
     <a class="nav-logo-tab" href="./index.html">
-      <img src="State=Vertical.svg" alt="Red Sea Jazz Festival" class="nav-logo-img" width="80" height="80" />
+      <img src="State=Vertical.svg?v=2" alt="Red Sea Jazz Festival" class="nav-logo-img" width="80" height="80" />
     </a>
     <div class="nav-inner">
       <div class="mobile-menu-panel" id="mobileMenuPanel">
       <ul class="nav-links" id="navLinks">
         <li class="nav-link-mobile-flat"><a href="./index.html" data-he="דף הבית" data-en="Home">דף הבית</a></li>
-        <li><a href="./index.html#artist-lineup-text" data-he="ליין אפ" data-en="Lineup">ליין אפ</a></li>
+        <li><a href="./index.html#artist-lineup-text" data-he="Artists" data-en="Artists">Artists</a></li>
         <li><a href="./lineup.html" class="active" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
         <li class="nav-link-mobile-flat"><a href="https://www.hotels.com/" target="_blank" rel="noopener" data-he="חבילות לינה" data-en="Stay Packages">חבילות לינה</a></li>
         <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
@@ -1535,7 +1528,6 @@
       <div class="shows-list">
           <div class="show-card" data-stage="Main Stage">
             <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
             <div class="show-card-info">
               <div class="show-card-title-row">
                 <div class="show-card-name">פתיחה רשמית — טקס יובל</div>
@@ -1552,7 +1544,6 @@
           </div>
           <div class="show-card" data-stage="Blue Dome">
             <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
             <div class="show-card-info">
               <div class="show-card-title-row">
                 <div class="show-card-name">שישיית קאי גלוסקא</div>
@@ -1568,7 +1559,6 @@
           </div>
           <div class="show-card" data-stage="Red Tent">
             <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
             <div class="show-card-info">
               <div class="show-card-title-row">
                 <div class="show-card-name">שלישיית יותם זילברשטיין</div>
@@ -1584,7 +1574,6 @@
           </div>
           <div class="show-card" data-stage="Main Stage">
             <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
             <div class="show-card-info">
               <div class="show-card-title-row">
                 <div class="show-card-name">SHALOSH</div>
@@ -1601,7 +1590,6 @@
           </div>
           <div class="show-card" data-stage="Blue Dome">
             <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
             <div class="show-card-info">
               <div class="show-card-title-row">
                 <div class="show-card-name">שלישיית אריאל ברט</div>
@@ -1618,7 +1606,6 @@
           </div>
           <div class="show-card" data-stage="Red Tent">
             <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
             <div class="show-card-info">
               <div class="show-card-title-row">
                 <div class="show-card-name">הדר נויברג New Quartet</div>
@@ -1634,7 +1621,6 @@
           </div>
           <div class="show-card" data-stage="Main Stage">
             <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
             <div class="show-card-info">
               <div class="show-card-title-row">
                 <div class="show-card-name">Las Piratas Piratas</div>
@@ -1663,7 +1649,6 @@
       <div class="shows-list">
           <div class="show-card" data-stage="Red Tent">
             <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
             <div class="show-card-info">
               <div class="show-card-title-row">
                 <div class="show-card-name">אבות ובנים — מפגש דורות</div>
@@ -1682,7 +1667,6 @@
             data-desc="שלושת הכהנים – ענת (קלרינט), אבישי (חצוצרה) ויובל (סקסופון) – הם שושלת מעוררת גאווה של ג׳אז בינלאומי שצמחה בישראל. במקביל לקריירות סולו מסחררות חובקות עולם, האחים חוזרים הביתה למפגש שלישייה נדיר עם ביג-בנד ישראלי שנבחר במיוחד לערב זה. על העיבודים והניצוח — עודד לב-ארי."
             data-musicians="ענת כהן – קלרינט | אבישי כהן – חצוצרה | יובל כהן – סקסופון סופרן | חגי אמיר – סקסופון אלט | אורי מנשה – סקסופון אלט | עמית פרידמן – סקסופון טנור | יהונתן כהן – סקסופון טנור | טל ורון – סקסופון בריטון | יובל פלג – חצוצרה | יונתן קולובסקי – חצוצרה | רוי זוזובסקי – חצוצרה | מתן כהן – חצוצרה | עודד מאיר – טרומבון | דור אסף – טרומבון | סלוצקי – טרומבון | טריפמן – טרומבון | קטיה טובול – פסנתר | אלון ניר – בס אקוסטי | אביב כהן – תופים | עודד לב-ארי – עיבודים וניצוח">
             <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
             <div class="show-card-info">
               <div class="show-card-title-row">
                 <div class="show-card-name">The 3 Cohens: Yuval, Anat &amp; Avishai</div>
@@ -1699,7 +1683,6 @@
           </div>
           <div class="show-card" data-stage="Red Tent">
             <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
             <div class="show-card-info">
               <div class="show-card-title-row">
                 <div class="show-card-name">Lay Z Gordon</div>
@@ -1715,7 +1698,6 @@
           </div>
           <div class="show-card" data-stage="Main Stage">
             <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
             <div class="show-card-info">
               <div class="show-card-title-row">
                 <div class="show-card-name">ג׳ימבו ג׳אז — אורח: תמיר בר</div>
@@ -1731,7 +1713,6 @@
           </div>
           <div class="show-card" data-stage="Blue Dome">
             <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
             <div class="show-card-info">
               <div class="show-card-title-row">
                 <div class="show-card-name">שישיית קאי גלוסקא</div>
@@ -1760,7 +1741,6 @@
       <div class="shows-list">
           <div class="show-card" data-stage="Blue Dome">
             <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
             <div class="show-card-info">
               <div class="show-card-title-row">
                 <div class="show-card-name">Anat Cohen — Master Class</div>
@@ -1777,7 +1757,6 @@
           </div>
           <div class="show-card" data-stage="Red Tent">
             <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
             <div class="show-card-info">
               <div class="show-card-title-row">
                 <div class="show-card-name">שלישיית אריאל ברט</div>
@@ -1794,7 +1773,6 @@
           </div>
           <div class="show-card" data-stage="Main Stage">
             <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
             <div class="show-card-info">
               <div class="show-card-title-row">
                 <div class="show-card-name">Eli Degibri Quartet</div>
@@ -1811,7 +1789,6 @@
           </div>
           <div class="show-card" data-stage="Red Tent">
             <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
             <div class="show-card-info">
               <div class="show-card-title-row">
                 <div class="show-card-name">רביעיית אוריאל הרמן מארחת את רמי קליינשטיין</div>
@@ -1827,7 +1804,6 @@
           </div>
           <div class="show-card" data-stage="Blue Dome">
             <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
             <div class="show-card-info">
               <div class="show-card-title-row">
                 <div class="show-card-name">עידית מינצר — קונצרט חלק א׳</div>
@@ -1843,7 +1819,6 @@
           </div>
           <div class="show-card" data-stage="Red Tent">
             <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
             <div class="show-card-info">
               <div class="show-card-title-row">
                 <div class="show-card-name">שלישיית יותם זילברשטיין</div>
@@ -1859,7 +1834,6 @@
           </div>
           <div class="show-card" data-stage="Blue Dome">
             <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
             <div class="show-card-info">
               <div class="show-card-title-row">
                 <div class="show-card-name">שישיית חגי אמיר — דיאלוגים עם ברטוק</div>
@@ -1875,7 +1849,6 @@
           </div>
           <div class="show-card" data-stage="Main Stage">
             <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
             <div class="show-card-info">
               <div class="show-card-title-row">
                 <div class="show-card-name">חוה אלברשטיין</div>
@@ -1892,7 +1865,6 @@
           </div>
           <div class="show-card" data-stage="Red Tent">
             <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
             <div class="show-card-info">
               <div class="show-card-title-row">
                 <div class="show-card-name">SHALOSH — אורח: רוני איתן</div>
@@ -1909,7 +1881,6 @@
           </div>
           <div class="show-card" data-stage="Blue Dome">
             <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
             <div class="show-card-info">
               <div class="show-card-title-row">
                 <div class="show-card-name">Las Piratas Piratas</div>
@@ -1940,7 +1911,6 @@
             data-desc="שלושת הכהנים – ענת (קלרינט), אבישי (חצוצרה) ויובל (סקסופון) – מופיעים יחד עם ביג-בנד ישראלי בניצוח עודד לב-ארי. מפגש חד-פעמי של אלתור, צבע, סווינג ואינטראקציה משפחתית במיטבה."
             data-musicians="ענת כהן – קלרינט | אבישי כהן – חצוצרה | יובל כהן – סקסופון סופרן | חגי אמיר – סקסופון אלט | אורי מנשה – סקסופון אלט | עמית פרידמן – סקסופון טנור | יהונתן כהן – סקסופון טנור | טל ורון – סקסופון בריטון | יובל פלג – חצוצרה | יונתן קולובסקי – חצוצרה | רוי זוזובסקי – חצוצרה | מתן כהן – חצוצרה | עודד מאיר – טרומבון | דור אסף – טרומבון | סלוצקי – טרומבון | טריפמן – טרומבון | קטיה טובול – פסנתר | אלון ניר – בס אקוסטי | אביב כהן – תופים | עודד לב-ארי – עיבודים וניצוח">
             <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
             <div class="show-card-info">
               <div class="show-card-title-row">
                 <div class="show-card-name">Yuval, Anat &amp; Avishai: The 3 Cohens</div>
@@ -1956,7 +1926,6 @@
           </div>
           <div class="show-card" data-stage="Red Tent">
             <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
             <div class="show-card-info">
               <div class="show-card-title-row">
                 <div class="show-card-name">הדר נויברג New Quartet</div>
@@ -1972,7 +1941,6 @@
           </div>
           <div class="show-card" data-stage="Green Pavilion">
             <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
             <div class="show-card-info">
               <div class="show-card-title-row">
                 <div class="show-card-name">שישיית חגי אמיר</div>
@@ -1988,7 +1956,6 @@
           </div>
           <div class="show-card" data-stage="Blue Dome">
             <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
             <div class="show-card-info">
               <div class="show-card-title-row">
                 <div class="show-card-name">Anat Cohen — Artist in Residence</div>
@@ -2005,7 +1972,6 @@
           </div>
           <div class="show-card" data-stage="Red Tent">
             <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
             <div class="show-card-info">
               <div class="show-card-title-row">
                 <div class="show-card-name">עידית מינצר ויחזקאל רז</div>
@@ -2021,7 +1987,6 @@
           </div>
           <div class="show-card" data-stage="Main Stage">
             <div class="show-card-img"></div>
-            <div class="show-card-num"></div>
             <div class="show-card-info">
               <div class="show-card-title-row">
                 <div class="show-card-name">תזמורת הג׳אז הישראלית</div>
@@ -2642,11 +2607,11 @@
            background:linear-gradient(135deg,var(--orange),var(--red));
            color:#fff; border-radius:50px; padding:1rem 2.8rem;
            font-size:1rem; font-weight:700; text-decoration:none;
-           box-shadow:0 4px 24px rgba(224,86,11,0.38);
+           box-shadow:0 4px 24px rgba(213,100,95,0.38);
            transition:transform 0.2s, box-shadow 0.2s;
          "
-         onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 36px rgba(224,86,11,0.55)'"
-         onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(224,86,11,0.38)'">
+         onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 36px rgba(213,100,95,0.55)'"
+         onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(213,100,95,0.38)'">
         רכישת כרטיסים ←
       </a>
     </div>
@@ -3003,6 +2968,20 @@
           card.classList.remove('sf-hidden');
         } else {
           card.classList.add('sf-hidden');
+        }
+      });
+      // אותו סינון גם על תצוגת הלו"ז (calendar/weekly) — כל show-block נושא
+      // מחלקת stage-* (או כלום = Main Stage) שממנה גוזרים את שם הבמה.
+      const stageClassMap = { 'stage-red': 'Red Tent', 'stage-teal': 'Blue Dome', 'stage-yellow': 'Green Pavilion' };
+      document.querySelectorAll('.cal-grid .show-block, .cal-weekly-cell .show-block').forEach(block => {
+        let stageName = 'Main Stage';
+        for (const cls in stageClassMap) {
+          if (block.classList.contains(cls)) { stageName = stageClassMap[cls]; break; }
+        }
+        if (selected.length === 0 || selected.includes(stageName)) {
+          block.classList.remove('sf-hidden');
+        } else {
+          block.classList.add('sf-hidden');
         }
       });
       // אם לא נותרו הופעות גלויות ביום מסוים (כתוצאה מהסינון) — להסתיר את כל בלוק היום

@@ -3,7 +3,7 @@
   var style = document.createElement('style');
   style.textContent = `
     footer {
-      background: #2d2726;
+      background: #290B24;
       border-top: 1px solid rgba(224,86,11,0.3);
       padding: 4rem 3rem 2rem;
       direction: rtl;
@@ -40,11 +40,11 @@
       color: #e6d8d6;
     }
     .footer-social-btn:hover {
-      background: rgba(255,107,26,0.25);
-      border-color: #E0560B;
+      background: rgba(243,116,111,0.25);
+      border-color: #F3746F;
     }
     .footer-col-title {
-      font-size: 0.8rem; color: #E0560B;
+      font-size: 0.8rem; color: #fff;
       text-transform: uppercase; margin-bottom: 1.2rem; font-weight: 600;
     }
     .footer-links {
@@ -86,7 +86,7 @@
       transition: border-color 0.2s, background 0.2s;
     }
     .footer-news-field:focus-within {
-      border-color: #E0560B;
+      border-color: #F3746F;
       background: rgba(255,255,255,0.11);
     }
     .footer-news-input {
@@ -118,7 +118,7 @@
       transition: background 0.2s, color 0.2s, filter 0.2s, transform 0.2s;
     }
     .footer-news-btn:not(:disabled) {
-      background: linear-gradient(135deg, #E0560B, #D62246);
+      background: linear-gradient(135deg, #F3746F, #D62246);
       color: #fff;
       cursor: pointer;
     }

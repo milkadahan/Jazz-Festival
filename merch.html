@@ -17,8 +17,8 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="חנות הפסטיבל · Red Sea Jazz Festival" />
   <meta name="twitter:image" content="./Graphig assets/og-image.jpg" />
-  <meta name="theme-color" content="#E0560B" />
-  <meta name="msapplication-TileColor" content="#E0560B" />
+  <meta name="theme-color" content="#D5645F" />
+  <meta name="msapplication-TileColor" content="#D5645F" />
   <link rel="icon" type="image/x-icon" href="./favicon.ico" />
   <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
@@ -69,14 +69,14 @@
       /* ── Light Mode palette (cream background, warm dark-brown text) ── */
       --bg:        #FAF4E9;
       --bg2:       #F3E9D6;
-      --orange:    #E0560B;
+      --orange:    #D5645F;
       --yellow:    #E0A800;
       --red:       #D62246;
       --pink:      #E0568F;
       --teal:      #0A8F8E;
-      --warm-glow: #FF8C42;
-      --text:      #3A2A1E;
-      --muted:     #6A5540; --yellow-text: #7A5C00; --teal-text: #086665; --orange-text: #B8440A; --orange-btn: #C94A08;
+      --warm-glow: #F3746F;
+      --text:      #521648; --text-rgb: 82,22,72;
+      --muted:     #6A5540; --yellow-text: #7A5C00; --teal-text: #086665; --orange-text: #C93C36; --orange-btn: #CF4943;
       --card-bg:   #FFFDF8;
       --border:    rgba(58,42,30,0.12);
       --border-strong: rgba(58,42,30,0.22);
@@ -105,18 +105,18 @@
     .ticker-bar {
       position: fixed; top: 0; left: 0; right: 0;
       height: var(--ticker-h); z-index: 101;
-      background: #2d2726;
+      background: #290B24;
       display: flex; align-items: center;
       direction: ltr; overflow: hidden;
-      border-bottom: 1px solid rgba(224,86,11,0.3);
+      border-bottom: 1px solid rgba(213,100,95,0.3);
     }
     .ticker-label {
       flex-shrink: 0; height: 100%;
       display: flex; align-items: center;
       padding: 0 1rem; font-size: 0.7rem; font-weight: 700;
       letter-spacing: 0.04em; color: var(--orange);
-      background: rgba(224,86,11,0.08);
-      border-right: 1px solid rgba(224,86,11,0.35);
+      background: rgba(213,100,95,0.08);
+      border-right: 1px solid rgba(213,100,95,0.35);
       white-space: nowrap;
     }
     .ticker-track-wrap { flex: 1; overflow: hidden; position: relative; }
@@ -175,16 +175,16 @@
     }
     .nav-links a {
       position: relative; padding-bottom: 3px;
-      transition: color 0.25s; color: rgba(58,42,30,0.78);
+      transition: color 0.25s; color: rgba(var(--text-rgb),0.78);
     }
     .nav-links a::after {
       content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
       width: 0; height: 2px;
-      background: linear-gradient(90deg, var(--orange), #E84021);
+      background: linear-gradient(90deg, #F3746F, #F3746F);
       transition: width 0.3s;
     }
     .nav-links a:hover, .nav-links a.active {
-      background: linear-gradient(90deg, var(--orange), #E84021);
+      background: linear-gradient(90deg, #F3746F, #F3746F);
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
@@ -196,16 +196,16 @@
       display: flex; align-items: center; gap: 0.35rem;
       background: none; border: none; padding: 0 0 3px; margin: 0;
       font: inherit; font-size: inherit; font-weight: 500;
-      color: rgba(58,42,30,0.78); cursor: pointer; position: relative;
+      color: rgba(var(--text-rgb),0.78); cursor: pointer; position: relative;
     }
     .nav-drop-toggle::after {
       content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
       width: 0; height: 2px;
-      background: linear-gradient(90deg, var(--orange), #E84021);
+      background: linear-gradient(90deg, #F3746F, #F3746F);
       transition: width 0.3s;
     }
     .nav-drop-toggle:hover, .nav-drop-toggle.open {
-      background: linear-gradient(90deg, var(--orange), #E84021);
+      background: linear-gradient(90deg, #F3746F, #F3746F);
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .nav-drop-toggle:hover::after, .nav-drop-toggle.open::after { width: 100%; }
@@ -229,18 +229,18 @@
       white-space: nowrap; text-align: start;
       background: none; border: none; width: 100%; cursor: pointer; font-family: inherit;
     }
-    .nav-drop-panel > a:hover { background: rgba(224,86,11,0.08); color: var(--orange); }
-    .nav-drop-panel > a.active { color: var(--orange); font-weight: 700; }
+    .nav-drop-panel > a:hover { background: rgba(213,100,95,0.08); color: #F3746F; }
+    .nav-drop-panel > a.active { color: #F3746F; font-weight: 700; }
     .nav-actions { display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0; }
     .nav-btn-primary {
       background: var(--btn-gradient); color: var(--on-accent);
       border: none; border-radius: 50px;
       padding: 0.5rem 1.3rem; font-size: 0.85rem; font-weight: 700;
-      cursor: pointer; box-shadow: 0 4px 14px rgba(224,86,11,0.32);
+      cursor: pointer; box-shadow: 0 4px 14px rgba(213,100,95,0.32);
       transition: transform 0.2s, box-shadow 0.2s;
       text-decoration: none; display: inline-block;
     }
-    .nav-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(224,86,11,0.45); }
+    .nav-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(213,100,95,0.45); }
     .nav-btn-secondary {
       background: transparent; color: var(--text);
       border: 1.5px solid var(--border-strong); border-radius: 50px;
@@ -257,7 +257,7 @@
       cursor: pointer; display: flex; align-items: center; gap: 0.35rem;
       transition: border-color 0.2s, color 0.2s; font-family: var(--font);
     }
-    .nav-btn-lang:hover { border-color: var(--orange); color: var(--orange); }
+    .nav-btn-lang:hover { border-color: var(--orange); color: #F3746F; }
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; border: none; background: transparent; }
     .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
     /* תפריט פתוח: שני הפסים החיצוניים מסתובבים ל-X, האמצעי נעלם */
@@ -354,7 +354,7 @@
     }
     .page-hero-glow-orange {
       top: 20px; inset-inline-start: 20px; width: 260px; height: 260px;
-      background: radial-gradient(circle, rgba(255,107,26,0.28) 0%, transparent 65%);
+      background: radial-gradient(circle, rgba(243,116,111,0.28) 0%, transparent 65%);
     }
     .page-hero-glow-teal {
       top: 140px; inset-inline-end: -220px; width: 900px; height: 900px;
@@ -435,13 +435,13 @@
       background: linear-gradient(164deg, #FFDCC0, #FFF7E7);
       border: 2px solid var(--orange);
       border-radius: 20px;
-      box-shadow: 0 12px 36px rgba(224,86,11,0.16);
+      box-shadow: 0 12px 36px rgba(213,100,95,0.16);
       color: inherit; text-decoration: none;
       position: relative;
       margin-bottom: 24px;
       transition: transform 0.3s, box-shadow 0.3s;
     }
-    .vinyl-banner:hover { transform: translateY(-4px); box-shadow: 0 18px 46px rgba(224,86,11,0.26); }
+    .vinyl-banner:hover { transform: translateY(-4px); box-shadow: 0 18px 46px rgba(213,100,95,0.26); }
     .vinyl-banner-content {
       padding: 1.8rem 2.6rem;
       display: flex; flex-direction: column; justify-content: center;
@@ -452,7 +452,7 @@
       background: var(--btn-gradient); color: #fff;
       font-size: 0.75rem; font-weight: 800; letter-spacing: 0.02em;
       padding: 0.4rem 0.9rem; border-radius: 50px;
-      box-shadow: 0 4px 14px rgba(224,86,11,0.4);
+      box-shadow: 0 4px 14px rgba(213,100,95,0.4);
       display: inline-flex; align-items: center; gap: 0.35rem;
     }
     .vinyl-banner-title {
@@ -474,10 +474,10 @@
       background: var(--btn-gradient); color: #fff;
       border-radius: 50px; padding: 0.7rem 1.6rem;
       font-size: 0.95rem; font-weight: 700;
-      box-shadow: 0 4px 16px rgba(224,86,11,0.32);
+      box-shadow: 0 4px 16px rgba(213,100,95,0.32);
       transition: box-shadow 0.2s, transform 0.2s;
     }
-    .vinyl-banner:hover .vinyl-banner-buy { box-shadow: 0 6px 22px rgba(224,86,11,0.45); }
+    .vinyl-banner:hover .vinyl-banner-buy { box-shadow: 0 6px 22px rgba(213,100,95,0.45); }
     /* height אחיד עם שאר כפתורי ה-CTA במובייל (44px — כגובה כפתור
        "פרטים נוספים" בסקשן #venue באתר הבית) */
     @media (max-width: 700px) {
@@ -680,13 +680,13 @@
   <!-- ── NAV ── -->
   <nav id="navbar">
     <a class="nav-logo-tab" href="./index.html">
-      <img src="State=Vertical.svg" alt="Red Sea Jazz Festival" class="nav-logo-img" width="80" height="80" />
+      <img src="State=Vertical.svg?v=2" alt="Red Sea Jazz Festival" class="nav-logo-img" width="80" height="80" />
     </a>
     <div class="nav-inner">
       <div class="mobile-menu-panel" id="mobileMenuPanel">
       <ul class="nav-links" id="navLinks">
         <li class="nav-link-mobile-flat"><a href="./index.html" data-he="דף הבית" data-en="Home">דף הבית</a></li>
-        <li><a href="./index.html#artist-lineup-text" data-he="ליין אפ" data-en="Lineup">ליין אפ</a></li>
+        <li><a href="./index.html#artist-lineup-text" data-he="Artists" data-en="Artists">Artists</a></li>
         <li><a href="./lineup.html" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
         <li class="nav-link-mobile-flat"><a href="https://www.hotels.com/" target="_blank" rel="noopener" data-he="חבילות לינה" data-en="Stay Packages">חבילות לינה</a></li>
         <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>

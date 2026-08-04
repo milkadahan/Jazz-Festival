@@ -20,8 +20,8 @@
   <meta name="twitter:description" content="11–14 בנובמבר 2026 · נמל אילת · 40 שנות מוזיקה · 40+ הופעות על 4 במות" />
   <meta name="twitter:image" content="./Graphig assets/og-image.jpg" />
   <meta name="twitter:image:alt" content="Red Sea Jazz Festival 2026" />
-  <meta name="theme-color" content="#E0560B" />
-  <meta name="msapplication-TileColor" content="#E0560B" />
+  <meta name="theme-color" content="#D5645F" />
+  <meta name="msapplication-TileColor" content="#D5645F" />
   <link rel="icon" type="image/x-icon" href="./favicon.ico" />
   <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
@@ -83,14 +83,14 @@
       /* ── Light Mode palette (cream background, warm dark-brown text) ── */
       --bg:        #FAF4E9;   /* רקע ראשי — שמנת עדינה */
       --bg2:       #F3E9D6;   /* רקע משני — שמנת חמה מעט כהה */
-      --orange:    #E0560B;   /* כתום מותג — מותאם לקונטרסט על שמנת */
+      --orange:    #D5645F;   /* קורל מותג (מהפוסטר 2026) — מותאם לקונטרסט על שמנת */
       --yellow:    #E0A800;   /* צהוב-ענבר — מותאם לקריאוּת על בהיר */
       --red:       #D62246;   /* אדום מותג */
       --pink:      #E0568F;   /* ורוד מותג */
       --teal:      #0A8F8E;   /* טורקיז — מותאם לקונטרסט על שמנת */
-      --warm-glow: #FF8C42;   /* זוהר חם (לאפקטים על ההירו הכהה) */
-      --text:      #3A2A1E;   /* טקסט ראשי — חום כהה */
-      --muted:     #6A5540; --yellow-text: #7A5C00; --teal-text: #086665; --orange-text: #B8440A; --orange-btn: #C94A08;   /* טקסט משני — חום בינוני */
+      --warm-glow: #F3746F;   /* זוהר חם (לאפקטים על ההירו הכהה) */
+      --text:      #521648; --text-rgb: 82,22,72;   /* טקסט ראשי — חום כהה */
+      --muted:     #6A5540; --yellow-text: #7A5C00; --teal-text: #086665; --orange-text: #C93C36; --orange-btn: #CF4943;   /* טקסט משני — חום בינוני */
       --card-bg:   #FFFDF8;   /* רקע כרטיסים — לבן-שמנת */
       --border:    rgba(58,42,30,0.12);  /* מסגרות — חום שקוף */
       --border-strong: rgba(58,42,30,0.22);
@@ -101,7 +101,7 @@
       --font:      'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', serif;
     }
 
-    html { scroll-behavior: smooth; direction: rtl; scroll-padding-top: calc(var(--ticker-h) + 100px); }
+    html { scroll-behavior: smooth; direction: rtl; scroll-padding-top: calc(var(--ticker-h) + 100px); overflow-x: clip; }
 
     body {
       background: var(--bg);
@@ -144,18 +144,18 @@
     .ticker-bar {
       position: fixed; top: 0; left: 0; right: 0;
       height: var(--ticker-h); z-index: 101;
-      background: #2d2726;
+      background: #290B24;
       display: flex; align-items: center;
       direction: ltr;
       overflow: hidden;
-      border-bottom: 1px solid rgba(224,86,11,0.3);
+      border-bottom: 1px solid rgba(213,100,95,0.3);
     }
     .ticker-label {
       flex-shrink: 0;
       padding: 0 1.4rem 0 1rem;
       font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
       color: var(--orange-text); text-transform: uppercase;
-      border-right: 1px solid rgba(224,86,11,0.35);
+      border-right: 1px solid rgba(213,100,95,0.35);
       white-space: nowrap;
     }
     .ticker-track-wrap { flex: 1; overflow: hidden; position: relative; }
@@ -245,16 +245,16 @@
     }
     .nav-links a {
       position: relative; padding-bottom: 3px;
-      transition: color 0.25s; color: rgba(58,42,30,0.78);
+      transition: color 0.25s; color: rgba(var(--text-rgb),0.78);
     }
     .nav-links a::after {
       content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
       width: 0; height: 2px;
-      background: linear-gradient(90deg, var(--orange), #E84021);
+      background: linear-gradient(90deg, #F3746F, #F3746F);
       transition: width 0.3s;
     }
     .nav-links a:hover {
-      background: linear-gradient(90deg, var(--orange), #E84021);
+      background: linear-gradient(90deg, #F3746F, #F3746F);
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .nav-links a:hover::after { width: 100%; }
@@ -265,16 +265,16 @@
       display: flex; align-items: center; gap: 0.35rem;
       background: none; border: none; padding: 0 0 3px; margin: 0;
       font: inherit; font-size: inherit; font-weight: 500;
-      color: rgba(58,42,30,0.78); cursor: pointer; position: relative;
+      color: rgba(var(--text-rgb),0.78); cursor: pointer; position: relative;
     }
     .nav-drop-toggle::after {
       content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
       width: 0; height: 2px;
-      background: linear-gradient(90deg, var(--orange), #E84021);
+      background: linear-gradient(90deg, #F3746F, #F3746F);
       transition: width 0.3s;
     }
     .nav-drop-toggle:hover, .nav-drop-toggle.open {
-      background: linear-gradient(90deg, var(--orange), #E84021);
+      background: linear-gradient(90deg, #F3746F, #F3746F);
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .nav-drop-toggle:hover::after, .nav-drop-toggle.open::after { width: 100%; }
@@ -298,8 +298,8 @@
       white-space: nowrap; text-align: start;
       background: none; border: none; width: 100%; cursor: pointer; font-family: inherit;
     }
-    .nav-drop-panel > a:hover { background: rgba(224,86,11,0.08); color: var(--orange-text); }
-    .nav-drop-panel > a.active { color: var(--orange-text); font-weight: 700; }
+    .nav-drop-panel > a:hover { background: rgba(213,100,95,0.08); color: #F3746F; }
+    .nav-drop-panel > a.active { color: #F3746F; font-weight: 700; }
 
     /* ── Nav action buttons (left side) ── */
     .nav-actions {
@@ -310,12 +310,12 @@
       color: var(--on-accent); border: none; border-radius: 50px;
       padding: 0.5rem 1.3rem; font-size: 0.85rem; font-weight: 700;
       letter-spacing: normal; cursor: pointer;
-      box-shadow: 0 4px 14px rgba(224,86,11,0.32);
+      box-shadow: 0 4px 14px rgba(213,100,95,0.32);
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .nav-btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 22px rgba(224,86,11,0.45);
+      box-shadow: 0 6px 22px rgba(213,100,95,0.45);
     }
     .nav-btn-secondary {
       background: transparent;
@@ -342,7 +342,7 @@
       display: flex; align-items: center; gap: 0.35rem;
       transition: border-color 0.2s, color 0.2s;
     }
-    .nav-btn-lang:hover { border-color: var(--orange); color: var(--orange-text); }
+    .nav-btn-lang:hover { border-color: var(--orange); color: #F3746F; }
 
     .hamburger {
       display: none; flex-direction: column; justify-content: center;
@@ -414,8 +414,7 @@
       /* גרסת מובייל בלבד — שוליים אחידים 16px סביב ההירו, תמונת הרקע ממורכזת. */
       .hero-image-frame { top: 16px; left: 16px; right: 16px; bottom: 16px; }
       .hero-bg-fallback {
-        object-position: 62% center;
-        transform: scale(1.5) translateY(-18%);
+        object-position: center center;
       }
     }
 
@@ -471,12 +470,31 @@
        הקופסאות, הילדים ממשיכים להתנהג בדיוק כמו קודם (position:absolute עצמאי). */
     .hero-content-frame { display: contents; }
 
-    /* Hero main content — logo + subtitle row, centered */
+    /* 40th-anniversary mark — top-left corner. .hero-image-frame is inset 24px from
+       #hero, so top/left here = 24px frame inset + 40px actual gap from the visible banner edge. */
+    .hero-40-mark {
+      position: absolute;
+      top: 64px;
+      left: 64px;
+      z-index: 10;
+      width: 177px;
+      height: auto;
+      pointer-events: none;
+    }
+
+    /* Mobile-only duplicate of the mark, shown inline below the button instead
+       (see @media (max-width:768px) below) — hidden on desktop. */
+    .hero-40-mark-mobile {
+      display: none;
+    }
+
+    /* Hero main content (title + button) — starts below the date badge,
+       which now sits flush against the banner's top edge on its own (Figma node 357:1517) */
     .hero-main-content {
       position: absolute;
       top: 50%;
-      right: 120px;
       transform: translateY(-50%);
+      right: 120px;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
@@ -485,11 +503,17 @@
       pointer-events: none;
     }
 
+    /* Date badge — flush against the top of the banner image, zero gap.
+       Positioned independently of .hero-main-content (which starts lower, at top:40px)
+       so it can hug the image's own top edge exactly (24px = .hero-image-frame's inset). */
     .hero-date-badge {
+      position: absolute;
+      top: 24px;
+      right: 120px;
+      z-index: 10;
+      width: 220px;
+      height: auto;
       pointer-events: auto;
-      display: block;
-      height: 46px;
-      width: auto;
     }
 
     .hero-title-text {
@@ -498,17 +522,19 @@
       color: #fff;
       text-align: right;
       line-height: 1.1;
+      letter-spacing: 0.15px;
+      text-shadow: 4px 4px 0 #F3746F;
       margin: 0;
     }
     .hero-title-line1 {
       display: block;
       font-weight: 500;
-      font-size: clamp(32px, 6vw, 72px);
+      font-size: clamp(32px, 6vw, 80px);
     }
     .hero-title-line2 {
       display: block;
       font-weight: 700;
-      font-size: clamp(32px, 6vw, 72px);
+      font-size: clamp(32px, 6vw, 80px);
     }
 
     .hero-lineup-btn {
@@ -574,6 +600,53 @@
       padding: 16px 16px 0 0;
     }
 
+    /* Scroll cue — bottom-center of the hero image, at the banner's bottom edge */
+    .hero-scroll-cue {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      pointer-events: auto;
+      transition: color 0.2s;
+    }
+    .hero-scroll-cue:hover { color: #fff; }
+    .hero-scroll-cue-label {
+      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      white-space: nowrap;
+    }
+    .hero-scroll-cue-track {
+      position: relative;
+      width: 1px;
+      height: 30px;
+      overflow: hidden;
+    }
+    .hero-scroll-cue-line {
+      position: absolute;
+      top: 0; right: 0;
+      width: 1px;
+      height: 14px;
+      background: currentColor;
+      animation: heroScrollCueDrop 1.8s ease-in-out infinite;
+    }
+    @keyframes heroScrollCueDrop {
+      0%   { transform: translateY(-100%); opacity: 0; }
+      35%  { opacity: 1; }
+      100% { transform: translateY(220%); opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-scroll-cue-line { animation: none; opacity: 0.6; height: 30px; }
+    }
+
     /* גרסת מובייל בלבד — hero-content-frame (שעד עכשיו היה display:contents) הופך לעמודת
        flex שממוקמת בדיוק על אותו inset כמו hero-image-frame (16px). hero-main-content
        הוא flex:1 וממרכז את תוכנו (badge/כותרת/כפתור) אנכית ואופקית בתוך השטח שנותר מעל
@@ -581,6 +654,12 @@
        ל-countdown, בלי חישובי פיקסלים קשיחים. ממוקם אחרי הכללים הבסיסיים כדי לגבור
        עליהם בקסקייד (אותה specificity, אז סדר המקור קובע). */
     @media (max-width: 768px) {
+      .hero-40-mark { display: none; }
+      .hero-40-mark-mobile { display: block; width: 120px; margin-top: 4px; }
+      .hero-date-badge {
+        top: 16px; left: 50%; right: auto; transform: translateX(-50%);
+        width: 170px;
+      }
       .hero-content-frame {
         display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
         /* inset תואם בדיוק ל-.hero-image-frame (16px) — זו מסגרת הקואורדינטות
@@ -590,23 +669,27 @@
       }
       .hero-main-content {
         position: static;
-        /* מרימים מעט את הטקסט כלפי מעלה כדי לצמצם את הרווח מול הספירה לאחור,
-           בהתאמה להרמת תמונת הרקע */
-        transform: translateY(-28px);
+        /* transform:none — מבטל את translateY(-50%) שמגיע מהכלל הבסיסי (דסקטופ,
+           position:absolute+top:50%). ה-transform לא מתבטל אוטומטית כשמשנים
+           position ל-static, ובלי האיפוס הזה הבלוק (שכאן תופס גובה גדול בגלל
+           flex:1 1 auto) זז למעלה בחצי מהגובה שלו — הכותרת יוצאת מהמסגרת. */
+        transform: none;
+        /* padding-top קבוע (לא ריכוז אנכי) — 65px גובה .hero-date-badge (top:16px, 170px
+           רוחב, יחס 102/267) + 24px רווח מבוקש, כך שהכותרת לעולם לא חופפת את התג,
+           בלי תלות בחישוב ריכוז גמיש. */
+        padding-top: 89px;
         /* flex-basis: auto (במקום ה-0% של "flex: 1") + min-height: 0 + overflow: hidden —
            כשגובה הבאנר קצר מדי, הבלוק הזה (לוגו/כותרת/כפתור) הוא זה שמצטמצם ונחתך,
            לא כרטיס הספירה לאחור — כך הכרטיס תמיד שלם בתוך הבאנר. */
         flex: 1 1 auto; min-height: 0; overflow: hidden;
         width: 100%;
         display: flex; flex-direction: column;
-        align-items: center; justify-content: center; text-align: center;
+        align-items: center; justify-content: flex-start; text-align: center;
         max-width: 480px; margin-inline: auto;
         padding-inline: 24px; box-sizing: border-box;
       }
       .hero-title-text { text-align: center; }
-      /* Unified with every other mobile section heading (2rem — the
-         ticket-plans-title size) instead of its own larger clamp. */
-      .hero-title-line1, .hero-title-line2 { font-size: 2rem; }
+      .hero-title-line1, .hero-title-line2 { font-size: 2.75rem; }
       /* height אחיד עם שאר כפתורי ה-CTA במובייל (44px — כגובה כפתור
          "פרטים נוספים" בסקשן #venue) */
       .hero-lineup-btn { padding: 0.75rem 1.25rem; font-size: 16px; height: 44px; }
@@ -626,6 +709,8 @@
       /* selector עם 2 מחלקות (במקום .hero-corner בלבד) — כדי לגבור בפועל על הכלל
          הכללי הלא-מותנה (display:block) שמופיע אחריו במקור, למרות סדר ה-cascade */
       img.hero-corner { display: none; }
+      /* אין פינה פנויה למובייל — כרטיס הספירה לאחור תופס את כל הרוחב התחתון */
+      .hero-scroll-cue { display: none; }
     }
 
     .hero-corner {
@@ -720,7 +805,7 @@
       top: -2px;
       left: 50%;
       transform: translateX(-50%);
-      background: linear-gradient(166deg, var(--orange) 0%, #E84021 73%);
+      background: linear-gradient(166deg, var(--orange) 0%, #F3746F 73%);
       color: #fff;
       font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
       font-weight: 400;
@@ -752,7 +837,7 @@
       line-height: 1.1;
       width: 100%;
       text-align: center;
-      background: linear-gradient(135deg, var(--orange) 0%, #E84021 73%);
+      background: linear-gradient(135deg, var(--orange) 0%, #F3746F 73%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -789,12 +874,12 @@
       color: #fff; border: none; border-radius: 50px;
       padding: 0.9rem 2.5rem; font-size: 1rem; font-weight: 700;
       letter-spacing: normal;
-      box-shadow: 0 0 30px rgba(255,107,26,0.45);
+      box-shadow: 0 0 30px rgba(243,116,111,0.45);
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .btn-primary:hover {
       transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 0 50px rgba(255,107,26,0.7);
+      box-shadow: 0 0 50px rgba(243,116,111,0.7);
     }
     .btn-secondary {
       background: transparent;
@@ -807,27 +892,6 @@
       transform: translateY(-3px);
     }
 
-    /* Scroll indicator */
-    .scroll-indicator {
-      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
-      color: rgba(245,239,230,0.7); font-size: 0.75rem; letter-spacing: 0.1em;
-      opacity: 0; transition: opacity 0.4s ease; pointer-events: none;
-    }
-    .scroll-indicator.visible { opacity: 1; }
-    .scroll-arrow {
-      width: 20px; height: 30px; border: 2px solid rgba(255,255,255,0.2);
-      border-radius: 10px; position: relative;
-    }
-    .scroll-arrow::after {
-      content: ''; position: absolute; top: 5px; left: 50%; transform: translateX(-50%);
-      width: 4px; height: 8px; background: var(--orange); border-radius: 2px;
-      animation: scrollDot 1.8s ease-in-out infinite;
-    }
-    @keyframes scrollDot {
-      0%, 100% { top: 5px; opacity: 1; }
-      80%       { top: 15px; opacity: 0; }
-    }
 
     /* Animations */
     @keyframes fadeUp {
@@ -854,7 +918,7 @@
       font-weight: 900; line-height: 1.1;
     }
     .section-title .accent {
-      background: linear-gradient(135deg, var(--orange) 0%, #E84021 73%);
+      background: linear-gradient(135deg, var(--orange) 0%, #F3746F 73%);
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .section-desc {
@@ -872,6 +936,34 @@
       width: 100%; height: 1px;
       background: linear-gradient(90deg, transparent, var(--border), transparent);
     }
+
+    /* ─── ABOUT STRIP / STATS ────────────────────────────────── */
+    /* דסקטופ בלבד — מוסתר במובייל (ראו override ב-@media max-width:900px) */
+    #about-strip {
+      padding: 2.5rem 3rem;
+      background: rgba(210, 140, 130, 0.08);
+    }
+    .about-stats {
+      display: flex; flex-wrap: wrap;
+      justify-content: center; align-items: center;
+      max-width: 1100px; margin-inline: auto;
+    }
+    .stat {
+      text-align: center; padding: 0.5rem 0;
+      flex: 1; min-width: 120px;
+      border-inline-end: 1px solid var(--border);
+    }
+    .stat:last-child { border-inline-end: none; }
+    .stat-num {
+      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
+      font-size: 80px; font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: 0.15px;
+      color: var(--text);
+      font-variation-settings: 'GRAD' 0;
+      text-shadow: 2px 2px 0px #F3746F;
+    }
+    .stat-label { font-size: 0.95rem; color: var(--text); margin-top: 0.2rem; }
 
     /* All content after hero sits above sticky background */
     /* Single stacking layer — prevents sub-pixel cracks between sections */
@@ -969,7 +1061,7 @@
     }
     .show-thumb::after {
       content: ''; position: absolute; inset: 0;
-      background: radial-gradient(circle at 30% 70%, rgba(255,107,26,0.2), transparent 70%);
+      background: radial-gradient(circle at 30% 70%, rgba(243,116,111,0.2), transparent 70%);
     }
     /* Placeholder glyph — מוצג רק כשאין תמונה אמיתית בשורה */
     .show-thumb::before {
@@ -1011,7 +1103,7 @@
       position: absolute; top: 4px; bottom: 4px;
       border-radius: 50px;
       background: var(--btn-gradient);
-      box-shadow: 0 0 16px rgba(255,107,26,0.45);
+      box-shadow: 0 0 16px rgba(243,116,111,0.45);
       transition: left 0.3s cubic-bezier(0.34,1.56,0.64,1), width 0.3s;
       pointer-events: none;
     }
@@ -1078,7 +1170,7 @@
     }
     .lineup-artist-thumb::after {
       content: ''; position: absolute; inset: 0;
-      background: radial-gradient(circle at 40% 60%, rgba(255,107,26,0.04), transparent 45%);
+      background: radial-gradient(circle at 40% 60%, rgba(243,116,111,0.04), transparent 45%);
       z-index: -1;
     }
     .lineup-artist-thumb.has-img::after { content: none; }
@@ -1099,8 +1191,8 @@
       padding: 0.4rem;
     }
     .show-block {
-      background: rgba(255,107,26,0.1);
-      border: 1px solid rgba(255,107,26,0.3);
+      background: rgba(243,116,111,0.1);
+      border: 1px solid rgba(243,116,111,0.3);
       border-radius: 10px; padding: 0;
       cursor: pointer; transition: all 0.25s;
       position: relative; overflow: hidden;
@@ -1117,9 +1209,9 @@
       border-start-end-radius: 10px; border-end-end-radius: 10px;
     }
     .show-block:hover {
-      background: rgba(255,107,26,0.2);
+      background: rgba(243,116,111,0.2);
       transform: scale(1.02);
-      box-shadow: 0 5px 20px rgba(255,107,26,0.2);
+      box-shadow: 0 5px 20px rgba(243,116,111,0.2);
     }
     .show-block.teal {
       background: rgba(0,200,200,0.1);
@@ -1158,9 +1250,9 @@
       overflow: hidden;
     }
     .lineup-list-item:hover {
-      border-color: rgba(255,107,26,0.4);
+      border-color: rgba(243,116,111,0.4);
       transform: translateX(-4px);
-      background: color-mix(in srgb, #FFFDF8 94%, #FF6B1A 6%);
+      background: color-mix(in srgb, #FFFDF8 94%, #F3746F 6%);
     }
     .lineup-num { font-size: 1.8rem; font-weight: 400; color: var(--border); min-width: 3rem; }
     .lineup-info { flex: 1; }
@@ -1178,26 +1270,37 @@
       border-radius: 50px; border: 1px solid;
       font-weight: 500;
     }
-    .lineup-stage.stage-1 { color: var(--orange-text); border-color: rgba(255,107,26,0.4); background: rgba(255,107,26,0.08); }
+    .lineup-stage.stage-1 { color: var(--orange-text); border-color: rgba(243,116,111,0.4); background: rgba(243,116,111,0.08); }
     .lineup-stage.stage-2 { color: var(--teal-text);   border-color: rgba(0,200,200,0.4);   background: rgba(0,200,200,0.08); }
     .lineup-stage.stage-3 { color: var(--pink);   border-color: rgba(255,110,180,0.4); background: rgba(255,110,180,0.08); }
     .lineup-stage.stage-4 { color: var(--yellow-text); border-color: rgba(255,210,52,0.4);  background: rgba(255,210,52,0.08); }
 
     /* ─── HOTEL BANNER ────────────────────────────────────────── */
     #hotels {
-      padding: 200px 3rem 200px;
+      padding: 80px 3rem;
       background: var(--bg);
       z-index: 1; /* sits above #venue's pinned video so its own tail visually peels away and reveals it */
     }
     .hotel-banner {
       position: relative; overflow: hidden;
       border-radius: 24px;
-      /* Light Mode — רקע שמנת תואם ל-Figma node 213-919 (#f5efe6 ≈ --bg2) */
-      --banner-fg: var(--text);
-      background: var(--bg2);
-      border: 1px solid rgba(224,86,11,0.25);
+      min-height: 320px;
+      /* Dark night-scene — Figma node 365:1175: מלונות + סהר + שמיים, טקסטורת נייר מוכהית אפויה בתוך התמונה */
+      --banner-fg: #fff;
+      /* גרדיאנט כיסוי מעל התמונה — Figma node 365:2258: שקוף בצד שמאל (הסהר גלוי במלואו),
+         נכהה לצבע האחיד #0e407d עד הקצה הימני (מאחורי הטקסט), לקריאות.
+         background-blend-mode:multiply (ולא normal) כדי שטקסטורת הנייר המקומט
+         האפויה בתוך התמונה תמשיך להיראות גם מתחת לאזור המוכהה — נראה אורגני
+         ולא בלוק צבע שטוח. */
+      background-image: linear-gradient(to right, rgba(14,64,125,0) 0%, #0e407d 72%), url('./Graphig assets/hotel-banner-bg.jpg');
+      background-size: 100% 100%, cover;
+      background-position: 0 0, center;
+      background-repeat: no-repeat, no-repeat;
+      background-blend-mode: multiply, normal;
+      background-color: #0e407d;
+      border: 1px solid rgba(255,107,26,0.25);
       padding-block: 3.3rem;
-      padding-inline-start: 40px;
+      padding-inline-start: 80px;
       padding-inline-end: 3.5rem;
       display: flex; align-items: center; justify-content: space-between; gap: 4rem;
       flex-wrap: wrap;
@@ -1206,76 +1309,33 @@
       transition: border-color 0.3s, box-shadow 0.3s;
     }
     .hotel-banner:hover {
-      border-color: rgba(224,86,11,0.6);
-      box-shadow: 0 0 60px rgba(224,86,11,0.15), 0 24px 60px rgba(58,42,30,0.18);
-    }
-    .banner-glow-orange {
-      position: absolute; left: 440px; top: -274px;
-      width: 543px; height: 543px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,107,26,0.30) 0%, transparent 65%);
-      pointer-events: none; z-index: 0;
-    }
-    .banner-glow-teal {
-      position: absolute; bottom: -73px; right: -61px;
-      width: 379px; height: 379px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,200,200,0.22) 0%, transparent 65%);
-      pointer-events: none; z-index: 0;
-    }
-    /* Background photo layer — full-bleed; הצלליות (מלונות+דקל) ממוקמות בקצה התחתון-שמאלי */
-    .banner-bg-photo {
-      position: absolute;
-      inset: 0;
-      width: 100%; height: 100%;
-      z-index: 0; pointer-events: none; overflow: hidden;
-    }
-    .banner-bg-photo img {
-      position: absolute;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      /* left bottom — חושף את צלליות המלונות והדקל הכהים שבבסיס התמונה (אזור גלוי = שמאל ב-RTL) */
-      object-position: left bottom;
-      display: block;
-    }
-    /* Gradient overlay inside the image container — האיור+הצלליות גלויים בשמאל,
-       נמוג ל-cream רק לכיוון הטקסט (ימין). אין יותר נמיגה אנכית (למעלה/למטה) —
-       זו יצרה פס קרם רוחבי-מלא לא רצוי גם מעל האיור בצד שמאל. */
-    .banner-photo-overlay {
-      position: absolute; inset: 0; z-index: 1; pointer-events: none;
-      background: linear-gradient(to right, rgba(243,233,214,0) 30%, rgba(243,233,214,0.45) 58%, var(--bg2) 82%);
+      border-color: rgba(255,107,26,0.5);
+      box-shadow: 0 0 60px rgba(255,107,26,0.18), 0 24px 60px rgba(14,64,125,0.35);
     }
 
-    /* Eilat silhouette strip inside banner */
-    .banner-silhouette { display: none; }
-
-    .hotel-banner-content { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 14px; align-items: flex-start; flex: 1; min-width: 0; text-align: right; padding-inline-end: 80px; }
+    .hotel-banner-content { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 14px; align-items: flex-start; flex: 1; min-width: 0; text-align: right; }
     .hotel-banner-title {
       display: flex; flex-direction: column; align-items: flex-start;
-      /* מאוחד עם כל כותרות הסקשנים בדף הבית — ראו .section-title */
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      font-weight: 900; line-height: normal;
+      font-weight: 700; line-height: 1.1;
     }
-    .hotel-banner-title .title-line1 { color: var(--banner-fg); }
-    .hotel-banner-title .hl {
-      background: linear-gradient(135deg, var(--orange) 0%, #E84021 73%);
-      -webkit-background-clip: text; background-clip: text; color: transparent;
-    }
-    .hotel-banner-sub { color: var(--banner-fg); font-size: 18px; line-height: 1.6; text-align: right; }
+    .hotel-banner-title .title-line1 { color: var(--banner-fg); font-size: clamp(1.9rem, 3.8vw, 2.5rem); }
+    .hotel-banner-title .hl { color: #F3746F; font-size: clamp(2.6rem, 5.4vw, 3.6rem); }
+    .hotel-banner-sub { color: var(--banner-fg); font-size: 16px; line-height: 1.6; text-align: right; }
 
     .hotel-banner-cta { position: relative; z-index: 2; flex-shrink: 0; }
     .hotel-banner-btn {
       display: inline-flex; align-items: center; gap: 0.7rem;
-      background: var(--btn-gradient);
+      background: #F3746F;
       color: #fff; border: none; border-radius: 50px;
       padding: 1rem 2.2rem; font-size: 1rem; font-weight: 700;
       letter-spacing: 0; cursor: pointer;
-      box-shadow: 0 0 30px rgba(255,107,26,0.45);
+      box-shadow: 0 0 30px rgba(243,116,111,0.45);
       transition: transform 0.2s, box-shadow 0.2s;
       text-decoration: none;
     }
     .hotel-banner-btn:hover {
       transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 0 50px rgba(255,107,26,0.7);
+      box-shadow: 0 0 50px rgba(243,116,111,0.7);
     }
     .hotel-banner-btn .arrow { font-size: 1.1rem; transition: transform 0.2s; }
     .hotel-banner-btn:hover .arrow { transform: translateX(-4px); }
@@ -1285,9 +1345,9 @@
       align-items: center;
     }
     .hotel-logo-chip {
-      background: rgba(255,255,255,0.6); border: 1px solid #fff;
+      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.5);
       border-radius: 8px; padding: 0.31rem 0.75rem;
-      font-size: 0.75rem; color: var(--banner-fg); font-weight: 400;
+      font-size: 0.875rem; color: var(--banner-fg); font-weight: 400;
     }
 
     /* ─── NEWS ─────────────────────────────────────────────────── */
@@ -1422,9 +1482,9 @@
     /* פריט דגל — התקליט: מודגש בכרטיס גבולי כתום + תג "פריט דגל" */
     .merch-card-featured {
       border: 2px solid var(--orange);
-      box-shadow: 0 10px 30px rgba(224,86,11,0.18);
+      box-shadow: 0 10px 30px rgba(213,100,95,0.18);
     }
-    .merch-card-featured:hover { box-shadow: 0 16px 40px rgba(224,86,11,0.30); }
+    .merch-card-featured:hover { box-shadow: 0 16px 40px rgba(213,100,95,0.30); }
     /* מוצרים שקיימים רק בקרוסלת המובייל (שקית בד/פוסטר/קפוצ'ון) — בדסקטופ
        נשארים 4 המוצרים המקוריים (תקליט/כובע/בקבוק/חולצה) + כפתור "לכל
        המוצרים בחנות" מתחתם; מוצג ל-≤600px, ראו override ב-@media למטה */
@@ -1435,23 +1495,21 @@
       background: var(--btn-gradient); color: #fff;
       font-size: 0.72rem; font-weight: 800; letter-spacing: 0.02em;
       padding: 0.34rem 0.75rem; border-radius: 50px;
-      box-shadow: 0 4px 14px rgba(224,86,11,0.4);
+      box-shadow: 0 4px 14px rgba(213,100,95,0.4);
       display: inline-flex; align-items: center; gap: 0.3rem;
     }
 
-    /* כפתור מעבר לעמוד המרצ' הפנימי — תואם בדיוק לעיצוב הכפתור המשני
-       בכרטיסיות המסלולים (.ticket-plan-cta-secondary) — כל כפתור באיררכיה
-       משנית באתר אמור להיראות זהה לזה. */
+    /* כפתור מעבר לעמוד המרצ' הפנימי — כפתור משני בהיררכיית האתר. */
     .merch-cta-wrap { margin-top: 3rem; text-align: center; }
     .merch-cta {
       display: inline-flex; align-items: center; gap: 0.5rem;
-      background: transparent; color: #d9382d;
-      border: 1px solid #ff6b1a;
+      background: transparent; color: #F3746F;
+      border: 1px solid #f3746f;
       border-radius: 50px; padding: 15px 24px;
       font-size: 16px; font-weight: 700; text-decoration: none;
       transition: background 0.2s, transform 0.2s;
     }
-    .merch-cta:hover { background: rgba(255,107,26,0.06); transform: translateY(-2px); }
+    .merch-cta:hover { background: rgba(243,116,111,0.06); transform: translateY(-2px); }
 
     /* height אחיד עם שאר כפתורי ה-CTA במובייל (44px — כגובה כפתור
        "פרטים נוספים" בסקשן #venue) */
@@ -1502,7 +1560,7 @@
       }
       .merch-grid .merch-card-featured:hover {
         border-color: var(--orange);
-        box-shadow: 0 10px 30px rgba(224,86,11,0.18);
+        box-shadow: 0 10px 30px rgba(213,100,95,0.18);
       }
     }
 
@@ -1622,8 +1680,8 @@
     }
     /* ─── FOOTER ──────────────────────────────────────────────── */
     footer {
-      background: #2d2726;
-      border-top: 1px solid rgba(224,86,11,0.3);
+      background: #290B24;
+      border-top: 1px solid rgba(213,100,95,0.3);
       padding: 4rem 3rem 2rem;
     }
     .footer-grid {
@@ -1649,8 +1707,8 @@
       font-size: 1rem; transition: all 0.2s; cursor: pointer;
       color: #e6d8d6; font-family: var(--font);
     }
-    .social-btn:hover { background: rgba(255,107,26,0.25); border-color: var(--orange); }
-    .footer-col-title { font-size: 0.8rem; color: var(--orange); letter-spacing: 0; text-transform: uppercase; margin-bottom: 1.2rem; font-weight: 600; }
+    .social-btn:hover { background: rgba(243,116,111,0.25); border-color: var(--orange); }
+    .footer-col-title { font-size: 0.8rem; color: #fff; letter-spacing: 0; text-transform: uppercase; margin-bottom: 1.2rem; font-weight: 600; }
     .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
     .footer-links a { font-size: 0.9rem; color: rgba(230,216,214,0.65); transition: color 0.2s; }
     .footer-links a:hover { color: #fff; }
@@ -1738,18 +1796,17 @@
          היא זו שגרמה לפער מול שאר כותרות הסקשנים (.alt-lineup-title,
          .ticket-plans-title...) שאין להן override דומה וממשיכות לגדול
          עם clamp() גם ברוחבי טאבלט. .section-title עכשיו זהה להן. */
-      /* padding-top מבוטל: הרווח מלמעלה כבר מגיע מה-padding-bottom של הסקשן
-         הקודם (מסלולי כרטיסים) — פדינג עליון נוסף כאן נראה כרווח כפול */
-      #hotels { padding-top: 0; padding-bottom: 60px; }
+      #hotels { padding-top: 60px; padding-bottom: 60px; }
       footer { padding: 3rem 1.5rem 2rem; }
       .modal-header, .modal-controls, .modal-body { padding-inline: 1.5rem; }
       .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
       .schedule-table { font-size: 0.8rem; }
+      /* סטריפ המספרים (40 שנות פסטיבל / 4 ימים / 4 במות / 78 הופעות) — דסקטופ בלבד */
+      #about-strip { display: none; }
     }
 
     @media (max-width: 600px) {
       .hero-main-content { gap: 24px; padding-inline: 20px; }
-      .hero-date-badge { height: 42px; }
       .countdown { padding: 32px 14px 12px; height: auto; }
       .countdown-row { gap: 0; width: 100%; }
       .countdown-item { width: auto; flex: 1; }
@@ -1779,29 +1836,12 @@
          מבוטל: הרווח מלמעלה כבר מגיע מסוף הסקשן הקודם — למעלה זה נראה כפול. */
       #hotels { padding: 0 16px 60px; }
 
-      .hotel-banner-content { align-items: center; text-align: center; padding-inline-end: 0; }
-      /* Unified with every other mobile section heading (2rem). */
-      .hotel-banner-title { align-items: center; font-size: 2rem; }
+      .hotel-banner-content { align-items: center; text-align: center; }
+      .hotel-banner-title { align-items: center; }
       .hotel-banner-sub { text-align: center; font-size: 15px; }
       .hotel-logos { justify-content: center; }
 
       .hotel-banner-btn { padding: 0.75rem 2rem; height: 44px; }
-
-      /* בלי זום נוסף על ה-object-fit:cover הטבעי — כך נראה יותר מהתמונה הרחבה
-         (מלונות, דקלים והרים), במקום קרופ צר ומזוהה-קשה. object-position:left
-         (בכלל הבסיסי) ממשיך לעגן לאשכול המלון+דקלים שבצד שמאל התמונה. */
-
-      /* שכבת הצבע מכסה רק מלמעלה ועד בערך לאמצע (אזור הטקסט) ונעלמת
-         לגמרי לקראת התחתית, כדי לא לכסות את התמונה בשוליים התחתונים.
-         שקיפות קלה (0.88 ולא אטום לגמרי) גם באזור הטקסט עצמו, כדי
-         שהתמונה האחורית תיראה בעדינות גם שם. */
-      .banner-photo-overlay {
-        background: linear-gradient(to bottom,
-          rgba(243,233,214,0.88) 0%,
-          rgba(243,233,214,0.88) 38%,
-          rgba(243,233,214,0.5) 55%,
-          rgba(243,233,214,0) 70%);
-      }
     }
 
     /* טלפונים קטנים מאוד (~≤400px): ה-toolbar (לוגו + כפתור כרטיסים + EN + המבורגר)
@@ -1948,7 +1988,7 @@
     .show-panel-origin { font-size: 0.82rem; color: var(--muted); }
     .show-panel-genre-tag {
       display: inline-block;
-      background: rgba(255,107,26,0.12); color: var(--orange-text);
+      background: rgba(243,116,111,0.12); color: var(--orange-text);
       border-radius: 50px; padding: 0.18rem 0.75rem; font-size: 0.73rem;
     }
 
@@ -1975,7 +2015,7 @@
     }
 
     .show-panel-desc {
-      font-size: 0.875rem; color: rgba(58,42,30,0.78);
+      font-size: 0.875rem; color: rgba(var(--text-rgb),0.78);
       line-height: 1.82; margin: 0;
     }
 
@@ -1985,13 +2025,13 @@
       color: #fff; border: none; border-radius: 50px;
       padding: 1rem 1.5rem; font-size: 0.97rem; font-weight: 700;
       cursor: pointer; text-decoration: none;
-      box-shadow: 0 0 24px rgba(255,107,26,0.42);
+      box-shadow: 0 0 24px rgba(243,116,111,0.42);
       transition: transform 0.2s, box-shadow 0.2s;
       flex-shrink: 0; margin-top: auto;
     }
     .show-panel-ticket-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 0 40px rgba(255,107,26,0.68);
+      box-shadow: 0 0 40px rgba(243,116,111,0.68);
       color: #fff;
     }
     .show-panel-ticket-btn .ticket-arrow { transition: transform 0.2s; }
@@ -2086,7 +2126,7 @@
 
     <!-- Logo tab – white hanging badge on the right -->
     <a class="nav-logo-tab" href="#">
-      <img src="State=Vertical.svg" alt="Red Sea Jazz Festival" class="nav-logo-img" width="80" height="80" />
+      <img src="State=Vertical.svg?v=2" alt="Red Sea Jazz Festival" class="nav-logo-img" width="80" height="80" />
     </a>
 
     <!-- Nav inner: links (center) + action buttons (left) -->
@@ -2097,7 +2137,7 @@
       <div class="mobile-menu-panel" id="mobileMenuPanel">
       <ul class="nav-links" id="navLinks">
         <li class="nav-link-mobile-flat"><a href="./index.html" data-he="דף הבית" data-en="Home">דף הבית</a></li>
-        <li><a href="#artist-lineup-text" data-he="ליין אפ" data-en="Lineup">ליין אפ</a></li>
+        <li><a href="#artist-lineup-text" data-he="Artists" data-en="Artists">Artists</a></li>
         <li><a href="./lineup.html" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
         <li class="nav-link-mobile-flat"><a href="https://www.hotels.com/" target="_blank" rel="noopener" data-he="חבילות לינה" data-en="Stay Packages">חבילות לינה</a></li>
         <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
@@ -2172,20 +2212,29 @@
            fetchpriority="high">
     </div>
 
-    <!-- Hero title + date badge + full-lineup CTA — right-aligned, 80px from the banner's right edge (desktop).
+    <!-- 40th-anniversary mark — top-left, 40px from the banner's top+left edges -->
+    <img class="hero-40-mark" src="./Graphig assets/hero-40-mark.svg" alt="40 מהדורה" width="177" height="100">
+
+    <!-- Date badge — flush against the top of the banner, zero gap. Positioned
+         independently of .hero-main-content (which starts lower) so it can hug
+         the image's own top edge exactly regardless of breakpoint. -->
+    <img class="hero-date-badge" src="./Graphig assets/hero-date-badge.png" alt="11–14.11.26" width="267" height="102">
+
+    <!-- Hero title + full-lineup CTA — right-aligned, 80px from the banner's right edge (desktop).
          .hero-content-frame is display:contents on desktop (no-op); on mobile it becomes the flex track
          both blocks share, so the gap above the text and the gap above the countdown stay equal. -->
     <div class="hero-content-frame">
     <div class="hero-main-content">
-      <img class="hero-date-badge" src="./Graphig assets/hero-date-badge.svg" alt="11–14.11.26" width="216" height="52">
       <h1 class="hero-title-text">
         <span class="hero-title-line1">סופשבוע של</span>
         <span class="hero-title-line2">ג׳אז באילת</span>
       </h1>
       <a href="#artist-lineup-text" class="hero-lineup-btn">
-        לליין אפ המלא
+        Artists
         <span class="hero-lineup-btn-arrow" aria-hidden="true">&#8592;</span>
       </a>
+      <!-- Mobile-only: the "40" mark repeats here, below the button, instead of the top-left corner -->
+      <img class="hero-40-mark-mobile" src="./Graphig assets/hero-40-mark.svg" alt="40 מהדורה" width="177" height="100">
     </div>
 
     <!-- Countdown — bottom-left of hero (desktop) / bottom-center (mobile) -->
@@ -2215,21 +2264,48 @@
         </div>
       </div>
     </div>
+
+    <!-- Scroll cue — bottom-center of hero (desktop only) -->
+    <a href="#artist-lineup-text" class="hero-scroll-cue" aria-label="גללו למטה לתוכן הבא">
+      <span class="hero-scroll-cue-label">גללו למטה</span>
+      <span class="hero-scroll-cue-track" aria-hidden="true">
+        <span class="hero-scroll-cue-line"></span>
+      </span>
+    </a>
     </div><!-- /hero-content-frame -->
-    <div class="scroll-indicator" id="scrollIndicator" aria-hidden="true">
-      <div class="scroll-arrow"></div>
-    </div>
   </section>
   </div><!-- /hero-wrapper -->
 
   <main id="page-body">
+
+  <!-- ── ABOUT STRIP / STATS ── -->
+  <div id="about-strip" class="reveal">
+    <div class="about-stats">
+      <div class="stat">
+        <div class="stat-num">40</div>
+        <div class="stat-label">שנות פסטיבל</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4</div>
+        <div class="stat-label">ימים</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4</div>
+        <div class="stat-label">במות</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">78</div>
+        <div class="stat-label">הופעות</div>
+      </div>
+    </div>
+  </div>
 
   <!-- ── ARTIST LINEUP TEXT SECTION ── -->
   <section id="artist-lineup-text">
     <div class="alt-lineup-section-inner">
 
       <div class="alt-lineup-header reveal">
-        <h2 class="alt-lineup-title">ליין אפ <span class="alt-lineup-title-accent">2026</span></h2>
+        <h2 class="alt-lineup-title">Artists</h2>
       </div>
 
       <div class="alt-lineup-grid reveal">
@@ -2389,7 +2465,7 @@
       color: var(--text);
     }
     .alt-lineup-title-accent {
-      background: linear-gradient(135deg, var(--orange) 0%, #E84021 73%);
+      background: linear-gradient(135deg, var(--orange) 0%, #F3746F 73%);
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .alt-lineup-desc {
@@ -2551,7 +2627,7 @@
     }
     .alt-drawer-header::after {
       content: ''; position: absolute; inset: 0;
-      background: radial-gradient(circle at 80% 15%, rgba(224,86,11,0.32), transparent 60%);
+      background: radial-gradient(circle at 80% 15%, rgba(213,100,95,0.32), transparent 60%);
       pointer-events: none;
     }
     .alt-drawer-header > * { position: relative; z-index: 1; }
@@ -2591,7 +2667,7 @@
       font-size: 0.75rem; font-weight: 600;
     }
     .alt-drawer-desc {
-      font-size: 0.95rem; color: rgba(58,42,30,0.8);
+      font-size: 0.95rem; color: rgba(var(--text-rgb),0.8);
       line-height: 1.8; direction: rtl;
     }
     .alt-drawer-shows {
@@ -2770,126 +2846,54 @@
     });
   </script>
 
-  <!-- ── TICKET PLANS ── -->
-  <section id="ticket-plans" dir="rtl" class="ticket-plans-section">
-    <div class="ticket-plans-header reveal">
-      <h2 class="ticket-plans-title">בחרו את <span class="ticket-plans-title-accent">המסלול</span> שלכם</h2>
-      <p class="ticket-plans-subtitle">שלושה מסלולי כניסה לפסטיבל</p>
-    </div>
-
-    <div class="ticket-plans-grid reveal">
-
-      <!-- Card 1: פס מלא (הכי פופולרי) — ראשון -->
-      <div class="ticket-plan-card ticket-plan-featured">
-        <div class="ticket-plan-badge-new">הכי פופולרי</div>
-        <div class="ticket-plan-inner">
-          <div class="ticket-plan-top">
-            <div class="ticket-plan-name">פס מלא</div>
-            <p class="ticket-plan-desc">כניסה חופשית לכל ימי הפסטיבל ולכל ההופעות!<br><strong>ארבעה ימים. כל הבמות. בלי לבחור.</strong></p>
-          </div>
-          <div class="ticket-plan-features">
-            <div class="ticket-plan-feature">
-              <span class="ticket-plan-feature-text">4 ימי פסטיבל מלאים</span>
-              <img class="ticket-plan-feature-check" src="./Graphig assets/check-circle.svg" alt="✓" aria-hidden="true">
-            </div>
-            <div class="ticket-plan-feature">
-              <span class="ticket-plan-feature-text">כניסה לכל 4 הבמות</span>
-              <img class="ticket-plan-feature-check" src="./Graphig assets/check-circle.svg" alt="✓" aria-hidden="true">
-            </div>
-            <div class="ticket-plan-feature">
-              <span class="ticket-plan-feature-text">עדיפות בכניסה</span>
-              <img class="ticket-plan-feature-check" src="./Graphig assets/check-circle.svg" alt="✓" aria-hidden="true">
-            </div>
-            <div class="ticket-plan-feature">
-              <span class="ticket-plan-feature-text">תוכניה מיוחדת</span>
-              <img class="ticket-plan-feature-check" src="./Graphig assets/check-circle.svg" alt="✓" aria-hidden="true">
-            </div>
-            <div class="ticket-plan-feature">
-              <span class="ticket-plan-feature-text">הסעות מאורגנות בשאטלים חינם</span>
-              <img class="ticket-plan-feature-check" src="./Graphig assets/check-circle.svg" alt="✓" aria-hidden="true">
-            </div>
-          </div>
-        </div>
-        <a href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" class="ticket-plan-cta ticket-plan-cta-primary">
-          לרכישה ←
+  <!-- ── TICKET PLANS — single Pass (Figma node 360:1129) ── -->
+  <section id="ticket-plans" dir="rtl" class="pass-section">
+    <div class="pass-inner reveal">
+      <div class="pass-bg" aria-hidden="true"></div>
+      <div class="pass-text">
+        <h2 class="pass-title">
+          <span class="pass-title-line1">כניסה חופשית</span>
+          <span class="pass-title-line2">לכל הפסטיבל</span>
+        </h2>
+        <a href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" class="pass-cta">
+          לרכישת כרטיסים
         </a>
       </div>
-
-      <!-- Card 2: כניסה יומית — שני -->
-      <div class="ticket-plan-card">
-        <div class="ticket-plan-inner">
-          <div class="ticket-plan-top">
-            <div class="ticket-plan-name">כניסה יומית</div>
-            <p class="ticket-plan-desc">בחרו יום אחד וקבלו כניסה חופשית לכל ההופעות על כל הבמות.</p>
+      <div class="pass-card-wrap">
+        <img class="pass-card" src="./Graphig assets/ticket-pass-card.webp" alt="כרטיס Pass — כניסה חופשית לכל הפסטיבל, 40 שנות ג׳אז ים סוף" width="640" height="1080">
+      </div>
+      <div class="pass-badge">כניסה לכל<br>ההופעות</div>
+      <div class="pass-perks">
+        <div class="pass-perks-header">
+          <span class="pass-perks-line pass-perks-line-mobile" aria-hidden="true"></span>
+          <span class="pass-perks-label">מה מקבלים</span>
+          <span class="pass-perks-line" aria-hidden="true"></span>
+        </div>
+        <div class="pass-perks-list">
+          <div class="pass-perk">
+            <span class="pass-perk-text">כניסה חופשית לכל ההופעות</span>
+            <img class="pass-perk-check" src="./Graphig assets/check-success-coral.svg" alt="✓" aria-hidden="true">
           </div>
-          <div class="ticket-plan-features">
-            <div class="ticket-plan-feature">
-              <span class="ticket-plan-feature-text">יום לבחירה</span>
-              <img class="ticket-plan-feature-check" src="./Graphig assets/check-circle.svg" alt="✓" aria-hidden="true">
-            </div>
-            <div class="ticket-plan-feature">
-              <span class="ticket-plan-feature-text">כניסה לכל הבמות באותו יום</span>
-              <img class="ticket-plan-feature-check" src="./Graphig assets/check-circle.svg" alt="✓" aria-hidden="true">
-            </div>
-            <div class="ticket-plan-feature">
-              <span class="ticket-plan-feature-text">כניסה לכל ההופעות באותו יום</span>
-              <img class="ticket-plan-feature-check" src="./Graphig assets/check-circle.svg" alt="✓" aria-hidden="true">
-            </div>
-            <div class="ticket-plan-feature">
-              <span class="ticket-plan-feature-text">הסעות מאורגנות בשאטלים חינם</span>
-              <img class="ticket-plan-feature-check" src="./Graphig assets/check-circle.svg" alt="✓" aria-hidden="true">
-            </div>
+          <div class="pass-perk">
+            <span class="pass-perk-text">שאטלים חינם</span>
+            <img class="pass-perk-check" src="./Graphig assets/check-success-coral.svg" alt="✓" aria-hidden="true">
+          </div>
+          <div class="pass-perk">
+            <span class="pass-perk-text">חבילת לינה</span>
+            <img class="pass-perk-check" src="./Graphig assets/check-success-coral.svg" alt="✓" aria-hidden="true">
+          </div>
+          <div class="pass-perk">
+            <span class="pass-perk-text">כניסה לרחבה הציבורית</span>
+            <img class="pass-perk-check" src="./Graphig assets/check-success-coral.svg" alt="✓" aria-hidden="true">
           </div>
         </div>
-        <a href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" class="ticket-plan-cta ticket-plan-cta-secondary">
-          לרכישה ←
-        </a>
       </div>
-
-      <!-- Card 3: הופעה בודדת — שלישי -->
-      <div class="ticket-plan-card">
-        <div class="ticket-plan-inner">
-          <div class="ticket-plan-top">
-            <div class="ticket-plan-name">הופעה בודדת</div>
-            <p class="ticket-plan-desc">בחרו הופעה אחת ספציפית — אמן,<br>תאריך ובמה.</p>
-          </div>
-          <div class="ticket-plan-features">
-            <div class="ticket-plan-feature">
-              <span class="ticket-plan-feature-text">הופעה אחת לבחירה</span>
-              <img class="ticket-plan-feature-check" src="./Graphig assets/check-circle.svg" alt="✓" aria-hidden="true">
-            </div>
-            <div class="ticket-plan-feature">
-              <span class="ticket-plan-feature-text">הסעות מאורגנות בשאטלים חינם</span>
-              <img class="ticket-plan-feature-check" src="./Graphig assets/check-circle.svg" alt="✓" aria-hidden="true">
-            </div>
-          </div>
-        </div>
-        <a href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" class="ticket-plan-cta ticket-plan-cta-secondary">
-          לרכישה ←
-        </a>
-      </div>
-
     </div>
   </section>
 
   <!-- ── HOTEL BANNER ── -->
   <section id="hotels">
     <a class="hotel-banner reveal" href="https://www.hotels.com" target="_blank" rel="noopener">
-      <!-- Background photo -->
-      <div class="banner-bg-photo" aria-hidden="true">
-        <img src="./Graphig%20assets/banner2.png" alt="">
-        <div class="banner-photo-overlay"></div>
-      </div>
-      <!-- Decorative glows -->
-      <div class="banner-glow-orange" aria-hidden="true"></div>
-      <div class="banner-glow-teal" aria-hidden="true"></div>
-      <!-- Silhouette strip -->
-      <div class="banner-silhouette">
-        <svg viewBox="0 0 1200 80" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
-          <path fill="rgba(255,255,255,0.6)" d="M0,80 L0,55 L40,55 L40,40 L45,32 L50,40 L50,55 L70,55 L70,45 L80,35 L90,45 L90,55 L120,55 L120,40 L125,30 L127,25 L129,30 L134,40 L134,55 L160,55 L160,45 L170,38 L180,45 L180,55 L220,55 L220,60 L250,60 L250,50 L260,38 L265,30 L270,38 L280,50 L280,60 L320,60 L320,50 L335,35 L340,25 L345,35 L360,50 L360,60 L400,60 L400,55 L420,42 L430,55 L430,60 L470,60 L470,50 L480,40 L490,50 L490,60 L530,60 L530,55 L545,40 L550,30 L555,40 L570,55 L570,60 L610,60 L610,50 L625,38 L635,50 L635,60 L670,60 L670,55 L685,42 L695,55 L695,60 L730,60 L730,55 L745,42 L755,55 L755,60 L800,60 L800,50 L815,35 L820,28 L825,35 L840,50 L840,60 L880,60 L880,55 L895,40 L905,55 L905,60 L940,60 L940,52 L955,38 L960,30 L965,38 L980,52 L980,60 L1020,60 L1020,55 L1035,42 L1045,55 L1045,60 L1080,60 L1080,55 L1095,45 L1105,55 L1105,60 L1140,60 L1140,55 L1155,42 L1165,55 L1165,60 L1200,60 L1200,80 Z"/>
-        </svg>
-      </div>
-
       <div class="hotel-banner-content">
         <div class="hotel-banner-title">
           <span class="title-line1">חבילות לינה</span>
@@ -3385,322 +3389,277 @@
 
 
   <style>
-    /* ── TICKET PLANS SECTION (עיצוב Figma node 271-1075) ── */
-    .ticket-plans-section {
-      min-height: 100vh;
-      padding: 80px 24px;
-      background: var(--bg);
-      text-align: center;
-      direction: rtl;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+    /* ── TICKET PLANS — single Pass banner (Figma node 360:1129 / mobile 376:1203) ── */
+    .pass-section {
       position: relative;
-      overflow: hidden;
+      background: var(--bg);
+      direction: rtl;
+      padding: 24px 0 0;
     }
-    /* שכבת תמונת הרקע — opacity 60%, מתחילה מ-14.54% מהחלק העליון */
-    .ticket-plans-section::after {
-      content: '';
-      position: absolute;
-      top: 14.54%; left: 0;
-      width: 100%; height: 95.74%;
-      background: url('./Graphig assets/banner2-new.png') no-repeat center bottom / 100% auto;
-      opacity: 0.6;
-      pointer-events: none;
-    }
-    /* gradient overlay — ריכוך עליון: צבע מלא (25%) → שקוף כמעט (100%),
-       וריכוך תחתון מראה: שקוף (71.7%) → צבע מלא (100%), כך שהסקשן נמזג לרקע גם למטה (Figma node 271-1081) */
-    .ticket-plans-section::before {
-      content: '';
+    .pass-bg {
       position: absolute;
       inset: 0;
-      background:
-        linear-gradient(to bottom, rgba(250,244,233,0) 71.717%, #faf4e9 100%),
-        linear-gradient(to bottom, #faf4e9 24.495%, rgba(250,244,233,0.24) 100%);
+      background-color: var(--bg);
+      background-image: url('./Graphig assets/ticket-pass-bg.jpg');
+      background-repeat: no-repeat;
+      background-position: top center;
+      background-size: 100% auto;
       pointer-events: none;
-      z-index: 1;
+      z-index: 0;
     }
-    .ticket-plans-section > * { position: relative; z-index: 2; }
-
-    /* כותרת סקשיין */
-    .ticket-plans-header {
-      margin-bottom: 56px;
-    }
-    .ticket-plans-title {
-      font-family: var(--font);
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      font-weight: 900;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      color: var(--text);
-      margin-bottom: 12px;
-    }
-    .ticket-plans-title-accent {
-      background: linear-gradient(135deg, var(--orange) 0%, #E84021 73%);
-      -webkit-background-clip: text; background-clip: text; color: transparent;
-    }
-    .ticket-plans-subtitle {
-      font-family: var(--font);
-      font-size: 18px;
-      font-weight: 400;
-      color: var(--muted);
-      line-height: 1.5;
+    /* aspect-ratio locks this box to the same 1392:600 ratio the background
+       image scales to (100% width, auto height) — every child below is
+       positioned as a percentage of THIS box, so it tracks the artwork
+       exactly at any viewport width instead of drifting. Extra "show more
+       background" room (per feedback) is added via .pass-section's own
+       padding-top above, which doesn't touch this ratio at all. */
+    .pass-inner {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      aspect-ratio: 1392 / 600;
     }
 
-    /* גריד כרטיסים — gap=28px מ-Figma */
-    .ticket-plans-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 28px;
-      max-width: 1140px;
-      margin-inline: auto;
-      align-items: center;
-    }
-    /* non-featured: align-self:stretch כדי שגובה הכרטיס ימתח לגובה השורה */
-    .ticket-plan-card:not(.ticket-plan-featured) {
-      align-self: stretch;
-    }
-
-    /* ── כרטיס בסיס ──
-     * bg=white, border תואם לצבע הבורדר של כרטיסי האמנים בסקשן הליין־אפ (var(--border)), radius=16, pt=50 pb=24 px=24
-     * flex-col עם justify-content:space-between → top+features בחלק אחד, CTA בתחתית
-     * min-height=460px לכרטיסי non-featured
-     */
-    .ticket-plan-card {
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 50px 24px 24px;
+    /* Text block — right edge at 8.84% (Figma: tag/text/perks right-inset
+       123px / 1392px canvas width, shared by all three for a single aligned edge). */
+    .pass-text {
+      position: absolute;
+      top: 30.5%;
+      right: 8.84%;
+      max-width: 420px;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
-      min-height: 460px;
-      text-align: center;
-      position: relative;
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      /* flex-start = right in this RTL column (cross-axis follows `direction`) —
+         flex-end would put the button on the left, misaligned from the title. */
+      align-items: flex-start;
+      gap: 24px;
     }
-    .ticket-plan-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 18px 48px var(--shadow-strong);
+    .pass-title {
+      font-family: var(--font);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: 0.15px;
+      text-align: right;
+      margin: 0;
+    }
+    .pass-title-line1, .pass-title-line2 {
+      display: block;
+      font-size: clamp(2.2rem, 4.2vw, 4rem);
+    }
+    .pass-title-line1 { color: #ffffff; }
+    .pass-title-line2 { color: #F3746F; }
+    .pass-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      color: #521648;
+      text-decoration: none;
+      border-radius: 100px;
+      padding: 12px 32px;
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: 0.15px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .pass-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.18);
     }
 
-    /* ── כרטיס מובלט (פס מלא) ──
-     * Figma: border=2px #ff6b1a, min-height=511px
-     */
-    .ticket-plan-card.ticket-plan-featured {
-      border: 2px solid #ff6b1a;
-      box-shadow: 0 8px 32px rgba(255,107,26,0.15);
-      min-height: 511px;
-    }
-    .ticket-plan-card.ticket-plan-featured:hover {
-      box-shadow: 0 20px 56px rgba(255,107,26,0.28);
-    }
-
-    /* גרסת web בלבד (גריד 3 עמודות) — "פס מלא" (הכרטיסייה המובלטת) ממורכזת
-       באמצע במקום בקצה; שתי הכרטיסיות האחרות נשארות זו לצד זו סביבה. */
-    @media (min-width: 1024px) {
-      .ticket-plan-card.ticket-plan-featured { order: 2; }
-      .ticket-plan-card:nth-child(2) { order: 1; }
-      .ticket-plan-card:nth-child(3) { order: 3; }
-    }
-
-    /* ── תגית "הכי פופולרי" ──
-     * Figma: h=32, w=110, top=-18, radius=26, gradient #ff6b1a→#e84021 (153.26°)
-     * left:50% + translateX(-50%) = מרכז אופקי מדויק
-     */
-    .ticket-plan-badge-new {
+    /* Card mockup — left side (Figma: left 162px/1392, top 47px/600, width
+       240.352px/1392). Sits UNDER the perks row in DOM but ABOVE it in
+       z-index, since its bottom edge is meant to overlap the perks divider
+       line slightly (per feedback). No background box: the source PNG is
+       pre-cropped to the ticket's own transparent silhouette. */
+    .pass-card-wrap {
       position: absolute;
-      top: -18px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: linear-gradient(153.26deg, #ff6b1a 0%, #e84021 73.21%);
+      left: 11.64%;
+      top: 7.83%;
+      width: 19%;
+      min-width: 208px;
+      max-width: 308px;
+      z-index: 2;
+    }
+    .pass-card {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 5%;
+    }
+
+    /* Yellow badge (Figma: circle top-left at left 518.355px/1392, top
+       249.355px/600, 160px diameter). Static -8deg tilt kept as a styling
+       choice; wobble motion replaced by a pulsing "breathing" scale. */
+    .pass-badge {
+      position: absolute;
+      left: 37.24%;
+      top: 41.56%;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: #feb623;
       color: #ffffff;
-      border-radius: 26px;
-      height: 32px;
-      width: 110px;
       display: flex;
       align-items: center;
       justify-content: center;
+      text-align: center;
       font-family: var(--font);
-      font-size: 13px;
       font-weight: 700;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-
-    /* ── Inner wrapper — עוטף top+features, ממלא גובה ──
-     * Figma: flex-1, flex-col, gap=50px בין top ל-features
-     */
-    .ticket-plan-inner {
-      display: flex;
-      flex-direction: column;
-      gap: 28px;
-      flex: 1;
-      min-height: 0;
-      padding-bottom: 24px;
-    }
-
-    /* ── חלק עליון: שם + תיאור ── */
-    .ticket-plan-top {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      min-height: 130px;
-    }
-
-    /* שם המסלול — קטן מכותרות הסקשנים (.section-title min=28px, .ticket-plans-title min=32px), bold, #2b1a0e, tracking=0.25px */
-    .ticket-plan-name {
-      font-family: var(--font);
-      font-size: 26px;
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: 0.25px;
-      color: #2b1a0e;
-    }
-
-    /* תיאור — Figma: 16px, 400, #6b5a4d, line-height=1.5, tracking=0.15px */
-    .ticket-plan-desc {
-      font-family: var(--font);
-      font-size: 16px;
-      font-weight: 400;
-      color: #6b5a4d;
-      line-height: 1.5;
+      font-size: 20px;
+      line-height: 1.15;
       letter-spacing: 0.15px;
+      transform: rotate(-8deg) scale(1);
+      transform-origin: center;
+      animation: passBadgeBreathe 2.6s ease-in-out infinite;
+      z-index: 3;
     }
-    .ticket-plan-desc strong {
-      font-weight: 700;
-      color: #2b1a0e;
+    @keyframes passBadgeBreathe {
+      0%, 100% { transform: rotate(-8deg) scale(1); }
+      50%      { transform: rotate(-8deg) scale(1.07); }
     }
 
-    /* ── Features container ──
-     * Figma: bg=#f8f4ee, radius=8, p=16, gap=16, items-end (RTL = ימין)
-     */
-    .ticket-plan-features {
-      background: #f8f4ee;
-      border-radius: 8px;
-      padding: 16px;
+    @media (prefers-reduced-motion: reduce) {
+      .pass-badge { animation: none; }
+    }
+
+    /* "מה מקבלים" perks row (Figma: left 198px/1392, top 463px/600, right
+       edge shared with text/tag at 8.84%). Background is now a full-height
+       (600px) asset covering the whole frame in color, so this can sit at
+       the true Figma percentage without falling into empty cream space. */
+    .pass-perks {
+      position: absolute;
+      left: 14.22%;
+      right: 8.84%;
+      top: 77.17%;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      align-items: flex-end;
+      gap: 27px;
+      z-index: 1;
     }
-
-    /* ── שורת יתרון ──
-     * Figma: flex, gap=8, items-center, justify-end — טקסט מימין, ✓ בשמאל
-     * direction:rtl: justify-end = דוחף לימין
-     */
-    .ticket-plan-feature {
+    .pass-perks-header {
       display: flex;
       align-items: center;
-      flex-direction: row-reverse;
-      justify-content: flex-end;
-      gap: 8px;
+      gap: 24px;
+      width: 100%;
     }
-    .ticket-plan-feature-text {
+    .pass-perks-line {
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.35);
+    }
+    /* second line, right of the label — mobile-only (symmetric header per
+       the mobile Figma frame); desktop uses a single line to the left. */
+    .pass-perks-line-mobile { display: none; }
+    .pass-perks-label {
+      flex-shrink: 0;
       font-family: var(--font);
-      font-size: 15px;
-      font-weight: 400;
-      color: #2b1a0e;
-      line-height: normal;
-      text-align: right;
+      font-weight: 700;
+      font-size: 20px;
+      color: #ffffff;
+      letter-spacing: 0.15px;
     }
-    /* ✓ — Figma: 14px, semibold, #d4541a */
-    .ticket-plan-feature-check {
-      width: 18px;
-      height: 18px;
+    .pass-perks-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 24px;
+      width: 100%;
+    }
+    .pass-perk {
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+      gap: 8px;
+      padding-block: 4px;
+    }
+    .pass-perk-text {
+      font-family: var(--font);
+      font-weight: 400;
+      font-size: 16px;
+      color: #ffffff;
+      letter-spacing: 0.15px;
+      white-space: nowrap;
+    }
+    .pass-perk-check {
+      width: 20px;
+      height: 20px;
       flex-shrink: 0;
       display: block;
     }
 
-    /* ── כפתור CTA ──
-     * margin-top:auto דוחף לתחתית הכרטיס תמיד
-     * Figma: border-radius=26, padding=15px 0 (גובה קבוע), full-width
-     */
-    .ticket-plan-cta {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      border-radius: 50px;
-      padding: 15px 24px;
-      font-family: var(--font);
-      font-size: 16px;
-      font-weight: 700;
-      text-decoration: none;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
-      margin-top: auto;
-      flex-shrink: 0;
-    }
-    .ticket-plan-cta:hover { transform: translateY(-2px); }
-
-    /* Primary — Figma: gradient #ff6b1a→#e84021 (163.8°), text=white */
-    .ticket-plan-cta-primary {
-      background: linear-gradient(163.8deg, #ff6b1a 0%, #e84021 73.21%);
-      color: #ffffff;
-      border: none;
-      box-shadow: 0 4px 20px rgba(255,107,26,0.35);
-    }
-    .ticket-plan-cta-primary:hover {
-      box-shadow: 0 8px 32px rgba(255,107,26,0.55);
-      color: #ffffff;
-    }
-
-    /* Secondary — Figma: border=1px #ff6b1a, text=#d9382d, bg=transparent */
-    .ticket-plan-cta-secondary {
-      background: transparent;
-      color: #d9382d;
-      border: 1px solid #ff6b1a;
-    }
-    .ticket-plan-cta-secondary:hover {
-      background: rgba(255,107,26,0.06);
-    }
-
-    /* Responsive */
-    /* טווח טאבלט (901–900... עד 1023px): מיישרים את המרווח האנכי ל-60px התקני
-       של המובייל בלי לגעת בעמודות הגריד (זה נשאר תפקיד ה-breakpoints למטה) */
-    @media (max-width: 900px) {
-      .ticket-plans-section { padding-top: 60px; padding-bottom: 60px; }
-    }
-    @media (max-width: 1023px) {
-      .ticket-plans-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .ticket-plan-card.ticket-plan-featured {
-        grid-column: 1 / -1;
-        max-width: 480px;
-        margin-inline: auto;
-        width: 100%;
-      }
-    }
+    /* ── Mobile (Figma node 376:1203) — no card in this composition; text,
+       button and perks stack centered in normal flow; the badge sits last.
+       .pass-bg stays position:absolute + inset:0, so it MUST share a
+       stacking context with its static siblings via position:relative on
+       each of them — otherwise CSS stacking rules paint any positioned
+       element (the bg) above ALL non-positioned in-flow content regardless
+       of DOM order, which is what made the title/button invisible before. */
     @media (max-width: 768px) {
-      .ticket-plans-section { padding: 60px 16px; min-height: auto; }
-      /* מובייל: הכרטיסיות נערמות בעמודה אחת וגובה הסקשן הופך משתנה לפי
-         התוכן — שכבת תמונת הרקע העיטורית (ה-::after) לא נועדה לגובה
-         כזה ונשארת תלויה כרקע מוזר מתחת לכרטיסיה האחרונה, לכן מוסתרת. */
-      .ticket-plans-section::after { display: none; }
-      .ticket-plans-grid { grid-template-columns: 1fr; }
-      .ticket-plan-card.ticket-plan-featured {
-        grid-column: auto;
+      .pass-section { padding: 0 0 60px; }
+      .pass-bg {
+        background-image: url('./Graphig assets/ticket-pass-bg-mobile.jpg');
+        background-size: 100% auto;
+        background-position: top center;
+      }
+      /* position:relative (not static) — .pass-bg's inset:0 needs a real
+         containing block here so it matches the flex column's own
+         content-driven height exactly (full-bleed top-to-bottom behind
+         everything, including the badge at the end), instead of either the
+         whole section's height (way too tall) or a guessed fixed band. */
+      .pass-inner {
+        aspect-ratio: auto;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 32px;
+      }
+      .pass-card-wrap { display: none; }
+      .pass-text {
+        order: 1;
+        position: relative;
+        /* right:auto — מבטל את right:8.84% שמגיע מהכלל הבסיסי (דסקטופ,
+           position:absolute). בלי האיפוס הזה, position:relative עדיין מכבד
+           את ה-right שנשאר, וזז ~35px שמאלה מהמקום התקין — זה מה שגרם להאזזה
+           האופקית של כל העמוד (RTL: גלילה התחלתית מתאזנת סביב התוכן הרחב ביותר). */
+        right: auto;
         max-width: none;
+        align-items: center;
+        gap: 24px;
+        width: 100%;
+        margin-top: 200px;
+        padding-inline: 24px;
+        box-sizing: border-box;
       }
-      /* מובייל: כרטיסיות עולות לעמודה אחת — אין יותר צורך בגובה אחיד ביניהן,
-         מסירים את ה-min-height כדי שכל כרטיסייה תתאים בדיוק לגובה התוכן שלה
-         ומצמצמים מעט את המרווחים הפנימיים */
-      .ticket-plan-card,
-      .ticket-plan-card.ticket-plan-featured {
-        min-height: 0;
+      .pass-title-line1, .pass-title-line2 { text-align: center; font-size: 40px; }
+      .pass-cta { font-size: 16px; padding: 0.75rem 2rem; height: 44px; }
+      .pass-perks {
+        order: 2;
+        position: relative;
+        /* left/right:auto — מבטל left:14.22%/right:8.84% מהכלל הבסיסי (ראו הערה ב-.pass-text) */
+        left: auto; right: auto;
+        align-items: center;
+        width: 100%;
+        padding-inline: 20px;
+        box-sizing: border-box;
       }
-      .ticket-plan-inner { gap: 22px; padding-bottom: 16px; }
-      .ticket-plan-top { gap: 10px; min-height: 0; }
-      .ticket-plan-features { gap: 12px; }
-      /* height אחיד עם שאר כפתורי ה-CTA במובייל (44px — כגובה כפתור
-         "פרטים נוספים" בסקשן #venue) */
-      .ticket-plan-cta { padding-block: 0; height: 44px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .ticket-plan-card { transition: none; }
-      .ticket-plan-cta { transition: none; }
+      .pass-perks-header { justify-content: center; gap: 16px; }
+      .pass-perks-line, .pass-perks-line-mobile { max-width: 40px; }
+      .pass-perks-line-mobile { display: block; }
+      .pass-perks-list { justify-content: center; gap: 16px 20px; }
+      .pass-badge {
+        order: 3;
+        position: relative;
+        left: auto; top: auto;
+        margin-top: -12px;
+        margin-bottom: 32px;
+        width: 112px; height: 112px; font-size: 15px;
+      }
     }
   </style>
 
@@ -3746,20 +3705,6 @@
     window.addEventListener('scroll', () => {
       document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
     }, { passive: true });
-
-    // ── Scroll indicator ─────────────────────────────────────────
-    (function() {
-      const si = document.getElementById('scrollIndicator');
-      let hideTimer = null;
-      let shown = false;
-      window.addEventListener('scroll', () => {
-        if (!si) return;
-        if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
-        si.classList.add('visible');
-        shown = true;
-        hideTimer = setTimeout(() => { si.classList.remove('visible'); }, 1800);
-      }, { passive: true });
-    })();
 
     function toggleMenu() {
       const hb = document.getElementById('hamburger');
@@ -4142,6 +4087,41 @@
       }
       window.addEventListener('scroll', onScroll, { passive: true });
       update();
+    })();
+
+    // ── Stat count-up animation ────────────────────────────────────
+    (function () {
+      const statNums = document.querySelectorAll('.stat-num');
+      const aboutStrip = document.getElementById('about-strip');
+      if (!statNums.length || !aboutStrip || prefersReducedMotion) return;
+
+      function animateCountUp(el) {
+        const raw = el.textContent.trim();
+        const m = raw.match(/^(\D*)(\d+)(\D*)$/);
+        if (!m) return;
+        const [, prefix, digits, suffix] = m;
+        const target = parseInt(digits, 10);
+        const duration = 1000;
+        const startTime = performance.now();
+        function tick(now) {
+          const progress = Math.min((now - startTime) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = prefix + Math.round(target * eased) + suffix;
+          if (progress < 1) requestAnimationFrame(tick);
+          else el.textContent = raw;
+        }
+        requestAnimationFrame(tick);
+      }
+
+      const statObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            statNums.forEach(el => animateCountUp(el));
+            statObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.4 });
+      statObserver.observe(aboutStrip);
     })();
 
     // ── Hero bg subtle parallax ───────────────────────────────────

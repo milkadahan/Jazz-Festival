@@ -20,8 +20,8 @@
   <meta name="twitter:description" content="נשמח לשמוע מכם — נמל אילת, 11–14 בנובמבר 2026" />
   <meta name="twitter:image" content="./Graphig assets/og-image.jpg" />
   <meta name="twitter:image:alt" content="Red Sea Jazz Festival 2026 — יצירת קשר" />
-  <meta name="theme-color" content="#E0560B" />
-  <meta name="msapplication-TileColor" content="#E0560B" />
+  <meta name="theme-color" content="#D5645F" />
+  <meta name="msapplication-TileColor" content="#D5645F" />
   <link rel="icon" type="image/x-icon" href="./favicon.ico" />
   <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
@@ -74,12 +74,12 @@
       --nav-h:     100px;
       --bg:        #FAF4E9;
       --bg2:       #F3E9D6;
-      --orange:    #E0560B;
+      --orange:    #D5645F;
       --yellow:    #E0A800;
       --red:       #D62246;
       --teal:      #0A8F8E;
-      --text:      #3A2A1E;
-      --muted:     #6A5540; --yellow-text: #7A5C00; --teal-text: #086665; --orange-text: #B8440A; --orange-btn: #C94A08;
+      --text:      #521648; --text-rgb: 82,22,72;
+      --muted:     #6A5540; --yellow-text: #7A5C00; --teal-text: #086665; --orange-text: #C93C36; --orange-btn: #CF4943;
       --card-bg:   #FFFDF8;
       --border:    rgba(58,42,30,0.12);
       --border-strong: rgba(58,42,30,0.22);
@@ -121,18 +121,18 @@
     .ticker-bar {
       position: fixed; top: 0; left: 0; right: 0;
       height: var(--ticker-h); z-index: 101;
-      background: #2d2726;
+      background: #290B24;
       display: flex; align-items: center;
       direction: ltr;
       overflow: hidden;
-      border-bottom: 1px solid rgba(224,86,11,0.3);
+      border-bottom: 1px solid rgba(213,100,95,0.3);
     }
     .ticker-label {
       flex-shrink: 0;
       padding: 0 1.4rem 0 1rem;
       font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
       color: var(--orange); text-transform: uppercase;
-      border-right: 1px solid rgba(224,86,11,0.35);
+      border-right: 1px solid rgba(213,100,95,0.35);
       white-space: nowrap;
     }
     .ticker-track-wrap { flex: 1; overflow: hidden; position: relative; }
@@ -206,16 +206,16 @@
     }
     .nav-links a {
       position: relative; padding-bottom: 3px;
-      transition: color 0.25s; color: rgba(58,42,30,0.78);
+      transition: color 0.25s; color: rgba(var(--text-rgb),0.78);
     }
     .nav-links a::after {
       content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
       width: 0; height: 2px;
-      background: linear-gradient(90deg, var(--orange), #E84021);
+      background: linear-gradient(90deg, #F3746F, #F3746F);
       transition: width 0.3s;
     }
     .nav-links a:hover, .nav-links a.active {
-      background: linear-gradient(90deg, var(--orange), #E84021);
+      background: linear-gradient(90deg, #F3746F, #F3746F);
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
@@ -226,16 +226,16 @@
       display: flex; align-items: center; gap: 0.35rem;
       background: none; border: none; padding: 0 0 3px; margin: 0;
       font: inherit; font-size: inherit; font-weight: 500;
-      color: rgba(58,42,30,0.78); cursor: pointer; position: relative;
+      color: rgba(var(--text-rgb),0.78); cursor: pointer; position: relative;
     }
     .nav-drop-toggle::after {
       content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
       width: 0; height: 2px;
-      background: linear-gradient(90deg, var(--orange), #E84021);
+      background: linear-gradient(90deg, #F3746F, #F3746F);
       transition: width 0.3s;
     }
     .nav-drop-toggle:hover, .nav-drop-toggle.open {
-      background: linear-gradient(90deg, var(--orange), #E84021);
+      background: linear-gradient(90deg, #F3746F, #F3746F);
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .nav-drop-toggle:hover::after, .nav-drop-toggle.open::after { width: 100%; }
@@ -261,23 +261,23 @@
       white-space: nowrap; text-align: start;
       background: none; border: none; width: 100%; cursor: pointer; font-family: inherit;
     }
-    .nav-drop-panel > a:hover { background: rgba(224,86,11,0.08); color: var(--orange); }
-    .nav-drop-panel > a.active { color: var(--orange); font-weight: 700; }
+    .nav-drop-panel > a:hover { background: rgba(213,100,95,0.08); color: #F3746F; }
+    .nav-drop-panel > a.active { color: #F3746F; font-weight: 700; }
 
     .nav-actions {
       display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0;
     }
     .nav-btn-primary {
-      background: linear-gradient(135deg, var(--orange-btn), #c43d0e);
+      background: linear-gradient(135deg, var(--orange-btn), #f3746f);
       color: var(--on-accent); border: none; border-radius: 50px;
       padding: 0.5rem 1.3rem; font-size: 0.85rem; font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 4px 14px rgba(224,86,11,0.32);
+      box-shadow: 0 4px 14px rgba(213,100,95,0.32);
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .nav-btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 22px rgba(224,86,11,0.45);
+      box-shadow: 0 6px 22px rgba(213,100,95,0.45);
     }
     .nav-btn-secondary {
       background: transparent;
@@ -304,7 +304,7 @@
       display: flex; align-items: center; gap: 0.35rem;
       transition: border-color 0.2s, color 0.2s;
     }
-    .nav-btn-lang:hover { border-color: var(--orange); color: var(--orange); }
+    .nav-btn-lang:hover { border-color: var(--orange); color: #F3746F; }
 
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 0; }
     .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
@@ -362,7 +362,7 @@
     }
     .page-hero-bg {
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 30% 60%, rgba(224,86,11,0.25) 0%, transparent 60%),
+      background: radial-gradient(ellipse at 30% 60%, rgba(213,100,95,0.25) 0%, transparent 60%),
                   radial-gradient(ellipse at 75% 40%, rgba(10,143,142,0.18) 0%, transparent 55%),
                   radial-gradient(ellipse at 55% 80%, rgba(214,34,70,0.15) 0%, transparent 50%);
       pointer-events: none;
@@ -457,7 +457,7 @@
       outline: none;
       border-color: var(--orange);
       background: var(--card-bg);
-      box-shadow: 0 0 0 3px rgba(224,86,11,0.12);
+      box-shadow: 0 0 0 3px rgba(213,100,95,0.12);
     }
     .contact-form textarea { min-height: 140px; resize: vertical; }
     .contact-form input:-webkit-autofill { -webkit-text-fill-color: var(--text); transition: background-color 9999s; }
@@ -486,7 +486,7 @@
       transition: background 0.2s, border-color 0.2s;
     }
     .community-check input:checked {
-      background: linear-gradient(135deg, var(--orange-btn), #c43d0e);
+      background: linear-gradient(135deg, var(--orange-btn), #f3746f);
       border-color: var(--orange);
     }
     .community-check input:checked::after {
@@ -502,7 +502,7 @@
     /* ── Submit ── */
     .contact-submit {
       width: 100%; text-align: center;
-      background: linear-gradient(175deg, var(--orange), #c43d0e);
+      background: linear-gradient(175deg, var(--orange), #f3746f);
       color: var(--on-accent);
       border: none; border-radius: 50px;
       padding: 15.2px 41.6px;
@@ -594,13 +594,13 @@
   <!-- ── NAV ── -->
   <nav id="navbar">
     <a class="nav-logo-tab" href="./index.html">
-      <img src="State=Vertical.svg" alt="Red Sea Jazz Festival" class="nav-logo-img" width="80" height="80" />
+      <img src="State=Vertical.svg?v=2" alt="Red Sea Jazz Festival" class="nav-logo-img" width="80" height="80" />
     </a>
     <div class="nav-inner">
       <div class="mobile-menu-panel" id="mobileMenuPanel">
       <ul class="nav-links" id="navLinks">
         <li class="nav-link-mobile-flat"><a href="./index.html" data-he="דף הבית" data-en="Home">דף הבית</a></li>
-        <li><a href="./index.html#artist-lineup-text" data-he="ליין אפ" data-en="Lineup">ליין אפ</a></li>
+        <li><a href="./index.html#artist-lineup-text" data-he="Artists" data-en="Artists">Artists</a></li>
         <li><a href="./lineup.html" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
         <li class="nav-link-mobile-flat"><a href="https://www.hotels.com/" target="_blank" rel="noopener" data-he="חבילות לינה" data-en="Stay Packages">חבילות לינה</a></li>
         <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
