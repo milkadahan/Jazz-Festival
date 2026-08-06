@@ -55,7 +55,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --bg: #FAF4E9; --bg2: #F3E9D6;
-      --orange: #D5645F; --yellow: #E0A800; --red: #D62246; --teal: #0A8F8E;
+      --orange: #D5645F; --primary: #F3746F; --yellow: #E0A800; --red: #D62246; --teal: #0A8F8E;
       --text: #521648; --text-rgb: 82,22,72; --muted: #6A5540; --yellow-text: #7A5C00; --teal-text: #086665; --orange-text: #C93C36; --orange-btn: #CF4943; --card-bg: #FFFDF8;
       --border: rgba(58,42,30,0.12); --border-strong: rgba(58,42,30,0.22);
       --btn-gradient: linear-gradient(135deg, var(--orange-btn), var(--red));
@@ -89,8 +89,8 @@
     .nav-inner { flex: 1; display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; }
     .nav-links { display: flex; gap: 1.8rem; list-style: none; font-size: 0.88rem; font-weight: 500; }
     .nav-links a { position: relative; padding-bottom: 3px; transition: color 0.25s; color: rgba(var(--text-rgb),0.78); }
-    .nav-links a::after { content: ''; position: absolute; bottom: 0; inset-inline-end: 0; width: 0; height: 2px; background: linear-gradient(90deg, #F3746F, #F3746F); transition: width 0.3s; }
-    .nav-links a:hover, .nav-links a.active { background: linear-gradient(90deg, #F3746F, #F3746F); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .nav-links a::after { content: ''; position: absolute; bottom: 0; inset-inline-end: 0; width: 0; height: 2px; background: linear-gradient(90deg, var(--primary), var(--primary)); transition: width 0.3s; }
+    .nav-links a:hover, .nav-links a.active { background: linear-gradient(90deg, var(--primary), var(--primary)); -webkit-background-clip: text; background-clip: text; color: transparent; }
     .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
     .nav-links a.active { font-weight: 700; }
     /* ── Nav dropdown: "מידע חשוב" — הקישור היחיד בטול-בר עם תת-תפריט (3 בנים) ── */
@@ -104,11 +104,11 @@
     .nav-drop-toggle::after {
       content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
       width: 0; height: 2px;
-      background: linear-gradient(90deg, #F3746F, #F3746F);
+      background: linear-gradient(90deg, var(--primary), var(--primary));
       transition: width 0.3s;
     }
     .nav-drop-toggle:hover, .nav-drop-toggle.open {
-      background: linear-gradient(90deg, #F3746F, #F3746F);
+      background: linear-gradient(90deg, var(--primary), var(--primary));
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .nav-drop-toggle:hover::after, .nav-drop-toggle.open::after { width: 100%; }
@@ -132,8 +132,8 @@
       white-space: nowrap; text-align: start;
       background: none; border: none; width: 100%; cursor: pointer; font-family: inherit;
     }
-    .nav-drop-panel > a:hover { background: rgba(213,100,95,0.08); color: #F3746F; }
-    .nav-drop-panel > a.active { color: #F3746F; font-weight: 700; }
+    .nav-drop-panel > a:hover { background: rgba(213,100,95,0.08); color: var(--primary); }
+    .nav-drop-panel > a.active { color: var(--primary); font-weight: 700; }
 
     .nav-actions { display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0; }
     .nav-btn-primary { background: var(--btn-gradient); color: var(--on-accent); border: none; border-radius: 50px; padding: 0.5rem 1.3rem; font-size: 0.85rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 14px rgba(213,100,95,0.32); transition: transform 0.2s, box-shadow 0.2s; text-decoration: none; display: inline-block; }
@@ -142,7 +142,7 @@
     .nav-btn-secondary:hover { border-color: var(--orange); color: var(--orange-text); transform: translateY(-2px); }
     .nav-lang-sep { width: 1px; height: 20px; flex-shrink: 0; background: var(--border-strong); margin-inline: 0.3rem; }
     .nav-btn-lang { background: transparent; color: var(--text); border: 1.5px solid var(--border-strong); border-radius: 50px; padding: 0.45rem 0.9rem; font-size: 0.85rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.35rem; transition: border-color 0.2s, color 0.2s; font-family: var(--font); }
-    .nav-btn-lang:hover { border-color: var(--orange); color: #F3746F; }
+    .nav-btn-lang:hover { border-color: var(--orange); color: var(--primary); }
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; border: none; background: transparent; }
     .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
     /* תפריט פתוח: שני הפסים החיצוניים מסתובבים ל-X, האמצעי נעלם */
@@ -437,7 +437,7 @@
   </main>
 
   <footer id="site-footer"></footer>
-  <script src="./footer.js"></script>
+  <script src="./footer.js?v=2"></script>
 
   <script>
     /* ── NAV ── */

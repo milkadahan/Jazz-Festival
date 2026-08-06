@@ -41,7 +41,7 @@
     }
     .footer-social-btn:hover {
       background: rgba(243,116,111,0.25);
-      border-color: #F3746F;
+      border-color: var(--primary);
     }
     .footer-col-title {
       font-size: 0.8rem; color: #fff;
@@ -86,7 +86,7 @@
       transition: border-color 0.2s, background 0.2s;
     }
     .footer-news-field:focus-within {
-      border-color: #F3746F;
+      border-color: var(--primary);
       background: rgba(255,255,255,0.11);
     }
     .footer-news-input {
@@ -118,7 +118,7 @@
       transition: background 0.2s, color 0.2s, filter 0.2s, transform 0.2s;
     }
     .footer-news-btn:not(:disabled) {
-      background: linear-gradient(135deg, #F3746F, #D62246);
+      background: linear-gradient(135deg, var(--primary), #D62246);
       color: #fff;
       cursor: pointer;
     }
@@ -207,7 +207,7 @@
   var html = `
     <div class="footer-grid">
       <div>
-        <img src="./Graphig assets/State=Horizontal.png" alt="Red Sea Jazz Festival" class="footer-logo-img" />
+        <img src="./Graphig assets/State=Horizontal.png?v=2" alt="Red Sea Jazz Festival" class="footer-logo-img" />
         <div class="footer-tagline">
           40 שנות מוזיקה על חוף ים סוף.<br>
           נמל אילת · 11–14 בנובמבר 2026

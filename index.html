@@ -31,7 +31,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="dns-prefetch" href="https://unpkg.com" />
-  <link rel="dns-prefetch" href="https://tile.openstreetmap.org" />
+  <link rel="dns-prefetch" href="https://basemaps.cartocdn.com" />
   <link rel="dns-prefetch" href="https://upload.wikimedia.org" />
   <link rel="dns-prefetch" href="https://static.wixstatic.com" />
   <link rel="dns-prefetch" href="https://images.squarespace-cdn.com" />
@@ -39,6 +39,8 @@
   <link rel="preload" href="./Graphig assets/hero-poster.jpg" as="image" fetchpriority="high" />
   <link rel="preload" href="./Graphig assets/festival-logo.svg" as="image" />
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@400;700;900&family=Noto+Sans+Hebrew:wght@400;700;900&display=swap" as="style" />
+  <!-- Leaflet — מפה אינטראקטיבית ב-.quick-info-map (ראו סקריפט לפני ה-footer) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <!-- Fonts (critical — loaded sync for above-the-fold text) -->
   <link href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@100;300;400;500;700;900&family=Noto+Sans+Hebrew:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
   <style>
@@ -88,7 +90,8 @@
       --red:       #D62246;   /* אדום מותג */
       --pink:      #E0568F;   /* ורוד מותג */
       --teal:      #0A8F8E;   /* טורקיז — מותאם לקונטרסט על שמנת */
-      --warm-glow: #F3746F;   /* זוהר חם (לאפקטים על ההירו הכהה) */
+      --primary:   #F3746F;   /* צבע Primary של המותג */
+      --warm-glow: var(--primary);   /* זוהר חם (לאפקטים על ההירו הכהה) */
       --text:      #521648; --text-rgb: 82,22,72;   /* טקסט ראשי — חום כהה */
       --muted:     #6A5540; --yellow-text: #7A5C00; --teal-text: #086665; --orange-text: #C93C36; --orange-btn: #CF4943;   /* טקסט משני — חום בינוני */
       --card-bg:   #FFFDF8;   /* רקע כרטיסים — לבן-שמנת */
@@ -250,11 +253,11 @@
     .nav-links a::after {
       content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
       width: 0; height: 2px;
-      background: linear-gradient(90deg, #F3746F, #F3746F);
+      background: linear-gradient(90deg, var(--primary), var(--primary));
       transition: width 0.3s;
     }
     .nav-links a:hover {
-      background: linear-gradient(90deg, #F3746F, #F3746F);
+      background: linear-gradient(90deg, var(--primary), var(--primary));
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .nav-links a:hover::after { width: 100%; }
@@ -270,11 +273,11 @@
     .nav-drop-toggle::after {
       content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
       width: 0; height: 2px;
-      background: linear-gradient(90deg, #F3746F, #F3746F);
+      background: linear-gradient(90deg, var(--primary), var(--primary));
       transition: width 0.3s;
     }
     .nav-drop-toggle:hover, .nav-drop-toggle.open {
-      background: linear-gradient(90deg, #F3746F, #F3746F);
+      background: linear-gradient(90deg, var(--primary), var(--primary));
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .nav-drop-toggle:hover::after, .nav-drop-toggle.open::after { width: 100%; }
@@ -298,8 +301,8 @@
       white-space: nowrap; text-align: start;
       background: none; border: none; width: 100%; cursor: pointer; font-family: inherit;
     }
-    .nav-drop-panel > a:hover { background: rgba(213,100,95,0.08); color: #F3746F; }
-    .nav-drop-panel > a.active { color: #F3746F; font-weight: 700; }
+    .nav-drop-panel > a:hover { background: rgba(213,100,95,0.08); color: var(--primary); }
+    .nav-drop-panel > a.active { color: var(--primary); font-weight: 700; }
 
     /* ── Nav action buttons (left side) ── */
     .nav-actions {
@@ -342,7 +345,7 @@
       display: flex; align-items: center; gap: 0.35rem;
       transition: border-color 0.2s, color 0.2s;
     }
-    .nav-btn-lang:hover { border-color: var(--orange); color: #F3746F; }
+    .nav-btn-lang:hover { border-color: var(--orange); color: var(--primary); }
 
     .hamburger {
       display: none; flex-direction: column; justify-content: center;
@@ -408,8 +411,8 @@
     @media (max-width: 768px) {
       .hero-bg-video { display: none; }
       .hero-bg-fallback { display: block; }
-      .venue-photo-card video { display: none; }
-      .venue-photo-card .venue-photo-fallback { display: block; }
+      .quick-info-plaza-video { display: none; }
+      .quick-info-plaza-fallback { display: block; }
 
       /* גרסת מובייל בלבד — שוליים אחידים 16px סביב ההירו, תמונת הרקע ממורכזת. */
       .hero-image-frame { top: 16px; left: 16px; right: 16px; bottom: 16px; }
@@ -421,8 +424,8 @@
     @media (prefers-reduced-motion: reduce) {
       .hero-bg-video { display: none; }
       .hero-bg-fallback { display: block; }
-      .venue-photo-card video { display: none; }
-      .venue-photo-card .venue-photo-fallback { display: block; }
+      .quick-info-plaza-video { display: none; }
+      .quick-info-plaza-fallback { display: block; }
     }
 
     /* Dark overlay for text readability */
@@ -470,12 +473,12 @@
        הקופסאות, הילדים ממשיכים להתנהג בדיוק כמו קודם (position:absolute עצמאי). */
     .hero-content-frame { display: contents; }
 
-    /* 40th-anniversary mark — top-left corner. .hero-image-frame is inset 24px from
-       #hero, so top/left here = 24px frame inset + 40px actual gap from the visible banner edge. */
+    /* 40th-anniversary mark — bottom-right corner. .hero-image-frame is inset 24px from
+       #hero, so bottom/right here = 24px frame inset + 40px actual gap from the visible banner edge. */
     .hero-40-mark {
       position: absolute;
-      top: 64px;
-      left: 64px;
+      bottom: 64px;
+      right: 64px;
       z-index: 10;
       width: 177px;
       height: auto;
@@ -493,11 +496,11 @@
     .hero-main-content {
       position: absolute;
       top: 50%;
-      transform: translateY(-50%);
-      right: 120px;
+      left: 50%;
+      transform: translate(-50%, -50%);
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
+      align-items: center;
       gap: 22px;
       z-index: 10;
       pointer-events: none;
@@ -509,7 +512,8 @@
     .hero-date-badge {
       position: absolute;
       top: 24px;
-      right: 120px;
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 10;
       width: 220px;
       height: auto;
@@ -520,10 +524,10 @@
       pointer-events: auto;
       font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', serif;
       color: #fff;
-      text-align: right;
+      text-align: center;
       line-height: 1.1;
       letter-spacing: 0.15px;
-      text-shadow: 4px 4px 0 #F3746F;
+      text-shadow: 4px 4px 0 var(--primary);
       margin: 0;
     }
     .hero-title-line1 {
@@ -691,7 +695,7 @@
       .hero-title-text { text-align: center; }
       .hero-title-line1, .hero-title-line2 { font-size: 2.75rem; }
       /* height אחיד עם שאר כפתורי ה-CTA במובייל (44px — כגובה כפתור
-         "פרטים נוספים" בסקשן #venue) */
+         "פרטים נוספים" ב-.quick-info-plaza) */
       .hero-lineup-btn { padding: 0.75rem 1.25rem; font-size: 16px; height: 44px; }
 
       .hero-content {
@@ -805,7 +809,7 @@
       top: -2px;
       left: 50%;
       transform: translateX(-50%);
-      background: linear-gradient(166deg, var(--orange) 0%, #F3746F 73%);
+      background: var(--primary);
       color: #fff;
       font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
       font-weight: 400;
@@ -837,7 +841,7 @@
       line-height: 1.1;
       width: 100%;
       text-align: center;
-      background: linear-gradient(135deg, var(--orange) 0%, #F3746F 73%);
+      background: linear-gradient(135deg, var(--orange) 0%, var(--primary) 73%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -913,12 +917,12 @@
     }
     .section-title {
       /* מאוחד עם כל כותרות הסקשנים בדף הבית (.alt-lineup-title,
-         .ticket-plans-title, .hotel-banner-title, .venue-photo-title) */
+         .ticket-plans-title, .hotel-banner-title) */
       font-size: clamp(2rem, 5vw, 3.5rem);
       font-weight: 900; line-height: 1.1;
     }
     .section-title .accent {
-      background: linear-gradient(135deg, var(--orange) 0%, #F3746F 73%);
+      background: linear-gradient(135deg, var(--orange) 0%, var(--primary) 73%);
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .section-desc {
@@ -937,41 +941,13 @@
       background: linear-gradient(90deg, transparent, var(--border), transparent);
     }
 
-    /* ─── ABOUT STRIP / STATS ────────────────────────────────── */
-    /* דסקטופ בלבד — מוסתר במובייל (ראו override ב-@media max-width:900px) */
-    #about-strip {
-      padding: 2.5rem 3rem;
-      background: rgba(210, 140, 130, 0.08);
-    }
-    .about-stats {
-      display: flex; flex-wrap: wrap;
-      justify-content: center; align-items: center;
-      max-width: 1100px; margin-inline: auto;
-    }
-    .stat {
-      text-align: center; padding: 0.5rem 0;
-      flex: 1; min-width: 120px;
-      border-inline-end: 1px solid var(--border);
-    }
-    .stat:last-child { border-inline-end: none; }
-    .stat-num {
-      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
-      font-size: 80px; font-weight: 900;
-      line-height: 1.1;
-      letter-spacing: 0.15px;
-      color: var(--text);
-      font-variation-settings: 'GRAD' 0;
-      text-shadow: 2px 2px 0px #F3746F;
-    }
-    .stat-label { font-size: 0.95rem; color: var(--text); margin-top: 0.2rem; }
-
     /* All content after hero sits above sticky background */
     /* Single stacking layer — prevents sub-pixel cracks between sections */
     #page-body {
       position: relative; z-index: 1;
       background: var(--bg);
     }
-    #hotels, #venue, #news, footer {
+    #hotels, #news, footer {
       position: relative;
     }
 
@@ -1252,7 +1228,7 @@
     .lineup-list-item:hover {
       border-color: rgba(243,116,111,0.4);
       transform: translateX(-4px);
-      background: color-mix(in srgb, #FFFDF8 94%, #F3746F 6%);
+      background: color-mix(in srgb, #FFFDF8 94%, var(--primary) 6%);
     }
     .lineup-num { font-size: 1.8rem; font-weight: 400; color: var(--border); min-width: 3rem; }
     .lineup-info { flex: 1; }
@@ -1276,11 +1252,9 @@
     .lineup-stage.stage-4 { color: var(--yellow-text); border-color: rgba(255,210,52,0.4);  background: rgba(255,210,52,0.08); }
 
     /* ─── HOTEL BANNER ────────────────────────────────────────── */
-    #hotels {
-      padding: 80px 3rem;
-      background: var(--bg);
-      z-index: 1; /* sits above #venue's pinned video so its own tail visually peels away and reveals it */
-    }
+    /* #hotels כבר לא סקשן עוטף עצמאי — הוא ה-id שיושב עכשיו ישירות על
+       .hotel-banner בתוך .quick-info-grid (ראו למטה). כל הריווח החיצוני
+       (padding, gap) עבר לבעלות .quick-info-grid. */
     .hotel-banner {
       position: relative; overflow: hidden;
       border-radius: 24px;
@@ -1319,13 +1293,13 @@
       font-weight: 700; line-height: 1.1;
     }
     .hotel-banner-title .title-line1 { color: var(--banner-fg); font-size: clamp(1.9rem, 3.8vw, 2.5rem); }
-    .hotel-banner-title .hl { color: #F3746F; font-size: clamp(2.6rem, 5.4vw, 3.6rem); }
+    .hotel-banner-title .hl { color: var(--primary); font-size: clamp(2.6rem, 5.4vw, 3.6rem); }
     .hotel-banner-sub { color: var(--banner-fg); font-size: 16px; line-height: 1.6; text-align: right; }
 
     .hotel-banner-cta { position: relative; z-index: 2; flex-shrink: 0; }
     .hotel-banner-btn {
       display: inline-flex; align-items: center; gap: 0.7rem;
-      background: #F3746F;
+      background: var(--primary);
       color: #fff; border: none; border-radius: 50px;
       padding: 1rem 2.2rem; font-size: 1rem; font-weight: 700;
       letter-spacing: 0; cursor: pointer;
@@ -1429,9 +1403,7 @@
     }
 
     /* ─── MERCH – חנות הפסטיבל (סקשן מצומצם בעמוד הבית) ─── */
-    /* position+z-index above #venue so it visually rises over and covers
-       the sticky-pinned video from #venue as the page scrolls past it. */
-    #merch { background: var(--bg); text-align: center; position: relative; z-index: 2; }
+    #merch { background: var(--bg); text-align: center; }
     .merch-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -1503,8 +1475,8 @@
     .merch-cta-wrap { margin-top: 3rem; text-align: center; }
     .merch-cta {
       display: inline-flex; align-items: center; gap: 0.5rem;
-      background: transparent; color: #F3746F;
-      border: 1px solid #f3746f;
+      background: transparent; color: var(--primary);
+      border: 1px solid var(--primary);
       border-radius: 50px; padding: 15px 24px;
       font-size: 16px; font-weight: 700; text-decoration: none;
       transition: background 0.2s, transform 0.2s;
@@ -1512,7 +1484,7 @@
     .merch-cta:hover { background: rgba(243,116,111,0.06); transform: translateY(-2px); }
 
     /* height אחיד עם שאר כפתורי ה-CTA במובייל (44px — כגובה כפתור
-       "פרטים נוספים" בסקשן #venue) */
+       "פרטים נוספים" ב-.quick-info-plaza) */
     @media (max-width: 768px) {
       .merch-cta { height: 44px; }
     }
@@ -1564,88 +1536,139 @@
       }
     }
 
-    /* ─── VENUE · LOCATIONS ─────────────────────────────────────── */
-    /* Sticky-reveal: same technique as #hero-wrapper — video pins in place
-       while scrolling. No overflow:hidden here — it would break
-       position:sticky on the descendant card.
-       The negative margin pulls #venue's sticky video up underneath the
-       tail of #hotels (which has a higher z-index) — so the video is
-       already pinned in place *before* #hotels finishes scrolling away,
-       and its tail visually peels back to reveal it, instead of the video
-       just entering like a normal next section. #merch (z-index above
-       #venue) later covers it again the same way as it scrolls up. */
-    #venue {
-      background: var(--bg);
+    /* ─── QUICK INFO GRID · שורה תחתונה — מפה + רחבה ציבורית ──────────
+       מחליף את הסקשן הישן #venue (וידאו נייח sticky-scroll) — שתי קוביות
+       רגילות בתוך .quick-info-grid, אותו גובה (align-items:stretch של
+       הגריד), אותה שפת עיצוב עגולה כמו שאר תאי הגריד. */
+
+    /* ── מפה — .quick-info-map ── */
+    .quick-info-map {
       position: relative;
-      z-index: 0;
-      margin-top: -300px;
-      padding-inline: 0;
-      padding-block: 0;
-    }
-    .venue-layout {
-      position: relative; z-index: 1;
-      height: 170vh;
-      height: 170dvh;
-    }
-    .venue-photo-card {
-      display: block;
-      position: sticky;
-      top: 0;
+      border-radius: 24px;
       overflow: hidden;
-      height: 100vh;
-      height: 100dvh;
+      min-height: 420px;
+      background: var(--bg2);
     }
-    .venue-photo-card img,
-    .venue-photo-card video {
+    /* z-index:0 (לא auto) — יוצר stacking context משלו, שמכיל/מבודד את
+       ה-z-index הפנימיים הגבוהים של Leaflet (panes/controls, עד ~1000)
+       בתוכו. בלי זה הם "בורחים" ומצטיירים מעל .quick-info-map-overlay/
+       -panel למרות שהם מגיעים אחריהם ב-DOM. */
+    .quick-info-map-canvas { position: absolute; inset: 0; z-index: 0; }
+    /* בסיס המפה עצמו (CARTO Positron) כבר אפרפר/מינימליסטי בצבעים טבעיים
+       (ים כחול, ירוק עדין) — לא צריך filter צביעה-מחדש; רק חימום עדין מאוד
+       כדי שישתלב עם השמנת של האתר בלי לפגוע בגוונים הטבעיים. */
+    .quick-info-map-canvas .leaflet-tile-pane {
+      filter: grayscale(0.45) brightness(1.03);
+    }
+    .quick-info-map-canvas .leaflet-control-zoom {
+      border: 1px solid var(--border) !important;
+      border-radius: 10px !important;
+      overflow: hidden;
+    }
+    .quick-info-map-canvas .leaflet-control-zoom a {
+      background: var(--card-bg);
+      color: var(--text);
+    }
+    .quick-info-map-canvas .leaflet-control-attribution {
+      font-size: 10px;
+      background: rgba(250,244,233,0.85);
+      color: var(--muted);
+    }
+    /* מבטל את הריבוע הלבן שLeaflet שם כברירת מחדל מאחורי divIcon — הפין
+       שלנו הוא SVG שקוף בפני עצמו. */
+    .quick-info-map-canvas .leaflet-div-icon { background: transparent; border: none; }
+
+    .quick-info-map-overlay {
+      position: absolute; inset: 0;
+      z-index: 1; /* מעל .quick-info-map-canvas (ראו הערה שם) */
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 18px;
+      padding: 24px;
+      text-align: center;
+      pointer-events: none; /* גרירה/זום עוברים למפה מתחת, חוץ מהכפתור עצמו */
+    }
+    .quick-info-map-title { display: flex; flex-direction: column; gap: 4px; }
+    /* הכותרת יושבת ישירות על המפה (בלי כרטיסיה לבנה מאחוריה) — halo עדין
+       בצבע הרקע של האתר שומר על קריאות מעל אריחי מפה בהירים/עמוסים. */
+    .quick-info-map-title-line1,
+    .quick-info-plaza-title-line1 {
+      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
+      font-weight: 700; font-size: clamp(1.6rem, 2.6vw, 2rem); line-height: 1.15;
+    }
+    .quick-info-map-title-line2,
+    .quick-info-plaza-title-line2 {
+      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
+      font-weight: 900; font-size: clamp(2.2rem, 4vw, 3rem); line-height: 1.1;
+      color: var(--warm-glow);
+    }
+    .quick-info-map-title-line1 {
+      color: var(--text);
+      text-shadow: 0 1px 3px rgba(250,244,233,0.85), 0 0 18px rgba(250,244,233,0.85);
+    }
+    .quick-info-map-title-line2 {
+      text-shadow: 0 1px 3px rgba(250,244,233,0.85), 0 0 18px rgba(250,244,233,0.85);
+    }
+    .quick-info-map-btn {
+      pointer-events: auto;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--text); color: #fff;
+      font-family: var(--font);
+      font-weight: 700; font-size: 0.95rem; letter-spacing: 0.15px;
+      border-radius: 100px; padding: 12px 28px;
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgba(82,22,72,0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .quick-info-map-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(82,22,72,0.45);
+    }
+    @media (max-width: 600px) {
+      .quick-info-map-overlay { gap: 14px; }
+    }
+
+    /* ── רחבה ציבורית — .quick-info-plaza ── */
+    /* אותו וידאו רקע שהיה בסקשן #venue הישן, בלי אפקט ה-sticky-scroll —
+       קובייה רגילה בגריד, פינות מעוגלות, טקסט על גבי סקרים כהה. */
+    .quick-info-plaza {
+      position: relative;
+      display: block;
+      border-radius: 24px;
+      overflow: hidden;
+      min-height: 420px;
+      text-decoration: none;
+      color: #fff;
+    }
+    .quick-info-plaza-video,
+    .quick-info-plaza-fallback {
       position: absolute; inset: 0;
       width: 100%; height: 100%; object-fit: cover; display: block;
     }
-    .venue-photo-card .venue-photo-fallback { display: none; }
-    /* Gentle scrim so the white caption stays legible over busy video
-       frames (containers, vehicles, etc.) without flattening the video —
-       same treatment on mobile and desktop, no media-query split needed. */
-    .venue-photo-overlay {
+    .quick-info-plaza-fallback { display: none; }
+    /* סקרים עדין כדי שהכיתוב הלבן יישאר קריא מעל פריימים "עמוסים" של
+       הווידאו (מכולות, כלי רכב וכו') בלי לשטח את הווידאו עצמו. */
+    .quick-info-plaza-overlay {
       position: absolute; inset: 0;
-      background: rgba(0, 0, 0, 0.22);
+      background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0.15) 55%, rgba(0,0,0,0.35));
       pointer-events: none;
     }
-    /* opacity/transform are driven directly by scroll position in JS (see
-       the venue caption reveal script), not a CSS transition — a fixed-
-       duration transition can't keep up with a fast/flick scroll, so the
-       text would only be partway faded in by the time the user has
-       already scrolled past it. Driving it off scroll position instead
-       means it's always exactly as revealed as the scroll position says,
-       however fast the user scrolls. */
-    .venue-photo-caption {
-      position: absolute; inset: 0;
+    .quick-info-plaza-content {
+      position: relative; z-index: 1;
+      height: 100%;
       padding: 32px;
-      display: flex; align-items: center; justify-content: center;
-      color: #fff; text-align: center;
-      opacity: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 16px;
+      text-align: center;
     }
-    .venue-photo-text {
-      display: flex; flex-direction: column; gap: 24px;
-      align-items: center; max-width: 90%;
-    }
-    .venue-photo-heading-group {
-      display: flex; flex-direction: column; gap: 9px;
-      align-items: center; width: 100%;
-    }
-    .venue-photo-title {
+    .quick-info-plaza-title { display: flex; flex-direction: column; gap: 4px; }
+    .quick-info-plaza-title-line1 { color: #fff; }
+    .quick-info-plaza-title-line2 { color: #fff; } /* לבן — לא הקורל המשותף עם כותרת המפה */
+    .quick-info-plaza-desc {
       font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
-      /* מאוחד עם כל כותרות הסקשנים בדף הבית — ראו .section-title */
-      font-weight: 900; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; letter-spacing: -0.5px;
-      white-space: nowrap;
+      font-weight: 400; font-size: 1.05rem; line-height: 1.4;
+      max-width: 320px;
     }
-    .venue-photo-sub {
-      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
-      font-weight: 500; font-size: clamp(1.3rem, 2.8vw, 2.125rem); line-height: 1.1; letter-spacing: 0.25px;
-    }
-    .venue-photo-small {
-      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
-      font-weight: 400; font-size: 1.25rem; line-height: 1.28; letter-spacing: 0.15px;
-    }
-    .venue-photo-btn {
+    .quick-info-plaza-btn {
       display: inline-flex; align-items: center; justify-content: center;
       background: #fff; color: var(--text);
       font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
@@ -1653,10 +1676,8 @@
       border-radius: 100px; padding: 10px 22px;
       transition: transform 0.2s;
     }
-    .venue-photo-card:hover .venue-photo-btn {
-      transform: translateY(-3px);
-    }
-    .venue-photo-btn-arrow {
+    .quick-info-plaza:hover .quick-info-plaza-btn { transform: translateY(-3px); }
+    .quick-info-plaza-btn-arrow {
       display: inline-block;
       width: 0;
       opacity: 0;
@@ -1664,19 +1685,10 @@
       margin-inline-start: 0;
       transition: width 0.25s ease, opacity 0.2s ease, margin-inline-start 0.25s ease;
     }
-    .venue-photo-card:hover .venue-photo-btn-arrow {
+    .quick-info-plaza:hover .quick-info-plaza-btn-arrow {
       width: 1em;
       opacity: 1;
       margin-inline-start: 0.5rem;
-    }
-    @media (max-width: 768px) {
-      /* font-size קבוע של 2rem הוסר מכאן — היה גורם לפער מול שאר כותרות
-         הסקשנים שממשיכות לגדול עם clamp() ברוחבי טאבלט (ראו .section-title).
-         white-space נשאר normal: בכל גודל שה-clamp הנוכחי (עד 3.5rem) עלול
-         לתת, הכותרת יכולה לא להיכנס בשורה אחת בתוך עמודת הטקסט
-         (90% max-width) — nowrap היה נחתך ע"י overflow:hidden של
-         .venue-photo-card במקום לרדת שורה. */
-      .venue-photo-title { white-space: normal; }
     }
     /* ─── FOOTER ──────────────────────────────────────────────── */
     footer {
@@ -1789,20 +1801,16 @@
       body.mobile-nav-open .nav-mobile-menu-actions { display: flex; }
       /* תפריט פתוח: הלוגו מוסתר, במקומו כרטיסים+שפה (.nav-mobile-menu-actions) */
       body.mobile-nav-open .nav-logo-tab { display: none; }
-      /* מובייל: כל הסקשנים בדף הבית מקבלים מרווח אחיד של 60px משוליים עליון/תחתון
-         (venue מוחרג — סקשן וידאו sticky-scroll עם padding-block:0 מכוון) */
+      /* מובייל: כל הסקשנים בדף הבית מקבלים מרווח אחיד של 60px משוליים עליון/תחתון */
       section { padding: 60px 1.5rem; }
       /* גובר בעבר על .section-title עם 2rem קבוע כאן (≤900px) — נעלמה כי
          היא זו שגרמה לפער מול שאר כותרות הסקשנים (.alt-lineup-title,
          .ticket-plans-title...) שאין להן override דומה וממשיכות לגדול
          עם clamp() גם ברוחבי טאבלט. .section-title עכשיו זהה להן. */
-      #hotels { padding-top: 60px; padding-bottom: 60px; }
       footer { padding: 3rem 1.5rem 2rem; }
       .modal-header, .modal-controls, .modal-body { padding-inline: 1.5rem; }
       .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
       .schedule-table { font-size: 0.8rem; }
-      /* סטריפ המספרים (40 שנות פסטיבל / 4 ימים / 4 במות / 78 הופעות) — דסקטופ בלבד */
-      #about-strip { display: none; }
     }
 
     @media (max-width: 600px) {
@@ -1830,12 +1838,8 @@
        פנימית עם היררכיה ברורה (כותרת > תיאור > תגיות), הכל ממורכז,
        ושכבת הצבע מצומצמת לאזור הטקסט בלבד כדי לחשוף את התמונה. */
     @media (max-width: 600px) {
-      /* בדסקטופ ה-200px אנכי (#hotels בסיסי) נועד לתת ל-.hotel-banner לצוף
-         בתוך רקע גדול; במובייל זה נראה כרווח ענק בין הסקשנים — מצמצמים לפדינג
-         תואם לשאר הסקשנים במובייל (כמו .ticket-plans-section). padding-top
-         מבוטל: הרווח מלמעלה כבר מגיע מסוף הסקשן הקודם — למעלה זה נראה כפול. */
-      #hotels { padding: 0 16px 60px; }
-
+      /* הריווח החיצוני (הרווח מהסקשן הקודם/הבא) עבר לבעלות .quick-info-grid —
+         כאן נשארת רק ההתאמה הפנימית של תוכן הכרטיס עצמו למובייל. */
       .hotel-banner-content { align-items: center; text-align: center; }
       .hotel-banner-title { align-items: center; }
       .hotel-banner-sub { text-align: center; font-size: 15px; }
@@ -2040,7 +2044,7 @@
     @media (max-width: 480px) {
       .show-panel { width: 100vw; border-inline-end: none; }
       /* height אחיד עם שאר כפתורי ה-CTA במובייל (44px — כגובה כפתור
-         "פרטים נוספים" בסקשן #venue) */
+         "פרטים נוספים" ב-.quick-info-plaza) */
       .show-panel-ticket-btn { height: 44px; }
     }
 
@@ -2137,7 +2141,7 @@
       <div class="mobile-menu-panel" id="mobileMenuPanel">
       <ul class="nav-links" id="navLinks">
         <li class="nav-link-mobile-flat"><a href="./index.html" data-he="דף הבית" data-en="Home">דף הבית</a></li>
-        <li><a href="#artist-lineup-text" data-he="Artists" data-en="Artists">Artists</a></li>
+        <li><a href="#artist-lineup-text" data-he="Artists 2026" data-en="Artists 2026">Artists 2026</a></li>
         <li><a href="./lineup.html" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
         <li class="nav-link-mobile-flat"><a href="https://www.hotels.com/" target="_blank" rel="noopener" data-he="חבילות לינה" data-en="Stay Packages">חבילות לינה</a></li>
         <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
@@ -2212,7 +2216,7 @@
            fetchpriority="high">
     </div>
 
-    <!-- 40th-anniversary mark — top-left, 40px from the banner's top+left edges -->
+    <!-- 40th-anniversary mark — bottom-right, 40px from the banner's bottom+right edges -->
     <img class="hero-40-mark" src="./Graphig assets/hero-40-mark.svg" alt="40 מהדורה" width="177" height="100">
 
     <!-- Date badge — flush against the top of the banner, zero gap. Positioned
@@ -2226,11 +2230,11 @@
     <div class="hero-content-frame">
     <div class="hero-main-content">
       <h1 class="hero-title-text">
-        <span class="hero-title-line1">סופשבוע של</span>
-        <span class="hero-title-line2">ג׳אז באילת</span>
+        <span class="hero-title-line1">פסטיבל ג׳אז</span>
+        <span class="hero-title-line2">בים האדום</span>
       </h1>
       <a href="#artist-lineup-text" class="hero-lineup-btn">
-        Artists
+        Artists 2026
         <span class="hero-lineup-btn-arrow" aria-hidden="true">&#8592;</span>
       </a>
       <!-- Mobile-only: the "40" mark repeats here, below the button, instead of the top-left corner -->
@@ -2278,137 +2282,278 @@
 
   <main id="page-body">
 
-  <!-- ── ABOUT STRIP / STATS ── -->
-  <div id="about-strip" class="reveal">
-    <div class="about-stats">
-      <div class="stat">
-        <div class="stat-num">40</div>
-        <div class="stat-label">שנות פסטיבל</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">4</div>
-        <div class="stat-label">ימים</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">4</div>
-        <div class="stat-label">במות</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">78</div>
-        <div class="stat-label">הופעות</div>
-      </div>
-    </div>
-  </div>
-
   <!-- ── ARTIST LINEUP TEXT SECTION ── -->
   <section id="artist-lineup-text">
     <div class="alt-lineup-section-inner">
 
       <div class="alt-lineup-header reveal">
-        <h2 class="alt-lineup-title">Artists</h2>
+        <h2 class="alt-lineup-title">Artists 2026</h2>
+      </div>
+
+      <!-- ── DAY FILTER — placeholder data: שמות אמנים רנדומליים, יוחלפו ברשימה הסופית בהמשך ── -->
+      <div class="artist-day-filter reveal" role="navigation" aria-label="סינון אמנים לפי יום">
+        <button class="artist-day-btn active" data-day="all" onclick="filterArtistsByDay('all', this)">כל הימים</button>
+        <button class="artist-day-btn" data-day="1" onclick="filterArtistsByDay('1', this)">
+          <span class="artist-day-dot" style="background:var(--day-1)" aria-hidden="true"></span>
+          יום ד׳ · 11.11
+        </button>
+        <button class="artist-day-btn" data-day="2" onclick="filterArtistsByDay('2', this)">
+          <span class="artist-day-dot" style="background:var(--day-2)" aria-hidden="true"></span>
+          יום ה׳ · 12.11
+        </button>
+        <button class="artist-day-btn" data-day="3" onclick="filterArtistsByDay('3', this)">
+          <span class="artist-day-dot" style="background:var(--day-3)" aria-hidden="true"></span>
+          יום ו׳ · 13.11
+        </button>
+        <button class="artist-day-btn" data-day="4" onclick="filterArtistsByDay('4', this)">
+          <span class="artist-day-dot" style="background:var(--day-4)" aria-hidden="true"></span>
+          שבת · 14.11
+        </button>
       </div>
 
       <div class="alt-lineup-grid reveal">
 
-        <button class="alt-artist-btn" onclick="window.location.href='show.html?show=teal-1411-1230'">
+        <!-- יום ד׳ · 11.11 -->
+        <button class="alt-artist-btn" data-day="1">
           <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
-          <span class="featuring-pill-text">Artist in Residence - Anat Cohen</span>
+          <span class="featuring-pill-text">Wynton Marsalis &amp; The Jazz at Lincoln Center Orchestra</span>
           <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
         </button>
 
-        <button class="alt-artist-btn" onclick="window.location.href='show.html?show=red-1211-1800'">
+        <button class="alt-artist-btn" data-day="1">
           <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
-          <span class="featuring-pill-text">אבות ובנים - מפגש דורות אינטימי, <span class="featuring-pill-sub">בהשתתפות:</span> אלוארצי׳ק, גרוס, נחמיה, סאלם, פורטוגלי, צור, שטרקר</span>
+          <span class="featuring-pill-text">Diana Krall</span>
           <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
         </button>
 
-        <button class="alt-artist-btn" onclick="window.location.href='show.html?show=main-1211-2000'">
+        <button class="alt-artist-btn" data-day="1">
           <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
-          <span class="featuring-pill-text">The 3 Cohens: Yuval, Anat &amp; Avishai + Big Band</span>
+          <span class="featuring-pill-text">Kamasi Washington &amp; The Next Step</span>
           <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
         </button>
 
-        <button class="alt-artist-btn" onclick="window.location.href='show.html?show=teal-1211-2230'">
-          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
-          <span class="featuring-pill-text">שישיית קאי גלוסקא</span>
-          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
-        </button>
-
-        <button class="alt-artist-btn" onclick="window.location.href='show.html?show=red-1211-2100'">
-          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
-          <span class="featuring-pill-text">Lay Z Gordon</span>
-          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
-        </button>
-
-        <button class="alt-artist-btn" onclick="window.location.href='show.html?show=red-1311-1100'">
+        <button class="alt-artist-btn" data-day="1">
           <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
           <span class="featuring-pill-text">שלישיית אריאל ברט</span>
           <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
         </button>
 
-        <button class="alt-artist-btn" onclick="window.location.href='show.html?show=main-1211-2230'">
+        <button class="alt-artist-btn" data-day="1">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">Snarky Puppy</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" data-day="1">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">Cécile McLorin Salvant</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" data-day="1">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">שישיית קאי גלוסקא</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" data-day="1">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">Christian McBride Trio</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" data-day="1">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">Lay Z Gordon</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" data-day="1">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">Joshua Redman Quartet</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <!-- יום ה׳ · 12.11 -->
+        <button class="alt-artist-btn" data-day="2">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">Brad Mehldau Trio</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" data-day="2">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">אבות ובנים — מפגש דורות אינטימי, <span class="featuring-pill-sub">בהשתתפות:</span> אלוארצי׳ק, גרוס, נחמיה</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" data-day="2">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">Esperanza Spalding</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" data-day="2">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">The 3 Cohens: Yuval, Anat &amp; Avishai + Big Band</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" data-day="2">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">Robert Glasper Experiment</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" data-day="2">
           <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
           <span class="featuring-pill-text">ג׳ימבו ג׳אז <span class="featuring-pill-sub">אורח</span> תמיר בר</span>
           <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
         </button>
 
-        <button class="alt-artist-btn" onclick="window.location.href='show.html?show=teal-1311-1515'">
+        <button class="alt-artist-btn" data-day="2">
           <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
-          <span class="featuring-pill-text">עידית מינצר קונצרט בשני חלקים</span>
+          <span class="featuring-pill-text">Charles Lloyd &amp; The Marvels</span>
           <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
         </button>
 
-        <button class="alt-artist-btn" onclick="window.location.href='show.html?show=main-1311-1230'">
+        <button class="alt-artist-btn" data-day="2">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">עידית מינצר — קונצרט בשני חלקים</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" data-day="2">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">Gregory Porter</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" data-day="2">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">Pat Metheny Unity Group</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <!-- יום ו׳ · 13.11 -->
+        <button class="alt-artist-btn" data-day="3">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">Chick Corea Akoustic Band</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" data-day="3">
           <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
           <span class="featuring-pill-text">Eli Degibri Quartet <span class="featuring-pill-sub">עם</span> רביעיית כלי מיתר <span class="featuring-pill-sub">אורח מיוחד:</span> שם טוב לוי</span>
           <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
         </button>
 
-        <button class="alt-artist-btn" onclick="window.location.href='show.html?show=red-1311-1400'">
+        <button class="alt-artist-btn" data-day="3">
           <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
           <span class="featuring-pill-text">רביעיית אוריאל הרמן <span class="featuring-pill-sub">מארחת את</span> רמי קליינשטיין</span>
           <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
         </button>
 
-        <button class="alt-artist-btn" onclick="window.location.href='show.html?show=teal-1311-2230'">
-          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
-          <span class="featuring-pill-text">Las Piratas Piratas</span>
-          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
-        </button>
-
-        <button class="alt-artist-btn" onclick="window.location.href='show.html?show=red-1311-1630'">
+        <button class="alt-artist-btn" data-day="3">
           <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
           <span class="featuring-pill-text">שלישיית יותם זילברשטיין</span>
           <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
         </button>
 
-        <button class="alt-artist-btn" onclick="window.location.href='show.html?show=red-1411-1100'">
+        <button class="alt-artist-btn" data-day="3">
           <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
-          <span class="featuring-pill-text">New Quartet הדר נויברג</span>
+          <span class="featuring-pill-text">Las Piratas Piratas</span>
           <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
         </button>
 
-        <button class="alt-artist-btn" onclick="window.location.href='show.html?show=red-1311-2145'">
+        <button class="alt-artist-btn" data-day="3">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">Brian Blade &amp; The Fellowship Band</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" data-day="3">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">שישיית חגי אמיר — דיאלוגים עם ברטוק</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" data-day="3">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">Wayne Shorter Legacy Quartet</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" data-day="3">
           <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
           <span class="featuring-pill-text">SHALOSH <span class="featuring-pill-sub">אורח</span> רוני איתן</span>
           <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
         </button>
 
-        <button class="alt-artist-btn" onclick="window.location.href='show.html?show=teal-1411-1230'">
+        <button class="alt-artist-btn" data-day="3">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">Terence Blanchard &amp; The E-Collective</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <!-- שבת · 14.11 -->
+        <button class="alt-artist-btn" data-day="4">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">Artist in Residence - Anat Cohen</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" data-day="4">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">New Quartet הדר נויברג</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" data-day="4">
           <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
           <span class="featuring-pill-text">Anat Cohen &amp; Marcello Goncalves</span>
           <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
         </button>
 
-        <button class="alt-artist-btn" onclick="window.location.href='show.html?show=teal-1311-1800'">
+        <button class="alt-artist-btn" data-day="4">
           <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
-          <span class="featuring-pill-text">שישיית חגי אמיר דיאלוגים עם ברטוק</span>
+          <span class="featuring-pill-text">John Scofield</span>
           <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
         </button>
 
-        <button class="alt-artist-btn" onclick="window.location.href='show.html?show=main-1411-1445'">
+        <button class="alt-artist-btn" data-day="4">
           <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
           <span class="featuring-pill-text">תזמורת הג׳אז הישראלית, <span class="featuring-pill-sub">מציגה את:</span> נטע ברזילי, גל דה פז, נונו ולירז צ׳רכי</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" data-day="4">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">Marcus Miller</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" data-day="4">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">Somi</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" data-day="4">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">Ambrose Akinmusire Quartet</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" data-day="4">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">סיון ארבל</span>
+          <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
+        </button>
+
+        <button class="alt-artist-btn" data-day="4">
+          <span class="featuring-pill-deco featuring-pill-deco--left" aria-hidden="true"></span>
+          <span class="featuring-pill-text">Mingus Big Band</span>
           <span class="featuring-pill-deco featuring-pill-deco--right" aria-hidden="true"></span>
         </button>
 
@@ -2453,7 +2598,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 3rem;
+      gap: 1.5rem; /* קרוב יותר בין הכותרת לתגיות הימים */
     }
     .alt-lineup-header {
       text-align: center;
@@ -2465,7 +2610,7 @@
       color: var(--text);
     }
     .alt-lineup-title-accent {
-      background: linear-gradient(135deg, var(--orange) 0%, #F3746F 73%);
+      background: linear-gradient(135deg, var(--orange) 0%, var(--primary) 73%);
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .alt-lineup-desc {
@@ -2481,6 +2626,79 @@
       margin-top: 1.5rem;
     }
 
+    /* ── DAY FILTER — לפי DS Jazz Festival (Figma: FeaturingName, node 22:77) — 4 גוונים
+       קבועים (Blue/Green/Yellow/Red) עם רקע מלא וטקסט לפי ניגודיות, ומצב Hover מוגדר
+       כהכהיה אחידה של 20% בגוון הטקסט הכהה (#521648) על גבי צבע הבסיס ── */
+    #artist-lineup-text {
+      --day-1: #2B6CA3; /* יום ד׳ · 11.11 — Blue */
+      --day-2: var(--teal); /* יום ה׳ · 12.11 — Green */
+      --day-3: #E0932E; /* יום ו׳ · 13.11 — Yellow */
+      --day-4: var(--warm-glow); /* שבת · 14.11 — Red (--primary, #F3746F) */
+      --day-1-hover: #335B91;
+      --day-2-hover: #187780;
+      --day-3-hover: #C47A33;
+      --day-4-hover: #D36167;
+    }
+    .artist-day-filter {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+    /* לפי Figma node 387:1293: תגית לא-נבחרת = גבול דק (1px) בגוון --text בשקיפות
+       22%, ותגית נבחרת = רקע מלא באותו --text כהה + טקסט לבן, בכל הימים כאחד —
+       ההבחנה בין הימים היא רק דרך צבע העיגול (הנקודה), לא דרך צבע הרקע/הגבול. */
+    .artist-day-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      border: 1px solid rgba(82,22,72,0.22);
+      color: var(--text);
+      border-radius: 50px;
+      height: 42px;
+      padding: 0 17px;
+      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .artist-day-btn:hover { border-color: var(--orange); color: var(--orange-text); }
+    .artist-day-btn.active {
+      background: var(--text);
+      border-color: rgba(82,22,72,0.22);
+      color: #fff;
+    }
+
+    /* הנקודה תמיד בצבע היום שלה (גם נבחר וגם לא) — היא הסימון היחיד שמבדיל בין הימים */
+    .artist-day-dot { width: 10px; height: 10px; border-radius: 5px; flex-shrink: 0; }
+
+    /* רקע וטקסט מלאים לכל צ'יפ אמן, לפי היום שלו — תואם בדיוק את קומפוננטת
+       FeaturingName ב-DS (Figma node 22:77): כחול/ירוק=טקסט לבן, צהוב/אדום=טקסט כהה.
+       דורס את --pill-bg/--pill-text המקומיים, וכך גם הקצוות הקרועים (שמשתמשים
+       באותו --pill-bg) צובעים אוטומטית יחד עם גוף הצ'יפ. מצב ה-Hover מוגדר כאן
+       גם הוא, כהכהיה של אותו גוון (בדיוק לפי ה-Hover state בפיגמה) — ביום 3
+       (צהוב) גם הטקסט הופך ללבן ב-Hover, זהה להתנהגות בעיצוב. */
+    .alt-artist-btn[data-day="1"] { --pill-bg: var(--day-1); --pill-text: #FFFDF8; }
+    .alt-artist-btn[data-day="2"] { --pill-bg: var(--day-2); --pill-text: #FFFDF8; }
+    .alt-artist-btn[data-day="3"] { --pill-bg: var(--day-3); --pill-text: var(--text); }
+    .alt-artist-btn[data-day="4"] { --pill-bg: var(--day-4); --pill-text: var(--text); }
+
+    .alt-artist-btn[data-day="1"]:hover { --pill-bg: var(--day-1-hover); }
+    .alt-artist-btn[data-day="2"]:hover { --pill-bg: var(--day-2-hover); }
+    .alt-artist-btn[data-day="3"]:hover { --pill-bg: var(--day-3-hover); --pill-text: #FFFDF8; }
+    .alt-artist-btn[data-day="4"]:hover { --pill-bg: var(--day-4-hover); }
+
+    /* אמנים שלא שייכים ליום הנבחר — מוסתרים */
+    .alt-artist-btn.day-hidden { display: none; }
+
+    @media (max-width: 600px) {
+      .artist-day-btn { height: 38px; padding: 0 14px; font-size: 13px; }
+    }
+
     /* ── THE GRID OF PILLS ── */
     .alt-lineup-grid {
       display: flex;
@@ -2490,6 +2708,7 @@
       gap: 16px;
       max-width: 1100px;
       width: 100%;
+      margin-top: 1.5rem; /* משלים בחזרה את המרווח שהוקטן ב-.alt-lineup-section-inner, כך שרק המרחק כותרת→תגיות התכווץ */
     }
 
     /* ── EACH PILL BUTTON ── */
@@ -2506,7 +2725,6 @@
     }
     .alt-artist-btn:hover {
       transform: translateY(-3px);
-      filter: brightness(0.97) saturate(1.05);
     }
     .alt-artist-btn:focus-visible {
       outline: 2px solid var(--orange);
@@ -2523,6 +2741,7 @@
       align-self: stretch;
       width: 11px;
       background: var(--pill-bg);
+      transition: background-color 0.2s ease;
       -webkit-mask-repeat: no-repeat;
               mask-repeat: no-repeat;
       -webkit-mask-size: 100% 100%;
@@ -2546,6 +2765,7 @@
       display: inline-block;
       background: var(--pill-bg);
       color: var(--pill-text);
+      transition: background-color 0.2s ease, color 0.2s ease;
       font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', serif;
       font-size: 16px;
       font-weight: 700;
@@ -2844,56 +3064,103 @@
       if (e.key === 'Escape' && document.getElementById('altDrawer').classList.contains('open'))
         closeArtistDrawer();
     });
+
+    // ── סינון רשימת האמנים לפי יום ──
+    function filterArtistsByDay(day, btn) {
+      document.querySelectorAll('.artist-day-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      document.querySelectorAll('.alt-artist-btn').forEach(function(pill) {
+        var show = (day === 'all') || (pill.dataset.day === day);
+        pill.classList.toggle('day-hidden', !show);
+      });
+      playArtistPourIn(visibleArtistPillsInOrder());
+    }
+
+    // ── אנימציית "שפיכה" של תגיות האמנים — בהשראת אפקט ה-bubble settle:
+    // כל תגית "נשפכת" פנימה עם סיבוב וקנה-מידה קטן, ומתיישבת עם ריבאונד קליל
+    // (cubic-bezier עם overshoot), במדורג לפי סדר התצוגה. רצה גם בכניסה הראשונה
+    // לסקשן וגם בכל לחיצה על סינון יום — כדי לדמות "שפיכה"/"התגלגלות" מחדש. ──
+    function visibleArtistPillsInOrder() {
+      return Array.from(document.querySelectorAll('.alt-artist-btn:not(.day-hidden)'))
+        .sort(function(a, b) { return (parseInt(a.style.order, 10) || 0) - (parseInt(b.style.order, 10) || 0); });
+    }
+
+    function playArtistPourIn(pills) {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      pills.forEach(function(pill, i) {
+        if (pill._pourAnim) pill._pourAnim.cancel();
+        var dir = i % 2 === 0 ? -1 : 1;
+        var rot = dir * (7 + Math.random() * 7);
+        var drift = (Math.random() - 0.5) * 26;
+        pill._pourAnim = pill.animate([
+          { transform: 'translate(' + drift + 'px, -30px) scale(0.35) rotate(' + rot + 'deg)', opacity: 0 },
+          { transform: 'translate(' + (drift * 0.25) + 'px, 5px) scale(1.06) rotate(' + (rot * 0.12) + 'deg)', opacity: 1, offset: 0.72 },
+          { transform: 'translate(0, 0) scale(1) rotate(0deg)', opacity: 1 }
+        ], {
+          duration: 560,
+          delay: Math.min(i * 24, 420),
+          easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+          fill: 'both'
+        });
+      });
+    }
+
   </script>
 
-  <!-- ── TICKET PLANS — single Pass (Figma node 360:1129) ── -->
-  <section id="ticket-plans" dir="rtl" class="pass-section">
-    <div class="pass-inner reveal">
-      <div class="pass-bg" aria-hidden="true"></div>
-      <div class="pass-text">
-        <h2 class="pass-title">
-          <span class="pass-title-line1">כניסה חופשית</span>
-          <span class="pass-title-line2">לכל הפסטיבל</span>
-        </h2>
-        <a href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" class="pass-cta">
-          לרכישת כרטיסים
-        </a>
-      </div>
-      <div class="pass-card-wrap">
-        <img class="pass-card" src="./Graphig assets/ticket-pass-card.webp" alt="כרטיס Pass — כניסה חופשית לכל הפסטיבל, 40 שנות ג׳אז ים סוף" width="640" height="1080">
-      </div>
-      <div class="pass-badge">כניסה לכל<br>ההופעות</div>
-      <div class="pass-perks">
-        <div class="pass-perks-header">
-          <span class="pass-perks-line pass-perks-line-mobile" aria-hidden="true"></span>
-          <span class="pass-perks-label">מה מקבלים</span>
-          <span class="pass-perks-line" aria-hidden="true"></span>
+  <!-- ── QUICK INFO GRID — Pass + חבילות לינה + 2 תאי פלייסהולדר ──
+       גריד אחד, 4 תאים: Pass וחבילות לינה תופסים שורה מלאה כל אחד,
+       ואחריהם שורה עם 2 פלייסהולדרים חצי-חצי (יתמלאו בתוכן בהמשך).
+       gap ו-padding-inline אחידים של 24px, לפי גריד ה-Figma. ── -->
+  <section id="quick-info-grid" dir="rtl" class="quick-info-grid">
+
+    <!-- TICKET PLANS — single Pass (Figma node 360:1129) -->
+    <div id="ticket-plans" class="pass-section">
+      <div class="pass-inner reveal">
+        <div class="pass-bg" aria-hidden="true"></div>
+        <img class="pass-tag" src="./Graphig assets/pass-tag.png" alt="PASS" width="183" height="78">
+        <div class="pass-card-wrap">
+          <img class="pass-card" src="./Graphig assets/ticket-pass-card.webp" alt="כרטיס Pass — כניסה חופשית לכל הפסטיבל, 40 שנות ג׳אז ים סוף" width="640" height="1080">
         </div>
-        <div class="pass-perks-list">
-          <div class="pass-perk">
-            <span class="pass-perk-text">כניסה חופשית לכל ההופעות</span>
-            <img class="pass-perk-check" src="./Graphig assets/check-success-coral.svg" alt="✓" aria-hidden="true">
+        <div class="pass-badge">כניסה לכל<br>ההופעות</div>
+        <div class="pass-text">
+          <h2 class="pass-title">
+            <span class="pass-title-line1">כניסה חופשית</span>
+            <span class="pass-title-line2">לכל הפסטיבל</span>
+          </h2>
+          <a href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" class="pass-cta">
+            לרכישת כרטיסים
+          </a>
+        </div>
+        <div class="pass-perks">
+          <div class="pass-perks-header">
+            <span class="pass-perks-line" aria-hidden="true"></span>
+            <span class="pass-perks-label">מה מקבלים</span>
+            <span class="pass-perks-line" aria-hidden="true"></span>
           </div>
-          <div class="pass-perk">
-            <span class="pass-perk-text">שאטלים חינם</span>
-            <img class="pass-perk-check" src="./Graphig assets/check-success-coral.svg" alt="✓" aria-hidden="true">
-          </div>
-          <div class="pass-perk">
-            <span class="pass-perk-text">חבילת לינה</span>
-            <img class="pass-perk-check" src="./Graphig assets/check-success-coral.svg" alt="✓" aria-hidden="true">
-          </div>
-          <div class="pass-perk">
-            <span class="pass-perk-text">כניסה לרחבה הציבורית</span>
-            <img class="pass-perk-check" src="./Graphig assets/check-success-coral.svg" alt="✓" aria-hidden="true">
+          <div class="pass-perks-list">
+            <div class="pass-perk">
+              <span class="pass-perk-text">כניסה לרחבה הציבורית</span>
+              <img class="pass-perk-check" src="./Graphig assets/check-success-coral.svg" alt="✓" aria-hidden="true">
+            </div>
+            <div class="pass-perk">
+              <span class="pass-perk-text">שאטלים חינם</span>
+              <img class="pass-perk-check" src="./Graphig assets/check-success-coral.svg" alt="✓" aria-hidden="true">
+            </div>
+            <div class="pass-perk">
+              <span class="pass-perk-text">חבילת לינה</span>
+              <img class="pass-perk-check" src="./Graphig assets/check-success-coral.svg" alt="✓" aria-hidden="true">
+            </div>
+            <div class="pass-perk">
+              <span class="pass-perk-text">כניסה חופשית לכל ההופעות</span>
+              <img class="pass-perk-check" src="./Graphig assets/check-success-coral.svg" alt="✓" aria-hidden="true">
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- ── HOTEL BANNER ── -->
-  <section id="hotels">
-    <a class="hotel-banner reveal" href="https://www.hotels.com" target="_blank" rel="noopener">
+    <!-- HOTEL BANNER -->
+    <a id="hotels" class="hotel-banner reveal" href="https://www.hotels.com" target="_blank" rel="noopener">
       <div class="hotel-banner-content">
         <div class="hotel-banner-title">
           <span class="title-line1">חבילות לינה</span>
@@ -2917,37 +3184,112 @@
         </span>
       </div>
     </a>
-  </section>
 
-  <!-- ── VENUE ── -->
-  <section id="venue">
+    <!-- שורה תחתונה — DOM: מפה (ראשון) ואז תא הרחבה הציבורית (שני).
+         ב-RTL הילד הראשון בגריד יושב מימין — לכן מפה=ימין, רחבה=שמאל,
+         תואם למוקאפ הפיגמה. -->
 
-    <div class="venue-layout">
-      <a class="venue-photo-card reveal" href="./plaza.html">
-        <video autoplay muted loop playsinline webkit-playsinline="true"
-               preload="metadata"
-               poster="./Graphig assets/gallery/port-aerial-drone-poster.jpg"
-               aria-hidden="true">
-          <source src="./Graphig assets/gallery/port-aerial.mp4" type="video/mp4">
-        </video>
-        <img class="venue-photo-fallback" src="./Graphig assets/gallery/port-aerial-drone-poster.jpg" alt="רחבה ציבורית — נמל אילת" width="1200" height="800" loading="lazy">
-        <div class="venue-photo-overlay" aria-hidden="true"></div>
-        <div class="venue-photo-caption">
-          <div class="venue-photo-text">
-            <div class="venue-photo-heading-group">
-              <div class="venue-photo-title">4 במות. רחבה ציבורית אחת.</div>
-              <div class="venue-photo-sub">נמל אילת מתעורר לחיים</div>
-            </div>
-            <div class="venue-photo-small">דוכני שף, בר משקאות, הרכבי צעירים, ועוד</div>
-            <span class="venue-photo-btn">
-              פרטים נוספים
-              <span class="venue-photo-btn-arrow" aria-hidden="true">&#8592;</span>
-            </span>
-          </div>
+    <!-- מפה מינימליסטית אינטראקטיבית (Leaflet + OpenStreetMap, בצביעה
+         מותאמת לפלטת האתר) — מיקום נמל אילת -->
+    <div class="quick-info-map reveal">
+      <div id="quick-info-map-canvas" class="quick-info-map-canvas" role="img" aria-label="מפת מיקום נמל אילת"></div>
+      <div class="quick-info-map-overlay">
+        <div class="quick-info-map-title">
+          <span class="quick-info-map-title-line1">המיקום</span>
+          <span class="quick-info-map-title-line2">נמל אילת</span>
         </div>
-      </a>
+        <a class="quick-info-map-btn" href="https://waze.com/ul?ll=29.5322417,34.9404278&navigate=yes" target="_blank" rel="noopener">
+          ניווט ב-WAZE
+        </a>
+      </div>
     </div>
+
+    <!-- תא הרחבה הציבורית — וידאו הרקע של הסקשן הישן, כותרת בהיררכיה זהה
+         לכותרת המפה, הטקסט הקיים, והפניה למסך המלא (plaza.html) -->
+    <a class="quick-info-plaza reveal" href="./plaza.html">
+      <video class="quick-info-plaza-video" autoplay muted loop playsinline webkit-playsinline="true"
+             preload="metadata"
+             poster="./Graphig assets/gallery/port-aerial-drone-poster.jpg"
+             aria-hidden="true">
+        <source src="./Graphig assets/gallery/port-aerial.mp4" type="video/mp4">
+      </video>
+      <img class="quick-info-plaza-fallback" src="./Graphig assets/gallery/port-aerial-drone-poster.jpg" alt="רחבה ציבורית — נמל אילת" width="1200" height="800" loading="lazy">
+      <div class="quick-info-plaza-overlay" aria-hidden="true"></div>
+      <div class="quick-info-plaza-content">
+        <div class="quick-info-plaza-title">
+          <span class="quick-info-plaza-title-line1">רחבה ציבורית</span>
+          <span class="quick-info-plaza-title-line2">נמל אילת מתעורר לחיים</span>
+        </div>
+        <p class="quick-info-plaza-desc">דוכני שף, בר משקאות, הרכבי צעירים, ועוד</p>
+        <span class="quick-info-plaza-btn">
+          פרטים נוספים
+          <span class="quick-info-plaza-btn-arrow" aria-hidden="true">&#8592;</span>
+        </span>
+      </div>
+    </a>
+
   </section>
+
+  <!-- Leaflet — ספריית מפה קלה, ללא מפתח API (OpenStreetMap tiles) -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // ── מפה אינטראקטיבית — מיקום נמל אילת ─────────────────────────
+    (function () {
+      var mapEl = document.getElementById('quick-info-map-canvas');
+      if (!mapEl || typeof L === 'undefined') return;
+      var portLatLng = [29.5322417, 34.9404278]; // Port Of Eilat — כתובת הפסטיבל הרשמית
+      var zoom = 15;
+      // הכיתוב (.quick-info-map-overlay) ממורכז וקבוע מעל המפה — אם ממרכזים
+      // גם את המפה על נקודת המיקום, הפין נופל בדיוק מאחורי הטקסט. במקום זה
+      // ממרכזים את המפה קצת מערבה מהנקודה האמיתית, כך שהפין "נדחף" ימינה
+      // ונופל מימין לכיתוב במקום מתנגש איתו. יחסי לרוחב הקובייה בפועל —
+      // בקובייה הצרה של מובייל היסט קבוע (185px) היה דוחף את הפין כמעט
+      // מחוץ לתחום; clamp בין 70 ל-185 שומר עליו בתוך הגבולות בכל רוחב.
+      var mapWidth = mapEl.getBoundingClientRect().width || 664;
+      var PIN_SHIFT_PX = Math.max(70, Math.min(185, mapWidth * 0.26));
+      var mapCenter = portLatLng;
+      if (typeof L !== 'undefined' && L.CRS) {
+        var targetPoint = L.CRS.EPSG3857.latLngToPoint(L.latLng(portLatLng), zoom);
+        var shiftedPoint = targetPoint.subtract([PIN_SHIFT_PX, 0]);
+        mapCenter = L.CRS.EPSG3857.pointToLatLng(shiftedPoint, zoom);
+      }
+      var map = L.map(mapEl, {
+        center: mapCenter,
+        zoom: zoom,
+        zoomControl: true,
+        scrollWheelZoom: false, // מופעל רק כשהעכבר בפועל מעל המפה (ראו למטה)
+      });
+      // CARTO "Voyager" — בסיס טבעי ומינימליסטי (ים כחול ברור, ירוק עדין
+      // לפארקים, אפור לכבישים/בניינים) כברירת מחדל, בלי לצבוע-מחדש עם
+      // filter — בלי מפתח API. (Positron היה עדין מדי — הים כמעט לבן.)
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        maxZoom: 19,
+        subdomains: 'abcd',
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>'
+      }).addTo(map);
+      // פין מותאם-אישית (SVG inline) בצבעי המותג — נמנעים מהאייקון
+      // הכחול/ברירת-המחדל של Leaflet ומהתלות בנתיב תמונות חיצוני שלו.
+      var pinIcon = L.divIcon({
+        className: 'quick-info-map-pin',
+        html: '<svg width="34" height="44" viewBox="0 0 34 44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17 0C7.6 0 0 7.6 0 17c0 12.7 17 27 17 27s17-14.3 17-27C34 7.6 26.4 0 17 0z" fill="#F3746F"/><circle cx="17" cy="17" r="7" fill="#FAF4E9"/></svg>',
+        iconSize: [34, 44],
+        iconAnchor: [17, 44],
+      });
+      L.marker(portLatLng, { icon: pinIcon }).addTo(map);
+      // גלילת עכבר על המפה פעילה רק כשהעכבר בפועל מעליה — כדי לא "לתפוס"
+      // את גלילת הדף למשתמש שרק עובר איתה דרך האזור הזה.
+      mapEl.addEventListener('mouseenter', function () { map.scrollWheelZoom.enable(); });
+      mapEl.addEventListener('mouseleave', function () { map.scrollWheelZoom.disable(); });
+      // Leaflet מודד את גודל הקונטיינר באתחול — מוודאים גודל נכון גם אם
+      // הפריסה עוד זזה (טעינת פונטים/תמונות) או השתנתה (מעבר בין breakpoints).
+      window.addEventListener('load', function () { map.invalidateSize(); });
+      var resizeTimer;
+      window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () { map.invalidateSize(); }, 200);
+      });
+    })();
+  </script>
 
   <!-- ── MERCH · חנות הפסטיבל (סקשן מצומצם) ── -->
   <section id="merch" dir="rtl">
@@ -3389,66 +3731,108 @@
 
 
   <style>
-    /* ── TICKET PLANS — single Pass banner (Figma node 360:1129 / mobile 376:1203) ── */
+    /* ── QUICK INFO GRID — Pass + חבילות לינה + מפה + רחבה ציבורית ──────
+       גריד יחיד, 4 תאים: Pass וחבילות לינה תופסים שורה מלאה כל אחד
+       (grid-column: 1 / -1), ואחריהם שורה עם מפה (.quick-info-map) ותא
+       הרחבה הציבורית (.quick-info-plaza) חצי-חצי — ראו את ה-CSS שלהם
+       למטה, ליד ה-HTML המקביל. gap ו-padding-inline אחידים של 24px
+       (לפי גריד ה-Figma). */
+    .quick-info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      padding: 80px 24px;
+      background: var(--bg);
+    }
+    .quick-info-grid > .pass-section,
+    .quick-info-grid > .hotel-banner {
+      grid-column: 1 / -1;
+    }
+    @media (max-width: 900px) {
+      .quick-info-grid { padding: 60px 24px; gap: 20px; }
+    }
+    @media (max-width: 768px) {
+      .quick-info-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .quick-info-grid { padding: 40px 16px; gap: 16px; }
+    }
+
+    /* ── TICKET PLANS — single Pass banner (Figma node 386:1972 desktop / 376:1203 mobile) ── */
+    /* הריווח החיצוני (padding-inline/gap) עבר לבעלות .quick-info-grid —
+       הכרטיס עצמו רק פינות מעוגלות (via .pass-bg) שממלאות בדיוק את תא
+       הגריד. position:relative נשאר כ-containing block ל-.pass-inner. */
     .pass-section {
       position: relative;
-      background: var(--bg);
-      direction: rtl;
-      padding: 24px 0 0;
     }
     .pass-bg {
       position: absolute;
       inset: 0;
-      background-color: var(--bg);
-      background-image: url('./Graphig assets/ticket-pass-bg.jpg');
+      border-radius: 26px; /* Figma: --radius-4xl */
+      background-color: #521648;
+      background-image: url('./Graphig assets/pass-banner-bg.png');
       background-repeat: no-repeat;
-      background-position: top center;
-      background-size: 100% auto;
+      background-position: center;
+      background-size: 100% 100%;
       pointer-events: none;
       z-index: 0;
     }
-    /* aspect-ratio locks this box to the same 1392:600 ratio the background
-       image scales to (100% width, auto height) — every child below is
-       positioned as a percentage of THIS box, so it tracks the artwork
-       exactly at any viewport width instead of drifting. Extra "show more
-       background" room (per feedback) is added via .pass-section's own
-       padding-top above, which doesn't touch this ratio at all. */
+    /* Fixed-height (Figma node 386:2100: 1464×447) flex column — the purple
+       banner's own positioning context for the absolute card/badge, AND the
+       flex container that stacks tag/text/perks vertically with the exact
+       Figma "TEXT" group gap (40px) + bottom padding (32px), which together
+       account for the full 447px height (78+40+187+40+70+32 = 447). */
     .pass-inner {
       position: relative;
       z-index: 2;
       width: 100%;
-      aspect-ratio: 1392 / 600;
+      height: 447px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      padding-bottom: 32px;
     }
 
-    /* Text block — right edge at 8.84% (Figma: tag/text/perks right-inset
-       123px / 1392px canvas width, shared by all three for a single aligned edge). */
+    /* PASS tag — torn-paper chip centered at the top of the banner. */
+    .pass-tag {
+      position: relative;
+      z-index: 1;
+      width: 183px;
+      height: 78px;
+      display: block;
+    }
+
+    /* Text block — centered column (Figma: Festival Info Container, w-420px). */
     .pass-text {
-      position: absolute;
-      top: 30.5%;
-      right: 8.84%;
+      position: relative;
+      z-index: 1;
       max-width: 420px;
       display: flex;
       flex-direction: column;
-      /* flex-start = right in this RTL column (cross-axis follows `direction`) —
-         flex-end would put the button on the left, misaligned from the title. */
-      align-items: flex-start;
+      align-items: center;
       gap: 24px;
     }
     .pass-title {
+      /* Figma: Festival Info Section — flex column, gap 7px בין השורות */
+      display: flex;
+      flex-direction: column;
       font-family: var(--font);
       font-weight: 700;
       line-height: 1.1;
-      letter-spacing: 0.15px;
-      text-align: right;
+      letter-spacing: 0;
+      text-align: center;
+      gap: 7px;
       margin: 0;
     }
     .pass-title-line1, .pass-title-line2 {
       display: block;
-      font-size: clamp(2.2rem, 4.2vw, 4rem);
+      font-size: 48px; /* Figma: HE/Typography/H3 */
     }
     .pass-title-line1 { color: #ffffff; }
-    .pass-title-line2 { color: #F3746F; }
+    .pass-title-line2 { color: var(--primary); }
     .pass-cta {
+      /* Figma: HE/Components/Button Large — 178×50px (12px/24px padding + 16px/lh26) */
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -3456,11 +3840,13 @@
       color: #521648;
       text-decoration: none;
       border-radius: 100px;
-      padding: 12px 32px;
+      padding: 12px 24px;
       font-family: var(--font);
       font-weight: 700;
-      font-size: 20px;
-      letter-spacing: 0.15px;
+      font-size: 16px;
+      line-height: 26px;
+      letter-spacing: 0.46px;
+      text-transform: uppercase;
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .pass-cta:hover {
@@ -3468,18 +3854,19 @@
       box-shadow: 0 10px 28px rgba(0,0,0,0.18);
     }
 
-    /* Card mockup — left side (Figma: left 162px/1392, top 47px/600, width
-       240.352px/1392). Sits UNDER the perks row in DOM but ABOVE it in
-       z-index, since its bottom edge is meant to overlap the perks divider
-       line slightly (per feedback). No background box: the source PNG is
-       pre-cropped to the ticket's own transparent silhouette. */
+    /* Card mockup — top-left, rising above the banner's top edge (Figma
+       node 386:2022 baseline: left ≈6.83%/100px). Sized up slightly and
+       nudged down from the Figma baseline (top -106px) per feedback — still
+       overflows the banner (and the grid's 80px top padding) into the
+       section above. Absolutely positioned so it escapes the tag/text/perks
+       flex flow entirely. */
     .pass-card-wrap {
       position: absolute;
-      left: 11.64%;
-      top: 7.83%;
+      left: 6.83%;
+      top: -100px;
       width: 19%;
-      min-width: 208px;
-      max-width: 308px;
+      min-width: 222px;
+      max-width: 313px;
       z-index: 2;
     }
     .pass-card {
@@ -3489,13 +3876,14 @@
       border-radius: 5%;
     }
 
-    /* Yellow badge (Figma: circle top-left at left 518.355px/1392, top
-       249.355px/600, 160px diameter). Static -8deg tilt kept as a styling
-       choice; wobble motion replaced by a pulsing "breathing" scale. */
+    /* Yellow badge (Figma node 386:1999, purple banner 1464×447: circle
+       right ≈9.27%/135.6px, top ≈91.3px), 160px diameter. Static -8deg tilt
+       kept as a styling choice; motion is a gentle "breathing" scale pulse
+       (no rotation wobble). */
     .pass-badge {
       position: absolute;
-      left: 37.24%;
-      top: 41.56%;
+      right: 9.27%;
+      top: 91px;
       width: 160px;
       height: 160px;
       border-radius: 50%;
@@ -3507,8 +3895,8 @@
       text-align: center;
       font-family: var(--font);
       font-weight: 700;
-      font-size: 20px;
-      line-height: 1.15;
+      font-size: 24px;
+      line-height: 1.1;
       letter-spacing: 0.15px;
       transform: rotate(-8deg) scale(1);
       transform-origin: center;
@@ -3524,47 +3912,43 @@
       .pass-badge { animation: none; }
     }
 
-    /* "מה מקבלים" perks row (Figma: left 198px/1392, top 463px/600, right
-       edge shared with text/tag at 8.84%). Background is now a full-height
-       (600px) asset covering the whole frame in color, so this can sit at
-       the true Figma percentage without falling into empty cream space. */
+    /* "מה מקבלים" perks row — centered, full width of the text column. */
     .pass-perks {
-      position: absolute;
-      left: 14.22%;
-      right: 8.84%;
-      top: 77.17%;
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1071px;
       display: flex;
       flex-direction: column;
-      align-items: flex-end;
-      gap: 27px;
-      z-index: 1;
+      align-items: center;
+      gap: 20px;
     }
     .pass-perks-header {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 24px;
       width: 100%;
     }
     .pass-perks-line {
       flex: 1;
+      max-width: 456px; /* Figma: Line 2/3 width */
       height: 1px;
       background: rgba(255,255,255,0.35);
     }
-    /* second line, right of the label — mobile-only (symmetric header per
-       the mobile Figma frame); desktop uses a single line to the left. */
-    .pass-perks-line-mobile { display: none; }
     .pass-perks-label {
       flex-shrink: 0;
       font-family: var(--font);
       font-weight: 700;
       font-size: 20px;
+      line-height: 1.28;
       color: #ffffff;
       letter-spacing: 0.15px;
     }
     .pass-perks-list {
       display: flex;
       flex-wrap: wrap;
-      justify-content: flex-start;
+      justify-content: center;
       align-items: center;
       gap: 24px;
       width: 100%;
@@ -3580,92 +3964,118 @@
       font-family: var(--font);
       font-weight: 400;
       font-size: 16px;
+      line-height: 1.5;
       color: #ffffff;
       letter-spacing: 0.15px;
       white-space: nowrap;
     }
     .pass-perk-check {
-      width: 20px;
-      height: 20px;
+      width: 24px; /* Figma: Success icon 24×24 */
+      height: 24px;
       flex-shrink: 0;
       display: block;
     }
 
-    /* ── Mobile (Figma node 376:1203) — no card in this composition; text,
-       button and perks stack centered in normal flow; the badge sits last.
-       .pass-bg stays position:absolute + inset:0, so it MUST share a
-       stacking context with its static siblings via position:relative on
-       each of them — otherwise CSS stacking rules paint any positioned
-       element (the bg) above ALL non-positioned in-flow content regardless
-       of DOM order, which is what made the title/button invisible before. */
+    /* ── Mobile (Figma node 460:1217) — no card in this composition; the
+       torn-paper PASS tag IS shown (unlike the old mobile mock, its "Pass"
+       chip used to be baked into the background jpg AND that jpg's mountain
+       art had a jagged silhouette poking above the card's rounded top edge
+       — both were leftovers of a previous design. ticket-pass-bg-mobile.png
+       is now a direct Figma export of the "BG" group (node 460:1219): a
+       straight/rounded top with mountains only at the bottom, no tag baked
+       in), and the yellow badge sits absolutely-positioned over the
+       bottom-right corner (small, 90px), matching the desktop technique
+       instead of sitting inline after the perks row. .pass-bg stays
+       position:absolute + inset:0, so it MUST share a stacking context with
+       its static siblings via position:relative on each of them —
+       otherwise CSS stacking rules paint any positioned element (the bg)
+       above ALL non-positioned in-flow content regardless of DOM order,
+       which is what made the title/button invisible before. */
     @media (max-width: 768px) {
-      .pass-section { padding: 0 0 60px; }
       .pass-bg {
-        background-image: url('./Graphig assets/ticket-pass-bg-mobile.jpg');
-        background-size: 100% auto;
+        background-image: url('./Graphig assets/ticket-pass-bg-mobile.png');
+        background-size: 100% 100%;
         background-position: top center;
       }
       /* position:relative (not static) — .pass-bg's inset:0 needs a real
          containing block here so it matches the flex column's own
          content-driven height exactly (full-bleed top-to-bottom behind
-         everything, including the badge at the end), instead of either the
-         whole section's height (way too tall) or a guessed fixed band. */
+         everything, including the badge in the bottom-right corner),
+         instead of either the whole section's height (way too tall) or a
+         guessed fixed band. gap:40px matches the Figma TAG→text spacing;
+         the larger 56px gap before the perks row (Figma) is added via
+         .pass-perks's own margin-top below instead of a second gap value. */
       .pass-inner {
         aspect-ratio: auto;
+        height: auto;
         position: relative;
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: flex-start;
         text-align: center;
-        gap: 32px;
+        gap: 40px;
+        padding: 0 24px 120px;
+        box-sizing: border-box;
       }
       .pass-card-wrap { display: none; }
       .pass-text {
         order: 1;
         position: relative;
-        /* right:auto — מבטל את right:8.84% שמגיע מהכלל הבסיסי (דסקטופ,
-           position:absolute). בלי האיפוס הזה, position:relative עדיין מכבד
-           את ה-right שנשאר, וזז ~35px שמאלה מהמקום התקין — זה מה שגרם להאזזה
-           האופקית של כל העמוד (RTL: גלילה התחלתית מתאזנת סביב התוכן הרחב ביותר). */
-        right: auto;
         max-width: none;
         align-items: center;
         gap: 24px;
         width: 100%;
-        margin-top: 200px;
-        padding-inline: 24px;
-        box-sizing: border-box;
       }
-      .pass-title-line1, .pass-title-line2 { text-align: center; font-size: 40px; }
-      .pass-cta { font-size: 16px; padding: 0.75rem 2rem; height: 44px; }
+      .pass-title { letter-spacing: 0.25px; }
+      .pass-title-line1, .pass-title-line2 { text-align: center; font-size: 34px; }
+      .pass-cta {
+        font-size: 16px;
+        line-height: 1.22;
+        letter-spacing: 0.15px;
+        text-transform: none;
+        padding: 16px 32px;
+        height: auto;
+      }
       .pass-perks {
         order: 2;
         position: relative;
-        /* left/right:auto — מבטל left:14.22%/right:8.84% מהכלל הבסיסי (ראו הערה ב-.pass-text) */
-        left: auto; right: auto;
         align-items: center;
         width: 100%;
-        padding-inline: 20px;
-        box-sizing: border-box;
+        margin-top: 16px; /* + the 40px .pass-inner gap = 56px, matching Figma */
       }
-      .pass-perks-header { justify-content: center; gap: 16px; }
-      .pass-perks-line, .pass-perks-line-mobile { max-width: 40px; }
-      .pass-perks-line-mobile { display: block; }
-      .pass-perks-list { justify-content: center; gap: 16px 20px; }
+      .pass-perks-header { justify-content: center; gap: 24px; }
+      .pass-perks-line { max-width: none; }
+      .pass-perks-list { justify-content: center; gap: 16px 24px; }
+      /* Figma reorders the perks for mobile — "כניסה חופשית לכל ההופעות"
+         gets its own row on top, "כניסה לרחבה הציבורית" moves to its own
+         row at the bottom, and the middle pair swaps sides — instead of the
+         desktop DOM order, via flex `order` (source order stays
+         desktop-correct). */
+      .pass-perks-list .pass-perk:nth-child(1) { order: 4; }
+      .pass-perks-list .pass-perk:nth-child(2) { order: 3; }
+      .pass-perks-list .pass-perk:nth-child(3) { order: 2; }
+      .pass-perks-list .pass-perk:nth-child(4) { order: 1; }
+      /* Yellow badge — small (90px), overlapping the bottom-right corner of
+         the banner (Figma node 460:1340: right ≈12.6%, bottom ≈-8px —
+         extends slightly past the banner's own bottom edge). */
       .pass-badge {
-        order: 3;
-        position: relative;
-        left: auto; top: auto;
-        margin-top: -12px;
-        margin-bottom: 32px;
-        width: 112px; height: 112px; font-size: 15px;
+        left: auto;
+        right: 12.6%;
+        top: auto;
+        bottom: -8px;
+        width: 90px;
+        height: 90px;
+        font-size: 14px;
+        line-height: 1.4;
+        letter-spacing: 0.1px;
       }
     }
   </style>
 
   <!-- ── FOOTER ── -->
   <footer id="site-footer"></footer>
-  <script src="./footer.js"></script>
+  <script src="./footer.js?v=2"></script>
   </main><!-- /page-body -->
 
   <!-- ── SCRIPTS ── -->
@@ -3994,14 +4404,31 @@
       if (!grid) return;
       const mq = window.matchMedia('(max-width: 600px)');
 
+      // סדר בסיס מעורבב לפי יום (round-robin בין 4 הימים/הצבעים) — כדי שבתצוגת
+      // "כל הימים" לא יופיעו כל התוויות של אותו צבע ברצף אחת אחרי השנייה.
+      // מחושב פעם אחת מסדר ה-DOM המקורי (המקובץ לפי יום), ומשמש כבסיס גם
+      // ל-reset (דסקטופ) וגם ל-pack (מובייל) במקום סדר ה-DOM הגולמי.
+      function interleavedByDay() {
+        const days = ['1', '2', '3', '4'];
+        const groups = { '1': [], '2': [], '3': [], '4': [] };
+        grid.querySelectorAll('.alt-artist-btn').forEach((el) => { groups[el.dataset.day].push(el); });
+        const maxLen = Math.max(...days.map((d) => groups[d].length));
+        const list = [];
+        for (let i = 0; i < maxLen; i++) {
+          days.forEach((d) => { if (groups[d][i]) list.push(groups[d][i]); });
+        }
+        return list;
+      }
+      const baseSequence = interleavedByDay();
+
       function reset() {
-        grid.querySelectorAll('.alt-artist-btn').forEach((el) => { el.style.order = ''; });
+        baseSequence.forEach((el, i) => { el.style.order = i; });
       }
 
       function pack() {
-        const items = Array.from(grid.querySelectorAll('.alt-artist-btn'));
+        const items = baseSequence; // אריזה לפי הסדר המעורבב, לא סדר ה-DOM הגולמי
         if (items.length < 2) return;
-        reset(); // מודדים לפי הרוחב הטבעי (סדר DOM), לא לפי אריזה קודמת
+        reset(); // מודדים לפי הרוחב הטבעי (סדר מעורבב), לא לפי אריזה קודמת
         const gap = parseFloat(getComputedStyle(grid).columnGap) || 8;
         const rowWidth = grid.clientWidth;
         const remaining = items.map((el) => ({ el, width: el.getBoundingClientRect().width, placed: false }));
@@ -4052,77 +4479,15 @@
             entry.target.querySelectorAll('.news-card, .merch-card').forEach((c, i) => {
               c.style.transitionDelay = `${i * 0.07}s`;
             });
+            if (entry.target.classList.contains('alt-lineup-grid')) {
+              playArtistPourIn(visibleArtistPillsInOrder());
+            }
             revealObserver.unobserve(entry.target);
           }
         });
       }, { threshold: 0.1 });
       document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
     }
-
-    // ── Venue caption reveal ────────────────────────────────────────
-    // The caption only starts entering once #hotels has fully scrolled
-    // past — entering earlier (while the pinned video is still peeking
-    // out from under the banner) makes it look pinned to the banner's
-    // edge. Opacity/translateY are driven directly off scroll position
-    // (not a CSS transition) over a short fixed distance, so the entrance
-    // always finishes within that same bit of scrolling no matter how
-    // fast the user scrolls — a time-based transition could otherwise
-    // still be mid-fade by the time a fast scroll has carried past it.
-    (function () {
-      const hotelsEl = document.getElementById('hotels');
-      const caption = document.querySelector('.venue-photo-caption');
-      if (!hotelsEl || !caption) return;
-      if (prefersReducedMotion) { caption.style.opacity = '1'; return; }
-      const ENTRANCE_DISTANCE = 80; // px of scroll the entrance completes over
-      let ticking = false;
-      function update() {
-        ticking = false;
-        const hotelsBottom = hotelsEl.getBoundingClientRect().bottom;
-        const progress = Math.min(Math.max(-hotelsBottom / ENTRANCE_DISTANCE, 0), 1);
-        caption.style.opacity = progress;
-        caption.style.transform = `translateY(${(1 - progress) * 16}px)`;
-      }
-      function onScroll() {
-        if (!ticking) { ticking = true; requestAnimationFrame(update); }
-      }
-      window.addEventListener('scroll', onScroll, { passive: true });
-      update();
-    })();
-
-    // ── Stat count-up animation ────────────────────────────────────
-    (function () {
-      const statNums = document.querySelectorAll('.stat-num');
-      const aboutStrip = document.getElementById('about-strip');
-      if (!statNums.length || !aboutStrip || prefersReducedMotion) return;
-
-      function animateCountUp(el) {
-        const raw = el.textContent.trim();
-        const m = raw.match(/^(\D*)(\d+)(\D*)$/);
-        if (!m) return;
-        const [, prefix, digits, suffix] = m;
-        const target = parseInt(digits, 10);
-        const duration = 1000;
-        const startTime = performance.now();
-        function tick(now) {
-          const progress = Math.min((now - startTime) / duration, 1);
-          const eased = 1 - Math.pow(1 - progress, 3);
-          el.textContent = prefix + Math.round(target * eased) + suffix;
-          if (progress < 1) requestAnimationFrame(tick);
-          else el.textContent = raw;
-        }
-        requestAnimationFrame(tick);
-      }
-
-      const statObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            statNums.forEach(el => animateCountUp(el));
-            statObserver.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.4 });
-      statObserver.observe(aboutStrip);
-    })();
 
     // ── Hero bg subtle parallax ───────────────────────────────────
     if (!prefersReducedMotion) {
@@ -4139,7 +4504,7 @@
     //    muted דרך ה-property (לא רק attribute) וקוראים ל-play() מחדש בכל
     //    נקודה שבה הדפדפן עשוי לעצור/לא להתחיל את הניגון. ---------------
     (function ensureVideosAutoplay() {
-      const videos = Array.from(document.querySelectorAll('.hero-bg-video, .venue-photo-card video'));
+      const videos = Array.from(document.querySelectorAll('.hero-bg-video, .quick-info-plaza-video'));
       if (!videos.length) return;
       videos.forEach(v => { v.muted = true; v.defaultMuted = true; });
       function tryPlayAll() {

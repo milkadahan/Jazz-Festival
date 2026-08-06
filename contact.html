@@ -75,6 +75,7 @@
       --bg:        #FAF4E9;
       --bg2:       #F3E9D6;
       --orange:    #D5645F;
+      --primary:   #F3746F;
       --yellow:    #E0A800;
       --red:       #D62246;
       --teal:      #0A8F8E;
@@ -211,11 +212,11 @@
     .nav-links a::after {
       content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
       width: 0; height: 2px;
-      background: linear-gradient(90deg, #F3746F, #F3746F);
+      background: linear-gradient(90deg, var(--primary), var(--primary));
       transition: width 0.3s;
     }
     .nav-links a:hover, .nav-links a.active {
-      background: linear-gradient(90deg, #F3746F, #F3746F);
+      background: linear-gradient(90deg, var(--primary), var(--primary));
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
@@ -231,11 +232,11 @@
     .nav-drop-toggle::after {
       content: ''; position: absolute; bottom: 0; inset-inline-end: 0;
       width: 0; height: 2px;
-      background: linear-gradient(90deg, #F3746F, #F3746F);
+      background: linear-gradient(90deg, var(--primary), var(--primary));
       transition: width 0.3s;
     }
     .nav-drop-toggle:hover, .nav-drop-toggle.open {
-      background: linear-gradient(90deg, #F3746F, #F3746F);
+      background: linear-gradient(90deg, var(--primary), var(--primary));
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .nav-drop-toggle:hover::after, .nav-drop-toggle.open::after { width: 100%; }
@@ -261,14 +262,14 @@
       white-space: nowrap; text-align: start;
       background: none; border: none; width: 100%; cursor: pointer; font-family: inherit;
     }
-    .nav-drop-panel > a:hover { background: rgba(213,100,95,0.08); color: #F3746F; }
-    .nav-drop-panel > a.active { color: #F3746F; font-weight: 700; }
+    .nav-drop-panel > a:hover { background: rgba(213,100,95,0.08); color: var(--primary); }
+    .nav-drop-panel > a.active { color: var(--primary); font-weight: 700; }
 
     .nav-actions {
       display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0;
     }
     .nav-btn-primary {
-      background: linear-gradient(135deg, var(--orange-btn), #f3746f);
+      background: linear-gradient(135deg, var(--orange-btn), var(--primary));
       color: var(--on-accent); border: none; border-radius: 50px;
       padding: 0.5rem 1.3rem; font-size: 0.85rem; font-weight: 700;
       cursor: pointer;
@@ -304,7 +305,7 @@
       display: flex; align-items: center; gap: 0.35rem;
       transition: border-color 0.2s, color 0.2s;
     }
-    .nav-btn-lang:hover { border-color: var(--orange); color: #F3746F; }
+    .nav-btn-lang:hover { border-color: var(--orange); color: var(--primary); }
 
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 0; }
     .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
@@ -486,7 +487,7 @@
       transition: background 0.2s, border-color 0.2s;
     }
     .community-check input:checked {
-      background: linear-gradient(135deg, var(--orange-btn), #f3746f);
+      background: linear-gradient(135deg, var(--orange-btn), var(--primary));
       border-color: var(--orange);
     }
     .community-check input:checked::after {
@@ -502,7 +503,7 @@
     /* ── Submit ── */
     .contact-submit {
       width: 100%; text-align: center;
-      background: linear-gradient(175deg, var(--orange), #f3746f);
+      background: linear-gradient(175deg, var(--orange), var(--primary));
       color: var(--on-accent);
       border: none; border-radius: 50px;
       padding: 15.2px 41.6px;
@@ -600,7 +601,7 @@
       <div class="mobile-menu-panel" id="mobileMenuPanel">
       <ul class="nav-links" id="navLinks">
         <li class="nav-link-mobile-flat"><a href="./index.html" data-he="דף הבית" data-en="Home">דף הבית</a></li>
-        <li><a href="./index.html#artist-lineup-text" data-he="Artists" data-en="Artists">Artists</a></li>
+        <li><a href="./index.html#artist-lineup-text" data-he="Artists 2026" data-en="Artists 2026">Artists 2026</a></li>
         <li><a href="./lineup.html" data-he="לוח הופעות" data-en="Schedule">לוח הופעות</a></li>
         <li class="nav-link-mobile-flat"><a href="https://www.hotels.com/" target="_blank" rel="noopener" data-he="חבילות לינה" data-en="Stay Packages">חבילות לינה</a></li>
         <li><a href="./about.html" data-he="אודות" data-en="About">אודות</a></li>
@@ -732,7 +733,7 @@
 
   <!-- ── FOOTER ── -->
   <footer id="site-footer"></footer>
-  <script src="./footer.js"></script>
+  <script src="./footer.js?v=2"></script>
 
   <script>
     // Scroll shrink nav
