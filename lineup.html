@@ -31,7 +31,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <!-- Preload above-the-fold hero image -->
-  <link rel="preload" href="./Graphig assets/banner-lineup.png" as="image" fetchpriority="high" />
+  <link rel="preload" href="./Graphig assets/banner-lineup.png?v=2" as="image" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@100;300;400;500;700;900&family=Noto+Sans+Hebrew:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
   <style>
     /* ─── Google Sans (self-hosted, per-script via unicode-range: Hebrew + Latin/numbers) ─── */
@@ -371,12 +371,16 @@
       background: #f5efe6;
     }
     /* BG image: מוקטן מ-400px ל-280px (כדי שיוצג יותר מהתוכנייה מתחת) — היחס לתמונת המקור נשמר, ה-crop מורכז מחדש
-       object-fit:cover — height קבוע לצד width:100% ללא object-fit גרם למתיחה/עיוות של התמונה בכל רוחב שאינו הרוחב היחיד שבו היחס תואם במקרה */
+       object-fit:cover — height קבוע לצד width:100% ללא object-fit גרם למתיחה/עיוות של התמונה בכל רוחב שאינו הרוחב היחיד שבו היחס תואם במקרה.
+       התמונה עודכנה לאיור נמל אילת מהפיגמה (node 358:1129, אותו רקע כמו סקשן ה-Pass בדף הבית) —
+       הקונטיינר גבוה יחסית לרוחבו לעומת המקור (2.32:1), אז cover ממלא לפי הגובה בלי חיתוך אנכי;
+       ה-top הוזז מ-386px ל-450px כך שקו האופק (המכונה/המגדלור/קו הים) ייפול בתוך חלון ה-280px
+       הנראה מתחת לניווט, במקום להיחתך כמעט כולו מתחת לקצה. */
     .page-hero-bg-img {
       position: absolute;
       left: 0; width: 100%;
       height: 947.88px;
-      top: calc(var(--ticker-h) + var(--nav-h) - 386px);
+      top: calc(var(--ticker-h) + var(--nav-h) - 450px);
       object-fit: cover;
       pointer-events: none;
       display: block;
@@ -441,14 +445,18 @@
       display: flex; align-items: center; gap: 8px; flex: 1; justify-content: center;
       flex-wrap: wrap;
     }
+    /* מיושר לרכיב הסינון לפי יום בדף הבית (.artist-day-btn, Figma node
+       387:1293): גבול דק (1px) בגוון --text בשקיפות 22% במצב מנוחה, ומילוי
+       מלא בגוון --text (סגול כהה) + טקסט לבן במצב נבחר — במקום הגרדיאנט
+       הכתום-אדום/glow הקודמים. */
     .day-nav-btn {
       background: transparent;
-      border: 1.5px solid #E6D8D6;
-      color: #483F3B;
+      border: 1px solid rgba(82,22,72,0.22);
+      color: var(--text);
       border-radius: 50px;
       height: 42px;
       padding: 0 22px;
-      font-size: 14px; font-weight: 600;
+      font-size: 14px; font-weight: 500;
       font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
       cursor: pointer;
       transition: all 0.2s; white-space: nowrap;
@@ -458,9 +466,9 @@
     #btnAllDays { display: none; }
     body.view-calendar #btnAllDays { display: inline-flex; }
     .day-nav-btn.active {
-      background: linear-gradient(161.51deg, #D5645F 0%, #D62246 100%);
-      border-color: transparent; color: #fff;
-      filter: drop-shadow(0px 0px 10px rgba(243,116,111,0.35));
+      background: var(--text);
+      border-color: rgba(82,22,72,0.22); color: #fff;
+      filter: none;
     }
 
     /* ─── STAGE FILTER DROPDOWN ─────────────────────────────────── */
@@ -883,14 +891,16 @@
       letter-spacing: 0.1px;
     }
     .view-toggle-btn.active {
-      background: linear-gradient(163.98deg, #D5645F 0%, #D62246 100%);
+      /* מילוי --text (סגול כהה) — כמו מצב "נבחר" ברכיב סינון הימים בדף
+         הבית — במקום הגרדיאנט הכתום-אדום הקודם. */
+      background: var(--text);
       color: #fff;
       /* font-stack דו-לשוני כמו שאר האתר: Hepta Slab לאנגלית, Noto Sans Hebrew לעברית.
          Hepta Slab חסר גליפים עבריים — בלי ה-fallback העברי "לוח זמנים" נשבר ל-serif מערכת. */
       font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
       font-weight: 700;
       letter-spacing: 0.17px;
-      box-shadow: 0 0 10px rgba(243,116,111,0.35);
+      box-shadow: 0 0 10px rgba(82,22,72,0.35);
     }
     .view-toggle-btn:not(.active):hover { color: var(--orange-text); }
     /* אייקון מוסתר בדסקטופ — הכפתור מציג טקסט כרגיל. במובייל (ראו @media
@@ -1274,7 +1284,7 @@
          node 339:2162) בלי מסגרת/זוהר בכלל, וכלל ישן זה היה דורס את
          ה-filter:none של העיצוב החדש. */
       .view-toggle-group { border-width: 1px; padding: 5px; }
-      .view-toggle-btn.active { box-shadow: 0 0 5px rgba(243,116,111,0.35); }
+      .view-toggle-btn.active { box-shadow: 0 0 5px rgba(82,22,72,0.35); }
       .stage-dropdown-toggle { border-width: 1px; }
       /* בחירת התצוגה (Line-up / לוח זמנים) עוברת מטקסט לאייקונים במובייל,
          בהתאמה ל-Figma (node 334:1660 — "Menu"/"Calendar"). */
@@ -1435,7 +1445,7 @@
 
   <!-- ── PAGE HERO ── -->
   <div class="page-hero">
-    <img class="page-hero-bg-img" src="./Graphig assets/banner-lineup.png" alt="" aria-hidden="true" width="4096" height="2578" fetchpriority="high" />
+    <img class="page-hero-bg-img" src="./Graphig assets/banner-lineup.png?v=2" alt="" aria-hidden="true" width="1392" height="600" fetchpriority="high" />
     <div class="page-hero-glow-teal" aria-hidden="true"></div>
     <div class="page-hero-content">
       <h1 class="page-hero-title">
