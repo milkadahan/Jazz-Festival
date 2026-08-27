@@ -1280,8 +1280,6 @@
       background-size: 100% 100%;
       background-position: center;
       background-repeat: no-repeat;
-      display: flex; align-items: center; justify-content: center;
-      padding-inline: 3.5rem;
       cursor: pointer;
       text-decoration: none;
       transition: transform 0.2s, box-shadow 0.3s;
@@ -1291,11 +1289,20 @@
       box-shadow: 0 20px 50px rgba(0,45,135,0.25);
     }
 
+    /* top:37.7% — ממרכז את התוכן בתוך אזור השמיים בלבד (מהשול העליון של
+       הבאנר ועד לקו האופק/המים ברקע, שנמדד בפועל ב-75.4% מגובה התמונה),
+       לא בתוך כל גובה הבאנר, כמו באותו תיקון בהירו הראשי. */
     .hotel-banner-content {
-      position: relative; z-index: 2;
+      position: absolute;
+      top: 37.7%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
       display: flex; flex-direction: column; gap: 14px;
       align-items: center; text-align: center;
-      max-width: 620px;
+      width: 620px;
+      max-width: calc(100% - 3.5rem * 2);
+      box-sizing: border-box;
     }
     .hotel-banner-title {
       display: flex; flex-direction: column; align-items: center;
@@ -1320,6 +1327,19 @@
     .hotel-banner-btn:hover {
       transform: translateY(-3px);
       box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+    }
+    .hotel-banner-btn-arrow {
+      display: inline-block;
+      width: 0;
+      opacity: 0;
+      overflow: hidden;
+      margin-inline-start: 0;
+      transition: width 0.25s ease, opacity 0.2s ease, margin-inline-start 0.25s ease;
+    }
+    .hotel-banner:hover .hotel-banner-btn-arrow {
+      width: 1em;
+      opacity: 1;
+      margin-inline-start: 0.5rem;
     }
 
     /* ─── NEWS ─────────────────────────────────────────────────── */
@@ -1360,10 +1380,10 @@
       background: linear-gradient(to top, rgba(13,14,26,0.8), transparent 50%);
     }
     .news-body { padding: 1.3rem; }
-    .news-date { font-size: 0.75rem; color: var(--teal-text); letter-spacing: 0; margin-bottom: 0.5rem; }
+    .news-date { font-size: 0.75rem; color: var(--muted); letter-spacing: 0; margin-bottom: 0.5rem; }
     .news-title { font-size: 1rem; font-weight: 700; line-height: 1.4; margin-bottom: 0.5rem; }
     .news-excerpt { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
-    .news-more { font-size: 0.82rem; color: var(--orange-text); margin-top: 0.8rem; display: flex; align-items: center; gap: 0.3rem; }
+    .news-more { font-size: 0.82rem; color: var(--primary); margin-top: 0.8rem; display: flex; align-items: center; gap: 0.3rem; }
 
     /* מובייל בלבד: הכתבות הופכות לקרוסלה אופקית עם snap למרכז — כל כרטיס
        תופס 82% מרוחב הטראק כך שקצוות הכרטיסים השכנים נקבצים בשוליים,
@@ -1442,13 +1462,6 @@
     }
     .merch-name { font-size: 1.05rem; font-weight: 800; line-height: 1.35; color: var(--text); }
     .merch-price { font-size: 1.2rem; font-weight: 700; color: var(--orange); }
-    .merch-buy {
-      margin-top: auto;
-      display: inline-flex; align-items: center; gap: 0.3rem;
-      color: var(--orange-text);
-      font-size: 0.85rem; font-weight: 700;
-    }
-
     /* פריט דגל — התקליט: מודגש בכרטיס גבולי כתום + תג "פריט דגל" */
     .merch-card-featured {
       border: 2px solid var(--orange);
@@ -1480,6 +1493,19 @@
       transition: background 0.2s, transform 0.2s;
     }
     .merch-cta:hover { background: rgba(255,0,102,0.06); transform: translateY(-2px); }
+    .merch-cta-arrow {
+      display: inline-block;
+      width: 0;
+      opacity: 0;
+      overflow: hidden;
+      margin-inline-start: 0;
+      transition: width 0.25s ease, opacity 0.2s ease, margin-inline-start 0.25s ease;
+    }
+    .merch-cta:hover .merch-cta-arrow {
+      width: 1em;
+      opacity: 1;
+      margin-inline-start: 0.5rem;
+    }
 
     /* height אחיד עם שאר כפתורי ה-CTA במובייל (44px — כגובה כפתור
        "פרטים נוספים" ב-.quick-info-plaza) */
@@ -2855,7 +2881,7 @@
             <span class="pass-title-line2">לכל הפסטיבל</span>
           </h2>
           <a href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" class="pass-cta">
-            לרכישת כרטיסים
+            לרכישת כרטיסים<span class="pass-cta-arrow" aria-hidden="true">←</span>
           </a>
         </div>
       </div>
@@ -2872,7 +2898,7 @@
         <div class="hotel-banner-sub">
           חבילות נופש במלון הפסטיבל ״אגמים״ ובכל מלונות ישרוטל אילת
         </div>
-        <span class="hotel-banner-btn">לכל החבילות</span>
+        <span class="hotel-banner-btn">לכל החבילות<span class="hotel-banner-btn-arrow" aria-hidden="true">←</span></span>
       </div>
     </a>
 
@@ -2998,7 +3024,6 @@
         <div class="merch-body">
           <div class="merch-name">תקליט הפסטיבל — מהדורת אספנים</div>
           <div class="merch-price">₪149</div>
-          <span class="merch-buy">לרכישה ←</span>
         </div>
       </a>
 
@@ -3010,7 +3035,6 @@
         <div class="merch-body">
           <div class="merch-name">כובע מצחייה רקום</div>
           <div class="merch-price">₪79</div>
-          <span class="merch-buy">לרכישה ←</span>
         </div>
       </a>
 
@@ -3022,7 +3046,6 @@
         <div class="merch-body">
           <div class="merch-name">בקבוק מים תרמי</div>
           <div class="merch-price">₪59</div>
-          <span class="merch-buy">לרכישה ←</span>
         </div>
       </a>
 
@@ -3034,7 +3057,6 @@
         <div class="merch-body">
           <div class="merch-name">חולצת פסטיבל מודפסת</div>
           <div class="merch-price">₪89</div>
-          <span class="merch-buy">לרכישה ←</span>
         </div>
       </a>
 
@@ -3046,7 +3068,6 @@
         <div class="merch-body">
           <div class="merch-name">שקית בד לפסטיבל</div>
           <div class="merch-price">₪49</div>
-          <span class="merch-buy">לרכישה ←</span>
         </div>
       </a>
 
@@ -3058,7 +3079,6 @@
         <div class="merch-body">
           <div class="merch-name">פוסטר רשמי — מהדורת 2026</div>
           <div class="merch-price">₪69</div>
-          <span class="merch-buy">לרכישה ←</span>
         </div>
       </a>
 
@@ -3070,13 +3090,12 @@
         <div class="merch-body">
           <div class="merch-name">קפוצ'ון הפסטיבל</div>
           <div class="merch-price">₪169</div>
-          <span class="merch-buy">לרכישה ←</span>
         </div>
       </a>
     </div>
 
     <div class="merch-cta-wrap reveal">
-      <a class="merch-cta" href="./merch.html">לכל המוצרים בחנות ←</a>
+      <a class="merch-cta" href="./merch.html">לכל המוצרים בחנות<span class="merch-cta-arrow" aria-hidden="true">←</span></a>
     </div>
   </section>
 
@@ -3479,7 +3498,7 @@
       position: relative;
       z-index: 2;
       width: 100%;
-      height: 411px;
+      height: 360px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -3543,28 +3562,44 @@
       transform: translateY(-3px);
       box-shadow: 0 10px 28px rgba(0,0,0,0.18);
     }
+    .pass-cta-arrow {
+      display: inline-block;
+      width: 0;
+      opacity: 0;
+      overflow: hidden;
+      margin-inline-start: 0;
+      transition: width 0.25s ease, opacity 0.2s ease, margin-inline-start 0.25s ease;
+    }
+    .pass-cta:hover .pass-cta-arrow {
+      width: 1em;
+      opacity: 1;
+      margin-inline-start: 0.5rem;
+    }
 
-    /* Card mockup — bottom-left corner, sticking out 40px PAST the banner's
-       left+bottom edges (not inset), upright (no tilt). The v3 PNG is
-       cropped tight to the card's own true vector edge (Figma's baked-in
-       drop-shadow — offset 40/-40, blurred — didn't composite naturally
-       against our background, so it's stripped here; the shadow below is
-       a real CSS filter instead, which blends correctly with anything
-       behind it). */
+    /* Card mockup — 40px INSIDE the banner's left+bottom edges, but sticking
+       out 40px PAST the banner's top edge (per Figma reference), upright
+       (no tilt). top+bottom both set (no explicit height) so the card's
+       height is exactly banner-height + 40 (=451px, at the 411px fixed
+       banner height), with width following from the card's own aspect
+       ratio (263:452). The v3 PNG is cropped tight to the card's own true
+       vector edge (Figma's baked-in drop-shadow — offset 40/-40, blurred —
+       didn't composite naturally against our background, so it's stripped
+       here; the shadow below is a real CSS filter instead, which blends
+       correctly with anything behind it). */
     .pass-card-wrap {
       position: absolute;
-      left: -40px;
-      bottom: -40px;
-      width: 24%;
-      min-width: 260px;
-      max-width: 320px;
+      left: 40px;
+      top: -40px;
+      bottom: 40px;
+      width: auto;
+      aspect-ratio: 263 / 452;
       z-index: 2;
       filter: drop-shadow(0 18px 30px rgba(0,0,0,0.35));
     }
     .pass-card {
       display: block;
       width: 100%;
-      height: auto;
+      height: 100%;
       border-radius: 5%;
     }
 
