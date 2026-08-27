@@ -20,8 +20,8 @@
   <meta name="twitter:description" content="40 שנות פסטיבל ג'אז ים סוף — נמל אילת, 11–14 בנובמבר 2026" />
   <meta name="twitter:image" content="./Graphig assets/og-image.jpg" />
   <meta name="twitter:image:alt" content="Red Sea Jazz Festival 2026 — אודות הפסטיבל" />
-  <meta name="theme-color" content="#D5645F" />
-  <meta name="msapplication-TileColor" content="#D5645F" />
+  <meta name="theme-color" content="#FF0066" />
+  <meta name="msapplication-TileColor" content="#FF0066" />
   <link rel="icon" type="image/x-icon" href="./favicon.ico" />
   <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
@@ -74,13 +74,13 @@
       --nav-h:     100px;
       --bg:        #FAF4E9;
       --bg2:       #F3E9D6;
-      --orange:    #D5645F;
-      --primary:   #F3746F;
-      --yellow:    #E0A800;
-      --red:       #D62246;
-      --teal:      #0A8F8E;
-      --text:      #521648; --text-rgb: 82,22,72;
-      --muted:     #6A5540; --yellow-text: #7A5C00; --teal-text: #086665; --orange-text: #C93C36; --orange-btn: #CF4943;
+      --orange:    #FF0066;
+      --primary:   #FF0066;
+      --yellow:    #FFCC00;
+      --red:       #FF0066;
+      --teal:      #0099FD;
+      --text:      #002D87; --text-rgb: 0,45,135;
+      --muted:     #002D87; --yellow-text: #7A5C00; --teal-text: #086665; --orange-text: #C93C36; --orange-btn: #CF4943;
       --card-bg:   #FFFDF8;
       --border:    rgba(58,42,30,0.12);
       --border-strong: rgba(58,42,30,0.22);
@@ -123,18 +123,18 @@
     .ticker-bar {
       position: fixed; top: 0; left: 0; right: 0;
       height: var(--ticker-h); z-index: 101;
-      background: #290B24;
+      background: #002D87;
       display: flex; align-items: center;
       direction: ltr;
       overflow: hidden;
-      border-bottom: 1px solid rgba(213,100,95,0.3);
+      border-bottom: 1px solid rgba(255,0,102,0.3);
     }
     .ticker-label {
       flex-shrink: 0;
       padding: 0 1.4rem 0 1rem;
       font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
       color: var(--orange); text-transform: uppercase;
-      border-right: 1px solid rgba(213,100,95,0.35);
+      border-right: 1px solid rgba(255,0,102,0.35);
       white-space: nowrap;
     }
     .ticker-track-wrap { flex: 1; overflow: hidden; position: relative; }
@@ -191,7 +191,6 @@
     nav.scrolled .nav-logo-tab { padding: 0.25rem 1.4rem; }
     .nav-logo-img {
       height: 80px; width: auto; display: block;
-      filter: brightness(0) saturate(100%) invert(15%) sepia(28%) saturate(900%) hue-rotate(350deg);
       transition: height 0.35s;
     }
     nav.scrolled .nav-logo-img { height: 44px; }
@@ -261,7 +260,7 @@
       white-space: nowrap; text-align: start;
       background: none; border: none; width: 100%; cursor: pointer; font-family: inherit;
     }
-    .nav-drop-panel > a:hover { background: rgba(213,100,95,0.08); color: var(--primary); }
+    .nav-drop-panel > a:hover { background: rgba(255,0,102,0.08); color: var(--primary); }
     .nav-drop-panel > a.active { color: var(--primary); font-weight: 700; }
 
     .nav-actions {
@@ -272,12 +271,12 @@
       color: var(--on-accent); border: none; border-radius: 50px;
       padding: 0.5rem 1.3rem; font-size: 0.85rem; font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 4px 14px rgba(213,100,95,0.32);
+      box-shadow: 0 4px 14px rgba(255,0,102,0.32);
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .nav-btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 22px rgba(213,100,95,0.45);
+      box-shadow: 0 6px 22px rgba(255,0,102,0.45);
     }
     .nav-btn-secondary {
       background: transparent;
@@ -362,9 +361,9 @@
     }
     .page-hero-bg {
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 30% 60%, rgba(213,100,95,0.25) 0%, transparent 60%),
-                  radial-gradient(ellipse at 75% 40%, rgba(10,143,142,0.18) 0%, transparent 55%),
-                  radial-gradient(ellipse at 55% 80%, rgba(214,34,70,0.15) 0%, transparent 50%);
+      background: radial-gradient(ellipse at 30% 60%, rgba(255,0,102,0.25) 0%, transparent 60%),
+                  radial-gradient(ellipse at 75% 40%, rgba(0,153,253,0.18) 0%, transparent 55%),
+                  radial-gradient(ellipse at 55% 80%, rgba(255,0,102,0.15) 0%, transparent 50%);
       pointer-events: none;
     }
     .page-hero-grid {
@@ -489,18 +488,18 @@
       color: var(--on-accent); border: none; border-radius: 50px;
       padding: 0.85rem 2.4rem; font-size: 1rem; font-weight: 700;
       font-family: var(--font); cursor: pointer;
-      box-shadow: 0 4px 18px rgba(213,100,95,0.35);
+      box-shadow: 0 4px 18px rgba(255,0,102,0.35);
       transition: transform 0.2s, box-shadow 0.2s;
       text-decoration: none;
     }
     .cta-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(213,100,95,0.48);
+      box-shadow: 0 8px 28px rgba(255,0,102,0.48);
     }
 
     /* ─── FOOTER ──────────────────────────────────────────────── */
     footer {
-      background: #290B24;
+      background: #002D87;
       color: rgba(250,244,233,0.75);
       padding: 3rem 2rem 2rem;
       text-align: center;
@@ -598,7 +597,7 @@
       transition: background 0.2s, border-color 0.2s;
       z-index: 501;
     }
-    .lb-close:hover { background: rgba(213,100,95,0.55); border-color: var(--orange); }
+    .lb-close:hover { background: rgba(255,0,102,0.55); border-color: var(--orange); }
     .lb-nav-btn {
       position: fixed; top: 50%; transform: translateY(-50%);
       width: 40px; height: 40px; border-radius: 50%;
@@ -725,7 +724,7 @@
   <!-- ── NAV ── -->
   <nav id="navbar">
     <a class="nav-logo-tab" href="./index.html">
-      <img src="State=Vertical.svg?v=2" alt="Red Sea Jazz Festival" class="nav-logo-img" width="80" height="80" />
+      <img src="State=Vertical.svg?v=3" alt="Red Sea Jazz Festival" class="nav-logo-img" width="77" height="80" />
     </a>
     <div class="nav-inner">
       <div class="mobile-menu-panel" id="mobileMenuPanel">

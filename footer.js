@@ -3,7 +3,7 @@
   var style = document.createElement('style');
   style.textContent = `
     footer {
-      background: #290B24;
+      background: #002D87;
       border-top: 1px solid rgba(224,86,11,0.3);
       padding: 4rem 3rem 2rem;
       direction: rtl;
@@ -40,7 +40,7 @@
       color: #e6d8d6;
     }
     .footer-social-btn:hover {
-      background: rgba(243,116,111,0.25);
+      background: rgba(255,0,102,0.25);
       border-color: var(--primary);
     }
     .footer-col-title {
@@ -118,7 +118,7 @@
       transition: background 0.2s, color 0.2s, filter 0.2s, transform 0.2s;
     }
     .footer-news-btn:not(:disabled) {
-      background: linear-gradient(135deg, var(--primary), #D62246);
+      background: linear-gradient(135deg, var(--primary), #FF0066);
       color: #fff;
       cursor: pointer;
     }
@@ -168,7 +168,7 @@
       max-width: 1200px;
       margin-inline: auto;
     }
-    .footer-bottom a { color: #0A8F8E; text-decoration: none; }
+    .footer-bottom a { color: #0099FD; text-decoration: none; }
     .footer-bottom a:hover { color: #fff; }
     @media (max-width: 900px) {
       .footer-grid { grid-template-columns: 1fr 1fr; }

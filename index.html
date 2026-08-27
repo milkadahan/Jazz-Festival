@@ -20,8 +20,8 @@
   <meta name="twitter:description" content="11–14 בנובמבר 2026 · נמל אילת · 40 שנות מוזיקה · 40+ הופעות על 4 במות" />
   <meta name="twitter:image" content="./Graphig assets/og-image.jpg" />
   <meta name="twitter:image:alt" content="Red Sea Jazz Festival 2026" />
-  <meta name="theme-color" content="#D5645F" />
-  <meta name="msapplication-TileColor" content="#D5645F" />
+  <meta name="theme-color" content="#FF0066" />
+  <meta name="msapplication-TileColor" content="#FF0066" />
   <link rel="icon" type="image/x-icon" href="./favicon.ico" />
   <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
@@ -85,19 +85,19 @@
       /* ── Light Mode palette (cream background, warm dark-brown text) ── */
       --bg:        #FAF4E9;   /* רקע ראשי — שמנת עדינה */
       --bg2:       #F3E9D6;   /* רקע משני — שמנת חמה מעט כהה */
-      --orange:    #D5645F;   /* קורל מותג (מהפוסטר 2026) — מותאם לקונטרסט על שמנת */
-      --yellow:    #E0A800;   /* צהוב-ענבר — מותאם לקריאוּת על בהיר */
-      --red:       #D62246;   /* אדום מותג */
-      --pink:      #E0568F;   /* ורוד מותג */
-      --teal:      #0A8F8E;   /* טורקיז — מותאם לקונטרסט על שמנת */
-      --primary:   #F3746F;   /* צבע Primary של המותג */
+      --orange:    #FF0066;   /* קורל מותג (מהפוסטר 2026) — מותאם לקונטרסט על שמנת */
+      --yellow:    #FFCC00;   /* צהוב-ענבר — מותאם לקריאוּת על בהיר */
+      --red:       #FF0066;   /* אדום מותג */
+      --pink:      #892CA0;   /* ורוד מותג */
+      --teal:      #0099FD;   /* טורקיז — מותאם לקונטרסט על שמנת */
+      --primary:   #FF0066;   /* צבע Primary של המותג */
       --warm-glow: var(--primary);   /* זוהר חם (לאפקטים על ההירו הכהה) */
-      --text:      #521648; --text-rgb: 82,22,72;   /* טקסט ראשי — חום כהה */
-      --muted:     #6A5540; --yellow-text: #7A5C00; --teal-text: #086665; --orange-text: #C93C36; --orange-btn: #CF4943;   /* טקסט משני — חום בינוני */
+      --text:      #002D87; --text-rgb: 0,45,135;   /* טקסט ראשי — חום כהה */
+      --muted:     #002D87; --yellow-text: #7A5C00; --teal-text: #086665; --orange-text: #C93C36; --orange-btn: #CF4943;   /* טקסט משני — חום בינוני */
       --card-bg:   #FFFDF8;   /* רקע כרטיסים — לבן-שמנת */
       --border:    rgba(58,42,30,0.12);  /* מסגרות — חום שקוף */
       --border-strong: rgba(58,42,30,0.22);
-      --btn-gradient:  linear-gradient(135deg, var(--orange-btn), var(--red)); /* גרדיאנט אחיד לכל הכפתורים */
+      --btn-gradient:  linear-gradient(135deg, #892CA0, #FF0066, #FFCC00); /* גרדיאנט אחיד לכל הכפתורים */
       --shadow:    rgba(58,42,30,0.10);  /* צללים רכים על בהיר */
       --shadow-strong: rgba(58,42,30,0.16);
       --on-accent: #FFFDF8;  /* טקסט על רקע צבעוני מלא */
@@ -147,18 +147,18 @@
     .ticker-bar {
       position: fixed; top: 0; left: 0; right: 0;
       height: var(--ticker-h); z-index: 101;
-      background: #290B24;
+      background: #002D87;
       display: flex; align-items: center;
       direction: ltr;
       overflow: hidden;
-      border-bottom: 1px solid rgba(213,100,95,0.3);
+      border-bottom: 1px solid rgba(255,0,102,0.3);
     }
     .ticker-label {
       flex-shrink: 0;
       padding: 0 1.4rem 0 1rem;
       font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
       color: var(--orange-text); text-transform: uppercase;
-      border-right: 1px solid rgba(213,100,95,0.35);
+      border-right: 1px solid rgba(255,0,102,0.35);
       white-space: nowrap;
     }
     .ticker-track-wrap { flex: 1; overflow: hidden; position: relative; }
@@ -227,7 +227,6 @@
       height: 80px;
       width: auto;
       display: block;
-      filter: brightness(0) saturate(100%) invert(15%) sepia(28%) saturate(900%) hue-rotate(350deg);
       transition: height 0.35s;
     }
     nav.scrolled .nav-logo-img { height: 44px; }
@@ -299,7 +298,7 @@
       white-space: nowrap; text-align: start;
       background: none; border: none; width: 100%; cursor: pointer; font-family: inherit;
     }
-    .nav-drop-panel > a:hover { background: rgba(213,100,95,0.08); color: var(--primary); }
+    .nav-drop-panel > a:hover { background: rgba(255,0,102,0.08); color: var(--primary); }
     .nav-drop-panel > a.active { color: var(--primary); font-weight: 700; }
 
     /* ── Nav action buttons (left side) ── */
@@ -311,12 +310,12 @@
       color: var(--on-accent); border: none; border-radius: 50px;
       padding: 0.5rem 1.3rem; font-size: 0.85rem; font-weight: 700;
       letter-spacing: normal; cursor: pointer;
-      box-shadow: 0 4px 14px rgba(213,100,95,0.32);
+      box-shadow: 0 4px 14px rgba(255,0,102,0.32);
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .nav-btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 22px rgba(213,100,95,0.45);
+      box-shadow: 0 6px 22px rgba(255,0,102,0.45);
     }
     .nav-btn-secondary {
       background: transparent;
@@ -478,7 +477,7 @@
       bottom: 64px;
       right: 64px;
       z-index: 10;
-      width: 177px;
+      width: 150px;
       height: auto;
       pointer-events: none;
     }
@@ -493,7 +492,10 @@
        which now sits flush against the banner's top edge on its own (Figma node 357:1517) */
     .hero-main-content {
       position: absolute;
-      top: 50%;
+      /* 39% (ולא 50%) — ממרכז את הבלוק בתוך אזור השמיים בלבד (מהשול העליון של
+         הבאנר ועד לקו האופק/המים ברקע), לא בתוך כל גובה הבאנר, כך שהמרחק
+         האופטי מלמעלה זהה למרחק עד קו המים והטקסט לא נוגע בים. */
+      top: 35.6%;
       left: 50%;
       transform: translate(-50%, -50%);
       display: flex;
@@ -509,13 +511,15 @@
        so it can hug the image's own top edge exactly (24px = .hero-image-frame's inset). */
     .hero-date-badge {
       position: absolute;
-      top: 24px;
-      left: 50%;
-      transform: translateX(-50%);
+      top: 32px;
+      left: auto;
+      right: 0;
+      transform: none;
       z-index: 10;
-      width: 220px;
+      width: 300px;
       height: auto;
       pointer-events: auto;
+      filter: drop-shadow(0 10px 14px rgba(0,0,0,0.35));
     }
 
     /* "Presented by" line — sits above the title, same size on mobile and desktop */
@@ -536,7 +540,6 @@
       text-align: center;
       line-height: 1.1;
       letter-spacing: 0.15px;
-      text-shadow: 4px 4px 0 var(--primary);
       margin: 0;
     }
     .hero-title-line1 {
@@ -670,7 +673,7 @@
       .hero-40-mark { display: none; }
       .hero-40-mark-mobile { display: block; width: 76px; margin-top: 0; }
       .hero-date-badge {
-        top: 16px; left: 50%; right: auto; transform: translateX(-50%);
+        top: 0; left: 50%; right: auto; transform: translateX(-50%);
         width: 170px;
       }
       .hero-content-frame {
@@ -888,12 +891,12 @@
       color: #fff; border: none; border-radius: 50px;
       padding: 0.9rem 2.5rem; font-size: 1rem; font-weight: 700;
       letter-spacing: normal;
-      box-shadow: 0 0 30px rgba(243,116,111,0.45);
+      box-shadow: 0 0 30px rgba(255,0,102,0.45);
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .btn-primary:hover {
       transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 0 50px rgba(243,116,111,0.7);
+      box-shadow: 0 0 50px rgba(255,0,102,0.7);
     }
     .btn-secondary {
       background: transparent;
@@ -1047,7 +1050,7 @@
     }
     .show-thumb::after {
       content: ''; position: absolute; inset: 0;
-      background: radial-gradient(circle at 30% 70%, rgba(243,116,111,0.2), transparent 70%);
+      background: radial-gradient(circle at 30% 70%, rgba(255,0,102,0.2), transparent 70%);
     }
     /* Placeholder glyph — מוצג רק כשאין תמונה אמיתית בשורה */
     .show-thumb::before {
@@ -1089,7 +1092,7 @@
       position: absolute; top: 4px; bottom: 4px;
       border-radius: 50px;
       background: var(--btn-gradient);
-      box-shadow: 0 0 16px rgba(243,116,111,0.45);
+      box-shadow: 0 0 16px rgba(255,0,102,0.45);
       transition: left 0.3s cubic-bezier(0.34,1.56,0.64,1), width 0.3s;
       pointer-events: none;
     }
@@ -1156,7 +1159,7 @@
     }
     .lineup-artist-thumb::after {
       content: ''; position: absolute; inset: 0;
-      background: radial-gradient(circle at 40% 60%, rgba(243,116,111,0.04), transparent 45%);
+      background: radial-gradient(circle at 40% 60%, rgba(255,0,102,0.04), transparent 45%);
       z-index: -1;
     }
     .lineup-artist-thumb.has-img::after { content: none; }
@@ -1177,8 +1180,8 @@
       padding: 0.4rem;
     }
     .show-block {
-      background: rgba(243,116,111,0.1);
-      border: 1px solid rgba(243,116,111,0.3);
+      background: rgba(255,0,102,0.1);
+      border: 1px solid rgba(255,0,102,0.3);
       border-radius: 10px; padding: 0;
       cursor: pointer; transition: all 0.25s;
       position: relative; overflow: hidden;
@@ -1195,9 +1198,9 @@
       border-start-end-radius: 10px; border-end-end-radius: 10px;
     }
     .show-block:hover {
-      background: rgba(243,116,111,0.2);
+      background: rgba(255,0,102,0.2);
       transform: scale(1.02);
-      box-shadow: 0 5px 20px rgba(243,116,111,0.2);
+      box-shadow: 0 5px 20px rgba(255,0,102,0.2);
     }
     .show-block.teal {
       background: rgba(0,200,200,0.1);
@@ -1236,7 +1239,7 @@
       overflow: hidden;
     }
     .lineup-list-item:hover {
-      border-color: rgba(243,116,111,0.4);
+      border-color: rgba(255,0,102,0.4);
       transform: translateX(-4px);
       background: color-mix(in srgb, #FFFDF8 94%, var(--primary) 6%);
     }
@@ -1256,7 +1259,7 @@
       border-radius: 50px; border: 1px solid;
       font-weight: 500;
     }
-    .lineup-stage.stage-1 { color: var(--orange-text); border-color: rgba(243,116,111,0.4); background: rgba(243,116,111,0.08); }
+    .lineup-stage.stage-1 { color: var(--orange-text); border-color: rgba(255,0,102,0.4); background: rgba(255,0,102,0.08); }
     .lineup-stage.stage-2 { color: var(--teal-text);   border-color: rgba(0,200,200,0.4);   background: rgba(0,200,200,0.08); }
     .lineup-stage.stage-3 { color: var(--pink);   border-color: rgba(255,110,180,0.4); background: rgba(255,110,180,0.08); }
     .lineup-stage.stage-4 { color: var(--yellow-text); border-color: rgba(255,210,52,0.4);  background: rgba(255,210,52,0.08); }
@@ -1265,73 +1268,58 @@
     /* #hotels כבר לא סקשן עוטף עצמאי — הוא ה-id שיושב עכשיו ישירות על
        .hotel-banner בתוך .quick-info-grid (ראו למטה). כל הריווח החיצוני
        (padding, gap) עבר לבעלות .quick-info-grid. */
+    /* Sunset skyline — Figma node 467:2265, "Accommodation packages".
+       aspect-ratio (not a fixed height) keeps the illustration undistorted
+       at any container width, matching the asset's own 1200:300 ratio. */
     .hotel-banner {
       position: relative; overflow: hidden;
       border-radius: 24px;
-      min-height: 320px;
-      /* Dark night-scene — Figma node 365:1175: מלונות + סהר + שמיים, טקסטורת נייר מוכהית אפויה בתוך התמונה */
-      --banner-fg: #fff;
-      /* גרדיאנט כיסוי מעל התמונה — Figma node 365:2258: שקוף בצד שמאל (הסהר גלוי במלואו),
-         נכהה לצבע האחיד #0e407d עד הקצה הימני (מאחורי הטקסט), לקריאות.
-         background-blend-mode:multiply (ולא normal) כדי שטקסטורת הנייר המקומט
-         האפויה בתוך התמונה תמשיך להיראות גם מתחת לאזור המוכהה — נראה אורגני
-         ולא בלוק צבע שטוח. */
-      background-image: linear-gradient(to right, rgba(14,64,125,0) 0%, #0e407d 72%), url('./Graphig assets/hotel-banner-bg.jpg');
-      background-size: 100% 100%, cover;
-      background-position: 0 0, center;
-      background-repeat: no-repeat, no-repeat;
-      background-blend-mode: multiply, normal;
-      background-color: #0e407d;
-      border: 1px solid rgba(255,107,26,0.25);
-      padding-block: 3.3rem;
-      padding-inline-start: 80px;
-      padding-inline-end: 3.5rem;
-      display: flex; align-items: center; justify-content: space-between; gap: 4rem;
-      flex-wrap: wrap;
+      aspect-ratio: 1200 / 300;
+      background-color: #FAF4E9;
+      background-image: url('./Graphig assets/hotel-banner-bg-v2.png');
+      background-size: 100% 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex; align-items: center; justify-content: center;
+      padding-inline: 3.5rem;
       cursor: pointer;
       text-decoration: none;
-      transition: border-color 0.3s, box-shadow 0.3s;
+      transition: transform 0.2s, box-shadow 0.3s;
     }
     .hotel-banner:hover {
-      border-color: rgba(255,107,26,0.5);
-      box-shadow: 0 0 60px rgba(255,107,26,0.18), 0 24px 60px rgba(14,64,125,0.35);
+      transform: translateY(-3px);
+      box-shadow: 0 20px 50px rgba(0,45,135,0.25);
     }
 
-    .hotel-banner-content { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 14px; align-items: flex-start; flex: 1; min-width: 0; text-align: right; }
+    .hotel-banner-content {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; gap: 14px;
+      align-items: center; text-align: center;
+      max-width: 620px;
+    }
     .hotel-banner-title {
-      display: flex; flex-direction: column; align-items: flex-start;
+      display: flex; flex-direction: column; align-items: center;
       font-weight: 700; line-height: 1.1;
     }
-    .hotel-banner-title .title-line1 { color: var(--banner-fg); font-size: clamp(1.9rem, 3.8vw, 2.5rem); }
-    .hotel-banner-title .hl { color: var(--primary); font-size: clamp(2.6rem, 5.4vw, 3.6rem); }
-    .hotel-banner-sub { color: var(--banner-fg); font-size: 16px; line-height: 1.6; text-align: right; }
+    .hotel-banner-title .title-line1,
+    .hotel-banner-title .title-line2 {
+      color: #002D87;
+      font-size: clamp(1.5rem, 2.8vw, 2.6rem);
+    }
+    .hotel-banner-sub { color: #002D87; font-size: 16px; line-height: 1.6; text-align: center; }
 
-    .hotel-banner-cta { position: relative; z-index: 2; flex-shrink: 0; }
     .hotel-banner-btn {
-      display: inline-flex; align-items: center; gap: 0.7rem;
-      background: var(--primary);
-      color: #fff; border: none; border-radius: 50px;
-      padding: 1rem 2.2rem; font-size: 1rem; font-weight: 700;
-      letter-spacing: 0; cursor: pointer;
-      box-shadow: 0 0 30px rgba(243,116,111,0.45);
+      display: inline-flex; align-items: center; justify-content: center;
+      background: #ffffff;
+      color: #002D87; border: none; border-radius: 100px;
+      padding: 12px 24px; font-size: 16px; font-weight: 700;
+      letter-spacing: 0.46px; text-transform: uppercase; cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
       text-decoration: none;
     }
     .hotel-banner-btn:hover {
-      transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 0 50px rgba(243,116,111,0.7);
-    }
-    .hotel-banner-btn .arrow { font-size: 1.1rem; transition: transform 0.2s; }
-    .hotel-banner-btn:hover .arrow { transform: translateX(-4px); }
-
-    .hotel-logos {
-      display: flex; gap: 10px; flex-wrap: wrap;
-      align-items: center;
-    }
-    .hotel-logo-chip {
-      background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.5);
-      border-radius: 8px; padding: 0.31rem 0.75rem;
-      font-size: 0.875rem; color: var(--banner-fg); font-weight: 400;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.18);
     }
 
     /* ─── NEWS ─────────────────────────────────────────────────── */
@@ -1464,9 +1452,9 @@
     /* פריט דגל — התקליט: מודגש בכרטיס גבולי כתום + תג "פריט דגל" */
     .merch-card-featured {
       border: 2px solid var(--orange);
-      box-shadow: 0 10px 30px rgba(213,100,95,0.18);
+      box-shadow: 0 10px 30px rgba(255,0,102,0.18);
     }
-    .merch-card-featured:hover { box-shadow: 0 16px 40px rgba(213,100,95,0.30); }
+    .merch-card-featured:hover { box-shadow: 0 16px 40px rgba(255,0,102,0.30); }
     /* מוצרים שקיימים רק בקרוסלת המובייל (שקית בד/פוסטר/קפוצ'ון) — בדסקטופ
        נשארים 4 המוצרים המקוריים (תקליט/כובע/בקבוק/חולצה) + כפתור "לכל
        המוצרים בחנות" מתחתם; מוצג ל-≤600px, ראו override ב-@media למטה */
@@ -1477,7 +1465,7 @@
       background: var(--btn-gradient); color: #fff;
       font-size: 0.72rem; font-weight: 800; letter-spacing: 0.02em;
       padding: 0.34rem 0.75rem; border-radius: 50px;
-      box-shadow: 0 4px 14px rgba(213,100,95,0.4);
+      box-shadow: 0 4px 14px rgba(255,0,102,0.4);
       display: inline-flex; align-items: center; gap: 0.3rem;
     }
 
@@ -1491,7 +1479,7 @@
       font-size: 16px; font-weight: 700; text-decoration: none;
       transition: background 0.2s, transform 0.2s;
     }
-    .merch-cta:hover { background: rgba(243,116,111,0.06); transform: translateY(-2px); }
+    .merch-cta:hover { background: rgba(255,0,102,0.06); transform: translateY(-2px); }
 
     /* height אחיד עם שאר כפתורי ה-CTA במובייל (44px — כגובה כפתור
        "פרטים נוספים" ב-.quick-info-plaza) */
@@ -1542,7 +1530,7 @@
       }
       .merch-grid .merch-card-featured:hover {
         border-color: var(--orange);
-        box-shadow: 0 10px 30px rgba(213,100,95,0.18);
+        box-shadow: 0 10px 30px rgba(255,0,102,0.18);
       }
     }
 
@@ -1626,12 +1614,12 @@
       font-weight: 700; font-size: 0.95rem; letter-spacing: 0.15px;
       border-radius: 100px; padding: 12px 28px;
       text-decoration: none;
-      box-shadow: 0 8px 24px rgba(82,22,72,0.35);
+      box-shadow: 0 8px 24px rgba(0,45,135,0.35);
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .quick-info-map-btn:hover {
       transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba(82,22,72,0.45);
+      box-shadow: 0 12px 30px rgba(0,45,135,0.45);
     }
     @media (max-width: 600px) {
       .quick-info-map-overlay { gap: 14px; }
@@ -1702,8 +1690,8 @@
     }
     /* ─── FOOTER ──────────────────────────────────────────────── */
     footer {
-      background: #290B24;
-      border-top: 1px solid rgba(213,100,95,0.3);
+      background: #002D87;
+      border-top: 1px solid rgba(255,0,102,0.3);
       padding: 4rem 3rem 2rem;
     }
     .footer-grid {
@@ -1729,7 +1717,7 @@
       font-size: 1rem; transition: all 0.2s; cursor: pointer;
       color: #e6d8d6; font-family: var(--font);
     }
-    .social-btn:hover { background: rgba(243,116,111,0.25); border-color: var(--orange); }
+    .social-btn:hover { background: rgba(255,0,102,0.25); border-color: var(--orange); }
     .footer-col-title { font-size: 0.8rem; color: #fff; letter-spacing: 0; text-transform: uppercase; margin-bottom: 1.2rem; font-weight: 600; }
     .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
     .footer-links a { font-size: 0.9rem; color: rgba(230,216,214,0.65); transition: color 0.2s; }
@@ -1834,11 +1822,9 @@
       section { padding: 60px 1rem; }
       .schedule-table th, .time-col { padding: 0.5rem; font-size: 0.7rem; }
       .show-name { font-size: 0.78rem; }
-      /* padding-bottom 24px: הכפתור הוא הילד האחרון בעמודת ה-flex, אז המרחק
-         שלו מהשוליים התחתונים של הבאנר נקבע ישירות ע"י ה-padding-bottom כאן.
-         padding-top מצומצם גם הוא — קונטיינר נמוך יותר = פחות זום-קרופ אוטומטי
-         של תמונת הרקע הרחבה (object-fit:cover), כך שנראה יותר מהתמונה. */
-      .hotel-banner { flex-direction: column; padding: 48px 16px 24px; }
+      /* aspect-ratio 1200:300 (הבסיס לדסקטופ) נהיה נמוך מדי לתוכן במובייל —
+         כאן עוברים לגובה גמיש עם רקע cover (קרופ, לא מתיחה) במקום 100%/100%. */
+      .hotel-banner { aspect-ratio: auto; min-height: 380px; background-size: cover; padding-inline: 16px; }
       .btn-primary, .btn-secondary { width: 100%; }
       .hero-subtitle-text { font-size: clamp(18px, 5vw, 28px); }
     }
@@ -1849,12 +1835,9 @@
        ושכבת הצבע מצומצמת לאזור הטקסט בלבד כדי לחשוף את התמונה. */
     @media (max-width: 600px) {
       /* הריווח החיצוני (הרווח מהסקשן הקודם/הבא) עבר לבעלות .quick-info-grid —
-         כאן נשארת רק ההתאמה הפנימית של תוכן הכרטיס עצמו למובייל. */
-      .hotel-banner-content { align-items: center; text-align: center; }
-      .hotel-banner-title { align-items: center; }
-      .hotel-banner-sub { text-align: center; font-size: 15px; }
-      .hotel-logos { justify-content: center; }
-
+         כאן נשארת רק ההתאמה הפנימית של תוכן הכרטיס עצמו למובייל (הבסיס כבר
+         ממורכז, אז רק גודל טקסט וכפתור מותאמים). */
+      .hotel-banner-sub { font-size: 15px; }
       .hotel-banner-btn { padding: 0.75rem 2rem; height: 44px; }
     }
 
@@ -2002,7 +1985,7 @@
     .show-panel-origin { font-size: 0.82rem; color: var(--muted); }
     .show-panel-genre-tag {
       display: inline-block;
-      background: rgba(243,116,111,0.12); color: var(--orange-text);
+      background: rgba(255,0,102,0.12); color: var(--orange-text);
       border-radius: 50px; padding: 0.18rem 0.75rem; font-size: 0.73rem;
     }
 
@@ -2039,13 +2022,13 @@
       color: #fff; border: none; border-radius: 50px;
       padding: 1rem 1.5rem; font-size: 0.97rem; font-weight: 700;
       cursor: pointer; text-decoration: none;
-      box-shadow: 0 0 24px rgba(243,116,111,0.42);
+      box-shadow: 0 0 24px rgba(255,0,102,0.42);
       transition: transform 0.2s, box-shadow 0.2s;
       flex-shrink: 0; margin-top: auto;
     }
     .show-panel-ticket-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 0 40px rgba(243,116,111,0.68);
+      box-shadow: 0 0 40px rgba(255,0,102,0.68);
       color: #fff;
     }
     .show-panel-ticket-btn .ticket-arrow { transition: transform 0.2s; }
@@ -2140,7 +2123,7 @@
 
     <!-- Logo tab – white hanging badge on the right -->
     <a class="nav-logo-tab" href="#">
-      <img src="State=Vertical.svg?v=2" alt="Red Sea Jazz Festival" class="nav-logo-img" width="80" height="80" />
+      <img src="State=Vertical.svg?v=3" alt="Red Sea Jazz Festival" class="nav-logo-img" width="77" height="80" />
     </a>
 
     <!-- Nav inner: links (center) + action buttons (left) -->
@@ -2224,15 +2207,16 @@
            aria-hidden="true"
            width="1280" height="720"
            fetchpriority="high">
+
+      <!-- Date badge — flush against the top-right of the banner. Nested inside
+           .hero-image-frame (not a sibling) so the frame's own overflow:hidden +
+           rounded corner naturally cut it off at the edge instead of letting it
+           bleed past the banner onto the page background. -->
+      <img class="hero-date-badge" src="./Graphig assets/hero-date-tag.svg" alt="11–14.11.26" width="300" height="99">
     </div>
 
     <!-- 40th-anniversary mark — bottom-right, 40px from the banner's bottom+right edges -->
-    <img class="hero-40-mark" src="./Graphig assets/hero-40-mark.svg" alt="40 מהדורה" width="177" height="100">
-
-    <!-- Date badge — flush against the top of the banner, zero gap. Positioned
-         independently of .hero-main-content (which starts lower) so it can hug
-         the image's own top edge exactly regardless of breakpoint. -->
-    <img class="hero-date-badge" src="./Graphig assets/hero-date-badge.png" alt="11–14.11.26" width="267" height="102">
+    <img class="hero-40-mark" src="./Graphig assets/hero-40-mark.svg" alt="40 מהדורה" width="133" height="133">
 
     <!-- Hero title + full-lineup CTA — right-aligned, 80px from the banner's right edge (desktop).
          .hero-content-frame is display:contents on desktop (no-op); on mobile it becomes the flex track
@@ -2249,7 +2233,7 @@
         <span class="hero-lineup-btn-arrow" aria-hidden="true">&#8592;</span>
       </a>
       <!-- Mobile-only: the "40" mark repeats here, below the button, instead of the top-left corner -->
-      <img class="hero-40-mark-mobile" src="./Graphig assets/hero-40-mark.svg" alt="40 מהדורה" width="177" height="100">
+      <img class="hero-40-mark-mobile" src="./Graphig assets/hero-40-mark.svg" alt="40 מהדורה" width="133" height="133">
     </div>
 
     <!-- Countdown — bottom-left of hero (desktop) / bottom-center (mobile) -->
@@ -2619,17 +2603,19 @@
     }
 
     /* ── DAY FILTER — לפי DS Jazz Festival (Figma: FeaturingName, node 22:77) — 4 גוונים
-       קבועים (Blue/Green/Yellow/Red) עם רקע מלא וטקסט לפי ניגודיות, ומצב Hover מוגדר
-       כהכהיה אחידה של 20% בגוון הטקסט הכהה (#521648) על גבי צבע הבסיס ── */
+       קבועים (Green/Blue/Yellow/Red לפי שמות ה-property בפיגמה) עם רקע מלא וטקסט
+       לפי ניגודיות, ומצב Hover מוגדר בפיגמה כשכבת overlay אחידה של 20% בגוון
+       rgba(82,22,72,0.2) על גבי צבע הבסיס — משוכפל כאן 1:1 (ולא לפי --text
+       הנוכחי של האתר, כדי להישאר תואם בדיוק למה שמוגדר ב-DS) ── */
     #artist-lineup-text {
-      --day-1: #2B6CA3; /* יום ד׳ · 11.11 — Blue */
-      --day-2: var(--teal); /* יום ה׳ · 12.11 — Green */
-      --day-3: #E0932E; /* יום ו׳ · 13.11 — Yellow */
-      --day-4: var(--warm-glow); /* שבת · 14.11 — Red (--primary, #F3746F) */
-      --day-1-hover: #335B91;
-      --day-2-hover: #187780;
-      --day-3-hover: #C47A33;
-      --day-4-hover: #D36167;
+      --day-1: #892CA0; /* יום ד׳ · 11.11 — Green (DS) */
+      --day-2: var(--teal); /* יום ה׳ · 12.11 — Blue (DS) */
+      --day-3: var(--yellow); /* יום ו׳ · 13.11 — Yellow (DS, #FFCC00) */
+      --day-4: var(--warm-glow); /* שבת · 14.11 — Red (--primary, #FF0066) */
+      --day-1-hover: linear-gradient(rgba(82,22,72,0.2), rgba(82,22,72,0.2)), var(--day-1);
+      --day-2-hover: linear-gradient(rgba(82,22,72,0.2), rgba(82,22,72,0.2)), var(--day-2);
+      --day-3-hover: linear-gradient(rgba(82,22,72,0.2), rgba(82,22,72,0.2)), var(--day-3);
+      --day-4-hover: linear-gradient(rgba(82,22,72,0.2), rgba(82,22,72,0.2)), var(--day-4);
     }
     .artist-day-filter {
       display: flex;
@@ -2646,7 +2632,7 @@
       align-items: center;
       gap: 8px;
       background: transparent;
-      border: 1px solid rgba(82,22,72,0.22);
+      border: 1px solid rgba(0,45,135,0.22);
       color: var(--text);
       border-radius: 50px;
       height: 42px;
@@ -2661,7 +2647,7 @@
     .artist-day-btn:hover { border-color: var(--orange); color: var(--orange-text); }
     .artist-day-btn.active {
       background: var(--text);
-      border-color: rgba(82,22,72,0.22);
+      border-color: rgba(0,45,135,0.22);
       color: #fff;
     }
 
@@ -2677,7 +2663,7 @@
     .alt-artist-btn[data-day="1"] { --pill-bg: var(--day-1); --pill-text: #FFFDF8; }
     .alt-artist-btn[data-day="2"] { --pill-bg: var(--day-2); --pill-text: #FFFDF8; }
     .alt-artist-btn[data-day="3"] { --pill-bg: var(--day-3); --pill-text: var(--text); }
-    .alt-artist-btn[data-day="4"] { --pill-bg: var(--day-4); --pill-text: var(--text); }
+    .alt-artist-btn[data-day="4"] { --pill-bg: var(--day-4); --pill-text: #FFFDF8; }
 
     .alt-artist-btn[data-day="1"]:hover { --pill-bg: var(--day-1-hover); }
     .alt-artist-btn[data-day="2"]:hover { --pill-bg: var(--day-2-hover); }
@@ -2855,75 +2841,38 @@
        gap ו-padding-inline אחידים של 24px, לפי גריד ה-Figma. ── -->
   <section id="quick-info-grid" dir="rtl" class="quick-info-grid">
 
-    <!-- TICKET PLANS — single Pass (Figma node 360:1129) -->
+    <!-- TICKET PLANS — single Pass (Figma node 467:2181, DS Jazz Festival — updated version) -->
     <div id="ticket-plans" class="pass-section">
       <div class="pass-inner reveal">
         <div class="pass-bg" aria-hidden="true"></div>
-        <img class="pass-tag" src="./Graphig assets/pass-tag.png" alt="PASS" width="183" height="78">
         <div class="pass-card-wrap">
-          <img class="pass-card" src="./Graphig assets/ticket-pass-card.webp" alt="כרטיס Pass — כניסה חופשית לכל הפסטיבל, 40 שנות ג׳אז ים סוף" width="640" height="1080">
+          <img class="pass-card" src="./Graphig assets/ticket-pass-card-v3.png" alt="כרטיס Pass — כניסה חופשית לכל הפסטיבל, 40 שנות ג׳אז ים סוף" width="263" height="452">
         </div>
         <div class="pass-badge">כניסה לכל<br>ההופעות</div>
         <div class="pass-text">
           <h2 class="pass-title">
-            <span class="pass-title-line1">כניסה חופשית</span>
+            <span class="pass-title-line1">PASS - כניסה חופשית</span>
             <span class="pass-title-line2">לכל הפסטיבל</span>
           </h2>
           <a href="https://www.ticketmaster.co.il/homepage/ALL/iw" target="_blank" rel="noopener" class="pass-cta">
             לרכישת כרטיסים
           </a>
         </div>
-        <div class="pass-perks">
-          <div class="pass-perks-header">
-            <span class="pass-perks-line" aria-hidden="true"></span>
-            <span class="pass-perks-label">מה מקבלים</span>
-            <span class="pass-perks-line" aria-hidden="true"></span>
-          </div>
-          <div class="pass-perks-list">
-            <div class="pass-perk">
-              <span class="pass-perk-text">כניסה לרחבה הציבורית</span>
-              <img class="pass-perk-check" src="./Graphig assets/check-success-coral.svg" alt="✓" aria-hidden="true">
-            </div>
-            <div class="pass-perk">
-              <span class="pass-perk-text">שאטלים חינם</span>
-              <img class="pass-perk-check" src="./Graphig assets/check-success-coral.svg" alt="✓" aria-hidden="true">
-            </div>
-            <div class="pass-perk">
-              <span class="pass-perk-text">חבילת לינה</span>
-              <img class="pass-perk-check" src="./Graphig assets/check-success-coral.svg" alt="✓" aria-hidden="true">
-            </div>
-            <div class="pass-perk">
-              <span class="pass-perk-text">כניסה חופשית לכל ההופעות</span>
-              <img class="pass-perk-check" src="./Graphig assets/check-success-coral.svg" alt="✓" aria-hidden="true">
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 
     <!-- HOTEL BANNER -->
+    <!-- HOTEL BANNER — Figma node 467:2265, DS Jazz Festival (updated version) -->
     <a id="hotels" class="hotel-banner reveal" href="https://www.hotels.com" target="_blank" rel="noopener">
       <div class="hotel-banner-content">
         <div class="hotel-banner-title">
-          <span class="title-line1">חבילות לינה</span>
-          <span class="hl">לפסטיבל</span>
+          <span class="title-line1">חבילות לינה בלעדיות לפסטיבל</span>
+          <span class="title-line2">ברשת ישרוטל אילת</span>
         </div>
         <div class="hotel-banner-sub">
-          כרטיסים ולינה במלונות נבחרים באילת,<br>בהזמנה אחת ובמחירים ייעודיים למבקרי הפסטיבל.
+          חבילות נופש במלון הפסטיבל ״אגמים״ ובכל מלונות ישרוטל אילת
         </div>
-        <div class="hotel-logos">
-          <span class="hotel-logo-chip">Isrotel</span>
-          <span class="hotel-logo-chip">Dan Hotels</span>
-          <span class="hotel-logo-chip">Herods</span>
-          <span class="hotel-logo-chip">+ עוד</span>
-        </div>
-      </div>
-
-      <div class="hotel-banner-cta">
-        <span class="hotel-banner-btn">
-          לכל החבילות
-          <span class="arrow">←</span>
-        </span>
+        <span class="hotel-banner-btn">לכל החבילות</span>
       </div>
     </a>
 
@@ -3013,7 +2962,7 @@
       // הכחול/ברירת-המחדל של Leaflet ומהתלות בנתיב תמונות חיצוני שלו.
       var pinIcon = L.divIcon({
         className: 'quick-info-map-pin',
-        html: '<svg width="34" height="44" viewBox="0 0 34 44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17 0C7.6 0 0 7.6 0 17c0 12.7 17 27 17 27s17-14.3 17-27C34 7.6 26.4 0 17 0z" fill="#F3746F"/><circle cx="17" cy="17" r="7" fill="#FAF4E9"/></svg>',
+        html: '<svg width="34" height="44" viewBox="0 0 34 44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17 0C7.6 0 0 7.6 0 17c0 12.7 17 27 17 27s17-14.3 17-27C34 7.6 26.4 0 17 0z" fill="#FF0066"/><circle cx="17" cy="17" r="7" fill="#FAF4E9"/></svg>',
         iconSize: [34, 44],
         iconAnchor: [17, 44],
       });
@@ -3511,22 +3460,21 @@
       position: absolute;
       inset: 0;
       border-radius: 26px; /* Figma: --radius-4xl */
-      background-color: #521648;
+      background-color: #002D87;
       /* רקע ההרים הקבוע מפיגמה (node 386:2105, "BG" group) — לא איור נמל
          אילת (זה היה שינוי חיצוני שגוי שנכנס לקובץ ובוטל). 100%/100% כי
          היחס של .pass-inner תמיד שווה ליחס המקורי של ה-asset (1464×447),
          כך שאין עיוות. */
-      background-image: url('./Graphig assets/pass-banner-bg.png');
+      background-image: url('./Graphig assets/pass-banner-bg-v2.png');
       background-repeat: no-repeat;
       background-position: center;
       background-size: 100% 100%;
       pointer-events: none;
       z-index: 0;
     }
-    /* Fixed-height flex column — הבאנר הוקטן מ-447px ל-411px (Figma node
-       386:2100 היה 1464×447) לבקשת עיצוב, ע"י כיווץ ה-gap הפנימי מ-40px
-       ל-28px וה-padding-bottom מ-32px ל-20px — התוכן עצמו (תג/כותרת/כפתור/
-       perks, ~335px) לא נגע בו. סכום חדש: 78+28+187+28+70+20 = 411. */
+    /* Fixed-height flex column — 411px גובה קבוע (Figma node 386:2100 היה
+       1464×447). אחרי הסרת שורת ה-perks נשאר רק תג/כותרת/כפתור, וה-
+       justify-content:center ממרכז אותם אנכית בתוך גובה הבאנר כולו. */
     .pass-inner {
       position: relative;
       z-index: 2;
@@ -3535,18 +3483,12 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       gap: 28px;
-      padding-bottom: 20px;
     }
 
-    /* PASS tag — torn-paper chip centered at the top of the banner. */
-    .pass-tag {
-      position: relative;
-      z-index: 1;
-      width: 183px;
-      height: 78px;
-      display: block;
-    }
+    /* PASS tag (torn-paper chip) removed per updated Figma (node 467:2181) —
+       "PASS" is now inline in .pass-title-line1 instead of a separate chip. */
 
     /* Text block — centered column (Figma: Festival Info Container, w-420px). */
     .pass-text {
@@ -3573,16 +3515,19 @@
     .pass-title-line1, .pass-title-line2 {
       display: block;
       font-size: 48px; /* Figma: HE/Typography/H3 */
+      color: #002D87; /* שתי השורות באותו נייבי — Figma 467:2196 */
     }
-    .pass-title-line1 { color: #ffffff; }
-    .pass-title-line2 { color: var(--primary); }
+    /* שורה 1 ("PASS - כניסה חופשית") בשורה אחת בדסקטופ, כמו בפיגמה —
+       ל-.pass-text יש max-width:420px לצורך יישור/מרכוז, אבל הבאנר עצמו
+       רחב בהרבה, כך שגלישה קלה מעבר ל-420px לא נחתכת ולא שוברת פריסה. */
+    .pass-title-line1 { white-space: nowrap; }
     .pass-cta {
       /* Figma: HE/Components/Button Large — 178×50px (12px/24px padding + 16px/lh26) */
       display: inline-flex;
       align-items: center;
       justify-content: center;
       background: #ffffff;
-      color: #521648;
+      color: #002D87;
       text-decoration: none;
       border-radius: 100px;
       padding: 12px 24px;
@@ -3599,20 +3544,22 @@
       box-shadow: 0 10px 28px rgba(0,0,0,0.18);
     }
 
-    /* Card mockup — top-left, rising above the banner's top edge (Figma
-       node 386:2022 baseline: left ≈6.83%/100px). Sized up slightly and
-       nudged down from the Figma baseline (top -106px) per feedback — still
-       overflows the banner (and the grid's 80px top padding) into the
-       section above. Absolutely positioned so it escapes the tag/text/perks
-       flex flow entirely. */
+    /* Card mockup — bottom-left corner, sticking out 40px PAST the banner's
+       left+bottom edges (not inset), upright (no tilt). The v3 PNG is
+       cropped tight to the card's own true vector edge (Figma's baked-in
+       drop-shadow — offset 40/-40, blurred — didn't composite naturally
+       against our background, so it's stripped here; the shadow below is
+       a real CSS filter instead, which blends correctly with anything
+       behind it). */
     .pass-card-wrap {
       position: absolute;
-      left: 6.83%;
-      top: -100px;
-      width: 19%;
-      min-width: 222px;
-      max-width: 313px;
+      left: -40px;
+      bottom: -40px;
+      width: 24%;
+      min-width: 260px;
+      max-width: 320px;
       z-index: 2;
+      filter: drop-shadow(0 18px 30px rgba(0,0,0,0.35));
     }
     .pass-card {
       display: block;
@@ -3621,10 +3568,11 @@
       border-radius: 5%;
     }
 
-    /* Yellow badge (Figma node 386:1999, purple banner 1464×447: circle
-       right ≈9.27%/135.6px, top ≈91.3px), 160px diameter. Static -8deg tilt
-       kept as a styling choice; motion is a gentle "breathing" scale pulse
-       (no rotation wobble). */
+    /* Navy badge (Figma node 467:2187, banner 1464×447: circle right
+       ≈9.27%/135.6px, top ≈91.3px), 160px diameter. Static -8deg tilt kept
+       as a styling choice; motion is a gentle "breathing" scale pulse (no
+       rotation wobble). ::after adds the navy ring around it (Figma
+       "Ellipse6" — 170px circle, 2px stroke, 5px outward gap). */
     .pass-badge {
       position: absolute;
       right: 9.27%;
@@ -3632,7 +3580,7 @@
       width: 160px;
       height: 160px;
       border-radius: 50%;
-      background: #feb623;
+      background: #002D87;
       color: #ffffff;
       display: flex;
       align-items: center;
@@ -3648,6 +3596,14 @@
       animation: passBadgeBreathe 2.6s ease-in-out infinite;
       z-index: 3;
     }
+    .pass-badge::after {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border: 2px solid #002D87;
+      border-radius: 50%;
+      pointer-events: none;
+    }
     @keyframes passBadgeBreathe {
       0%, 100% { transform: rotate(-8deg) scale(1); }
       50%      { transform: rotate(-8deg) scale(1.07); }
@@ -3655,70 +3611,6 @@
 
     @media (prefers-reduced-motion: reduce) {
       .pass-badge { animation: none; }
-    }
-
-    /* "מה מקבלים" perks row — centered, full width of the text column. */
-    .pass-perks {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      max-width: 1071px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
-    .pass-perks-header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 24px;
-      width: 100%;
-    }
-    .pass-perks-line {
-      flex: 1;
-      max-width: 456px; /* Figma: Line 2/3 width */
-      height: 1px;
-      background: rgba(255,255,255,0.35);
-    }
-    .pass-perks-label {
-      flex-shrink: 0;
-      font-family: var(--font);
-      font-weight: 700;
-      font-size: 20px;
-      line-height: 1.28;
-      color: #ffffff;
-      letter-spacing: 0.15px;
-    }
-    .pass-perks-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      gap: 24px;
-      width: 100%;
-    }
-    .pass-perk {
-      display: flex;
-      flex-direction: row-reverse;
-      align-items: center;
-      gap: 8px;
-      padding-block: 4px;
-    }
-    .pass-perk-text {
-      font-family: var(--font);
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 1.5;
-      color: #ffffff;
-      letter-spacing: 0.15px;
-      white-space: nowrap;
-    }
-    .pass-perk-check {
-      width: 24px; /* Figma: Success icon 24×24 */
-      height: 24px;
-      flex-shrink: 0;
-      display: block;
     }
 
     /* ── Mobile (Figma node 460:1217) — no card in this composition; the
@@ -3751,9 +3643,7 @@
          content-driven height exactly (full-bleed top-to-bottom behind
          everything, including the badge in the bottom-right corner),
          instead of either the whole section's height (way too tall) or a
-         guessed fixed band. gap:40px matches the Figma TAG→text spacing;
-         the larger 56px gap before the perks row (Figma) is added via
-         .pass-perks's own margin-top below instead of a second gap value. */
+         guessed fixed band. gap:40px matches the Figma TAG→text spacing. */
       .pass-inner {
         aspect-ratio: auto;
         height: auto;
@@ -3786,26 +3676,7 @@
         padding: 16px 32px;
         height: auto;
       }
-      .pass-perks {
-        order: 2;
-        position: relative;
-        align-items: center;
-        width: 100%;
-        margin-top: 16px; /* + the 40px .pass-inner gap = 56px, matching Figma */
-      }
-      .pass-perks-header { justify-content: center; gap: 24px; }
-      .pass-perks-line { max-width: none; }
-      .pass-perks-list { justify-content: center; gap: 16px 24px; }
-      /* Figma reorders the perks for mobile — "כניסה חופשית לכל ההופעות"
-         gets its own row on top, "כניסה לרחבה הציבורית" moves to its own
-         row at the bottom, and the middle pair swaps sides — instead of the
-         desktop DOM order, via flex `order` (source order stays
-         desktop-correct). */
-      .pass-perks-list .pass-perk:nth-child(1) { order: 4; }
-      .pass-perks-list .pass-perk:nth-child(2) { order: 3; }
-      .pass-perks-list .pass-perk:nth-child(3) { order: 2; }
-      .pass-perks-list .pass-perk:nth-child(4) { order: 1; }
-      /* Yellow badge — small (90px), overlapping the bottom-right corner of
+      /* Navy badge — small (90px), overlapping the bottom-right corner of
          the banner (Figma node 460:1340: right ≈12.6%, bottom ≈-8px —
          extends slightly past the banner's own bottom edge). */
       .pass-badge {
