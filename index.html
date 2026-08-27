@@ -390,7 +390,9 @@
       position: absolute; inset: 0;
       width: 100%; height: 100%;
       object-fit: cover;
-      object-position: center bottom;
+      /* היה "center bottom" — הוזז מעט למעלה כדי לחשוף יותר שמיים נקיים
+         מעל קו האופק, לרקע פחות עמוס מאחורי הלוגו. */
+      object-position: center 42%;
       pointer-events: none;
       will-change: transform;
     }
@@ -401,7 +403,7 @@
       position: absolute; inset: 0;
       width: 100%; height: 100%;
       object-fit: cover;
-      object-position: center bottom;
+      object-position: center 42%;
       pointer-events: none;
     }
 
@@ -470,24 +472,6 @@
        הקופסאות, הילדים ממשיכים להתנהג בדיוק כמו קודם (position:absolute עצמאי). */
     .hero-content-frame { display: contents; }
 
-    /* 40th-anniversary mark — bottom-right corner. .hero-image-frame is inset 24px from
-       #hero, so bottom/right here = 24px frame inset + 40px actual gap from the visible banner edge. */
-    .hero-40-mark {
-      position: absolute;
-      bottom: 64px;
-      right: 64px;
-      z-index: 10;
-      width: 150px;
-      height: auto;
-      pointer-events: none;
-    }
-
-    /* Mobile-only duplicate of the mark, shown inline below the button instead
-       (see @media (max-width:768px) below) — hidden on desktop. */
-    .hero-40-mark-mobile {
-      display: none;
-    }
-
     /* Hero main content (title + button) — starts below the date badge,
        which now sits flush against the banner's top edge on its own (Figma node 357:1517) */
     .hero-main-content {
@@ -495,7 +479,7 @@
       /* 39% (ולא 50%) — ממרכז את הבלוק בתוך אזור השמיים בלבד (מהשול העליון של
          הבאנר ועד לקו האופק/המים ברקע), לא בתוך כל גובה הבאנר, כך שהמרחק
          האופטי מלמעלה זהה למרחק עד קו המים והטקסט לא נוגע בים. */
-      top: 35.6%;
+      top: 26%;
       left: 50%;
       transform: translate(-50%, -50%);
       display: flex;
@@ -522,38 +506,26 @@
       filter: drop-shadow(0 10px 14px rgba(0,0,0,0.35));
     }
 
-    /* "Presented by" line — sits above the title, same size on mobile and desktop */
-    .hero-presented-by {
+    /* Main hero logo — replaces the "presented by" line + title+CTA text
+       entirely (per request); PNG lockup (Red Sea Jazz Festival wordmark +
+       tagline + 40th mark + credits), transparent background, native ratio
+       ~4.17:1. Narrower than the earlier attempt so it stays clear of the
+       date-tag banner (top-right) instead of crowding toward it. */
+    .hero-main-logo {
       pointer-events: auto;
-      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', sans-serif;
-      font-size: 24px;
-      font-weight: 400;
-      color: #fff;
-      text-align: center;
-      margin: 0;
+      display: block;
+      width: min(700px, 64vw);
+      height: auto;
     }
 
-    .hero-title-text {
-      pointer-events: auto;
-      font-family: 'Google Sans', 'Hepta Slab', 'Noto Sans Hebrew', serif;
-      color: #fff;
-      text-align: center;
-      line-height: 1.1;
-      letter-spacing: 0.15px;
-      margin: 0;
-    }
-    .hero-title-line1 {
-      display: block;
-      font-weight: 500;
-      font-size: clamp(32px, 6vw, 80px);
-    }
-    .hero-title-line2 {
-      display: block;
-      font-weight: 700;
-      font-size: clamp(32px, 6vw, 80px);
-    }
-
+    /* "2026 Artists" CTA — fixed near the bottom of the banner, just above
+       the scroll cue (which sits at bottom:32px + ~54px of its own height),
+       independent of the logo's vertical centering above it. */
     .hero-lineup-btn {
+      position: absolute;
+      bottom: 140px;
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 10;
       display: inline-flex;
       align-items: center;
@@ -569,7 +541,7 @@
       transition: transform 0.2s;
     }
     .hero-lineup-btn:hover {
-      transform: translateY(-3px);
+      transform: translateX(-50%) translateY(-3px);
     }
     .hero-lineup-btn-arrow {
       display: inline-block;
@@ -670,8 +642,6 @@
        ל-countdown, בלי חישובי פיקסלים קשיחים. ממוקם אחרי הכללים הבסיסיים כדי לגבור
        עליהם בקסקייד (אותה specificity, אז סדר המקור קובע). */
     @media (max-width: 768px) {
-      .hero-40-mark { display: none; }
-      .hero-40-mark-mobile { display: block; width: 76px; margin-top: 0; }
       .hero-date-badge {
         top: 0; left: 50%; right: auto; transform: translateX(-50%);
         width: 170px;
@@ -704,12 +674,17 @@
         max-width: 480px; margin-inline: auto;
         padding-inline: 24px; box-sizing: border-box;
       }
-      .hero-title-text { text-align: center; }
-      .hero-title-line1, .hero-title-line2 { font-size: 2.75rem; }
-      .hero-presented-by { font-size: 18px; line-height: 1.25; }
-      /* height אחיד עם שאר כפתורי ה-CTA במובייל (44px — כגובה כפתור
-         "פרטים נוספים" ב-.quick-info-plaza) */
-      .hero-lineup-btn { padding: 0.75rem 1.25rem; font-size: 16px; height: 44px; }
+      .hero-main-logo { width: 100%; max-width: 420px; }
+      /* בפלואו הרגיל של hero-content-frame, מתחת ללוגו, במקום מוצמד לתחתית
+         הבאנר — כאן אין scroll-cue שממנו צריך להתרחק. height אחיד עם שאר
+         כפתורי ה-CTA במובייל (44px). */
+      .hero-lineup-btn {
+        position: static;
+        transform: none;
+        margin-top: 20px;
+        padding: 0.75rem 1.25rem; font-size: 16px; height: 44px;
+      }
+      .hero-lineup-btn:hover { transform: none; }
 
       .hero-content {
         /* ממוקם ישירות ביחס למסגרת (8px משלושת הצדדים) במקום להסתמך על flex flow —
@@ -2241,26 +2216,21 @@
       <img class="hero-date-badge" src="./Graphig assets/hero-date-tag.svg" alt="11–14.11.26" width="300" height="99">
     </div>
 
-    <!-- 40th-anniversary mark — bottom-right, 40px from the banner's bottom+right edges -->
-    <img class="hero-40-mark" src="./Graphig assets/hero-40-mark.svg" alt="40 מהדורה" width="133" height="133">
-
     <!-- Hero title + full-lineup CTA — right-aligned, 80px from the banner's right edge (desktop).
          .hero-content-frame is display:contents on desktop (no-op); on mobile it becomes the flex track
          both blocks share, so the gap above the text and the gap above the countdown stay equal. -->
     <div class="hero-content-frame">
     <div class="hero-main-content">
-      <p class="hero-presented-by">עיריית אילת ותאגיד התיירות אילת גאים להציג:</p>
-      <h1 class="hero-title-text">
-        <span class="hero-title-line1">פסטיבל ג׳אז</span>
-        <span class="hero-title-line2">בים האדום</span>
-      </h1>
-      <a href="#artist-lineup-text" class="hero-lineup-btn">
-        <bdi dir="ltr">2026 Artists</bdi>
-        <span class="hero-lineup-btn-arrow" aria-hidden="true">&#8592;</span>
-      </a>
-      <!-- Mobile-only: the "40" mark repeats here, below the button, instead of the top-left corner -->
-      <img class="hero-40-mark-mobile" src="./Graphig assets/hero-40-mark.svg" alt="40 מהדורה" width="133" height="133">
+      <img class="hero-main-logo" src="./Graphig assets/hero-main-logo.png" alt="Red Sea Jazz Festival — 4 ימים · 40 מופעים · 4 במות · בנמל אילת" width="3641" height="873">
     </div>
+
+    <!-- Full-lineup CTA — independent of .hero-main-content (which is centered on
+         the sky region) so it can sit at a fixed spot lower on the banner,
+         just above the scroll cue, regardless of the logo's own height. -->
+    <a href="#artist-lineup-text" class="hero-lineup-btn">
+      <bdi dir="ltr">2026 Artists</bdi>
+      <span class="hero-lineup-btn-arrow" aria-hidden="true">&#8592;</span>
+    </a>
 
     <!-- Countdown — bottom-left of hero (desktop) / bottom-center (mobile) -->
     <div class="hero-content">
