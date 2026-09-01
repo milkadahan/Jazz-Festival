@@ -1624,8 +1624,19 @@
       transform: translateY(-3px);
       box-shadow: 0 12px 30px rgba(0,45,135,0.45);
     }
+    /* מובייל — טיפוגרפיה מיושרת לשאר באנרי quick-info (כותרת ~24-26px,
+       תיאור/כפתור 16px), במקום כותרת-ענק במשקל 900. */
     @media (max-width: 600px) {
+      .quick-info-map { min-height: 370px; }   /* מיושר לגובה שאר הבאנרים במובייל */
       .quick-info-map-overlay { gap: 14px; }
+      .quick-info-map-title-line1 { font-size: 14px; font-weight: 700; }
+      .quick-info-map-title-line2 { font-size: 26px; font-weight: 800; }
+      .quick-info-map-btn {
+        font-size: 16px;
+        letter-spacing: 0.46px;
+        padding: 12px 24px;
+        min-height: 44px;
+      }
     }
 
     /* ── רחבה ציבורית — .quick-info-plaza ── */
@@ -1690,6 +1701,25 @@
       width: 1em;
       opacity: 1;
       margin-inline-start: 0.5rem;
+    }
+    /* מובייל — טיפוגרפיה מיושרת לשאר באנרי quick-info (כותרת ~24-26px,
+       תיאור/כפתור 16px). */
+    @media (max-width: 600px) {
+      .quick-info-plaza { min-height: 370px; }   /* מיושר לגובה שאר הבאנרים במובייל */
+      .quick-info-plaza-content { gap: 14px; }
+      .quick-info-plaza-title-line1 { font-size: 14px; font-weight: 700; }
+      .quick-info-plaza-title-line2 { font-size: 26px; font-weight: 800; line-height: 1.25; }
+      .quick-info-plaza-desc {
+        font-size: 16px;
+        line-height: 1.5;
+        letter-spacing: 0.15px;
+      }
+      .quick-info-plaza-btn {
+        font-size: 16px;
+        letter-spacing: 0.46px;
+        padding: 12px 24px;
+        min-height: 44px;
+      }
     }
     /* ─── FOOTER ──────────────────────────────────────────────── */
     footer {
@@ -3169,7 +3199,11 @@
       // בקובייה הצרה של מובייל היסט קבוע (185px) היה דוחף את הפין כמעט
       // מחוץ לתחום; clamp בין 70 ל-185 שומר עליו בתוך הגבולות בכל רוחב.
       var mapWidth = mapEl.getBoundingClientRect().width || 664;
-      var PIN_SHIFT_PX = Math.max(70, Math.min(185, mapWidth * 0.26));
+      // מובייל: הכיתוב + הכפתור צרים אך גבוהים יחסית, אז דוחפים את הפין
+      // חזק יותר ימינה (0.4 מהרוחב) כדי שייצא לגמרי מאחורי הכפתור.
+      var PIN_SHIFT_PX = mapWidth <= 480
+        ? Math.min(mapWidth * 0.40, mapWidth - 48)
+        : Math.max(70, Math.min(185, mapWidth * 0.26));
       var mapCenter = portLatLng;
       if (typeof L !== 'undefined' && L.CRS) {
         var targetPoint = L.CRS.EPSG3857.latLngToPoint(L.latLng(portLatLng), zoom);
