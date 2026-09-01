@@ -397,7 +397,7 @@
       will-change: transform;
     }
 
-    /* Hero fallback image — shown on mobile (no video) */
+    /* Hero fallback image — shown only for prefers-reduced-motion / if the video fails to load */
     .hero-bg-fallback {
       display: none;
       position: absolute; inset: 0;
@@ -408,13 +408,14 @@
     }
 
     @media (max-width: 768px) {
-      .hero-bg-video { display: none; }
-      .hero-bg-fallback { display: block; }
+      /* במובייל מציגים את אותו סרטון hero כמו בדסקטופ (לא תמונת fallback).
+         ה-fallback נשאר רק ל-prefers-reduced-motion ולמקרה שהסרטון לא נטען. */
       .quick-info-plaza-video { display: none; }
       .quick-info-plaza-fallback { display: block; }
 
-      /* גרסת מובייל בלבד — שוליים אחידים 16px סביב ההירו, תמונת הרקע ממורכזת. */
+      /* גרסת מובייל בלבד — שוליים אחידים 16px סביב ההירו, הרקע ממורכז. */
       .hero-image-frame { top: 16px; left: 16px; right: 16px; bottom: 16px; }
+      .hero-bg-video,
       .hero-bg-fallback {
         object-position: center center;
       }
@@ -647,8 +648,10 @@
        עליהם בקסקייד (אותה specificity, אז סדר המקור קובע). */
     @media (max-width: 768px) {
       .hero-date-badge {
-        top: 0; left: 50%; right: auto; transform: translateX(-50%);
-        width: 170px;
+        /* top > 0 כדי לפנות את הפינה המעוגלת של .hero-image-frame (radius 26px) —
+           כך התג לא נחתך מגבול הבאנר. width קטן מעט + הזזה כלפי מטה מקרבים אותו ל-"40". */
+        top: 14px; left: 50%; right: auto; transform: translateX(-50%);
+        width: 150px;
       }
       .hero-content-frame {
         display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
@@ -664,10 +667,9 @@
            position ל-static, ובלי האיפוס הזה הבלוק (שכאן תופס גובה גדול בגלל
            flex:1 1 auto) זז למעלה בחצי מהגובה שלו — הכותרת יוצאת מהמסגרת. */
         transform: none;
-        /* padding-top קבוע (לא ריכוז אנכי) — 65px גובה .hero-date-badge (top:16px, 170px
-           רוחב, יחס 102/267) + 24px רווח מבוקש, כך שהכותרת לעולם לא חופפת את התג,
-           בלי תלות בחישוב ריכוז גמיש. */
-        padding-top: 89px;
+        /* padding-top קבוע (לא ריכוז אנכי) — גובה .hero-date-badge (top:14px, 150px
+           רוחב ≈ 50px גובה) + רווח קטן, כך שהלוגו לא חופף את התג אך נשאר קרוב אליו. */
+        padding-top: 74px;
         /* flex-basis: auto (במקום ה-0% של "flex: 1") + min-height: 0 + overflow: hidden —
            כשגובה הבאנר קצר מדי, הבלוק הזה (לוגו/כותרת/כפתור) הוא זה שמצטמצם ונחתך,
            לא כרטיס הספירה לאחור — כך הכרטיס תמיד שלם בתוך הבאנר. */
@@ -679,16 +681,10 @@
         padding-inline: 24px; box-sizing: border-box;
       }
       .hero-main-logo { width: 100%; max-width: 420px; }
-      /* בפלואו הרגיל של hero-content-frame, מתחת ללוגו, במקום מוצמד לתחתית
-         הבאנר — כאן אין scroll-cue שממנו צריך להתרחק. height אחיד עם שאר
-         כפתורי ה-CTA במובייל (44px). */
-      .hero-lineup-btn {
-        position: static;
-        transform: none;
-        margin-top: 20px;
-        padding: 0.75rem 1.25rem; font-size: 16px; height: 44px;
-      }
-      .hero-lineup-btn:hover { transform: none; }
+      /* במובייל אין מקום אנכי לכפתור "2026 Artists" בין הלוגו לכרטיס הספירה לאחור
+         (hero-main-content גדל עם flex:1 ודוחף אותו מתחת לכרטיס ה-absolute, כך
+         שרק פס לבן מציץ מתחתיו). ה-lineup נגיש דרך התפריט/גלילה — מסתירים אותו כאן. */
+      .hero-lineup-btn { display: none; }
 
       .hero-content {
         /* ממוקם ישירות ביחס למסגרת (8px משלושת הצדדים) במקום להסתמך על flex flow —
@@ -1827,9 +1823,36 @@
       section { padding: 60px 1rem; }
       .schedule-table th, .time-col { padding: 0.5rem; font-size: 0.7rem; }
       .show-name { font-size: 0.78rem; }
-      /* aspect-ratio 1200:300 (הבסיס לדסקטופ) נהיה נמוך מדי לתוכן במובייל —
-         כאן עוברים לגובה גמיש עם רקע cover (קרופ, לא מתיחה) במקום 100%/100%. */
-      .hotel-banner { aspect-ratio: auto; min-height: 380px; background-size: cover; padding-inline: 16px; }
+      /* aspect-ratio 1200:300 (הבסיס לדסקטופ) נמוך מדי לתוכן במובייל, ו-cover
+         על asset ברוחב 4:1 חותך את כל קו הרקיע. במקום זה: שכבת שמים חמה
+         (gradient) שממלאת את הבאנר, והאיור עצמו בפס מלא-רוחב נעוץ לתחתית
+         (100% auto → ~25% מהרוחב, בלי קרופ צדדי). התוכן זורם מלמעלה עם
+         padding-bottom שמפנה מקום לפס הרקיע. */
+      .hotel-banner {
+        aspect-ratio: auto;
+        min-height: 0;
+        background-color: #FFD65E;
+        background-image:
+          url('./Graphig assets/hotel-banner-bg-v2.png'),
+          linear-gradient(180deg, #FFC94E 0%, #FFDF8F 50%, #FFCE7C 82%, #FFC081 100%);
+        background-size: 100% auto, 100% 100%;
+        background-position: bottom center, center;
+        background-repeat: no-repeat, no-repeat;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 40px 16px calc(23vw + 18px);
+        box-sizing: border-box;
+      }
+      .hotel-banner-content {
+        position: static;
+        transform: none;
+        top: auto;
+        left: auto;
+        width: 100%;
+        max-width: none;
+        gap: 16px;
+      }
       .btn-primary, .btn-secondary { width: 100%; }
       .hero-subtitle-text { font-size: clamp(18px, 5vw, 28px); }
     }
@@ -3625,6 +3648,7 @@
     .quick-info-grid > .pass-section,
     .quick-info-grid > .hotel-banner {
       grid-column: 1 / -1;
+      min-width: 0; /* בלי זה תוכן רחב (כותרת) מנפח את תא הגריד מעבר למסך */
     }
     @media (max-width: 900px) {
       .quick-info-grid { padding: 60px 24px; gap: 20px; }
@@ -3833,20 +3857,17 @@
        which is what made the title/button invisible before. */
     @media (max-width: 768px) {
       .pass-bg {
-        background-image: url('./Graphig assets/ticket-pass-bg-mobile.png');
-        /* רקע ההרים הקבוע מפיגמה (node 460:1219, "BG" group) — לא איור נמל
-           אילת (זה היה שינוי חיצוני שגוי שנכנס לקובץ ובוטל, ראו .pass-bg
-           הדסקטופי למעלה). 100%/100% (לא cover) כדי שהרקע תמיד ימלא בדיוק
-           את גובה התוכן בפועל בלי מרווח ריק בתחתית. */
-        background-size: 100% 100%;
-        background-position: top center;
+        /* אותו asset של הדסקטופ (גל הצבעים pass-banner-bg-v2, node 386:2105)
+           כדי שהמובייל יתאים לפלטת הבאנר בדסקטופ. cover + center: תמיד ממלא
+           את גובה התוכן בלי מרווח ריק ובלי מתיחה אנכית של האיור. */
+        background-image: url('./Graphig assets/pass-banner-bg-v2.png');
+        background-size: cover;
+        background-position: center;
       }
       /* position:relative (not static) — .pass-bg's inset:0 needs a real
          containing block here so it matches the flex column's own
-         content-driven height exactly (full-bleed top-to-bottom behind
-         everything, including the badge in the bottom-right corner),
-         instead of either the whole section's height (way too tall) or a
-         guessed fixed band. gap:40px matches the Figma TAG→text spacing. */
+         content-driven height exactly. overflow:hidden + border-radius
+         חותכים כל דבר שגולש (כולל התג בפינה) לגבולות הבאנר. */
       .pass-inner {
         aspect-ratio: auto;
         height: auto;
@@ -3856,9 +3877,12 @@
         align-items: center;
         justify-content: flex-start;
         text-align: center;
-        gap: 40px;
-        padding: 0 24px 120px;
+        gap: 28px;
+        padding: 40px 20px 88px;
         box-sizing: border-box;
+        max-width: 100%;
+        overflow: hidden;
+        border-radius: 26px;
       }
       .pass-card-wrap { display: none; }
       .pass-text {
@@ -3866,31 +3890,37 @@
         position: relative;
         max-width: none;
         align-items: center;
-        gap: 24px;
+        gap: 22px;
         width: 100%;
       }
-      .pass-title { letter-spacing: 0.25px; }
-      .pass-title-line1, .pass-title-line2 { text-align: center; font-size: 34px; }
+      .pass-title { letter-spacing: 0.2px; }
+      .pass-title-line1, .pass-title-line2 {
+        text-align: center;
+        /* 27px @375 · 31px @430 · 34px @≥472 — מונע חיתוך בלי breakpoint נוסף */
+        font-size: clamp(26px, 7.2vw, 34px);
+      }
+      /* שורה 1 חייבת להתעטף במובייל — ה-nowrap של הדסקטופ הוא שדחף את הבאנר
+         מעבר לרוחב המסך ב-375 */
+      .pass-title-line1 { white-space: normal; overflow-wrap: anywhere; }
       .pass-cta {
         font-size: 16px;
         line-height: 1.22;
         letter-spacing: 0.15px;
         text-transform: none;
-        padding: 16px 32px;
+        padding: 15px 30px;
         height: auto;
       }
-      /* Navy badge — small (90px), overlapping the bottom-right corner of
-         the banner (Figma node 460:1340: right ≈12.6%, bottom ≈-8px —
-         extends slightly past the banner's own bottom edge). */
+      /* Navy badge — קטן (76px) וצמוד לפינה השמאלית-תחתונה בתוך הבאנר
+         (לא bottom שלילי — כדי שלא יתנגש בתפר עם באנר חבילות הלינה). */
       .pass-badge {
-        left: auto;
-        right: 12.6%;
+        left: 16px;
+        right: auto;
         top: auto;
-        bottom: -8px;
-        width: 90px;
-        height: 90px;
-        font-size: 14px;
-        line-height: 1.4;
+        bottom: 16px;
+        width: 76px;
+        height: 76px;
+        font-size: 12px;
+        line-height: 1.32;
         letter-spacing: 0.1px;
       }
     }
