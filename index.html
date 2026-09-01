@@ -1288,6 +1288,8 @@
       color: #002D87;
       font-size: clamp(1.5rem, 2.8vw, 2.6rem);
     }
+    /* פיצול שורת הכותרת פעיל רק במובייל (ראו @media ≤600px) */
+    .hb-break { display: none; }
     .hotel-banner-sub { color: #002D87; font-size: 16px; line-height: 1.6; text-align: center; }
 
     .hotel-banner-btn {
@@ -1823,50 +1825,63 @@
       section { padding: 60px 1rem; }
       .schedule-table th, .time-col { padding: 0.5rem; font-size: 0.7rem; }
       .show-name { font-size: 0.78rem; }
-      /* aspect-ratio 1200:300 (הבסיס לדסקטופ) נמוך מדי לתוכן במובייל, ו-cover
-         על asset ברוחב 4:1 חותך את כל קו הרקיע. במקום זה: שכבת שמים חמה
-         (gradient) שממלאת את הבאנר, והאיור עצמו בפס מלא-רוחב נעוץ לתחתית
-         (100% auto → ~25% מהרוחב, בלי קרופ צדדי). התוכן זורם מלמעלה עם
-         padding-bottom שמפנה מקום לפס הרקיע. */
+      /* מובייל = קומפוזיציה ייעודית מהפיגמה (node 501:148, כרטיס 358×366):
+         איור סאנסט מלא-מסך (הרים, דקלים, מגדלור, בניין HOTEL, ים) כרקע
+         שממלא את כל הכרטיס, והתוכן יושב בשליש העליון על השמיים. יחס
+         358/366 שומר על האיור בלי עיוות בכל רוחב מסך. */
       .hotel-banner {
-        aspect-ratio: auto;
+        aspect-ratio: 358 / 366;
         min-height: 0;
-        background-color: #FFD65E;
-        background-image:
-          url('./Graphig assets/hotel-banner-bg-v2.png'),
-          linear-gradient(180deg, #FFC94E 0%, #FFDF8F 50%, #FFCE7C 82%, #FFC081 100%);
-        background-size: 100% auto, 100% 100%;
-        background-position: bottom center, center;
-        background-repeat: no-repeat, no-repeat;
+        background-color: #FFB23F;
+        background-image: url('./Graphig assets/hotel-banner-bg-mobile.png');
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
         display: flex;
-        align-items: flex-start;
-        justify-content: center;
-        padding: 40px 16px calc(23vw + 18px);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 40px 20px 24px;
         box-sizing: border-box;
       }
+      /* Figma: Content — x20/y40, w318 (מתוך 358), gap 14px, ממורכז */
       .hotel-banner-content {
         position: static;
         transform: none;
         top: auto;
         left: auto;
         width: 100%;
-        max-width: none;
-        gap: 16px;
+        max-width: 320px;
+        gap: 14px;
       }
       .btn-primary, .btn-secondary { width: 100%; }
       .hero-subtitle-text { font-size: clamp(18px, 5vw, 28px); }
     }
 
-    /* ─── HOTEL BANNER · MOBILE (≤600px) ──────────────────────────
-       פדינג צדדי אחיד של 16px (תואם את שאר הרכיבים באתר), טיפוגרפיה
-       פנימית עם היררכיה ברורה (כותרת > תיאור > תגיות), הכל ממורכז,
-       ושכבת הצבע מצומצמת לאזור הטקסט בלבד כדי לחשוף את התמונה. */
+    /* ─── HOTEL BANNER · MOBILE (≤600px) — טיפוגרפיה לפי הפיגמה ────────
+       (node 501:150): כותרת HE/Typography/H5, תיאור HE/Typography/Body 1,
+       כפתור HE/Components/Button Large. */
     @media (max-width: 600px) {
-      /* הריווח החיצוני (הרווח מהסקשן הקודם/הבא) עבר לבעלות .quick-info-grid —
-         כאן נשארת רק ההתאמה הפנימית של תוכן הכרטיס עצמו למובייל (הבסיס כבר
-         ממורכז, אז רק גודל טקסט וכפתור מותאמים). */
-      .hotel-banner-sub { font-size: 15px; }
-      .hotel-banner-btn { padding: 0.75rem 2rem; height: 44px; }
+      .hotel-banner-title .title-line1,
+      .hotel-banner-title .title-line2 {
+        font-size: 24px;            /* HE/Typography/H5 */
+        line-height: 1.334;
+        letter-spacing: 0;
+      }
+      /* Figma מפצל את שורה 1 אחרי "חבילות לינה" */
+      .hotel-banner-title .title-line1 { white-space: normal; }
+      .hb-break { display: inline; }
+      .hotel-banner-sub {
+        font-size: 16px;            /* HE/Typography/Body 1 */
+        line-height: 1.5;
+        letter-spacing: 0.15px;
+      }
+      .hotel-banner-btn {
+        padding: 12px 24px;        /* HE/Components/Button Large */
+        min-height: 44px;
+        line-height: 26px;
+        letter-spacing: 0.46px;
+      }
     }
 
     /* טלפונים קטנים מאוד (~≤400px): ה-toolbar (לוגו + כפתור כרטיסים + EN + המבורגר)
@@ -3083,7 +3098,7 @@
     <a id="hotels" class="hotel-banner reveal" href="https://www.hotels.com" target="_blank" rel="noopener">
       <div class="hotel-banner-content">
         <div class="hotel-banner-title">
-          <span class="title-line1">חבילות לינה בלעדיות לפסטיבל</span>
+          <span class="title-line1">חבילות לינה <br class="hb-break" aria-hidden="true">בלעדיות לפסטיבל</span>
           <span class="title-line2">ברשת ישרוטל אילת</span>
         </div>
         <div class="hotel-banner-sub">
